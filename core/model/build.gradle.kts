@@ -18,5 +18,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.kotlin.coroutines)
+    implementation(libs.bundles.coroutine)
 }

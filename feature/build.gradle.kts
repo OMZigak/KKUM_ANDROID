@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.coil.core)
 
+    implementation(libs.bundles.coroutine)
     implementation(libs.bundles.androidx)
     implementation(libs.activity.ktx)
     implementation(libs.fragment.ktx)
