@@ -32,6 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -40,11 +43,12 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:model"))
 
+    implementation(libs.timber)
+    implementation(libs.coil.core)
+
     implementation(libs.bundles.androidx)
-    // ktx (by viewModels)
     implementation(libs.activity.ktx)
     implementation(libs.fragment.ktx)
-    implementation(libs.timber)
 
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
