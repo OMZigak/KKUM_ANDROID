@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Kkumul"
 include(":app")
 include(":core-ui")
+include(":core:data")
