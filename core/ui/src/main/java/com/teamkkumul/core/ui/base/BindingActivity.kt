@@ -1,4 +1,4 @@
-package com.teamkkumul.core_ui.base
+package com.teamkkumul.core.ui.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes

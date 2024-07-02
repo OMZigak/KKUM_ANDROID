@@ -1,4 +1,4 @@
-package com.teamdontbe.core_ui.util.fragment
+package com.teamkkumul.core.ui.util.fragment
 
 import android.view.View
 import android.widget.Toast
@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.teamkkumul.core_ui.util.context.statusBarColorOf
+import com.teamkkumul.core.ui.util.context.statusBarColorOf
 
 fun Fragment.toast(message: String) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()

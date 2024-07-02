@@ -1,4 +1,4 @@
-package com.teamkkumul.core_ui.view
+package com.teamkkumul.core.ui.view
 
 sealed interface UiState<out T> {
     data object Empty : UiState<Nothing>

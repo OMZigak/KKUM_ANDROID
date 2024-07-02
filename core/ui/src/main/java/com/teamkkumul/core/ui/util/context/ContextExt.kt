@@ -1,4 +1,4 @@
-package com.teamkkumul.core_ui.util.context
+package com.teamkkumul.core.ui.util.context
 
 import android.app.Activity
 import android.app.AlertDialog

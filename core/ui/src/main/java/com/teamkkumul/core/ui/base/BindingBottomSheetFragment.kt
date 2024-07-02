@@ -1,43 +1,32 @@
-package com.teamkkumul.core_ui.base
+package com.teamkkumul.core.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.DialogFragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-abstract class BindingDialogFragment<T : ViewDataBinding>(
-    @LayoutRes val layoutRes: Int,
-) : DialogFragment() {
+abstract class BindingBottomSheetFragment<T : ViewDataBinding>(
+    @LayoutRes private val layoutRes: Int,
+) : BottomSheetDialogFragment() {
     private var _binding: T? = null
-    protected val binding get() = requireNotNull(_binding) { { "binding object is not initialized" } }
-
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.apply {
-            setLayout(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-            )
-        }
-    }
+    protected val binding get() = requireNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View {
+    ): View? {
         _binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner = viewLifecycleOwner
         initView()
     }
 

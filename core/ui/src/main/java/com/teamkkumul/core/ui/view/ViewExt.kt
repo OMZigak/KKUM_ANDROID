@@ -1,4 +1,4 @@
-package com.teamkkumul.core_ui.view
+package com.teamkkumul.core.ui.view
 
 import androidx.recyclerview.widget.DiffUtil
 

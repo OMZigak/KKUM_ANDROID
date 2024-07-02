@@ -1,4 +1,4 @@
-package com.teamkkumul.core_ui.util.intent
+package com.teamkkumul.core.ui.util.intent
 
 import android.app.Activity
 import android.content.Context
