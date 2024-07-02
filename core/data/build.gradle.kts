@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -38,8 +38,10 @@ dependencies {
     implementation(project(":core:datastore"))
     implementation(project(":core:model"))
 
+    implementation(libs.bundles.coroutine)
+
     implementation(libs.bundles.retrofit)
     implementation(libs.kotlin.serialization.json)
     implementation(libs.dagger.hilt)
-    kapt(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
 }
