@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.1"
+kspplugin = "1.9.0-1.0.13"
 
 # android
 coreKtx = "1.13.1"
@@ -12,6 +13,7 @@ activity = "1.9.0"
 constraintlayout = "2.1.4"
 jetpack-navi = "2.7.7"
 fragment-ktx = "1.8.1"
+androidx-datastore = "1.1.1"
 
 # kotlinx
 kotlin = "1.9.0"
@@ -31,6 +33,7 @@ inject = "1"
 # third party
 timber = "5.0.1"
 coil = "2.5.0"
+encrypted-datastore = "1.7.21-1.0.8-1.1.0-alpha01"
 
 
 [libraries]
@@ -47,7 +50,8 @@ activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref
 fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-ktx" }
 
 # kotlin
-kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 
 # Retrofit
@@ -67,9 +71,18 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 
-#third party
+# third party
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 coil-core = { module = "io.coil-kt:coil", version.ref = "coil" }
+
+# datastore
+androidx-datastore-core = { group = "androidx.datastore", name = "datastore", version.ref = "androidx-datastore" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidx-datastore" }
+encrypted-datastore-preference-ksp = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-ksp", version.ref = "encrypted-datastore" }
+encrypted-datastore-preference-ksp-annotations = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-ksp-annotations", version.ref = "encrypted-datastore" }
+encrypted-datastore-preference-security = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-security", version.ref = "encrypted-datastore" }
+
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -89,3 +102,6 @@ okhttp = ["okhttp", "okhttp-logging-interceptor"]
 androidx = ["androidx-core-ktx", "androidx-constraintlayout", "androidx-appcompat", "androidx-activity"]
 jetpack-navi = ["navigation-fragment-ktx", "navigation-ui-ktx"]
 androidx-android-test = ["androidx-espresso-core", "androidx-junit"]
+encrypted-datastore = ["encrypted-datastore-preference-ksp-annotations", "encrypted-datastore-preference-security"]
+datastore = ["androidx-datastore-core", "androidx-datastore-preferences"]
+coroutine = ["kotlinx-coroutines", "kotlinx-coroutines-core"]
