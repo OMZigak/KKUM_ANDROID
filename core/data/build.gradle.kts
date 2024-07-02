@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -33,8 +34,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:network"))
+    implementation(project(":core:datastore"))
+    implementation(project(":core:model"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    implementation(libs.bundles.retrofit)
+    implementation(libs.kotlin.serialization.json)
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
 }
