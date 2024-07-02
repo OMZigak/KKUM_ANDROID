@@ -48,10 +48,6 @@ android {
 dependencies {
     implementation(project(":core:datastore"))
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.okhttp)
     implementation(platform(libs.okhttp.bom))
