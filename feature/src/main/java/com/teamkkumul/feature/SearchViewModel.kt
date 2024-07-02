@@ -15,7 +15,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val reqresRepository: ReqresRepository,
 ) : ViewModel() {
-    private val _reqresUserState = MutableStateFlow<UiState<List<ReqresModel>>>(UiState.Loading)
+    private val _reqresUserState = MutableStateFlow<UiState<List<ReqresModel>>>(UiState.Empty)
     val reqresUserState get() = _reqresUserState.asStateFlow()
 
     init {
