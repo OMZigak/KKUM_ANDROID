@@ -1,6 +1,6 @@
-package com.teamkkumul.model
+package com.teamkkumul.model.example
 
-data class ReqresEntity(
+data class ReqresModel(
     val id: Int,
     val avatar: String,
     val email: String,

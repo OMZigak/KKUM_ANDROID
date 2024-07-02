@@ -1,4 +1,4 @@
-package com.teamkkumul.model
+package com.teamkkumul.model.example
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
