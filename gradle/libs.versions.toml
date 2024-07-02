@@ -30,6 +30,7 @@ inject = "1"
 
 # third party
 timber = "5.0.1"
+coil = "2.5.0"
 
 
 [libraries]
@@ -68,6 +69,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 
 #third party
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+coil-core = { module = "io.coil-kt:coil", version.ref = "coil" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
