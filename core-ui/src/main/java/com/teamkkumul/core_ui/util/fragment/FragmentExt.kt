@@ -23,9 +23,9 @@ fun Fragment.longToast(message: String) {
 
 fun Fragment.snackBar(
     anchorView: View,
-    message: () -> String,
+    message: String,
 ) {
-    Snackbar.make(anchorView, message(), Snackbar.LENGTH_SHORT).show()
+    Snackbar.make(anchorView, message, Snackbar.LENGTH_SHORT).show()
 }
 
 fun Fragment.stringOf(

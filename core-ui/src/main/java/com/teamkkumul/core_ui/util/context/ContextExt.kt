@@ -31,9 +31,9 @@ fun Context.longToast(message: String) {
 
 fun Context.snackBar(
     anchorView: View,
-    message: () -> String,
+    message: String,
 ) {
-    Snackbar.make(anchorView, message(), Snackbar.LENGTH_SHORT).show()
+    Snackbar.make(anchorView, message, Snackbar.LENGTH_SHORT).show()
 }
 
 fun Context.stringOf(
