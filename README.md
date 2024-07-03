@@ -9,10 +9,13 @@
 + `𝙐𝙞𝙎𝙩𝙖𝙩𝙚`
 + `𝙎𝙩𝙖𝙩𝙚𝙁𝙡𝙤𝙬 & 𝙎𝙝𝙖𝙧𝙚𝙙𝙁𝙡𝙤𝙬`
 + `𝙃𝙞𝙡𝙩`
-+ `Google Recommended 𝘼𝙧𝙘𝙝𝙞𝙩𝙚𝙘𝙩𝙪𝙧𝙚`
++ ***`Google Recommended Architecture`***
 + `𝙅𝙚𝙩𝙥𝙖𝙘𝙠𝙉𝙖𝙫𝙞𝙜𝙖𝙩𝙞𝙤𝙣`
 + `𝙈𝙪𝙩𝙞 𝙈𝙤𝙙𝙪𝙡𝙚`
 + `𝙑𝙚𝙧𝙨𝙞𝙤𝙣 𝘾𝙖𝙩𝙖𝙡𝙤𝙜`
++ ***`Multi Part`***
++ ***`FCM`***
++ ***`Social Login`***
 
 <br>
 
@@ -35,9 +38,14 @@
 <br>
 
 ## 💟 𝙆𝙖𝙣𝙗𝙖𝙣 𝘽𝙤𝙖𝙧𝙙
-+
++ [Github Project](https://github.com/orgs/OMZigak/projects/1)
 
 <br>
+
+## 📁 Module Structure
+<p align="center"><img src="https://github.com/OMZigak/ANDROID/assets/106955456/50a349f4-e2ad-4450-8a86-9f739ba1c9c4" width = 50% ></p>
+<br>
+
 
 ## 📁 𝙁𝙤𝙡𝙙𝙚𝙧𝙞𝙣𝙜
 ```
