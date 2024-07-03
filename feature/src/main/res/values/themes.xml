@@ -3,7 +3,9 @@
     <style name="Base.Theme.Kkumul" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/main_color</item>
-<!--        <item name="colorPrimaryVariant">@color/secondary</item>-->
+        <item name="android:includeFontPadding">false</item>
+
+        <!--        <item name="colorPrimaryVariant">@color/secondary</item>-->
 <!--        <item name="android:windowBackground">@color/gray_1</item>-->
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@android:color/transparent</item>
