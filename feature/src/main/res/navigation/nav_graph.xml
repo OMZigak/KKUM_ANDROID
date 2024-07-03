@@ -9,10 +9,12 @@
         android:id="@+id/fragment_home"
         android:name="com.teamkkumul.feature.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragment_home_to_homeDetailFragment"
-            app:destination="@id/fragment_home_detail" />
+            app:destination="@id/fragment_home_detail"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
