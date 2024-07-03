@@ -8,7 +8,7 @@ import com.teamkkumul.feature.databinding.FragmentHomeBinding
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun initView() {
         binding.btnHome.setOnClickListener {
-            findNavController().navigate(R.id.fragment_home_detail)
+            findNavController().navigate(R.id.action_fragment_home_to_homeDetailFragment)
         }
     }
 }
