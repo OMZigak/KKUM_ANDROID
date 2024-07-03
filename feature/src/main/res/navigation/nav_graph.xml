@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_home">
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.teamkkumul.feature.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/fragment_my_group"
+        android:name="com.teamkkumul.feature.mygroup.MyGroupFragment"
+        android:label="MyGroup"
+        tools:layout="@layout/fragment_my_group" />
+
+    <fragment
+        android:id="@+id/fragment_my_page"
+        android:name="com.teamkkumul.feature.mypage.MyPageFragment"
+        android:label="MyPage"
+        tools:layout="@layout/fragment_my_page" />
+
+</navigation>

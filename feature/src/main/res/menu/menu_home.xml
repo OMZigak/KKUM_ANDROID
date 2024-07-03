@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fragment_home"
+        android:icon="@drawable/ic_home"
+        android:title="홈" />
+
+    <item
+        android:id="@+id/fragment_my_group"
+        android:icon="@drawable/ic_home"
+        android:title="내 모임" />
+
+    <item
+        android:id="@+id/fragment_my_page"
+        android:icon="@drawable/ic_home"
+        android:title="마이페이지" />
+</menu>
