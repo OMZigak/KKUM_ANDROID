@@ -32,9 +32,15 @@ inject = "1"
 
 # third party
 timber = "5.0.1"
-coil = "2.5.0"
+coil = "2.6.0"
 encrypted-datastore = "1.7.21-1.0.8-1.1.0-alpha01"
 
+# compose
+composeBom = "2024.06.00"
+material3Android = "1.2.1"
+navigationCompose = "2.7.7"
+hiltNavigationCompose = "1.2.0"
+uiTooling = "1.6.8"
 
 [libraries]
 
@@ -82,7 +88,16 @@ encrypted-datastore-preference-ksp = { group = "tech.thdev", name = "useful-encr
 encrypted-datastore-preference-ksp-annotations = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-ksp-annotations", version.ref = "encrypted-datastore" }
 encrypted-datastore-preference-security = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-security", version.ref = "encrypted-datastore" }
 
-
+# Compose
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-meterial3 = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -95,7 +110,6 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspplugin" }
 
-
 [bundles]
 retrofit = ["retrofit", "retrofit-kotlin-serialization-converter"]
 okhttp = ["okhttp", "okhttp-logging-interceptor"]
@@ -105,3 +119,4 @@ androidx-android-test = ["androidx-espresso-core", "androidx-junit"]
 encrypted-datastore = ["encrypted-datastore-preference-ksp-annotations", "encrypted-datastore-preference-security"]
 datastore = ["androidx-datastore-core", "androidx-datastore-preferences"]
 coroutine = ["kotlinx-coroutines", "kotlinx-coroutines-core"]
+compose = ["androidx-activity-compose", "compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-meterial3", "compose-bom", "coil-compose"]
