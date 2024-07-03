@@ -1,0 +1,107 @@
+[versions]
+agp = "8.3.1"
+kspplugin = "1.9.0-1.0.13"
+
+# android
+coreKtx = "1.13.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+activity = "1.9.0"
+constraintlayout = "2.1.4"
+jetpack-navi = "2.7.7"
+fragment-ktx = "1.8.1"
+androidx-datastore = "1.1.1"
+
+# kotlinx
+kotlin = "1.9.0"
+kotlinx-serialization-json = "1.6.1"
+kotlinx-coroutines = "1.8.1"
+jetbrainsKotlinJvm = "1.9.0"
+
+# retrofit
+retrofit = "2.11.0"
+okhttpBom = "4.10.0"
+kotlinx-serialization-converter = "1.0.0"
+
+# hilt
+dagger-hilt = "2.50"
+inject = "1"
+
+# third party
+timber = "5.0.1"
+coil = "2.5.0"
+encrypted-datastore = "1.7.21-1.0.8-1.1.0-alpha01"
+
+
+[libraries]
+
+# android
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "jetpack-navi" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "jetpack-navi" }
+activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
+fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-ktx" }
+
+# kotlin
+kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+
+# Retrofit
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-kotlin-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "kotlinx-serialization-converter" }
+okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttpBom" }
+okhttp = { module = "com.squareup.okhttp3:okhttp" }
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor" }
+
+# Hilt
+dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger-hilt" }
+dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "dagger-hilt" }
+inject = { group = "javax.inject", name = "javax.inject", version.ref = "inject" }
+
+# test
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+# third party
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+coil-core = { module = "io.coil-kt:coil", version.ref = "coil" }
+
+# datastore
+androidx-datastore-core = { group = "androidx.datastore", name = "datastore", version.ref = "androidx-datastore" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidx-datastore" }
+encrypted-datastore-preference-ksp = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-ksp", version.ref = "encrypted-datastore" }
+encrypted-datastore-preference-ksp-annotations = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-ksp-annotations", version.ref = "encrypted-datastore" }
+encrypted-datastore-preference-security = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-security", version.ref = "encrypted-datastore" }
+
+
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "kspplugin" }
+
+
+[bundles]
+retrofit = ["retrofit", "retrofit-kotlin-serialization-converter"]
+okhttp = ["okhttp", "okhttp-logging-interceptor"]
+androidx = ["androidx-core-ktx", "androidx-constraintlayout", "androidx-appcompat", "androidx-activity"]
+jetpack-navi = ["navigation-fragment-ktx", "navigation-ui-ktx"]
+androidx-android-test = ["androidx-espresso-core", "androidx-junit"]
+encrypted-datastore = ["encrypted-datastore-preference-ksp-annotations", "encrypted-datastore-preference-security"]
+datastore = ["androidx-datastore-core", "androidx-datastore-preferences"]
+coroutine = ["kotlinx-coroutines", "kotlinx-coroutines-core"]

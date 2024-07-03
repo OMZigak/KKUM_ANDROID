@@ -1,0 +1,19 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Kkumul" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+<!--        <item name="colorPrimary">@color/primary</item>-->
+<!--        <item name="colorPrimaryVariant">@color/secondary</item>-->
+<!--        <item name="android:windowBackground">@color/gray_1</item>-->
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+<!--        <item name="snackbarStyle">@style/CustomSnackBar</item>-->
+    </style>
+
+    <style name="Theme.Kkumul" parent="Base.Theme.Kkumul" />
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>
