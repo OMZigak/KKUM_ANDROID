@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.Kkumul" parent="">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <!--title-->
+    <style name="TextAppearance.Kkumul.title_00" parent="">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <style name="TextAppearance.Kkumul.title_01" parent="">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <style name="TextAppearance.Kkumul.title_02" parent="">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/pretendard_medium</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <style name="TextAppearance.Kkumul.title_03" parent="">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <!--head-->
+    <style name="TextAppearance.Kkumul.head_01" parent="">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <style name="TextAppearance.Kkumul.head_02" parent="">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <!--body-->
+    <style name="TextAppearance.Kkumul.body_01" parent="">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <style name="TextAppearance.Kkumul.body_02" parent="">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <style name="TextAppearance.Kkumul.body_03" parent="">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <style name="TextAppearance.Kkumul.body_04" parent="">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <style name="TextAppearance.Kkumul.body_05" parent="">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <style name="TextAppearance.Kkumul.body_06" parent="">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <!--caption-->
+    <style name="TextAppearance.Kkumul.caption_01" parent="">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+
+    </style>
+
+    <style name="TextAppearance.Kkumul.caption_02" parent="">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <!--label-->
+    <style name="TextAppearance.Kkumul.label_00" parent="">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingMultiplier">1.38</item>
+    </style>
+
+    <style name="TextAppearance.Kkumul.label_01" parent="">
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <style name="TextAppearance.Kkumul.label_02" parent="">
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+</resources>
