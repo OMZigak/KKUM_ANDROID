@@ -41,29 +41,27 @@
 
 ## 📁 𝙁𝙤𝙡𝙙𝙚𝙧𝙞𝙣𝙜
 ```
-📂 DontBe
-┣ 📂 build-logic
+📂 Kkumul
 ┣ 📂 app
-┃ ┣ 📂 di
-┣ 📂 core-ui
-┃ ┣ 📂 base
-┃ ┣ 📂 util
-┃ ┣ 📂 view
-┣ 📂 data-local
-┣ 📂 data-remote
-┃ ┣ 📂 api
-┃ ┣ 📂 datasourceimpl
-┣ 📂 data
-┃ ┣ 📂 datasource
-┃ ┣ 📂 repositoryimpl
-┃ ┣ 📂 dto
-┣ 📂 domain
-┃ ┣ 📂 datasource
-┃ ┣ 📂 entity
+┣ 📂 core
+┃ ┣ 📂 data
+┃ ┃ ┣ 📂 di
+┃ ┃ ┣ 📂 mapper
+┃ ┃ ┣ 📂 repository
+┃ ┃ ┣ 📂 repositoryimpl
+┃ ┣ 📂 datastore
+┃ ┣ 📂 designsystem
+┃ ┣ 📂 model
+┃ ┣ 📂 network
+┃ ┃ ┣ 📂 api
+┃ ┃ ┣ 📂 di
+┃ ┃ ┣ 📂 dto
+┃ ┃ ┣ 📂 interceptor
+┃ ┣ 📂 ui
 ┣ 📂 feature
 ┃ ┣ 📂 home
-┃ ┣ 📂 posting
-┃ ┣ 📂 mypage
-┃ ┣ 📂 notification
+┃ ┣ 📂 group
+┃ ┣ 📂 meetup
+┃ ┣ 📂 mypage
 ┃ ┣ 📂 util
 ```
