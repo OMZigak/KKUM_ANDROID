@@ -42,7 +42,7 @@
 <br>
 
 ## 📁 Module Structure
-<p align="center"><img src="https://github.com/OMZigak/ANDROID/assets/106955456/50a349f4-e2ad-4450-8a86-9f739ba1c9c4" width = 50% ></p>
+<p align="center"><img src="https://github.com/OMZigak/ANDROID/assets/106955456/50a349f4-e2ad-4450-8a86-9f739ba1c9c4" width = 70% ></p>
 <br>
 
 
