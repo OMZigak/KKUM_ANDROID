@@ -1,5 +1,7 @@
 package com.teamkkumul.feature
 
+import android.view.View
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.teamkkumul.core.ui.base.BindingActivity
@@ -17,5 +19,15 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             supportFragmentManager.findFragmentById(R.id.fcv_home) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bnvHome.setupWithNavController(navController)
+        setBottomNaviVisible(navController)
+    }
+
+    private fun setBottomNaviVisible(navController: NavController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bnvHome.visibility = when (destination.id) {
+                R.id.fragment_home, R.id.fragment_my_group, R.id.fragment_my_page -> View.VISIBLE
+                else -> View.GONE
+            }
+        }
     }
 }
