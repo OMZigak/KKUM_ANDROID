@@ -6,11 +6,11 @@
         <item name="android:includeFontPadding">false</item>
 
         <!--        <item name="colorPrimaryVariant">@color/secondary</item>-->
-<!--        <item name="android:windowBackground">@color/gray_1</item>-->
+        <!--        <item name="android:windowBackground">@color/gray_1</item>-->
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
-<!--        <item name="snackbarStyle">@style/CustomSnackBar</item>-->
+        <!--        <item name="snackbarStyle">@style/CustomSnackBar</item>-->
     </style>
 
     <style name="Theme.Kkumul" parent="Base.Theme.Kkumul" />
