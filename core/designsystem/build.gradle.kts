@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:model"))
     // Compose
     implementation(libs.bundles.compose)
     debugImplementation(libs.compose.ui.tooling)
