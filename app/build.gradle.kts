@@ -41,13 +41,13 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
     implementation(project(":core:network"))
     implementation(project(":feature"))
 
     implementation(libs.timber)
 
     implementation(libs.dagger.hilt)
+    implementation(libs.androidx.appcompat)
     kapt(libs.dagger.hilt.compiler)
 
     testImplementation(libs.junit)
