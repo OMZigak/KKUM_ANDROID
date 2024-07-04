@@ -20,6 +20,7 @@ kotlin = "1.9.0"
 kotlinx-serialization-json = "1.6.1"
 kotlinx-coroutines = "1.8.1"
 jetbrainsKotlinJvm = "1.9.0"
+kotlinxCollectionsImmutable = "0.3.4"
 
 # retrofit
 retrofit = "2.11.0"
@@ -38,9 +39,10 @@ encrypted-datastore = "1.7.21-1.0.8-1.1.0-alpha01"
 # compose
 composeBom = "2024.06.00"
 material3Android = "1.2.1"
-navigationCompose = "2.7.7"
-hiltNavigationCompose = "1.2.0"
 uiTooling = "1.6.8"
+hiltNavigationComposeVersion = "1.2.0"
+lifecycleRuntimeCompose = "2.8.2"
+runtimeLivedata = "1.6.8"
 
 [libraries]
 
@@ -59,6 +61,7 @@ fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref
 kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 
 # Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -98,6 +101,12 @@ compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-mani
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedata" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeCompose" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "jetpack-navi" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -119,4 +128,8 @@ androidx-android-test = ["androidx-espresso-core", "androidx-junit"]
 encrypted-datastore = ["encrypted-datastore-preference-ksp-annotations", "encrypted-datastore-preference-security"]
 datastore = ["androidx-datastore-core", "androidx-datastore-preferences"]
 coroutine = ["kotlinx-coroutines", "kotlinx-coroutines-core"]
-compose = ["androidx-activity-compose", "compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-meterial3", "compose-bom", "coil-compose"]
+compose = ["androidx-activity-compose", "compose-ui", "compose-ui-graphics",
+    "compose-ui-tooling-preview", "compose-meterial3", "compose-bom", "coil-compose",
+    "kotlinx-collections-immutable"
+]
+androidx-compose-feature = ["androidx-runtime-livedata", "androidx-lifecycle-runtime-compose", "androidx-lifecycle-viewmodel-compose", "androidx-hilt-navigation-compose", "androidx-navigation-compose"]
