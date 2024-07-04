@@ -15,6 +15,9 @@
             app:destination="@id/fragment_home_detail"
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragment_home_to_exampleComposeFragment"
+            app:destination="@id/exampleComposeFragment" />
     </fragment>
 
     <fragment
@@ -32,5 +35,9 @@
         android:id="@+id/fragment_home_detail"
         android:name="com.teamkkumul.feature.home.HomeDetailFragment"
         android:label="HomeDetailFragment" />
+    <fragment
+        android:id="@+id/exampleComposeFragment"
+        android:name="com.teamkkumul.feature.compose.ExampleComposeFragment"
+        android:label="ExampleComposeFragment" />
 
 </navigation>

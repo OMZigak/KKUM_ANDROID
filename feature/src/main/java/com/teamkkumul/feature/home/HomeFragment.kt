@@ -10,5 +10,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         binding.btnHome.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_home_to_homeDetailFragment)
         }
+        binding.btnCompose.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_exampleComposeFragment)
+        }
     }
 }

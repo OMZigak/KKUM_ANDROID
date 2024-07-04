@@ -20,6 +20,7 @@ kotlin = "1.9.0"
 kotlinx-serialization-json = "1.6.1"
 kotlinx-coroutines = "1.8.1"
 jetbrainsKotlinJvm = "1.9.0"
+kotlinxCollectionsImmutable = "0.3.4"
 
 # retrofit
 retrofit = "2.11.0"
@@ -32,9 +33,16 @@ inject = "1"
 
 # third party
 timber = "5.0.1"
-coil = "2.5.0"
+coil = "2.6.0"
 encrypted-datastore = "1.7.21-1.0.8-1.1.0-alpha01"
 
+# compose
+composeBom = "2024.06.00"
+material3Android = "1.2.1"
+uiTooling = "1.6.8"
+hiltNavigationComposeVersion = "1.2.0"
+lifecycleRuntimeCompose = "2.8.2"
+runtimeLivedata = "1.6.8"
 
 [libraries]
 
@@ -53,6 +61,7 @@ fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref
 kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 
 # Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -82,6 +91,21 @@ encrypted-datastore-preference-ksp = { group = "tech.thdev", name = "useful-encr
 encrypted-datastore-preference-ksp-annotations = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-ksp-annotations", version.ref = "encrypted-datastore" }
 encrypted-datastore-preference-security = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-security", version.ref = "encrypted-datastore" }
 
+# Compose
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-meterial3 = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedata" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeCompose" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "jetpack-navi" }
 
 
 [plugins]
@@ -95,7 +119,6 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspplugin" }
 
-
 [bundles]
 retrofit = ["retrofit", "retrofit-kotlin-serialization-converter"]
 okhttp = ["okhttp", "okhttp-logging-interceptor"]
@@ -105,3 +128,8 @@ androidx-android-test = ["androidx-espresso-core", "androidx-junit"]
 encrypted-datastore = ["encrypted-datastore-preference-ksp-annotations", "encrypted-datastore-preference-security"]
 datastore = ["androidx-datastore-core", "androidx-datastore-preferences"]
 coroutine = ["kotlinx-coroutines", "kotlinx-coroutines-core"]
+compose = ["androidx-activity-compose", "compose-ui", "compose-ui-graphics",
+    "compose-ui-tooling-preview", "compose-meterial3", "compose-bom", "coil-compose",
+    "kotlinx-collections-immutable"
+]
+androidx-compose-feature = ["androidx-runtime-livedata", "androidx-lifecycle-runtime-compose", "androidx-lifecycle-viewmodel-compose", "androidx-hilt-navigation-compose", "androidx-navigation-compose"]

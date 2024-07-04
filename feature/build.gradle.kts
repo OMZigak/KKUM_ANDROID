@@ -34,6 +34,10 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.2"
     }
 }
 
@@ -42,6 +46,12 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:data"))
     implementation(project(":core:model"))
+
+    // Compose
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
+    implementation(libs.bundles.androidx.compose.feature)
 
     implementation(libs.timber)
     implementation(libs.coil.core)
