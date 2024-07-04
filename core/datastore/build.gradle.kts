@@ -36,6 +36,7 @@ android {
 dependencies {
     implementation(libs.bundles.coroutine)
     implementation(libs.bundles.datastore)
-    ksp(libs.encrypted.datastore.preference.ksp)
-    implementation(libs.bundles.encrypted.datastore)
+
+    implementation(libs.dagger.hilt)
+    ksp(libs.dagger.hilt.compiler)
 }
