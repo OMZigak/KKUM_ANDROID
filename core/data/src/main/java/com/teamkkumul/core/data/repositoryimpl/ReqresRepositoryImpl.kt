@@ -6,7 +6,7 @@ import com.teamkkumul.core.network.api.ReqresService
 import com.teamkkumul.model.example.ReqresModel
 import javax.inject.Inject
 
-class ReqresRepositoryImpl @Inject constructor(
+internal class ReqresRepositoryImpl @Inject constructor(
     private val reqresService: ReqresService,
 ) : ReqresRepository {
     override suspend fun getReqresList(page: Int): Result<List<ReqresModel>> = runCatching {

@@ -5,7 +5,7 @@ import com.teamkkumul.core.datastore.datasource.KumulPreferencesDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class UserInfoRepositoryImpl @Inject constructor(
+internal class UserInfoRepositoryImpl @Inject constructor(
     private val kumulPreferencesDataSource: KumulPreferencesDataSource,
 ) : UserInfoRepository {
     override fun getAccessToken(): Flow<String> =
