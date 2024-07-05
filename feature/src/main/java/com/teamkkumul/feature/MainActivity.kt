@@ -11,7 +11,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun initView() {
+        setupToolbar()
         setupBottomNavigation()
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(binding.toolbar)
     }
 
     private fun setupBottomNavigation() {
@@ -20,6 +25,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         val navController = navHostFragment.navController
         binding.bnvHome.setupWithNavController(navController)
         setBottomNaviVisible(navController)
+        setToolBar(navController)
     }
 
     private fun setBottomNaviVisible(navController: NavController) {
@@ -27,6 +33,20 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             binding.bnvHome.visibility = when (destination.id) {
                 R.id.fragment_home, R.id.fragment_my_group, R.id.fragment_my_page -> View.VISIBLE
                 else -> View.GONE
+            }
+        }
+    }
+
+    private fun setToolBar(navController: NavController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            supportActionBar?.title = destination.label
+            when (destination.id) {
+                R.id.fragment_home -> binding.toolbar.visibility = View.GONE
+                R.id.fragment_my_group, R.id.fragment_my_page -> {
+                    binding.toolbar.visibility = View.VISIBLE
+                    binding.toolbarTitle.text = destination.label
+                }
+                else -> binding.toolbar.visibility = View.VISIBLE
             }
         }
     }
