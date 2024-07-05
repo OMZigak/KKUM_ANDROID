@@ -86,7 +86,7 @@ fun KkumulAndroidTheme(
     ProvideKkumulTypography(typography) {
         MaterialTheme(
             colorScheme = colorScheme,
-            content = content
+            content = content,
         )
     }
 }
