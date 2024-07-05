@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":feature"))
 
+    implementation(libs.kakao.login)
     implementation(libs.timber)
 
     implementation(libs.dagger.hilt)

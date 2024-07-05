@@ -34,6 +34,7 @@ inject = "1"
 # third party
 timber = "5.0.1"
 coil = "2.6.0"
+kakao-login = "2.19.0"
 
 # compose
 composeBom = "2024.06.00"
@@ -82,6 +83,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 # third party
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 coil-core = { module = "io.coil-kt:coil", version.ref = "coil" }
+kakao-login = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao-login" }
 
 # datastore
 androidx-datastore-core = { group = "androidx.datastore", name = "datastore", version.ref = "androidx-datastore" }
