@@ -1,6 +1,6 @@
 [versions]
 agp = "8.3.1"
-kspplugin = "1.9.0-1.0.13"
+kspplugin = "1.9.10-1.0.13"
 
 # android
 coreKtx = "1.13.1"
@@ -28,13 +28,12 @@ okhttpBom = "4.10.0"
 kotlinx-serialization-converter = "1.0.0"
 
 # hilt
-dagger-hilt = "2.50"
+dagger-hilt = "2.51.1"
 inject = "1"
 
 # third party
 timber = "5.0.1"
 coil = "2.6.0"
-encrypted-datastore = "1.7.21-1.0.8-1.1.0-alpha01"
 
 # compose
 composeBom = "2024.06.00"
@@ -87,9 +86,6 @@ coil-core = { module = "io.coil-kt:coil", version.ref = "coil" }
 # datastore
 androidx-datastore-core = { group = "androidx.datastore", name = "datastore", version.ref = "androidx-datastore" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidx-datastore" }
-encrypted-datastore-preference-ksp = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-ksp", version.ref = "encrypted-datastore" }
-encrypted-datastore-preference-ksp-annotations = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-ksp-annotations", version.ref = "encrypted-datastore" }
-encrypted-datastore-preference-security = { group = "tech.thdev", name = "useful-encrypted-data-store-preferences-security", version.ref = "encrypted-datastore" }
 
 # Compose
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -125,7 +121,6 @@ okhttp = ["okhttp", "okhttp-logging-interceptor"]
 androidx = ["androidx-core-ktx", "androidx-constraintlayout", "androidx-appcompat", "androidx-activity"]
 jetpack-navi = ["navigation-fragment-ktx", "navigation-ui-ktx"]
 androidx-android-test = ["androidx-espresso-core", "androidx-junit"]
-encrypted-datastore = ["encrypted-datastore-preference-ksp-annotations", "encrypted-datastore-preference-security"]
 datastore = ["androidx-datastore-core", "androidx-datastore-preferences"]
 coroutine = ["kotlinx-coroutines", "kotlinx-coroutines-core"]
 compose = ["androidx-activity-compose", "compose-ui", "compose-ui-graphics",
