@@ -6,9 +6,9 @@
         <item name="android:includeFontPadding">false</item>
         <item name="android:textColor">@color/black0</item>
         <!--        <item name="colorPrimaryVariant">@color/secondary</item>-->
-        <!--        <item name="android:windowBackground">@color/gray_1</item>-->
+        <item name="android:windowBackground">@color/white0</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/white0</item>
         <item name="android:windowLightStatusBar">true</item>
         <!--        <item name="snackbarStyle">@style/CustomSnackBar</item>-->
     </style>
