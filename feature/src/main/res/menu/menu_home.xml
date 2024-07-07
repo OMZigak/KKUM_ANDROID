@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/fragment_home"
-        android:icon="@drawable/ic_home"
-        android:title="홈" />
+        android:icon="@drawable/ic_home_gray_24"
+        android:title="@string/home" />
 
     <item
         android:id="@+id/fragment_my_group"
-        android:icon="@drawable/ic_home"
-        android:title="내 모임" />
+        android:icon="@drawable/ic_my_group_gray_24"
+        android:title="@string/my_group" />
 
     <item
         android:id="@+id/fragment_my_page"
-        android:icon="@drawable/ic_home"
-        android:title="마이페이지" />
+        android:icon="@drawable/ic_my_page_gray_24"
+        android:title="@string/my_page" />
 </menu>
