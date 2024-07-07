@@ -26,11 +26,19 @@
             android:id="@+id/bnv_home"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            app:itemPaddingTop="16dp"
+            android:background="@color/white0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:menu="@menu/menu_home" />
+            app:menu="@menu/menu_home"
+            app:itemIconTint="@color/selector_color"
+            app:itemTextColor="@color/selector_color"
+            app:itemActiveIndicatorStyle="@android:color/transparent"
+            app:itemBackground="@android:color/transparent"
+            app:itemRippleColor="@android:color/transparent"
+            app:itemTextAppearanceActive="@style/TextAppearance.Kkumul.caption_01"
+            app:itemTextAppearanceInactive="@style/TextAppearance.Kkumul.caption_01"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
