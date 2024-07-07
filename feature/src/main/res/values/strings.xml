@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Kkumul</string>
+    <!--    홈화면-->
+    <string name="home_title">홈 화면</string>
+    <string name="my_group_title">내 모임</string>
+    <string name="my_page_title">마이페이지</string>
+
 </resources>
