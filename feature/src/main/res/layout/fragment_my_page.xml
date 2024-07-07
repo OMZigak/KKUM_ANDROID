@@ -15,13 +15,6 @@
             layout="@layout/view_toolbar"
             app:title="@{@string/my_page_title}" />
 
-        <View
-            android:id="@+id/toolbar_my_page_line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray2"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_my_page" />
-
         <Button
             android:id="@+id/btn_my_page"
             android:layout_width="wrap_content"
@@ -30,7 +23,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar_my_page" />
 
         <Button
             android:id="@+id/btn_get_token"

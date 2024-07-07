@@ -42,5 +42,12 @@
                 android:textColor="@android:color/black"
                 tools:text="홈" />
         </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:id="@+id/toolbar_my_page_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray2"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
