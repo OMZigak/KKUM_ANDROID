@@ -9,4 +9,7 @@
     <string name="my_group_title">내 모임</string>
     <string name="my_page_title">마이페이지</string>
 
+    <!-- 프로필 설정 -->
+    <string name="set_name">이름을 설정해 주세요</string>
+
 </resources>
