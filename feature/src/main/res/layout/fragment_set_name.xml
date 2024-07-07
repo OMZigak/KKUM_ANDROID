@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/tb_set_profile"
+        layout="@layout/view_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_set_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="34dp"
+        android:text="@string/set_name"
+        android:textAppearance="@style/TextAppearance.Kkumul.head_01"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_set_profile" />
+
+    <EditText
+        android:id="@+id/et_set_name"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/item_edit_text"
+        android:hint="text"
+        android:paddingStart="12dp"
+        android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_set_name" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
