@@ -15,14 +15,6 @@
             layout="@layout/view_toolbar"
             app:title="@{@string/my_group_title}" />
 
-        <View
-            android:id="@+id/toolbar_my_group_line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray2"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_my_group" />
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

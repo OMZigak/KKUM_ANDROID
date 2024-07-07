@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="title"
             type="String" />
@@ -16,7 +15,7 @@
         android:background="@color/white0">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/view_toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent">
@@ -45,9 +44,11 @@
 
         <View
             android:id="@+id/toolbar_my_page_line"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_height="1dp"
             android:background="@color/gray2"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/view_toolbar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

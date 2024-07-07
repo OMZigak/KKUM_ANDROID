@@ -23,13 +23,13 @@
     <fragment
         android:id="@+id/fragment_my_group"
         android:name="com.teamkkumul.feature.mygroup.MyGroupFragment"
-        android:label="내 모임"
+        android:label="@string/my_group_title"
         tools:layout="@layout/fragment_my_group" />
 
     <fragment
         android:id="@+id/fragment_my_page"
         android:name="com.teamkkumul.feature.mypage.MyPageFragment"
-        android:label="마이페이지"
+        android:label="@string/my_page_title"
         tools:layout="@layout/fragment_my_page" />
     <fragment
         android:id="@+id/fragment_home_detail"
