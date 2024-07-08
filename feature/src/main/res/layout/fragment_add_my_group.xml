@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/tb_add_my_group"
+            layout="@layout/view_toolbar"
+            app:title="@{@string/add_my_group_title}" />
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/add_my_group_question"
+            android:textAppearance="@style/TextAppearance.Kkumul.head_01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb_add_my_group" />
+
+        <ImageView
+            android:id="@+id/iv_btn_enter_invitation_code"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/shape_green1_fill_8_rect"
+            app:layout_constraintTop_toBottomOf="@id/tv_question" />
+
+        <TextView
+            android:id="@+id/tv_got_invitation_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/got_invitation_code"
+            android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
+            android:textColor="@color/gray5"
+            app:layout_constraintStart_toStartOf="@id/iv_btn_enter_invitation_code"
+            app:layout_constraintTop_toTopOf="@id/iv_btn_enter_invitation_code" />
+
+        <TextView
+            android:id="@+id/tv_enter_invitation_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/enter_invitation_code"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintStart_toStartOf="@id/iv_btn_enter_invitation_code"
+            app:layout_constraintTop_toBottomOf="@id/tv_got_invitation_code" />
+
+        <ImageView
+            android:id="@+id/iv_btn_enter_invitation_code_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="14dp"
+            android:src="@drawable/ic_right_gray_24"
+            app:layout_constraintEnd_toEndOf="@id/iv_btn_enter_invitation_code"
+            app:layout_constraintTop_toTopOf="@id/iv_btn_enter_invitation_code" />
+
+        <ImageView
+            android:id="@+id/iv_btn_add_new_group"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/shape_green1_fill_8_rect"
+            app:layout_constraintTop_toBottomOf="@id/iv_btn_enter_invitation_code" />
+
+        <TextView
+            android:id="@+id/tv_no_invitation_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/no_invitation_code"
+            android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
+            android:textColor="@color/gray5"
+            app:layout_constraintStart_toStartOf="@id/iv_btn_add_new_group"
+            app:layout_constraintTop_toTopOf="@id/iv_btn_add_new_group" />
+
+        <TextView
+            android:id="@+id/tv_add_new_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/add_new_group"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintStart_toStartOf="@id/iv_btn_add_new_group"
+            app:layout_constraintTop_toBottomOf="@id/tv_no_invitation_code" />
+
+        <ImageView
+            android:id="@+id/iv_btn_add_new_group_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="14dp"
+            android:src="@drawable/ic_right_gray_24"
+            app:layout_constraintEnd_toEndOf="@id/iv_btn_add_new_group"
+            app:layout_constraintTop_toTopOf="@id/iv_btn_add_new_group" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
