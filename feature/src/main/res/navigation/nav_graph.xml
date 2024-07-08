@@ -34,10 +34,30 @@
     <fragment
         android:id="@+id/fragment_set_name"
         android:name="com.teamkkumul.feature.profile.SetNameFragment"
-        android:label="SetNameFragment" />
+        android:label="SetNameFragment">
+        <action
+            android:id="@+id/action_fragment_set_name_to_fragment_set_profile"
+            app:destination="@id/fragment_set_profile"
+            app:popUpTo="@id/fragment_set_name"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/exampleComposeFragment"
         android:name="com.teamkkumul.feature.compose.ExampleComposeFragment"
         android:label="ExampleComposeFragment" />
+    <fragment
+        android:id="@+id/fragment_set_profile"
+        android:name="com.teamkkumul.feature.profile.SetProfileFragment"
+        android:label="SetProfileFragment">
+        <action
+            android:id="@+id/action_fragment_set_profile_to_fragment_welcome"
+            app:destination="@id/fragment_welcome"
+            app:popUpTo="@id/fragment_set_profile"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_welcome"
+        android:name="com.teamkkumul.feature.profile.WelcomeFragment"
+        android:label="WelcomeFragment" />
 
 </navigation>
