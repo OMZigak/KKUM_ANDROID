@@ -10,6 +10,10 @@ plugins {
 val properties = Properties()
 properties.load(rootProject.file("local.properties").inputStream())
 
+fun String.removeQuotes(): String {
+    return this.replace("\"", "")
+}
+
 android {
     namespace = "com.teamkkumul.kkumul"
     compileSdk = 34
@@ -23,8 +27,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "KAKAO_APP_KEY", properties["kakao.app.key"].toString())
-        manifestPlaceholders["kakaoAppkey"] = properties["kakao.app.key"] as String
+        val kakaoAppKey = properties["kakao.app.key"].toString().removeQuotes()
+
+        buildConfigField("String", "KAKAO_APP_KEY", "\"$kakaoAppKey\"")
+        manifestPlaceholders["kakaoAppkey"] = kakaoAppKey
     }
 
     buildTypes {
