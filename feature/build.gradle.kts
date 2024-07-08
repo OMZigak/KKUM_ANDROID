@@ -47,6 +47,8 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:model"))
 
+    implementation(libs.kakao.login)
+
     // Compose
     implementation(libs.bundles.compose)
     debugImplementation(libs.compose.ui.tooling)

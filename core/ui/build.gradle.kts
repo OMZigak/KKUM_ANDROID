@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.teamkkumul.core_ui"
+    namespace = "com.teamkkumul.core.ui"
     compileSdk = 34
 
     defaultConfig {
