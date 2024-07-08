@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,6 +42,7 @@ class LoginViewModel @Inject constructor(
                     _loginState.value =
                         _loginState.value.copy(state = UiState.Success(true))
                     _loginSideEffect.emit(LoginSideEffect.NavigateToMain)
+                    Timber.tag("kakao").d("자동 로그인 성공 $it")
                 } else {
                     _loginState.value =
                         _loginState.value.copy(state = UiState.Failure("fail"))
@@ -73,8 +75,8 @@ class LoginViewModel @Inject constructor(
     private fun handleKaKaoLoginResult(token: OAuthToken?, error: Throwable?) {
         viewModelScope.launch {
             when {
-                token != null -> kakaoLoginSuccess(token)
-                error != null -> kakaoLoginFailure(error)
+                token != null -> kakaoLoginSuccess(token) // 성공
+                error != null -> kakaoLoginFailure(error) // 실패
             }
         }
     }
@@ -93,6 +95,8 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun kakaoLoginSuccess(token: OAuthToken) {
+        Timber.tag("kakao").d("카카오 로그인 성공 ${token.accessToken}")
+
         viewModelScope.launch {
             _loginState.value =
                 _loginState.value.copy(state = UiState.Success(true))
