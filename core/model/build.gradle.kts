@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.teamkkumul.core.data"
+    namespace = "com.teamkkumul.core.model"
     compileSdk = 34
 
     compileOptions {
