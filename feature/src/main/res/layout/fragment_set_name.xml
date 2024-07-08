@@ -1,38 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include
-        android:id="@+id/tb_set_profile"
-        layout="@layout/view_toolbar" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_set_name"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="34dp"
-        android:text="@string/set_name"
-        android:textAppearance="@style/TextAppearance.Kkumul.head_01"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb_set_profile" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/et_set_name"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_marginHorizontal="14dp"
-        android:layout_marginTop="26dp"
-        android:background="@drawable/item_edit_text"
-        android:hint="text"
-        android:paddingStart="12dp"
-        android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_set_name" />
+        <include
+            android:id="@+id/tb_set_profile"
+            layout="@layout/view_toolbar" />
 
+        <TextView
+            android:id="@+id/tv_set_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="34dp"
+            android:text="@string/set_name"
+            android:textAppearance="@style/TextAppearance.Kkumul.head_01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb_set_profile" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <FrameLayout
+            android:id="@+id/fl_set_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="26dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_set_name">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_set_name"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_set_name"
+                    style="@style/TextInputEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="4dp"
+                    android:hint="@string/hint_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="12dp"
+                android:text="0/5"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_06"
+                android:textColor="@color/gray3" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/sel_btn"
+            android:text="@string/next"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            android:enabled="false"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
