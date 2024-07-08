@@ -1,0 +1,82 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/tb_set_profile"
+            layout="@layout/view_toolbar"
+            app:title="@{@string/set_profile_title}" />
+
+        <TextView
+            android:id="@+id/tv_set_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="34dp"
+            android:text="@string/set_profile"
+            android:textAppearance="@style/TextAppearance.Kkumul.head_01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb_set_profile" />
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="130dp"
+            android:src="@drawable/ic_profile_basic_44"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_set_name" />
+        
+        <ImageView
+            android:id="@+id/iv_btn_set_profile"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/ic_camera_gray_28"
+            app:layout_constraintEnd_toEndOf="@id/iv_profile"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile" />
+
+        <TextView
+            android:id="@+id/tv_btn_not_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/not_now"
+            android:textColor="@color/gray5"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_next"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/iv_btn_not_now_underline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_profile_gray_underline"
+            app:layout_constraintTop_toBottomOf="@id/tv_btn_not_now"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/sel_btn"
+            android:enabled="false"
+            android:text="@string/okay"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -17,5 +17,8 @@
     <string name="hint_text">text</string>
     <string name="counter">0/5</string>
     <string name="next">다음</string>
+    <string name="set_profile">프로필을 설정해 주세요</string>
+    <string name="not_now">지금은 넘어가기</string>
+    <string name="okay">확인</string>
 
 </resources>

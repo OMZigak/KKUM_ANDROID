@@ -9,11 +9,20 @@ import com.teamkkumul.feature.databinding.FragmentSetNameBinding
 
 class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragment_set_name) {
     override fun initView() {
+        setName()
+    }
+
+    private fun setName() {
         with(binding) {
             etSetName.addTextChangedListener(object : TextWatcher {
                 private var currentText = ""
 
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int,
+                ) {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -41,47 +50,47 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
                 }
 
                 private fun resetInput() {
-                    etSetName.removeTextChangedListener(this)
-                    etSetName.setText(currentText)
-                    etSetName.setSelection(currentText.length)
-                    etSetName.addTextChangedListener(this)
-                }
-
-                private fun resetColors() {
-                    setColor(R.color.main_color)
-                }
-
-                private fun setErrorState(filteredInput: String, input: String) {
-                    when {
-                        filteredInput.length > 5 || filteredInput != input -> {
-                            tilSetName.error = "한글, 영문, 숫자만을 사용해 총 5자 이내로 입력해주세요."
-                            tilSetName.isErrorEnabled = true
-                            setColor(R.color.red)
-                        }
-                        else -> {
-                            tilSetName.error = null
-                            tilSetName.isErrorEnabled = false
-                            setColor(R.color.main_color)
-                        }
-                    }
-                }
-
-                private fun setColor(colorResId: Int) {
-                    val color = ContextCompat.getColor(requireContext(), colorResId)
-                    tvCounter.setTextColor(color)
-                    etSetName.setTextColor(color)
-                    tilSetName.boxStrokeColor = color
-                }
-
-                private fun updateCounter(length: Int) {
-                    tvCounter.text = "${length.coerceAtMost(5)}/5"
-                }
-
-                private fun updateButtonState() {
-                    val isValid = tilSetName.error == null
-                    btnNext.isEnabled = isValid
+                    binding.etSetName.removeTextChangedListener(this)
+                    binding.etSetName.setText(currentText)
+                    binding.etSetName.setSelection(currentText.length)
+                    binding.etSetName.addTextChangedListener(this)
                 }
             })
         }
+    }
+
+    private fun resetColors() {
+        setColor(R.color.main_color)
+    }
+
+    private fun setErrorState(filteredInput: String, input: String) {
+        when {
+            filteredInput.length > 5 || filteredInput != input -> {
+                binding.tilSetName.error = "한글, 영문, 숫자만을 사용해 총 5자 이내로 입력해주세요."
+                binding.tilSetName.isErrorEnabled = true
+                setColor(R.color.red)
+            }
+            else -> {
+                binding.tilSetName.error = null
+                binding.tilSetName.isErrorEnabled = false
+                setColor(R.color.main_color)
+            }
+        }
+    }
+
+    private fun setColor(colorResId: Int) {
+        val color = ContextCompat.getColor(requireContext(), colorResId)
+        binding.tvCounter.setTextColor(color)
+        binding.etSetName.setTextColor(color)
+        binding.tilSetName.boxStrokeColor = color
+    }
+
+    private fun updateCounter(length: Int) {
+        binding.tvCounter.text = "${length.coerceAtMost(5)}/5"
+    }
+
+    private fun updateButtonState() {
+        val isValid = binding.tilSetName.error == null
+        binding.btnNext.isEnabled = isValid
     }
 }
