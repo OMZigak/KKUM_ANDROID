@@ -11,8 +11,8 @@
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_fragment_home_to_homeDetailFragment"
-            app:destination="@id/fragment_home_detail"
+            android:id="@+id/action_fragment_home_to_setNameFragment"
+            app:destination="@id/fragment_set_name"
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="true" />
         <action
@@ -32,9 +32,9 @@
         android:label="@string/my_page_title"
         tools:layout="@layout/fragment_my_page" />
     <fragment
-        android:id="@+id/fragment_home_detail"
-        android:name="com.teamkkumul.feature.home.HomeDetailFragment"
-        android:label="HomeDetailFragment" />
+        android:id="@+id/fragment_set_name"
+        android:name="com.teamkkumul.feature.profile.SetNameFragment"
+        android:label="SetNameFragment" />
     <fragment
         android:id="@+id/exampleComposeFragment"
         android:name="com.teamkkumul.feature.compose.ExampleComposeFragment"
