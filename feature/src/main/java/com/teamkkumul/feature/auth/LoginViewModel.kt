@@ -100,10 +100,4 @@ class LoginViewModel @Inject constructor(
             _loginSideEffect.emit(LoginSideEffect.NavigateToMain)
         }
     }
-
-    fun deleteToken() {
-        viewModelScope.launch {
-            userInfoRepository.clearAll()
-        }
-    }
 }

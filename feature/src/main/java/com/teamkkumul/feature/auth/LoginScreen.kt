@@ -14,6 +14,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -24,16 +25,27 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.teamkkumul.core.designsystem.theme.Gray8
 import com.teamkkumul.core.designsystem.theme.KkumulAndroidTheme
 import com.teamkkumul.core.designsystem.theme.KkumulTheme
 import com.teamkkumul.core.designsystem.theme.Yellow
+import com.teamkkumul.core.ui.util.context.toast
+import com.teamkkumul.core.ui.util.intent.navigateTo
+import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.feature.MainActivity
 import com.teamkkumul.feature.R
+import com.teamkkumul.feature.auth.model.LoginSideEffect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun LoginRoute(
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
+    val state by viewModel.loginState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
 
@@ -41,21 +53,27 @@ fun LoginRoute(
         viewModel.getUserToken()
     }
 
-    LoginScreen(
-        onLoginBtnClick = {
-            viewModel.startKaKaoLogin(context)
-        },
-    )
-
-    /*LaunchedEffect(lifecycleOwner) {
-        viewModel.isAutoLoginState.flowWithLifecycle(lifecycleOwner.lifecycle)
-            .onEach {
-                when (it) {
-                    is UiState.Success -> navigateTo<MainActivity>(context)
-                    else -> Unit
+    LaunchedEffect(lifecycleOwner) {
+        viewModel.loginSideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
+            .onEach { sideEffect ->
+                when (sideEffect) {
+                    is LoginSideEffect.NavigateToMain -> navigateTo<MainActivity>(context)
+                    is LoginSideEffect.ShowSnackBar -> context.toast(sideEffect.message)
                 }
             }.launchIn(lifecycleOwner.lifecycleScope)
-    }*/
+    }
+
+    when (state.state) {
+        is UiState.Failure -> {
+            LoginScreen(
+                onLoginBtnClick = {
+                    viewModel.startKaKaoLogin(context)
+                },
+            )
+        }
+
+        else -> Unit
+    }
 }
 
 @Composable
