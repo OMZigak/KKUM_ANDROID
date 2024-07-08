@@ -11,7 +11,8 @@
 
         <include
             android:id="@+id/tb_set_profile"
-            layout="@layout/view_toolbar" />
+            layout="@layout/view_toolbar"
+            app:title="@{@string/set_profile_title}" />
 
         <TextView
             android:id="@+id/tv_set_name"
