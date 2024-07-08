@@ -11,5 +11,8 @@
 
     <!-- 프로필 설정 -->
     <string name="set_name">이름을 설정해 주세요</string>
+    <string name="hint_text">text</string>
+    <string name="counter">0/5</string>
+    <string name="next">다음</string>
 
 </resources>
