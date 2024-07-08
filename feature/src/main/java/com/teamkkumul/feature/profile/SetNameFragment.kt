@@ -3,6 +3,7 @@ package com.teamkkumul.feature.profile
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentSetNameBinding
@@ -10,6 +11,9 @@ import com.teamkkumul.feature.databinding.FragmentSetNameBinding
 class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragment_set_name) {
     override fun initView() {
         setName()
+        binding.btnNext.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_set_name_to_fragment_set_profile)
+        }
     }
 
     private fun setName() {
@@ -40,7 +44,7 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
                             setErrorState(filteredInput, input)
                         } else {
                             currentText = filteredInput
-                            resetColors()
+                            setColor(R.color.main_color)
                             setErrorState(filteredInput, input)
                         }
 
@@ -50,29 +54,24 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
                 }
 
                 private fun resetInput() {
-                    binding.etSetName.removeTextChangedListener(this)
-                    binding.etSetName.setText(currentText)
-                    binding.etSetName.setSelection(currentText.length)
-                    binding.etSetName.addTextChangedListener(this)
+                    etSetName.removeTextChangedListener(this)
+                    etSetName.setText(currentText)
+                    etSetName.setSelection(currentText.length)
+                    etSetName.addTextChangedListener(this)
                 }
             })
         }
     }
 
-    private fun resetColors() {
-        setColor(R.color.main_color)
-    }
-
     private fun setErrorState(filteredInput: String, input: String) {
-        when {
-            filteredInput.length > 5 || filteredInput != input -> {
-                binding.tilSetName.error = "한글, 영문, 숫자만을 사용해 총 5자 이내로 입력해주세요."
-                binding.tilSetName.isErrorEnabled = true
+        with(binding) {
+            if (filteredInput.length > 5 || filteredInput != input) {
+                tilSetName.error = "한글, 영문, 숫자만을 사용해 총 5자 이내로 입력해주세요."
+                tilSetName.isErrorEnabled = true
                 setColor(R.color.red)
-            }
-            else -> {
-                binding.tilSetName.error = null
-                binding.tilSetName.isErrorEnabled = false
+            } else {
+                tilSetName.error = null
+                tilSetName.isErrorEnabled = false
                 setColor(R.color.main_color)
             }
         }
@@ -80,9 +79,11 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
 
     private fun setColor(colorResId: Int) {
         val color = ContextCompat.getColor(requireContext(), colorResId)
-        binding.tvCounter.setTextColor(color)
-        binding.etSetName.setTextColor(color)
-        binding.tilSetName.boxStrokeColor = color
+        with(binding) {
+            tvCounter.setTextColor(color)
+            etSetName.setTextColor(color)
+            tilSetName.boxStrokeColor = color
+        }
     }
 
     private fun updateCounter(length: Int) {
@@ -90,7 +91,9 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
     }
 
     private fun updateButtonState() {
-        val isValid = binding.tilSetName.error == null
-        binding.btnNext.isEnabled = isValid
+        with(binding) {
+            val isValid = tilSetName.error == null
+            btnNext.isEnabled = isValid
+        }
     }
 }
