@@ -51,8 +51,8 @@
             android:text="@string/not_now"
             android:textColor="@color/gray5"
             android:textAppearance="@style/TextAppearance.Kkumul.body_05"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_next"
+            android:layout_marginBottom="6dp"
+            app:layout_constraintBottom_toTopOf="@id/iv_btn_not_now_underline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -61,8 +61,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:layout_marginBottom="34dp"
             android:src="@drawable/ic_profile_gray_underline"
-            app:layout_constraintTop_toBottomOf="@id/tv_btn_not_now"
+            app:layout_constraintBottom_toTopOf="@id/btn_next"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
         
