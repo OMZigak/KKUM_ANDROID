@@ -26,3 +26,4 @@ val Black0 = Color(0xFF000000)
 
 val Red = Color(0xFFFF2E2E)
 val Orange = Color(0xFFFF7B30)
+val Yellow = Color(0xFFFCE64A)
