@@ -3,15 +3,21 @@ package com.teamkkumul.feature.profile
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentSetNameBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragment_set_name) {
+
+    private val setNameViewModel: SetNameViewModel by activityViewModels()
     override fun initView() {
         setName()
         binding.btnNext.setOnClickListener {
+            setNameViewModel.getInputName(binding.etSetName.text.toString())
             findNavController().navigate(R.id.action_fragment_set_name_to_fragment_set_profile)
         }
     }

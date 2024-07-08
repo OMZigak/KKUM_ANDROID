@@ -10,9 +10,10 @@ import com.kakao.sdk.common.KakaoSdk.type
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentSetProfileBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class SetProfileFragment :
-    BindingFragment<FragmentSetProfileBinding>(R.layout.fragment_set_profile) {
+@AndroidEntryPoint
+class SetProfileFragment : BindingFragment<FragmentSetProfileBinding>(R.layout.fragment_set_profile) {
     private val selectImageLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
