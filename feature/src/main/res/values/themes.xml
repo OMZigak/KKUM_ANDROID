@@ -4,7 +4,7 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/main_color</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textColor">@color/black0</item>
+        <item name="android:textColor">@color/gray8</item>
         <!--        <item name="colorPrimaryVariant">@color/secondary</item>-->
         <item name="android:windowBackground">@color/white0</item>
         <!-- Status bar color. -->
@@ -18,4 +18,42 @@
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
     </style>
+
+    <!-- edit text -->
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <item name="boxStrokeColor">@color/sel_color_stroke</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="hintEnabled">false</item>
+        <item name="counterEnabled">false</item>
+        <item name="errorEnabled">true</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="counterTextColor">@color/gray3</item>
+        <item name="counterTextAppearance">@style/CounterTextAppearance</item>
+        <item name="errorTextColor">@color/red</item>
+        <item name="errorTextAppearance">@style/TextAppearance.Kkumul.caption_02</item>
+        <item name="boxStrokeErrorColor">@color/red</item>
+    </style>
+
+    <style name="ErrorTextAppearance">
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CounterTextAppearance" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textAppearance">@style/TextAppearance.Kkumul.body_06</item>
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="TextInputEditTextStyle">
+        <item name="android:textAppearance">@style/TextAppearance.Kkumul.body_04</item>
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:textColor">@color/main_color</item>
+    </style>
+
 </resources>
