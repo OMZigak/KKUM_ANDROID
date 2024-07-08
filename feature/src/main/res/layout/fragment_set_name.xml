@@ -6,6 +6,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_set_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -73,6 +74,8 @@
             android:enabled="false"
             android:text="@string/next"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

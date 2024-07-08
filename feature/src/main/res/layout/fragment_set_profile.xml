@@ -6,6 +6,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_set_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -26,35 +27,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tb_set_profile" />
 
-        <ImageView
-            android:id="@+id/iv_profile"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_btn_set_profile"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="130dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_profile_basic_44"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_set_name" />
-        
+            app:layout_constraintTop_toBottomOf="@id/tv_set_name"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Circle"/>
+
         <ImageView
-            android:id="@+id/iv_btn_set_profile"
+            android:id="@+id/iv_camera_set_profile"
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:src="@drawable/ic_camera_gray_28"
-            app:layout_constraintEnd_toEndOf="@id/iv_profile"
-            app:layout_constraintBottom_toBottomOf="@id/iv_profile" />
+            app:layout_constraintBottom_toBottomOf="@id/iv_btn_set_profile"
+            app:layout_constraintEnd_toEndOf="@id/iv_btn_set_profile" />
 
         <TextView
             android:id="@+id/tv_btn_not_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/not_now"
-            android:textColor="@color/gray5"
-            android:textAppearance="@style/TextAppearance.Kkumul.body_05"
             android:layout_marginBottom="6dp"
+            android:text="@string/not_now"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+            android:textColor="@color/gray5"
             app:layout_constraintBottom_toTopOf="@id/iv_btn_not_now_underline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/iv_btn_not_now_underline"
@@ -63,12 +66,12 @@
             android:layout_marginTop="6dp"
             android:layout_marginBottom="34dp"
             android:src="@drawable/ic_profile_gray_underline"
-            app:layout_constraintBottom_toTopOf="@id/btn_next"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-        
+            app:layout_constraintBottom_toTopOf="@id/btn_okay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
-            android:id="@+id/btn_next"
+            android:id="@+id/btn_okay"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginHorizontal="14dp"
@@ -77,7 +80,9 @@
             android:enabled="false"
             android:text="@string/okay"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
