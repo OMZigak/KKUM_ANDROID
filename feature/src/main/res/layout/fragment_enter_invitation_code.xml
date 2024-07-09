@@ -44,24 +44,15 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_set_name"
+                    android:id="@+id/et_enter_invitation_code"
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="4dp"
-                    android:hint="@string/hint_text" />
+                    android:hint="@string/hint_enter_invitation_code"
+                    android:textColorHint="@color/gray3" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/tv_counter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="12dp"
-                android:text="@string/counter_6"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_06"
-                android:textColor="@color/gray3" />
         </FrameLayout>
 
         <Button
@@ -74,9 +65,9 @@
             android:enabled="false"
             android:text="@string/next"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

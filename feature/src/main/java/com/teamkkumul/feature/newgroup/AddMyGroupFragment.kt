@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddMyGroupFragment : BindingFragment<FragmentAddMyGroupBinding>(R.layout.fragment_add_my_group) {
     override fun initView() {
         binding.ivBtnEnterInvitationCode.setOnClickListener {
-            findNavController()
+            findNavController().navigate(R.id.action_fragment_add_my_group_to_fragment_enter_invitation_code)
         }
     }
 }

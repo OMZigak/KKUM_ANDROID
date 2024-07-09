@@ -11,12 +11,12 @@
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/tb_set_profile"
+            android:id="@+id/tb_add_new_group"
             layout="@layout/view_toolbar"
             app:title="@{@string/add_my_group_title}" />
 
         <TextView
-            android:id="@+id/tv_enter_invitation_code"
+            android:id="@+id/tv_set_group_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="14dp"
@@ -25,31 +25,32 @@
             android:textAppearance="@style/TextAppearance.Kkumul.head_01"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tb_set_profile" />
+            app:layout_constraintTop_toBottomOf="@id/tb_add_new_group" />
 
         <FrameLayout
-            android:id="@+id/fl_set_name"
+            android:id="@+id/fl_set_group_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="14dp"
             android:layout_marginTop="26dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_enter_invitation_code">
+            app:layout_constraintTop_toBottomOf="@id/tv_set_group_name">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_set_name"
+                android:id="@+id/til_set_group_name"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_set_name"
+                    android:id="@+id/et_set_group_name"
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="4dp"
-                    android:hint="@string/hint_text" />
+                    android:hint="@string/hint_set_meeting_name"
+                    android:textColorHint="@color/gray3" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -74,9 +75,9 @@
             android:enabled="false"
             android:text="@string/next"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
