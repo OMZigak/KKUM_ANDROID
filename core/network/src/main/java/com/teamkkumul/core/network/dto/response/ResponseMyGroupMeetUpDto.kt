@@ -5,7 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseMyGroupMeetUpDto(
-    @SerialName("promise")
+
+    @SerialName("promises")
     val promises: List<Promise>,
 ) {
     @Serializable
@@ -18,7 +19,7 @@ data class ResponseMyGroupMeetUpDto(
         val id: Int,
         @SerialName("name")
         val name: String,
-        @SerialName("place_name")
+        @SerialName("placeName")
         val placeName: String,
         @SerialName("time")
         val time: String,
