@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="25dp"
-                android:text="모임 생성일"
+                android:text="@string/my_group_create_data"
                 android:textColor="@color/gray4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:paddingTop="25dp"
-                android:text="|"
+                android:text="@string/my_group_divide"
                 android:textColor="@color/gray4"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_create"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,10 +59,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:paddingTop="25dp"
-                android:text="2024.06.01"
                 android:textColor="@color/gray4"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_devide"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2024.06.01" />
 
             <TextView
                 android:id="@+id/tv_my_group_meet_up"
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="이 모임의 꾸물이들은 "
+                android:text="@string/my_group_meet_up"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_create" />
 
@@ -80,10 +80,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="3번"
                 android:textColor="@color/main_color"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_meet_up"
-                app:layout_constraintTop_toBottomOf="@id/tv_my_group_create" />
+                app:layout_constraintTop_toBottomOf="@id/tv_my_group_create"
+                tools:text="3번" />
 
             <TextView
                 android:id="@+id/tv_my_group_meet"
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:paddingBottom="25dp"
-                android:text=" 만났어요!"
+                android:text="@string/my_group_meet"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_meet_up_count"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_create" />
 
@@ -104,6 +104,7 @@
                 android:src="@drawable/ic_kkumul"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_meet" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -114,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"
-            android:text="모임 참여 인원"
+            android:text="@string/my_group_participate_people"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_my_group_detail" />
 
@@ -124,10 +125,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text=" 20"
             android:textColor="@color/main_color"
             app:layout_constraintStart_toEndOf="@id/tv_my_group_participate_people"
-            app:layout_constraintTop_toBottomOf="@id/cl_my_group_detail" />
+            app:layout_constraintTop_toBottomOf="@id/cl_my_group_detail"
+            tools:text=" 20" />
 
         <TextView
             android:id="@+id/tv_my_group_participate"
@@ -135,7 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="명"
+            android:text="@string/my_group_participate_number"
             android:textColor="@color/main_color"
             app:layout_constraintStart_toEndOf="@id/tv_my_group_participate_people_count"
             app:layout_constraintTop_toBottomOf="@id/cl_my_group_detail" />
@@ -181,19 +182,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="27dp"
-                android:text="남은 약속을 확인해 보세요!"
+                android:text="@string/my_group_check_remain_meet_up"
                 android:textColor="@color/gray7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:visibility="gone"
                 android:id="@+id/rv_my_group_meet_up"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -201,14 +202,14 @@
                 tools:listitem="@layout/item_my_group_remain_meet_up" />
 
             <include
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up"
                 android:id="@+id/view_my_group_meet_up_empty"
                 layout="@layout/view_my_group_meet_up_empty"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="14dp"
-                android:visibility="gone" />
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up" />
 
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -219,7 +220,7 @@
                 android:layout_margin="16dp"
                 android:backgroundTint="@color/main_color"
                 android:gravity="center_vertical"
-                android:text=" +  약속추가"
+                android:text="@string/my_group_extended_fab"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_01"
                 android:textColor="@color/white0"
                 app:iconPadding="8dp"
