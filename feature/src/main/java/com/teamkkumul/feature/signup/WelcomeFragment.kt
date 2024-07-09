@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.profile
+package com.teamkkumul.feature.signup
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer

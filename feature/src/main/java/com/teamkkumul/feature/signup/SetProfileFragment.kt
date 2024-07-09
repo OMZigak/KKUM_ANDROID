@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.profile
+package com.teamkkumul.feature.signup
 
 import android.app.Activity
 import android.content.Intent
@@ -6,7 +6,6 @@ import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.kakao.sdk.common.KakaoSdk.type
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentSetProfileBinding

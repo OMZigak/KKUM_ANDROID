@@ -22,7 +22,7 @@
     <!-- edit text -->
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <item name="boxStrokeColor">@color/sel_color_stroke</item>
+        <item name="boxStrokeColor">@color/sel_btn_et_color_stroke</item>
         <item name="boxCornerRadiusTopEnd">8dp</item>
         <item name="boxCornerRadiusTopStart">8dp</item>
         <item name="boxCornerRadiusBottomStart">8dp</item>

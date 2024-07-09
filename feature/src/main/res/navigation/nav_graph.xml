@@ -33,13 +33,11 @@
         tools:layout="@layout/fragment_my_page" />
     <fragment
         android:id="@+id/fragment_set_name"
-        android:name="com.teamkkumul.feature.profile.SetNameFragment"
+        android:name="com.teamkkumul.feature.signup.SetNameFragment"
         android:label="SetNameFragment">
         <action
             android:id="@+id/action_fragment_set_name_to_fragment_set_profile"
-            app:destination="@id/fragment_set_profile"
-            app:popUpTo="@id/fragment_set_name"
-            app:popUpToInclusive="true" />
+            app:destination="@id/fragment_set_profile" />
     </fragment>
     <fragment
         android:id="@+id/exampleComposeFragment"
@@ -47,7 +45,7 @@
         android:label="ExampleComposeFragment" />
     <fragment
         android:id="@+id/fragment_set_profile"
-        android:name="com.teamkkumul.feature.profile.SetProfileFragment"
+        android:name="com.teamkkumul.feature.signup.SetProfileFragment"
         android:label="SetProfileFragment">
         <action
             android:id="@+id/action_fragment_set_profile_to_fragment_welcome"
@@ -57,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_welcome"
-        android:name="com.teamkkumul.feature.profile.WelcomeFragment"
+        android:name="com.teamkkumul.feature.signup.WelcomeFragment"
         android:label="WelcomeFragment" />
     <fragment
         android:id="@+id/fragment_add_my_group"

@@ -23,7 +23,7 @@
             app:navGraph="@navigation/nav_graph" />
 
         <View
-            android:id="@+id/v_gray_line"
+            android:id="@+id/view_main_gray_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray2"
