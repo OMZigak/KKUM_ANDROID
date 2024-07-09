@@ -16,7 +16,7 @@
 
     <!-- 프로필 설정 -->
     <string name="set_name">이름을 설정해 주세요</string>
-    <string name="hint_text">text</string>
+    <string name="hint_set_name">이름을 입력해 주세요</string>
     <string name="counter_5">0/5</string>
     <string name="set_name_error_message">"한글, 영문, 숫자만을 사용해 총 5자 이내로 입력해주세요."</string>
     <string name="next">다음</string>
@@ -35,5 +35,8 @@
     <string name="counter_6">0/6</string>
     <string name="tv_enter_meeting_name">모임 이름을\n입력해 주세요</string>
     <string name="counter_10">0/10</string>
+    <string name="hint_enter_invitation_code">모임 초대 코드를 입력해 주세요</string>
+    <string name="hint_set_meeting_name">모임 이름을 입력해 주세요</string>
+    <string name="set_group_name_error_message">한글, 영문, 숫자만을 사용해 공백 포함 총 10자 이내일 것 같은데 물어보기</string>
 
 </resources>
