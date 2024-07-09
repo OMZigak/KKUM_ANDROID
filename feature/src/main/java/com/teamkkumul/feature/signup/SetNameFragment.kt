@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragment_set_name) {
 
-    private val setNameViewModel: SetNameViewModel by activityViewModels()
+    private val setNameViewModel: NameViewModel by activityViewModels()
     private val setNameDebouncer = Debouncer<String>()
     private var currentText: String = ""
 

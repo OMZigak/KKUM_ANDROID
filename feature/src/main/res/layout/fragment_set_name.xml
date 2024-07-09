@@ -49,7 +49,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="4dp"
-                    android:hint="@string/hint_text" />
+                    android:hint="@string/hint_set_name"
+                    android:textColorHint="@color/gray3" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -74,9 +75,9 @@
             android:enabled="false"
             android:text="@string/next"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
