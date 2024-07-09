@@ -38,5 +38,6 @@
     <string name="hint_enter_invitation_code">모임 초대 코드를 입력해 주세요</string>
     <string name="hint_set_meeting_name">모임 이름을 입력해 주세요</string>
     <string name="set_group_name_error_message">한글, 영문, 숫자만을 사용해 공백 포함 총 10자 이내일 것 같은데 물어보기</string>
+    <string name="btn_add_new_group">모임 생성하기</string>
 
 </resources>
