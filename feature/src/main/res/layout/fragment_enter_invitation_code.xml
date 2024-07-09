@@ -59,7 +59,7 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="12dp"
-                android:text="@string/counter"
+                android:text="@string/counter_6"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_06"
                 android:textColor="@color/gray3" />
         </FrameLayout>
