@@ -16,7 +16,6 @@
     <string name="my_group_divide">|</string>
     <string name="my_group_meet_up">이 모임의 꾸물이들은 </string>
     <string name="my_group_meet"> 만났어요!</string>
-
     <string name="my_group_participate_people">모임 참여 인원</string>
     <string name="my_group_participate_number">명</string>
     <string name="my_group_check_remain_meet_up">남은 약속을 확인해 보세요!</string>
@@ -24,7 +23,16 @@
     <string name="my_group_meet_up_empty">아직 약속이 없네요!</string>
     <string name="my_group_meet_up_empty_plus">약속을 추가</string>
     <string name="my_group_meet_up_empty_do_plus">해보세요!</string>
-
     <string name="my_group_remain_meet_up_due_date_d">D-</string>
+
+    <!--    약속 상세 화면-->
+    <string name="meet_up_participate_people">약속 참여 인원</string>
+    <string name="meet_up_detail_information">약속 상세 정보</string>
+    <string name="meet_up_detail_information_location">위치</string>
+    <string name="meet_up_detail_information_time">약속시간</string>
+
+    <string name="meet_up_detail_information_ready_level">준비레벨</string>
+    <string name="meet_up_detail_information_penalty">벌칙</string>
+
 
 </resources>
