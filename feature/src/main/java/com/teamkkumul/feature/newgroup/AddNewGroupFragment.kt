@@ -2,11 +2,11 @@ package com.teamkkumul.feature.newgroup
 
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
-import com.teamkkumul.feature.databinding.FragmentEnterInvitationCodeBinding
+import com.teamkkumul.feature.databinding.FragmentAddNewGroupBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EnterInvitationCodeFragment : BindingFragment<FragmentEnterInvitationCodeBinding>(R.layout.fragment_enter_invitation_code) {
+class AddNewGroupFragment : BindingFragment<FragmentAddNewGroupBinding>(R.layout.fragment_add_new_group) {
     override fun initView() {
     }
 }
