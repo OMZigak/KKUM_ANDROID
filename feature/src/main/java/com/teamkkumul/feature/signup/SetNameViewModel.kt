@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.profile
+package com.teamkkumul.feature.signup
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
