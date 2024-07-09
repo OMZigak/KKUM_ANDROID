@@ -1,10 +1,13 @@
 package com.teamkkumul.feature.signup
 
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentSetNameBinding
 import com.teamkkumul.feature.utils.Debouncer
@@ -26,27 +29,23 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
     }
 
     private fun setName() = with(binding.etSetName) {
-        doAfterTextChanged { editable ->
-            val input = editable.toString()
-            if (input.length > 5) {
-                val trimmedInput = input.substring(0, 5)
-                setText(trimmedInput)
-                setSelection(trimmedInput.length)
-            } else {
-                setNameDebouncer.setDelay(input, 300L, ::validInput)
-            }
+        doAfterTextChanged {
+            setNameDebouncer.setDelay(text.toString(), SET_NAME_DEBOUNCE_DELAY, ::validInput)
+        }
+        setOnEditorActionListener { _, actionId, event ->
+            (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER))
         }
     }
 
     private fun validInput(input: String) {
-        val isValid = input.length <= 5 && input.matches(nameRegex)
+        val isValid = input.length <= NAME_MAX_LENGTH && input.matches(nameRegex)
         if (isValid) {
             currentText = input
             setColor(R.color.main_color)
             setErrorState(null)
         } else {
             setColor(R.color.red)
-            setErrorState("한글, 영문, 숫자만을 사용해 총 5자 이내로 입력해주세요.")
+            setErrorState(getString(R.string.set_name_error_message))
         }
         updateCounter(input.length)
         updateButtonState(isValid)
@@ -60,7 +59,7 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
     }
 
     private fun setColor(colorResId: Int) {
-        val color = ContextCompat.getColor(requireContext(), colorResId)
+        val color = colorOf(colorResId)
         with(binding) {
             tvCounter.setTextColor(color)
             etSetName.setTextColor(color)
@@ -79,5 +78,7 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
     companion object {
         private const val NAME_PATTERN = "^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{1,5}$"
         private val nameRegex = Regex(NAME_PATTERN)
+        private const val SET_NAME_DEBOUNCE_DELAY = 300L
+        private const val NAME_MAX_LENGTH = 5
     }
 }
