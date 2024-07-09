@@ -7,6 +7,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentSetNameBinding
 import com.teamkkumul.feature.utils.Debouncer
@@ -58,7 +59,7 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
     }
 
     private fun setColor(colorResId: Int) {
-        val color = ContextCompat.getColor(requireContext(), colorResId)
+        val color = colorOf(colorResId)
         with(binding) {
             tvCounter.setTextColor(color)
             etSetName.setTextColor(color)
