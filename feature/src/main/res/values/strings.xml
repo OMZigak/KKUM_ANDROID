@@ -17,7 +17,7 @@
     <!-- 프로필 설정 -->
     <string name="set_name">이름을 설정해 주세요</string>
     <string name="hint_text">text</string>
-    <string name="counter">0/5</string>
+    <string name="counter_5">0/5</string>
     <string name="next">다음</string>
     <string name="set_profile">프로필을 설정해 주세요</string>
     <string name="tv_welcome">이름님 반가워요!</string>
@@ -31,5 +31,6 @@
     <string name="no_invitation_code">초대 코드가 없다면</string>
     <string name="add_new_group">직접 모임 추가하기</string>
     <string name="tv_enter_invitation_code">모임 초대 코드를\n입력해 주세요</string>
+    <string name="counter_6">0/6</string>
 
 </resources>
