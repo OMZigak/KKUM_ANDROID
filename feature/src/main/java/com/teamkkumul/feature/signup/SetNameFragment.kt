@@ -29,7 +29,7 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
 
     private fun setName() = with(binding.etSetName) {
         doAfterTextChanged {
-            setNameDebouncer.setDelay(text.toString(), 300L, ::validInput)
+            setNameDebouncer.setDelay(text.toString(), SET_NAME_DEBOUNCE_DELAY, ::validInput)
         }
         setOnEditorActionListener { _, actionId, event ->
             (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER))
@@ -77,6 +77,7 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
     companion object {
         private const val NAME_PATTERN = "^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{1,5}$"
         private val nameRegex = Regex(NAME_PATTERN)
+        private const val SET_NAME_DEBOUNCE_DELAY = 300L
         private const val NAME_MAX_LENGTH = 5
     }
 }
