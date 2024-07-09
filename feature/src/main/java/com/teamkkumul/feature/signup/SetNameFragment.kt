@@ -37,14 +37,14 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
     }
 
     private fun validInput(input: String) {
-        val isValid = input.length <= 5 && input.matches(nameRegex)
+        val isValid = input.length <= NAME_MAX_LENGTH && input.matches(nameRegex)
         if (isValid) {
             currentText = input
             setColor(R.color.main_color)
             setErrorState(null)
         } else {
             setColor(R.color.red)
-            setErrorState("한글, 영문, 숫자만을 사용해 총 5자 이내로 입력해주세요.")
+            setErrorState(getString(R.string.set_name_error_message))
         }
         updateCounter(input.length)
         updateButtonState(isValid)
@@ -77,5 +77,6 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
     companion object {
         private const val NAME_PATTERN = "^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{1,5}$"
         private val nameRegex = Regex(NAME_PATTERN)
+        private const val NAME_MAX_LENGTH = 5
     }
 }
