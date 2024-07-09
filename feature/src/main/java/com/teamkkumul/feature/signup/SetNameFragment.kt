@@ -26,15 +26,8 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
     }
 
     private fun setName() = with(binding.etSetName) {
-        doAfterTextChanged { editable ->
-            val input = editable.toString()
-            if (input.length > 5) {
-                val trimmedInput = input.substring(0, 5)
-                setText(trimmedInput)
-                setSelection(trimmedInput.length)
-            } else {
-                setNameDebouncer.setDelay(input, 300L, ::validInput)
-            }
+        doAfterTextChanged {
+            setNameDebouncer.setDelay(text.toString(), 300L, ::validInput)
         }
     }
 
