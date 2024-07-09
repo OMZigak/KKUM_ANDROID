@@ -1,5 +1,7 @@
 package com.teamkkumul.feature.signup
 
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
@@ -28,6 +30,9 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
     private fun setName() = with(binding.etSetName) {
         doAfterTextChanged {
             setNameDebouncer.setDelay(text.toString(), 300L, ::validInput)
+        }
+        setOnEditorActionListener { _, actionId, event ->
+            (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER))
         }
     }
 
