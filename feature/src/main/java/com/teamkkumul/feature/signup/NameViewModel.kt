@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SetNameViewModel @Inject constructor() : ViewModel() {
+class NameViewModel @Inject constructor() : ViewModel() {
     private val _inputName = MutableLiveData<String>()
     val inputName: LiveData<String> get() = _inputName
 
