@@ -30,5 +30,6 @@
     <string name="enter_invitation_code">초대 코드 입력하기</string>
     <string name="no_invitation_code">초대 코드가 없다면</string>
     <string name="add_new_group">직접 모임 추가하기</string>
+    <string name="tv_enter_invitation_code">모임 초대 코드를\n입력해 주세요</string>
 
 </resources>
