@@ -1,7 +1,6 @@
 package com.teamkkumul.feature.signup
 
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentWelcomeBinding
@@ -12,11 +11,8 @@ class WelcomeFragment : BindingFragment<FragmentWelcomeBinding>(R.layout.fragmen
 
     private val setNameViewModel: SetNameViewModel by activityViewModels()
     override fun initView() {
-        setNameViewModel.inputName.observe(
-            viewLifecycleOwner,
-            Observer { inputName ->
-                binding.tvWelcome.text = "${inputName}님 반가워요!"
-            },
-        )
+        setNameViewModel.inputName.observe(viewLifecycleOwner) { inputName ->
+            binding.tvWelcome.text = "${inputName}님 반가워요!"
+        }
     }
 }
