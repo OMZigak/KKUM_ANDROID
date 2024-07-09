@@ -2,7 +2,6 @@ package com.teamkkumul.feature.signup
 
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
