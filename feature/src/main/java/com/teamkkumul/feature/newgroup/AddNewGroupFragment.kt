@@ -72,7 +72,7 @@ class AddNewGroupFragment : BindingFragment<FragmentAddNewGroupBinding>(R.layout
     }
 
     companion object {
-        private const val NAME_PATTERN = "^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{1,5}$"
+        private const val NAME_PATTERN = "^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣\\s]{1,10}$"
         private val nameRegex = Regex(NAME_PATTERN)
         private const val SET_NAME_DEBOUNCE_DELAY = 300L
         private const val GROUP_NAME_MAX_LENGTH = 10

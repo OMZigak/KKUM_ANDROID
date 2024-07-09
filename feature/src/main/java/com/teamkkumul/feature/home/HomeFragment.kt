@@ -11,7 +11,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             findNavController().navigate(R.id.action_fragment_home_to_setNameFragment)
         }
         binding.btnCompose.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_home_to_exampleComposeFragment)
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_add_my_group)
         }
     }
 }
