@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="14dp"
+    android:layout_marginTop="30dp"
+    android:paddingVertical="44dp"
+    android:background="@drawable/shape_white0_radius_8">
+
+    <TextView
+        android:id="@+id/tv_my_group_meet_up_empty"
+        style="@style/TextAppearance.Kkumul.body_01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="아직 약속이 없네요!"
+        android:textColor="@color/gray6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:id="@+id/tv_my_group_meet_up_plus"
+        style="@style/TextAppearance.Kkumul.body_01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="약속을 추가"
+        android:textColor="@color/main_color"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_my_group_meet_up_empty_do_plus"
+        app:layout_constraintTop_toBottomOf="@id/tv_my_group_meet_up_empty"
+        />
+
+    <TextView
+        android:id="@+id/tv_my_group_meet_up_empty_do_plus"
+        style="@style/TextAppearance.Kkumul.body_01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="해보세요!"
+        android:textColor="@color/gray6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_my_group_meet_up_plus"
+        app:layout_constraintBottom_toBottomOf="@id/tv_my_group_meet_up_plus"
+        app:layout_constraintTop_toTopOf="@id/tv_my_group_meet_up_plus"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
