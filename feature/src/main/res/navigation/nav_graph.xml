@@ -56,7 +56,11 @@
     <fragment
         android:id="@+id/fragment_welcome"
         android:name="com.teamkkumul.feature.signup.WelcomeFragment"
-        android:label="WelcomeFragment" />
+        android:label="WelcomeFragment">
+        <action
+            android:id="@+id/action_fragment_welcome_to_fragment_add_my_group"
+            app:destination="@id/fragment_add_my_group" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_add_my_group"
         android:name="com.teamkkumul.feature.newgroup.AddMyGroupFragment"
@@ -70,6 +74,10 @@
     <fragment
         android:id="@+id/fragment_enter_invitation_code"
         android:name="com.teamkkumul.feature.newgroup.EnterInvitationCodeFragment"
+        android:label="EnterInvitationCodeFragment" />
+    <fragment
+        android:id="@+id/fragment_add_new_group"
+        android:name="com.teamkkumul.feature.newgroup.AddNewGroupFragment"
         android:label="EnterInvitationCodeFragment" />
 
 </navigation>
