@@ -61,4 +61,14 @@
         <item name="cornerSize">50%</item>
     </style>
 
+
+    <style name="CustomMyGroupFab" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="shapeAppearance">@style/CustomExtendedFabShape</item>
+    </style>
+
+    <style name="CustomExtendedFabShape" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+
 </resources>

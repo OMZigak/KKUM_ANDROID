@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_my_group_remain_meet_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white0_radius_8"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_my_group_remain_meet_up_due_date_d"
+            style="@style/TextAppearance.Kkumul.body_05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_group_remain_meet_up_due_date_d"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_my_group_remain_meet_up_due_date_day"
+            style="@style/TextAppearance.Kkumul.body_05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tv_my_group_remain_meet_up_due_date_d"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="DAY" />
+
+        <TextView
+            android:id="@+id/tv_my_group_remain_meet_up_name"
+            style="@style/TextAppearance.Kkumul.body_03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_group_remain_meet_up_due_date_d"
+            tools:text="약속명" />
+
+        <ImageView
+            android:id="@+id/iv_my_group_remain_meet_up_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_date_gray_24"
+            app:layout_constraintBottom_toTopOf="@+id/iv_my_group_remain_meet_up_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_my_group_remain_meet_up_name" />
+
+        <TextView
+            android:id="@+id/tv_my_group_remain_meet_up_date"
+            style="@style/TextAppearance.Kkumul.body_06"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:paddingEnd="68dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_my_group_remain_meet_up_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_my_group_remain_meet_up_date"
+            app:layout_constraintTop_toTopOf="@id/iv_my_group_remain_meet_up_date"
+            tools:text="2024.07.09" />
+
+        <ImageView
+            android:id="@+id/iv_my_group_remain_meet_up_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/ic_time_gray_24"
+            app:layout_constraintBottom_toTopOf="@+id/iv_my_group_remain_meet_up_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_my_group_remain_meet_up_date" />
+
+        <TextView
+            android:id="@+id/tv_my_group_remain_meet_up_time"
+            style="@style/TextAppearance.Kkumul.body_06"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_my_group_remain_meet_up_time"
+            app:layout_constraintStart_toEndOf="@id/iv_my_group_remain_meet_up_time"
+            app:layout_constraintTop_toTopOf="@id/iv_my_group_remain_meet_up_time"
+            tools:text="AM 2:00" />
+
+        <ImageView
+            android:id="@+id/iv_my_group_remain_meet_up_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/ic_pin_gray_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_my_group_remain_meet_up_time" />
+
+        <TextView
+            android:id="@+id/tv_my_group_remain_meet_up_location"
+            style="@style/TextAppearance.Kkumul.body_06"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_my_group_remain_meet_up_location"
+            app:layout_constraintStart_toEndOf="@id/iv_my_group_remain_meet_up_location"
+            app:layout_constraintTop_toTopOf="@id/iv_my_group_remain_meet_up_location"
+            tools:text="용산역" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
