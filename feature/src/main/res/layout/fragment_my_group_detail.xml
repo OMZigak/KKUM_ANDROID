@@ -70,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:paddingEnd="4dp"
                 android:text="@string/my_group_meet_up"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_create" />
@@ -80,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:paddingEnd="4dp"
                 android:textColor="@color/main_color"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_meet_up"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_create"
