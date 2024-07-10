@@ -20,7 +20,11 @@ class DialogInvitationCodeFragment :
     override fun initView() {
         binding.ivBtnCopy.setOnClickListener {
             copyToClipboard(binding.tvInvitationCode.text.toString())
-            findNavController().navigate(R.id.action_fragment_dialog_invitation_code_to_fragment_add_my_group_complete)
+            findNavController().navigate(R.id.action_fragment_add_new_group_to_fragment_add_my_group_complete)
+            dismiss()
+        }
+        binding.ivBtnInviteLater.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_add_new_group_to_fragment_add_my_group_complete)
             dismiss()
         }
     }
