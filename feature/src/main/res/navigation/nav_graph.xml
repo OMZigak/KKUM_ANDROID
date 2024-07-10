@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_fragment_home_to_exampleComposeFragment"
             app:destination="@id/exampleComposeFragment" />
+        <action
+            android:id="@+id/action_fragment_home_to_meetUpContainerFragment"
+            app:destination="@id/meetUpContainerFragment" />
     </fragment>
 
     <fragment
@@ -57,5 +60,9 @@
         android:id="@+id/fragment_welcome"
         android:name="com.teamkkumul.feature.signup.WelcomeFragment"
         android:label="WelcomeFragment" />
+    <fragment
+        android:id="@+id/meetUpContainerFragment"
+        android:name="com.teamkkumul.feature.home.meetupdetail.MeetUpContainerFragment"
+        android:label="MeetUpContainerFragment" />
 
 </navigation>
