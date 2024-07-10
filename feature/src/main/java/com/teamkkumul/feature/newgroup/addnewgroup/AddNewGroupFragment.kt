@@ -1,8 +1,7 @@
-package com.teamkkumul.feature.newgroup
+package com.teamkkumul.feature.newgroup.addnewgroup
 
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.feature.R

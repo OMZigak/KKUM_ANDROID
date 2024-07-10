@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.newgroup
+package com.teamkkumul.feature.newgroup.addnewgroup
 
 import android.content.ClipData
 import android.content.ClipboardManager

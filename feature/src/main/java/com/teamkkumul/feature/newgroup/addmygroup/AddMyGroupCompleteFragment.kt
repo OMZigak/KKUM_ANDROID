@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.newgroup
+package com.teamkkumul.feature.newgroup.addmygroup
 
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
