@@ -1,21 +1,21 @@
 package com.teamkkumul.feature.signup
 
+import android.content.Intent
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
+import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import com.teamkkumul.core.ui.base.BindingFragment
-import com.teamkkumul.core.ui.util.fragment.colorOf
+import com.teamkkumul.core.ui.base.BindingActivity
+import com.teamkkumul.core.ui.util.context.colorOf
 import com.teamkkumul.feature.R
-import com.teamkkumul.feature.databinding.FragmentSetNameBinding
+import com.teamkkumul.feature.databinding.ActivitySetNameBinding
 import com.teamkkumul.feature.utils.Debouncer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragment_set_name) {
+class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activity_set_name) {
 
-    private val setNameViewModel: NameViewModel by activityViewModels()
+    private val setNameViewModel: NameViewModel by viewModels()
     private val setNameDebouncer = Debouncer<String>()
     private var currentText: String = ""
 
@@ -23,7 +23,7 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
         setName()
         binding.btnNext.setOnClickListener {
             setNameViewModel.getInputName(binding.etSetName.text.toString())
-            findNavController().navigate(R.id.action_fragment_set_name_to_fragment_set_profile)
+            navigateToSetProfile()
         }
     }
 
@@ -72,6 +72,10 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
 
     private fun updateButtonState(isValid: Boolean) {
         binding.btnNext.isEnabled = isValid
+    }
+
+    private fun navigateToSetProfile() {
+        startActivity(Intent(this, SetProfileActivity::class.java))
     }
 
     companion object {
