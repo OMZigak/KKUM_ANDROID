@@ -13,6 +13,17 @@
     <!--    로그인-->
     <string name="login_kakao_btn_text">카카오로 계속하기</string>
 
+    <!-- 프로필 설정 -->
+    <string name="set_name">이름을 설정해 주세요</string>
+    <string name="hint_text">text</string>
+    <string name="counter">0/5</string>
+    <string name="set_name_error_message">"한글, 영문, 숫자만을 사용해 총 5자 이내로 입력해주세요."</string>
+    <string name="next">다음</string>
+    <string name="set_profile">프로필을 설정해 주세요</string>
+    <string name="tv_welcome">이름님 반가워요!</string>
+    <string name="not_now">지금은 넘어가기</string>
+    <string name="okay">확인</string>
+
     <!--    내 모임-->
     <string name="my_group_create_data">모임 생성일</string>
     <string name="my_group_divide">|</string>
