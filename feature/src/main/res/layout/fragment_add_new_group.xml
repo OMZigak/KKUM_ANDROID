@@ -66,7 +66,7 @@
         </FrameLayout>
 
         <Button
-            android:id="@+id/btn_next"
+            android:id="@+id/btn_make_new_group"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginHorizontal="14dp"
