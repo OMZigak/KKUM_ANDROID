@@ -70,14 +70,14 @@ class HomeViewModel : ViewModel() {
 
     val mockMembers = listOf(
         MyGroupMeetUpModel.Promise(
-            dDay = 1,
+            dDay = 0,
             date = "2024.07.30",
             time = "PM 6:00",
             name = "약속명",
             placeName = "홍대입구",
         ),
         MyGroupMeetUpModel.Promise(
-            dDay = 1,
+            dDay = 0,
             date = "2024.07.30",
             time = "PM 6:00",
             name = "약속명",
