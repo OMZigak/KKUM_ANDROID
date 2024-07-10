@@ -5,7 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingDialogFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogInvitationCodeBinding
@@ -31,6 +31,7 @@ class DialogInvitationCodeFragment :
     override fun initView() {
         binding.ivBtnCopy.setOnClickListener {
             copyToClipboard(binding.tvInvitationCode.text.toString())
+            findNavController().navigate(R.id.action_fragment_dialog_invitation_code_to_fragment_add_my_group_complete)
         }
     }
 
@@ -38,6 +39,5 @@ class DialogInvitationCodeFragment :
         val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("invitation_code", text)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(requireContext(), "클립보드에 복사되었습니다", Toast.LENGTH_SHORT).show()
     }
 }
