@@ -34,8 +34,8 @@
             android:layout_marginTop="26dp"
             android:src="@drawable/shape_green1_fill_8_rect"
             app:layout_constraintDimensionRatio="332:74"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_question" />
 
         <TextView
@@ -46,10 +46,10 @@
             android:text="@string/got_invitation_code"
             android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
             android:textColor="@color/gray5"
+            app:layout_constraintBottom_toTopOf="@id/tv_enter_invitation_code"
             app:layout_constraintStart_toStartOf="@id/iv_btn_enter_invitation_code"
             app:layout_constraintTop_toTopOf="@id/iv_btn_enter_invitation_code"
-            app:layout_constraintBottom_toTopOf="@id/tv_enter_invitation_code"
-            app:layout_constraintVertical_chainStyle="packed"/>
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/tv_enter_invitation_code"
@@ -59,9 +59,9 @@
             android:layout_marginTop="8dp"
             android:text="@string/enter_invitation_code"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintBottom_toBottomOf="@id/iv_btn_enter_invitation_code"
             app:layout_constraintStart_toStartOf="@id/iv_btn_enter_invitation_code"
-            app:layout_constraintTop_toBottomOf="@id/tv_got_invitation_code"
-            app:layout_constraintBottom_toBottomOf="@id/iv_btn_enter_invitation_code" />
+            app:layout_constraintTop_toBottomOf="@id/tv_got_invitation_code" />
 
         <ImageView
             android:id="@+id/iv_btn_enter_invitation_code_arrow"
@@ -69,9 +69,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="14dp"
             android:src="@drawable/ic_right_gray_24"
+            app:layout_constraintBottom_toBottomOf="@id/iv_btn_enter_invitation_code"
             app:layout_constraintEnd_toEndOf="@id/iv_btn_enter_invitation_code"
-            app:layout_constraintTop_toTopOf="@id/iv_btn_enter_invitation_code"
-            app:layout_constraintBottom_toBottomOf="@id/iv_btn_enter_invitation_code"/>
+            app:layout_constraintTop_toTopOf="@id/iv_btn_enter_invitation_code" />
 
         <ImageView
             android:id="@+id/iv_btn_add_new_group"
@@ -81,8 +81,8 @@
             android:layout_marginTop="12dp"
             android:src="@drawable/shape_green1_fill_8_rect"
             app:layout_constraintDimensionRatio="332:74"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_btn_enter_invitation_code" />
 
         <TextView
@@ -93,10 +93,10 @@
             android:text="@string/no_invitation_code"
             android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
             android:textColor="@color/gray5"
+            app:layout_constraintBottom_toTopOf="@id/tv_add_new_group"
             app:layout_constraintStart_toStartOf="@id/iv_btn_add_new_group"
             app:layout_constraintTop_toTopOf="@id/iv_btn_add_new_group"
-            app:layout_constraintBottom_toTopOf="@id/tv_add_new_group"
-            app:layout_constraintVertical_chainStyle="packed"/>
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/tv_add_new_group"
@@ -106,8 +106,8 @@
             android:layout_marginTop="8dp"
             android:text="@string/add_new_group"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-            app:layout_constraintStart_toStartOf="@id/iv_btn_add_new_group"
             app:layout_constraintBottom_toBottomOf="@id/iv_btn_add_new_group"
+            app:layout_constraintStart_toStartOf="@id/iv_btn_add_new_group"
             app:layout_constraintTop_toBottomOf="@id/tv_no_invitation_code" />
 
         <ImageView
@@ -116,9 +116,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="14dp"
             android:src="@drawable/ic_right_gray_24"
+            app:layout_constraintBottom_toBottomOf="@id/iv_btn_add_new_group"
             app:layout_constraintEnd_toEndOf="@id/iv_btn_add_new_group"
-            app:layout_constraintTop_toTopOf="@id/iv_btn_add_new_group"
-            app:layout_constraintBottom_toBottomOf="@id/iv_btn_add_new_group"/>
+            app:layout_constraintTop_toTopOf="@id/iv_btn_add_new_group" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
