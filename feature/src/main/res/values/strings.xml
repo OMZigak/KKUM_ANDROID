@@ -46,4 +46,20 @@
     <string name="tv_invite_later">나중에 초대하기</string>
     <string name="tv_copy">복사하기</string>
 
+    <!--    내 모임-->
+    <string name="my_group_create_data">모임 생성일</string>
+    <string name="my_group_divide">|</string>
+    <string name="my_group_meet_up">이 모임의 꾸물이들은 </string>
+    <string name="my_group_meet"> 만났어요!</string>
+
+    <string name="my_group_participate_people">모임 참여 인원</string>
+    <string name="my_group_participate_number">명</string>
+    <string name="my_group_check_remain_meet_up">남은 약속을 확인해 보세요!</string>
+    <string name="my_group_extended_fab">  +  약속추가 </string>
+    <string name="my_group_meet_up_empty">아직 약속이 없네요!</string>
+    <string name="my_group_meet_up_empty_plus">약속을 추가</string>
+    <string name="my_group_meet_up_empty_do_plus">해보세요!</string>
+
+    <string name="my_group_remain_meet_up_due_date_d">D-</string>
+
 </resources>
