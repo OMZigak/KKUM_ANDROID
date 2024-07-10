@@ -1,17 +1,23 @@
 package com.teamkkumul.feature.home
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentHomeBinding
 import com.teamkkumul.feature.home.model.BtnState
+import com.teamkkumul.feature.mygroup.MyGroupMeetUpItemDecoration
 import com.teamkkumul.feature.utils.AnimateProgressBarCommon
 import com.teamkkumul.feature.utils.getCurrentTime
 import kotlinx.coroutines.delay
@@ -23,6 +29,9 @@ import kotlinx.coroutines.launch
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel by viewModels<HomeViewModel>()
 
+    private var _homeMeetUpAdapter: HomeMeetUpAdapter? = null
+    private val homeMeetUpAdapter get() = requireNotNull(_homeMeetUpAdapter)
+
     override fun initView() {
         initHomeBtnClick()
         initObserveBtnState()
@@ -32,6 +41,34 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         initReadyBtnClick()
         initMovingBtnClick()
         initArriveBtnClick()
+        initHomeMeetUpRecyclerView()
+        initObserveHomePromiseState()
+    }
+
+    private fun initObserveHomePromiseState() {
+        viewModel.homePromiseState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    showPromiseRecyclerView()
+//                    homeMeetUpAdapter.submitList(it.data)
+                }
+
+                is UiState.Empty -> showEmptyView()
+
+                is UiState.Failure -> toast(it.errorMessage)
+                is UiState.Loading -> Unit
+            }
+        }
+    }
+
+    private fun showPromiseRecyclerView() {
+        binding.rvMyGroupMeetUp.visibility = View.VISIBLE
+        binding.viewHomePromiseEmpty.visibility = View.GONE
+    }
+
+    private fun showEmptyView() {
+        binding.rvMyGroupMeetUp.visibility = View.GONE
+        binding.viewHomePromiseEmpty.visibility = View.VISIBLE
     }
 
     private fun animateProgressBar(progressBar: ProgressBar, progress: Int) {
@@ -113,6 +150,27 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             isEnabled = state.isEnabled
         }
         circle.setImageResource(state.circleImage)
+    }
+
+    private fun initHomeMeetUpRecyclerView() {
+        _homeMeetUpAdapter = HomeMeetUpAdapter(
+            onMeetUpDetailBtnClicked = {
+                findNavController().navigate(R.id.exampleComposeFragment) // 임시로 이동하는 페이지
+            },
+        ).apply {
+            submitList(viewModel.mockMembers)
+        }
+        binding.rvMyGroupMeetUp.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = homeMeetUpAdapter
+            addItemDecoration(MyGroupMeetUpItemDecoration(requireContext()))
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _homeMeetUpAdapter = null
     }
 
     companion object {
