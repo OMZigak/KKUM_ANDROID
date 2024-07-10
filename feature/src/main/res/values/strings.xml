@@ -7,6 +7,8 @@
 
     <!--    앱바-->
     <string name="my_group_title">내 모임</string>
+    <string name="my_group_detail_title">내 모임 상세 페이지</string>
+    <string name="meet_up_detail_title">내 모임 약속 상세 페이지</string>
     <string name="my_page_title">마이페이지</string>
     <!--    로그인-->
     <string name="login_kakao_btn_text">카카오로 계속하기</string>
