@@ -12,7 +12,7 @@
         android:background="@color/green1">
 
         <include
-            android:id="@+id/tb_set_profile"
+            android:id="@+id/tb_add_my_group"
             layout="@layout/view_toolbar"
             app:title="@{@string/add_my_group_title}" />
 
@@ -25,7 +25,7 @@
             android:src="@drawable/ic_add_my_group_complete_character"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tb_set_profile" />
+            app:layout_constraintTop_toBottomOf="@id/tb_add_my_group" />
 
         <TextView
             android:id="@+id/tv_add_my_group_complete"

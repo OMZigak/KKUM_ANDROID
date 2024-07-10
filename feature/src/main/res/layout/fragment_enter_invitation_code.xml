@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/tb_set_profile"
+            android:id="@+id/tb_add_my_group"
             layout="@layout/view_toolbar"
             app:title="@{@string/add_my_group_title}" />
 
@@ -25,10 +25,10 @@
             android:textAppearance="@style/TextAppearance.Kkumul.head_01"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tb_set_profile" />
+            app:layout_constraintTop_toBottomOf="@id/tb_add_my_group" />
 
         <FrameLayout
-            android:id="@+id/fl_set_name"
+            android:id="@+id/fl_enter_invitation_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="14dp"
@@ -38,7 +38,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_enter_invitation_code">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_set_name"
+                android:id="@+id/til_enter_invitation_code"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
