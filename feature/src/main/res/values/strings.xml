@@ -21,9 +21,10 @@
     <string name="set_name_error_message">"한글, 영문, 숫자만을 사용해 총 5자 이내로 입력해주세요."</string>
     <string name="next">다음</string>
     <string name="set_profile">프로필을 설정해 주세요</string>
-    <string name="tv_welcome">이름님 반가워요!</string>
     <string name="not_now">지금은 넘어가기</string>
     <string name="okay">확인</string>
+    <string name="tv_welcome">이승현님 반가워요!</string>
+    <string name="tv_welcome_description">친구들과 즐겁게 정시도착을 향해\n함께 노력해 봐요</string>
 
     <!-- 내 모임 추가하기 -->
     <string name="add_my_group_question">친구에게 받은\n모임 초대 코드가 있으신가요?</string>
@@ -45,6 +46,8 @@
     <string name="tv_invitation_code">WD56CQ</string>
     <string name="tv_invite_later">나중에 초대하기</string>
     <string name="tv_copy">복사하기</string>
+    <string name="tv_add_my_group_complete">모임이 생성되었어요!</string>
+    <string name="tv_add_my_group_complete_description">모임 내에서 약속과 인원을\n추가해보세요</string>
 
     <!--    내 모임-->
     <string name="my_group_create_data">모임 생성일</string>
