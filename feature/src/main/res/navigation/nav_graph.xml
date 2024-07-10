@@ -10,6 +10,9 @@
         android:name="com.teamkkumul.feature.home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_add_my_group"
+            app:destination="@id/fragment_add_my_group" />
     </fragment>
 
     <fragment
