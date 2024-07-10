@@ -411,6 +411,33 @@
                 app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
                 app:layout_constraintTop_toBottomOf="@id/cl_home_today_info_list" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_my_group_meet_up"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="46dp"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_promise_next"
+                tools:listitem="@layout/item_my_group_remain_meet_up" />
+
+            <include
+                android:id="@+id/view_home_promise_empty"
+                layout="@layout/view_my_group_meet_up_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="46dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_promise_next" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
