@@ -58,7 +58,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 is UiState.Failure -> toast(it.errorMessage)
                 is UiState.Loading -> Unit
             }
-        }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun showPromiseRecyclerView() {
@@ -158,7 +158,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 findNavController().navigate(R.id.exampleComposeFragment) // 임시로 이동하는 페이지
             },
         ).apply {
-            submitList(viewModel.mockMembers)
+//            submitList(viewModel.mockMembers)
         }
         binding.rvMyGroupMeetUp.apply {
             layoutManager =
