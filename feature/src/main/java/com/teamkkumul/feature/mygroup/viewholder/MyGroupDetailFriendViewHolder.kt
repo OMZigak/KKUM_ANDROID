@@ -5,7 +5,7 @@ import coil.load
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendBinding
 import com.teamkkumul.model.MyGroupSealedItem
 
-class MyGroupFriendViewHolder(
+class MyGroupDetailFriendViewHolder(
     private val binding: ItemMyGroupFriendBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
     fun onBind(data: MyGroupSealedItem.Member) {

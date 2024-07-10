@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendPlusBinding
 import com.teamkkumul.model.MyGroupSealedItem
 
-class MyGroupFriendPlusViewHolder(
+class MyGroupDetailFriendPlusViewHolder(
     private val binding: ItemMyGroupFriendPlusBinding,
     private val onPlusBtnClicked: () -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
