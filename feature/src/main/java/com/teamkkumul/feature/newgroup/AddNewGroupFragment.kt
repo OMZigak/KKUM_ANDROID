@@ -18,9 +18,9 @@ class AddNewGroupFragment : BindingFragment<FragmentAddNewGroupBinding>(R.layout
 
     override fun initView() {
         setName()
-        binding.btnNext.setOnClickListener {
+        binding.btnMakeNewGroup.setOnClickListener {
             groupNameViewModel.getGroupName(binding.etSetGroupName.text.toString())
-            findNavController().navigate(R.id.action_fragment_set_name_to_fragment_set_profile)
+            showInvitationDialog()
         }
     }
 
@@ -68,7 +68,12 @@ class AddNewGroupFragment : BindingFragment<FragmentAddNewGroupBinding>(R.layout
     }
 
     private fun updateButtonState(isValid: Boolean) {
-        binding.btnNext.isEnabled = isValid
+        binding.btnMakeNewGroup.isEnabled = isValid
+    }
+
+    private fun showInvitationDialog() {
+        val dialog = DialogInvitationCodeFragment()
+        dialog.show(parentFragmentManager, "DialogInvitationCodeFragment")
     }
 
     companion object {
