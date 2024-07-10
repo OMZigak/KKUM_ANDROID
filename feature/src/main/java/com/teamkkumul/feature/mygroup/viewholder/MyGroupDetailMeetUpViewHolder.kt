@@ -7,7 +7,7 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ItemMyGroupRemainMeetUpBinding
 import com.teamkkumul.model.MyGroupMeetUpModel
 
-class MyGroupMeetUpViewHolder(
+class MyGroupDetailMeetUpViewHolder(
     private val binding: ItemMyGroupRemainMeetUpBinding,
     private val onMeetUpDetailBtnClicked: () -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {

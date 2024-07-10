@@ -27,7 +27,27 @@
         android:id="@+id/fragment_my_group"
         android:name="com.teamkkumul.feature.mygroup.MyGroupFragment"
         android:label="@string/my_group_title"
-        tools:layout="@layout/fragment_my_group" />
+        tools:layout="@layout/fragment_my_group">
+        <action
+            android:id="@+id/action_myGroupFragment_to_myGroupDetailFragment"
+            app:destination="@id/fragment_my_group_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_my_group_detail"
+        android:name="com.teamkkumul.feature.mygroup.MyGroupDetailFragment"
+        android:label="My Group Detail"
+        tools:layout="@layout/fragment_my_group_detail">
+        <action
+            android:id="@+id/action_myGroupDetailFragment_to_meetUpDetailFragment"
+            app:destination="@id/fragment_meet_up_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_meet_up_detail"
+        android:name="com.teamkkumul.feature.meetup.MeetUpDetailFragment"
+        android:label="My Group Detail"
+        tools:layout="@layout/fragment_meet_up_detail" />
 
     <fragment
         android:id="@+id/fragment_my_page"
