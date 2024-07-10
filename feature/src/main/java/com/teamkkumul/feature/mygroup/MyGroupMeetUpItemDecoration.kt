@@ -20,13 +20,17 @@ class MyGroupMeetUpItemDecoration(private val context: Context) : RecyclerView.I
         when (position) {
             0 -> {
                 outRect.left = context.pxToDp(16)
+                outRect.right = context.pxToDp(12)
             }
+
             itemCount - 1 -> {
                 outRect.left = context.pxToDp(12)
                 outRect.right = context.pxToDp(12)
             }
+
             else -> {
                 outRect.left = context.pxToDp(12)
+                outRect.right = context.pxToDp(12)
             }
         }
     }

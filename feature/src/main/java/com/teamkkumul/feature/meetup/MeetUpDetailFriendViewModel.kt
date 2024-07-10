@@ -11,12 +11,37 @@ class MeetUpDetailFriendViewModel : ViewModel() {
 
     init {
         val mockMembers = listOf(
-            MeetUpSealedItem.Participant(id = 2, name ="Eric", profileImg = "https://example.com/alice.jpg" ),
-            MeetUpSealedItem.Participant(id = 3, name ="Bob", profileImg = "https://example.com/alice.jpg" ),
-            MeetUpSealedItem.Participant(id = 2, name ="Alice", profileImg = "https://example.com/alice.jpg" ),
-            MeetUpSealedItem.Participant(id = 2, name ="Eric", profileImg = "https://example.com/alice.jpg" ),
-            MeetUpSealedItem.Participant(id = 3, name ="Bob", profileImg = "https://example.com/alice.jpg" ),
-            MeetUpSealedItem.Participant(id = 2, name ="Alice", profileImg = "https://example.com/alice.jpg" ),
+            MeetUpSealedItem.Participant(
+                id = 2,
+                name = "Eric",
+                profileImg = "https://example.com/alice.jpg",
+            ),
+            MeetUpSealedItem.Participant(
+                id = 3,
+                name = "Bob",
+                profileImg = "https://example.com/alice.jpg",
+            ),
+            MeetUpSealedItem.Participant(
+                id = 2,
+                name = "Alice",
+                profileImg = "https://example.com/alice.jpg",
+            ),
+            MeetUpSealedItem.Participant(
+                id = 2,
+                name = "Eric",
+                profileImg = "https://example.com/alice.jpg",
+            ),
+            MeetUpSealedItem.Participant(
+                id = 3,
+                name = "Bob",
+                profileImg = "https://example.com/alice.jpg",
+            ),
+            MeetUpSealedItem.Participant(
+                id = 2,
+                name = "Alice",
+                profileImg = "https://example.com/alice.jpg",
+            ),
         )
+        _members.value = mockMembers
     }
 }
