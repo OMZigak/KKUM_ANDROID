@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="12dp">
+
+        >
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_meet_up_detail_friend_profile_image"
@@ -31,11 +32,11 @@
             android:layout_margin="8dp"
             android:layout_marginTop="8dp"
             android:paddingBottom="3dp"
-            tools:text="혜진 티엘"
             android:textColor="@color/gray6"
             app:layout_constraintEnd_toEndOf="@id/iv_meet_up_detail_friend_profile_image"
             app:layout_constraintStart_toStartOf="@id/iv_meet_up_detail_friend_profile_image"
-            app:layout_constraintTop_toBottomOf="@id/iv_meet_up_detail_friend_profile_image" />
+            app:layout_constraintTop_toBottomOf="@id/iv_meet_up_detail_friend_profile_image"
+            tools:text="혜진 티엘" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
