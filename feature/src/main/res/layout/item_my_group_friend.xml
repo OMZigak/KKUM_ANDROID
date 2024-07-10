@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="12dp">
+
+        >
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_my_group_friend_profile_image"
