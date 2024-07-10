@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.core.ui.view.ItemDiffCallback
-import com.teamkkumul.feature.databinding.ItemMeetUpDetailFriendBinding
-import com.teamkkumul.feature.databinding.ItemMeetUpDetailFriendPlusBinding
+import com.teamkkumul.feature.databinding.ItemMyGroupFriendBinding
+import com.teamkkumul.feature.databinding.ItemMyGroupFriendPlusBinding
 import com.teamkkumul.feature.meetup.viewholder.MeetUpDetailFriendPlusViewHolder
 import com.teamkkumul.feature.meetup.viewholder.MeetUpDetailFriendViewHolder
 import com.teamkkumul.model.MeetUpSealedItem
@@ -32,7 +32,7 @@ class MeetUpDetailListAdapter() :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_MEMBER -> {
-                val binding = ItemMeetUpDetailFriendBinding.inflate(
+                val binding = ItemMyGroupFriendBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false,
@@ -41,7 +41,7 @@ class MeetUpDetailListAdapter() :
             }
 
             VIEW_TYPE_PLUS_ICON -> {
-                val binding = ItemMeetUpDetailFriendPlusBinding.inflate(
+                val binding = ItemMyGroupFriendPlusBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false,
