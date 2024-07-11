@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetup
+package com.teamkkumul.feature.home.meetupdetail.meetupinfo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

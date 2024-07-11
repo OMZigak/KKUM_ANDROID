@@ -1,11 +1,10 @@
-package com.teamkkumul.feature.meetup
+package com.teamkkumul.feature.home.meetupdetail.meetupinfo
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
-import com.teamkkumul.feature.mygroup.MeetUpDetailListAdapter
 import com.teamkkumul.feature.mygroup.MyGroupMeetUpItemDecoration
 import com.teamkkumul.model.MeetUpSealedItem
 

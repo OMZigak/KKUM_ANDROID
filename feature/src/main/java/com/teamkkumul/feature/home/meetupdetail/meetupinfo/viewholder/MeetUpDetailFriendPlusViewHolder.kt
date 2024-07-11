@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetup.viewholder
+package com.teamkkumul.feature.home.meetupdetail.meetupinfo.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendPlusBinding
