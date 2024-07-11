@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.mygroup
+package com.teamkkumul.feature.meetup.meetupdetail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,26 +7,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.core.ui.view.ItemDiffCallback
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendBinding
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendPlusBinding
-import com.teamkkumul.feature.mygroup.viewholder.MyGroupDetailFriendPlusViewHolder
-import com.teamkkumul.feature.mygroup.viewholder.MyGroupDetailFriendViewHolder
-import com.teamkkumul.model.MyGroupSealedItem
+import com.teamkkumul.feature.meetup.meetupdetail.viewholder.MeetUpDetailFriendPlusViewHolder
+import com.teamkkumul.feature.meetup.meetupdetail.viewholder.MeetUpDetailFriendViewHolder
+import com.teamkkumul.model.MeetUpSealedItem
 
-class MyGroupDetailListAdapter(
-    private val onPlusBtnClicked: () -> Unit,
-) :
-    ListAdapter<MyGroupSealedItem, RecyclerView.ViewHolder>(DiffUtil) {
+class MeetUpDetailListAdapter() :
+    ListAdapter<MeetUpSealedItem, RecyclerView.ViewHolder>(DiffUtil) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MyGroupDetailFriendViewHolder -> holder.onBind(getItem(position) as MyGroupSealedItem.Member)
-            is MyGroupDetailFriendPlusViewHolder -> holder.onBind(getItem(position) as MyGroupSealedItem.MyGroupPlus)
+            is MeetUpDetailFriendViewHolder -> holder.onBind(getItem(position) as MeetUpSealedItem.Participant)
+            is MeetUpDetailFriendPlusViewHolder -> holder.onBind(getItem(position) as MeetUpSealedItem.MyGroupPlus)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (currentList[position]) {
-            is MyGroupSealedItem.Member -> VIEW_TYPE_MEMBER
-            is MyGroupSealedItem.MyGroupPlus -> VIEW_TYPE_PLUS_ICON
+            is MeetUpSealedItem.Participant -> VIEW_TYPE_MEMBER
+            is MeetUpSealedItem.MyGroupPlus -> VIEW_TYPE_PLUS_ICON
             else -> throw IllegalArgumentException()
         }
     }
@@ -39,7 +37,7 @@ class MyGroupDetailListAdapter(
                     parent,
                     false,
                 )
-                MyGroupDetailFriendViewHolder(binding)
+                MeetUpDetailFriendViewHolder(binding)
             }
 
             VIEW_TYPE_PLUS_ICON -> {
@@ -48,7 +46,7 @@ class MyGroupDetailListAdapter(
                     parent,
                     false,
                 )
-                MyGroupDetailFriendPlusViewHolder(binding, onPlusBtnClicked)
+                MeetUpDetailFriendPlusViewHolder(binding)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -56,7 +54,7 @@ class MyGroupDetailListAdapter(
     }
 
     companion object {
-        private val DiffUtil = ItemDiffCallback<MyGroupSealedItem>(
+        private val DiffUtil = ItemDiffCallback<MeetUpSealedItem>(
             onItemsTheSame = { old, new -> old.javaClass == new.javaClass },
             onContentsTheSame = { old, new -> old == new },
         )

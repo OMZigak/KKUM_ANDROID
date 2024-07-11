@@ -11,8 +11,11 @@
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_fragment_home_to_fragment_add_my_group"
-            app:destination="@id/fragment_add_my_group" />
+            android:id="@+id/action_fragment_home_to_exampleComposeFragment"
+            app:destination="@id/exampleComposeFragment" />
+        <action
+            android:id="@+id/action_fragment_home_to_meetUpContainerFragment"
+            app:destination="@id/fragment_meet_up_container" />
     </fragment>
 
     <fragment
@@ -27,7 +30,7 @@
 
     <fragment
         android:id="@+id/fragment_my_group_detail"
-        android:name="com.teamkkumul.feature.mygroup.MyGroupDetailFragment"
+        android:name="com.teamkkumul.feature.mygroup.mygroupdetail.MyGroupDetailFragment"
         android:label="My Group Detail"
         tools:layout="@layout/fragment_my_group_detail">
         <action
@@ -37,7 +40,7 @@
 
     <fragment
         android:id="@+id/fragment_meet_up_detail"
-        android:name="com.teamkkumul.feature.meetup.MeetUpDetailFragment"
+        android:name="com.teamkkumul.feature.meetup.meetupdetail.MeetUpDetailFragment"
         android:label="My Group Detail"
         tools:layout="@layout/fragment_meet_up_detail" />
 
@@ -82,6 +85,14 @@
         android:id="@+id/fragment_dialog_invitation_code"
         android:name="com.teamkkumul.feature.newgroup.addnewgroup.DialogInvitationCodeFragment"
         tools:layout="@layout/fragment_dialog_invitation_code" />
+    <fragment
+        android:id="@+id/fragment_welcome"
+        android:name="com.teamkkumul.feature.signup.WelcomeFragment"
+        android:label="WelcomeFragment" />
+    <fragment
+        android:id="@+id/fragment_meet_up_container"
+        android:name="com.teamkkumul.feature.meetup.MeetUpContainerFragment"
+        android:label="MeetUpContainerFragment" />
     <fragment
         android:id="@+id/fragment_add_my_group_complete"
         android:name="com.teamkkumul.feature.newgroup.addmygroup.AddMyGroupCompleteFragment"

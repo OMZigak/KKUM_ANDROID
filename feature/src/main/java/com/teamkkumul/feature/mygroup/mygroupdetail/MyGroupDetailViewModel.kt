@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.mygroup
+package com.teamkkumul.feature.mygroup.mygroupdetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MyGroupMeetUpViewModel @Inject constructor() : ViewModel() {
+class MyGroupDetailViewModel @Inject constructor() : ViewModel() {
     private val _promise: MutableLiveData<UiState<List<MyGroupMeetUpModel.Promise>>> =
         MutableLiveData(UiState.Loading)
     val promise: LiveData<UiState<List<MyGroupMeetUpModel.Promise>>> get() = _promise

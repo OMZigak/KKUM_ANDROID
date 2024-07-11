@@ -10,11 +10,11 @@
 
     <TextView
         android:id="@+id/tv_my_group_meet_up_empty"
-        style="@style/TextAppearance.Kkumul.body_01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/my_group_meet_up_empty"
+        android:textAppearance="@style/TextAppearance.Kkumul.body_05"
         android:textColor="@color/gray6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,12 +22,12 @@
 
     <TextView
         android:id="@+id/tv_my_group_meet_up_plus"
-        style="@style/TextAppearance.Kkumul.body_01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:gravity="center_horizontal"
         android:text="@string/my_group_meet_up_empty_plus"
+        android:textAppearance="@style/TextAppearance.Kkumul.body_05"
         android:textColor="@color/main_color"
         app:layout_constraintEnd_toStartOf="@id/tv_my_group_meet_up_empty_do_plus"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -36,10 +36,10 @@
 
     <TextView
         android:id="@+id/tv_my_group_meet_up_empty_do_plus"
-        style="@style/TextAppearance.Kkumul.body_01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/my_group_meet_up_empty_do_plus"
+        android:textAppearance="@style/TextAppearance.Kkumul.body_05"
         android:textColor="@color/gray6"
         app:layout_constraintBottom_toBottomOf="@id/tv_my_group_meet_up_plus"
         app:layout_constraintEnd_toEndOf="parent"

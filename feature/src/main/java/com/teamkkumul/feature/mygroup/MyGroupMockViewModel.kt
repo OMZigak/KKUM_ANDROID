@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MyGroupFriendViewModel @Inject constructor() : ViewModel() {
+class MyGroupMockViewModel @Inject constructor() : ViewModel() {
 
     private val _members = MutableLiveData<List<MyGroupSealedItem.Member>>()
     val members: LiveData<List<MyGroupSealedItem.Member>> get() = _members
