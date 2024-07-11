@@ -16,9 +16,9 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentHomeBinding
 import com.teamkkumul.feature.home.model.BtnState
-import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.getCurrentTime
+import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
