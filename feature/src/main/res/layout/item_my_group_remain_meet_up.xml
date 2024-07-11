@@ -37,13 +37,30 @@
             tools:text="DAY" />
 
         <TextView
+            android:id="@+id/tv_meet_up_group_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_rect_200"
+            android:backgroundTint="@color/green2"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="6dp"
+            tools:text="모임 이름"
+            android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
+            android:textColor="@color/green3"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/tv_my_group_remain_meet_up_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_group_remain_meet_up_due_date_day" />
+
+        <TextView
             android:id="@+id/tv_my_group_remain_meet_up_name"
             style="@style/TextAppearance.Kkumul.body_03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_my_group_remain_meet_up_due_date_d"
+            app:layout_constraintTop_toBottomOf="@id/tv_meet_up_group_text"
             tools:text="약속명" />
 
         <ImageView
