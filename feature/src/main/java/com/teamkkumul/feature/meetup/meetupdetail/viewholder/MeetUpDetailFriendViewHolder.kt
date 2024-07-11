@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.home.meetupdetail.meetupinfo.viewholder
+package com.teamkkumul.feature.meetup.meetupdetail.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load

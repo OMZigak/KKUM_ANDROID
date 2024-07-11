@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.home.meetupdetail.meetupinfo
+package com.teamkkumul.feature.meetup.meetupdetail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.core.ui.view.ItemDiffCallback
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendBinding
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendPlusBinding
-import com.teamkkumul.feature.home.meetupdetail.meetupinfo.viewholder.MeetUpDetailFriendPlusViewHolder
-import com.teamkkumul.feature.home.meetupdetail.meetupinfo.viewholder.MeetUpDetailFriendViewHolder
+import com.teamkkumul.feature.meetup.meetupdetail.viewholder.MeetUpDetailFriendPlusViewHolder
+import com.teamkkumul.feature.meetup.meetupdetail.viewholder.MeetUpDetailFriendViewHolder
 import com.teamkkumul.model.MeetUpSealedItem
 
 class MeetUpDetailListAdapter() :

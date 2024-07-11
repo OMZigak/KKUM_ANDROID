@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.home.meetupdetail.lateperson
+package com.teamkkumul.feature.meetup.lateperson
 
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R

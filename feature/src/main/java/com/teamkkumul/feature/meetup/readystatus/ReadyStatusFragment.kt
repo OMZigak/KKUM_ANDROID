@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.home.meetupdetail.readystatus
+package com.teamkkumul.feature.meetup.readystatus
 
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R

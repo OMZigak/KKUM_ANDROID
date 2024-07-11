@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.home.meetupdetail.meetupinfo
+package com.teamkkumul.feature.meetup.meetupdetail
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager

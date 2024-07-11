@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.home.meetupdetail
+package com.teamkkumul.feature.meetup
 
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
