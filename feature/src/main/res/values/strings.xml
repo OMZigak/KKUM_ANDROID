@@ -7,6 +7,8 @@
 
     <!--    앱바-->
     <string name="my_group_title">내 모임</string>
+    <string name="my_group_detail_title">내 모임 상세 페이지</string>
+    <string name="meet_up_detail_title">내 모임 약속 상세 페이지</string>
     <string name="my_page_title">마이페이지</string>
     <string name="set_profile_title">프로필을 설정</string>
     <!--    로그인-->
@@ -28,7 +30,6 @@
     <string name="my_group_divide">|</string>
     <string name="my_group_meet_up">이 모임의 꾸물이들은 </string>
     <string name="my_group_meet"> 만났어요!</string>
-
     <string name="my_group_participate_people">모임 참여 인원</string>
     <string name="my_group_participate_number">명</string>
     <string name="my_group_check_remain_meet_up">남은 약속을 확인해 보세요!</string>
@@ -36,7 +37,6 @@
     <string name="my_group_meet_up_empty">아직 약속이 없네요!</string>
     <string name="my_group_meet_up_empty_plus">약속을 추가</string>
     <string name="my_group_meet_up_empty_do_plus">해보세요!</string>
-
     <string name="my_group_remain_meet_up_due_date_d">D-</string>
 
     <!--    홈 화면-->
@@ -47,5 +47,15 @@
     <string name="home_btn_arrive_text">도착 완료</string>
     <string name="home_btn_help_text">이동을 시작시 눌러주세요</string>
     <string name="home_upcoming_text">다가올 나의 약속은</string>
+
+    <!--    약속 상세 화면-->
+    <string name="meet_up_participate_people">약속 참여 인원</string>
+    <string name="meet_up_detail_information">약속 상세 정보</string>
+    <string name="meet_up_detail_information_location">위치</string>
+    <string name="meet_up_detail_information_time">약속시간</string>
+
+    <string name="meet_up_detail_information_ready_level">준비레벨</string>
+    <string name="meet_up_detail_information_penalty">벌칙</string>
+
 
 </resources>
