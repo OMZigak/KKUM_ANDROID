@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.teamkkumul.model.MyGroupSealedItem
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MyGroupFriendViewModel : ViewModel() {
+@HiltViewModel
+class MyGroupFriendViewModel @Inject constructor() : ViewModel() {
 
     private val _members = MutableLiveData<List<MyGroupSealedItem.Member>>()
     val members: LiveData<List<MyGroupSealedItem.Member>> get() = _members
