@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.mygroup.mygroupdetail.adpater
+package com.teamkkumul.feature.mygroup.mygroupdetail.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

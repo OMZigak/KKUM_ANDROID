@@ -9,8 +9,8 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.MyGroupMockViewModel
-import com.teamkkumul.feature.mygroup.mygroupdetail.adpater.MyGroupDetailFriendAdapter
-import com.teamkkumul.feature.mygroup.mygroupdetail.adpater.MyGroupDetailMeetUpAdapter
+import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
+import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.model.MyGroupSealedItem
 import dagger.hilt.android.AndroidEntryPoint
