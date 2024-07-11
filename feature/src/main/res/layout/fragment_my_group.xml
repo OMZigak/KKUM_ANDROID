@@ -32,48 +32,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="27dp"
-                tools:text="꾸물리안"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_name"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="꾸물리안" />
 
             <TextView
-                style="@style/TextAppearance.Kkumul.head_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="27dp"
                 android:text="@string/my_group_participate_group"
+                android:textAppearance="@style/TextAppearance.Kkumul.head_01"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_name"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_my_group_total"
-                style="@style/TextAppearance.Kkumul.head_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:paddingEnd="4dp"
                 android:text="@string/my_group_total"
+                android:textAppearance="@style/TextAppearance.Kkumul.head_01"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_name" />
 
             <TextView
                 android:id="@+id/tv_my_group_total_count"
-                style="@style/TextAppearance.Kkumul.head_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="3"
+                tools:text="3"
+                android:textAppearance="@style/TextAppearance.Kkumul.head_01"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_total"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_name" />
 
             <TextView
-                style="@style/TextAppearance.Kkumul.head_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/my_group_total_number"
+                android:textAppearance="@style/TextAppearance.Kkumul.head_01"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_total_count"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_name" />
 
@@ -102,11 +102,11 @@
 
                 <TextView
                     android:id="@+id/tv_my_group_plus"
-                    style="@style/TextAppearance.Kkumul.body_05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/my_group_plus"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_05"
                     android:textColor="@color/green3"
                     app:layout_constraintBottom_toBottomOf="@id/iv_my_group_group_plus"
                     app:layout_constraintEnd_toEndOf="parent"
