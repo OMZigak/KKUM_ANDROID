@@ -15,3 +15,9 @@ class AnimateProgressBarCommon(
         progressBar.progress = value.toInt()
     }
 }
+
+fun animateProgressBar(progressBar: ProgressBar, progress: Int) {
+    val anim = AnimateProgressBarCommon(progressBar, 0f, progress.toFloat())
+    anim.duration = 500
+    progressBar.startAnimation(anim)
+}

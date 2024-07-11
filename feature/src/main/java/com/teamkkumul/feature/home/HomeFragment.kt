@@ -2,7 +2,6 @@ package com.teamkkumul.feature.home
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -18,7 +17,7 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentHomeBinding
 import com.teamkkumul.feature.home.model.BtnState
 import com.teamkkumul.feature.mygroup.MyGroupMeetUpItemDecoration
-import com.teamkkumul.feature.utils.AnimateProgressBarCommon
+import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.getCurrentTime
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
@@ -69,12 +68,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private fun showEmptyView() {
         binding.rvMyGroupMeetUp.visibility = View.GONE
         binding.viewHomePromiseEmpty.visibility = View.VISIBLE
-    }
-
-    private fun animateProgressBar(progressBar: ProgressBar, progress: Int) {
-        val anim = AnimateProgressBarCommon(progressBar, 0f, progress.toFloat())
-        anim.duration = 500
-        progressBar.startAnimation(anim)
     }
 
     private fun initReadyBtnClick() = with(binding) {
