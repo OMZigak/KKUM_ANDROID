@@ -41,6 +41,9 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
     }
 
     private fun initGroupRecyclerView() {
+        binding.clMyGroupPlus.setOnClickListener {
+            findNavController().navigate(R.id.action_myGroupFragment_to_addMyGroupFragment)
+        }
         _memberAdapter = MyGroupAdapter(
             myGroupListBtnClicked = {
                 findNavController().navigate(R.id.exampleComposeFragment)

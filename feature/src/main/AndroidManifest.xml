@@ -20,6 +20,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".signup.SetNameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signup.SetProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signup.WelcomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
