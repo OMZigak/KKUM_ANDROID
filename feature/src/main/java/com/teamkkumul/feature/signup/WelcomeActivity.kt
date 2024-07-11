@@ -16,11 +16,7 @@ class WelcomeActivity : BindingActivity<ActivityWelcomeBinding>(R.layout.activit
         }
 
         binding.btnOkay.setOnClickListener {
-            navigateToMain()
+            navigateTo<MainActivity>(this)
         }
-    }
-
-    private fun navigateToMain() {
-        navigateTo<MainActivity>(this)
     }
 }
