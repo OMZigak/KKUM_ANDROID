@@ -70,6 +70,7 @@ class MyGroupDetailFragment :
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = memberAdapter
+            addItemDecoration(MyGroupMeetUpItemDecoration(requireContext()))
         }
     }
 
@@ -90,5 +91,6 @@ class MyGroupDetailFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         _memberAdapter = null
+        _meetUpAdapter = null
     }
 }

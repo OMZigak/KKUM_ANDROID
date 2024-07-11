@@ -31,34 +31,34 @@
 
             <TextView
                 android:id="@+id/tv_my_group_create"
-                style="@style/TextAppearance.Kkumul.label_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="25dp"
                 android:text="@string/my_group_create_data"
+                android:textAppearance="@style/TextAppearance.Kkumul.label_01"
                 android:textColor="@color/gray4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_my_group_devide"
-                style="@style/TextAppearance.Kkumul.label_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:paddingTop="25dp"
                 android:text="@string/my_group_divide"
+                android:textAppearance="@style/TextAppearance.Kkumul.label_01"
                 android:textColor="@color/gray4"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_create"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_my_group_create_date"
-                style="@style/TextAppearance.Kkumul.label_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:paddingTop="25dp"
+                android:textAppearance="@style/TextAppearance.Kkumul.label_01"
                 android:textColor="@color/gray4"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_devide"
                 app:layout_constraintTop_toTopOf="parent"
@@ -66,22 +66,22 @@
 
             <TextView
                 android:id="@+id/tv_my_group_meet_up"
-                style="@style/TextAppearance.Kkumul.body_03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:paddingEnd="4dp"
                 android:text="@string/my_group_meet_up"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_create" />
 
             <TextView
                 android:id="@+id/tv_my_group_meet_up_count"
-                style="@style/TextAppearance.Kkumul.body_03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:paddingEnd="4dp"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 android:textColor="@color/main_color"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_meet_up"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_create"
@@ -89,12 +89,12 @@
 
             <TextView
                 android:id="@+id/tv_my_group_meet"
-                style="@style/TextAppearance.Kkumul.body_03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:paddingBottom="25dp"
                 android:text="@string/my_group_meet"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_meet_up_count"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_group_create" />
 
@@ -112,21 +112,21 @@
 
         <TextView
             android:id="@+id/tv_my_group_participate_people"
-            style="@style/TextAppearance.Kkumul.body_01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"
             android:text="@string/my_group_participate_people"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_01"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_my_group_detail" />
 
         <TextView
             android:id="@+id/tv_my_group_participate_people_count"
-            style="@style/TextAppearance.Kkumul.body_01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_01"
             android:textColor="@color/main_color"
             app:layout_constraintStart_toEndOf="@id/tv_my_group_participate_people"
             app:layout_constraintTop_toBottomOf="@id/cl_my_group_detail"
@@ -134,11 +134,11 @@
 
         <TextView
             android:id="@+id/tv_my_group_participate"
-            style="@style/TextAppearance.Kkumul.body_01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:text="@string/my_group_participate_number"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_01"
             android:textColor="@color/main_color"
             app:layout_constraintStart_toEndOf="@id/tv_my_group_participate_people_count"
             app:layout_constraintTop_toBottomOf="@id/cl_my_group_detail" />
@@ -156,8 +156,7 @@
             android:id="@+id/rv_my_group_friend_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
@@ -177,12 +176,12 @@
 
             <TextView
                 android:id="@+id/tv_check_remain_meet_up"
-                style="@style/TextAppearance.Kkumul.body_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="27dp"
                 android:text="@string/my_group_check_remain_meet_up"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_01"
                 android:textColor="@color/gray7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

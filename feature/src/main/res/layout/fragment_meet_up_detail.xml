@@ -13,21 +13,21 @@
 
         <TextView
             android:id="@+id/tv_meet_up_participate_people"
-            style="@style/TextAppearance.Kkumul.body_01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_marginTop="30dp"
             android:text="@string/meet_up_participate_people"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_01"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_meet_up_participate_people_count"
-            style="@style/TextAppearance.Kkumul.body_01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_01"
             android:textColor="@color/main_color"
             app:layout_constraintStart_toEndOf="@id/tv_meet_up_participate_people"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,11 +35,11 @@
 
         <TextView
             android:id="@+id/tv_meet_up_participate_people_number"
-            style="@style/TextAppearance.Kkumul.body_01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="@string/my_group_participate_number"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_01"
             android:textColor="@color/main_color"
             app:layout_constraintStart_toEndOf="@id/tv_meet_up_participate_people_count"
             app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +62,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_meet_up_participate_people_count"
-            tools:listitem="@layout/item_meet_up_detail_friend" />
+            tools:listitem="@layout/item_my_group_friend" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_meet_up_remain_meet_up"
@@ -77,12 +77,12 @@
 
             <TextView
                 android:id="@+id/tv_meet_up_detail_information"
-                style="@style/TextAppearance.Kkumul.body_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="27dp"
                 android:text="@string/meet_up_detail_information"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_01"
                 android:textColor="@color/gray7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -99,20 +99,20 @@
 
                 <TextView
                     android:id="@+id/tv_meet_up_detail_information_location"
-                    style="@style/TextAppearance.Kkumul.caption_01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/meet_up_detail_information_location"
+                    android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
                     android:textColor="@color/main_color"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_meet_up_detail_location"
-                    style="@style/TextAppearance.Kkumul.body_04"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
                     android:textColor="@color/gray7"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_location"
@@ -129,21 +129,21 @@
 
                 <TextView
                     android:id="@+id/tv_meet_up_detail_information_time"
-                    style="@style/TextAppearance.Kkumul.caption_01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="@string/meet_up_detail_information_time"
+                    android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
                     android:textColor="@color/main_color"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_location_to_time" />
 
                 <TextView
                     android:id="@+id/tv_meet_up_detail_time"
-                    style="@style/TextAppearance.Kkumul.body_04"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
                     android:textColor="@color/gray7"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_time"
@@ -160,21 +160,21 @@
 
                 <TextView
                     android:id="@+id/tv_meet_up_detail_information_ready_level"
-                    style="@style/TextAppearance.Kkumul.caption_01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="@string/meet_up_detail_information_ready_level"
+                    android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
                     android:textColor="@color/main_color"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_time_to_ready_level" />
 
                 <TextView
                     android:id="@+id/tv_meet_up_detail_ready_level"
-                    style="@style/TextAppearance.Kkumul.body_04"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
                     android:textColor="@color/gray7"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_ready_level"
@@ -191,22 +191,22 @@
 
                 <TextView
                     android:id="@+id/tv_meet_up_detail_information_penalty"
-                    style="@style/TextAppearance.Kkumul.caption_01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="@string/meet_up_detail_information_penalty"
+                    android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
                     android:textColor="@color/main_color"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_ready_level_to_penalty" />
 
                 <TextView
                     android:id="@+id/tv_meet_up_detail_penalty"
-                    style="@style/TextAppearance.Kkumul.body_04"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="15dp"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
                     android:textColor="@color/gray7"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_penalty"
