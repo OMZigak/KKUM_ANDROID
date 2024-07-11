@@ -24,6 +24,9 @@
         android:label="@string/my_group_title"
         tools:layout="@layout/fragment_my_group">
         <action
+            android:id="@+id/action_myGroupFragment_to_addMyGroupFragment"
+            app:destination="@id/fragment_add_my_group"/>
+        <action
             android:id="@+id/action_myGroupFragment_to_myGroupDetailFragment"
             app:destination="@id/fragment_my_group_detail" />
     </fragment>
