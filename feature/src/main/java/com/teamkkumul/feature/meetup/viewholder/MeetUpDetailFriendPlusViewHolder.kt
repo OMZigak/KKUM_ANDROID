@@ -1,11 +1,11 @@
 package com.teamkkumul.feature.meetup.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
-import com.teamkkumul.feature.databinding.ItemMeetUpDetailFriendPlusBinding
+import com.teamkkumul.feature.databinding.ItemMyGroupFriendPlusBinding
 import com.teamkkumul.model.MeetUpSealedItem
 
 class MeetUpDetailFriendPlusViewHolder(
-    private val binding: ItemMeetUpDetailFriendPlusBinding,
+    private val binding: ItemMyGroupFriendPlusBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
     }
