@@ -3,7 +3,6 @@ package com.teamkkumul.feature.signup
 import android.content.Intent
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
-import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.core.ui.util.context.colorOf
