@@ -48,17 +48,15 @@
     <fragment
         android:id="@+id/fragment_add_new_group"
         android:name="com.teamkkumul.feature.newgroup.addnewgroup.AddNewGroupFragment"
-        tools:layout="@layout/fragment_add_new_group" >
+        tools:layout="@layout/fragment_add_new_group">
         <action
             android:id="@+id/action_fragment_add_new_group_to_fragment_dialog_invitation_code"
-            app:destination="@id/fragment_dialog_invitation_code"
-            app:popUpTo="@id/fragment_add_new_group"
-            app:popUpToInclusive="true"/>
+            app:destination="@id/fragment_dialog_invitation_code" />
         <action
             android:id="@+id/action_fragment_add_new_group_to_fragment_add_my_group_complete"
             app:destination="@id/fragment_add_my_group_complete"
             app:popUpTo="@id/fragment_add_new_group"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <dialog
         android:id="@+id/fragment_dialog_invitation_code"
@@ -72,7 +70,7 @@
             android:id="@+id/action_fragment_add_my_group_complete_to_fragment_add_my_group"
             app:destination="@+id/fragment_add_my_group"
             app:popUpTo="@id/fragment_add_my_group_complete"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>
