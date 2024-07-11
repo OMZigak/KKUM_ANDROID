@@ -67,6 +67,12 @@
     <fragment
         android:id="@+id/fragment_add_my_group_complete"
         android:name="com.teamkkumul.feature.newgroup.addmygroup.AddMyGroupCompleteFragment"
-        android:label="AddMyGroupCompleteFragment" />
+        android:label="AddMyGroupCompleteFragment">
+        <action
+            android:id="@+id/action_fragment_add_my_group_complete_to_fragment_add_my_group"
+            app:destination="@+id/fragment_add_my_group"
+            app:popUpTo="@id/fragment_add_my_group_complete"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
 </navigation>
