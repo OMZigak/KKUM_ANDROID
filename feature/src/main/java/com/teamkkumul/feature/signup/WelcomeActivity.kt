@@ -10,8 +10,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class WelcomeActivity : BindingActivity<ActivityWelcomeBinding>(R.layout.activity_welcome) {
     override fun initView() {
-        val inputName = intent.getStringExtra("inputName") ?: ""
-        binding.tvWelcome.text = "${inputName}님 반가워요!"
+        intent.getStringExtra("inputName")?.let { inputName ->
+            binding.tvWelcome.text = "${inputName}님 반가워요!"
+        }
 
         binding.btnOkay.setOnClickListener {
             navigateToMain()
