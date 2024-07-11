@@ -38,19 +38,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/sel_tab_indicator"
-                android:text="약속 정보" />
+                android:text="@string/meet_up_container_tabbar_info" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/sel_tab_indicator"
-                android:text="준비 현황" />
+                android:text="@string/meet_up_container_tabbar_ready_status" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/sel_tab_indicator"
-                android:text="지각 꾸물이" />
+                android:text="@string/meet_up_container_tabbar_late_person" />
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager2.widget.ViewPager2
