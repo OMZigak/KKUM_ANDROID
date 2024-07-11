@@ -1,12 +1,11 @@
-package com.teamkkumul.feature.meetup
+package com.teamkkumul.feature.meetup.meetupdetail
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
-import com.teamkkumul.feature.mygroup.MeetUpDetailListAdapter
-import com.teamkkumul.feature.mygroup.MyGroupMeetUpItemDecoration
+import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.model.MeetUpSealedItem
 
 class MeetUpDetailFragment :
@@ -36,7 +35,7 @@ class MeetUpDetailFragment :
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = memberAdapter
-            addItemDecoration(MyGroupMeetUpItemDecoration(requireContext()))
+            addItemDecoration(MeetUpFriendItemDecoration(requireContext()))
         }
     }
 

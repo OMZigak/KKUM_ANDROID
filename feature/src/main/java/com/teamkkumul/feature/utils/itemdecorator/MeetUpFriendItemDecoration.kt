@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.mygroup
+package com.teamkkumul.feature.utils.itemdecorator
 
 import android.content.Context
 import android.graphics.Rect
@@ -6,7 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.core.ui.util.context.pxToDp
 
-class MyGroupMeetUpItemDecoration(private val context: Context) : RecyclerView.ItemDecoration() {
+class MeetUpFriendItemDecoration(private val context: Context) : RecyclerView.ItemDecoration() {
     override fun getItemOffsets(
         outRect: Rect,
         view: View,

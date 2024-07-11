@@ -47,6 +47,14 @@
     <string name="my_group_do_plus">모임을 추가해 보세요.</string>
     <string name="my_group_participate_in">모임을 추가해 보세요.</string>
 
+    <!--    약속 상세 화면-->
+    <string name="meet_up_participate_people">약속 참여 인원</string>
+    <string name="meet_up_detail_information">약속 상세 정보</string>
+    <string name="meet_up_detail_information_location">위치</string>
+    <string name="meet_up_detail_information_time">약속시간</string>
+    <string name="meet_up_detail_information_ready_level">준비레벨</string>
+    <string name="meet_up_detail_information_penalty">벌칙</string>
+
     <!--    홈 화면-->
     <string name="home_fence_text">아직 한번도 정시에 도착하지 못했어요!\n정시 도착으로 캐릭터를 성장시켜 보세요.</string>
     <string name="home_today_promise_text">오늘의 약속은?</string>
@@ -56,12 +64,9 @@
     <string name="home_btn_help_text">이동을 시작시 눌러주세요</string>
     <string name="home_upcoming_text">다가올 나의 약속은</string>
 
-    <!--    약속 상세 화면-->
-    <string name="meet_up_participate_people">약속 참여 인원</string>
-    <string name="meet_up_detail_information">약속 상세 정보</string>
-    <string name="meet_up_detail_information_location">위치</string>
-    <string name="meet_up_detail_information_time">약속시간</string>
-    <string name="meet_up_detail_information_ready_level">준비레벨</string>
-    <string name="meet_up_detail_information_penalty">벌칙</string>
+    <!--    약속 상세 화면 탭 바-->
+    <string name="meet_up_container_tabbar_info">약속 정보</string>
+    <string name="meet_up_container_tabbar_ready_status">준비 현황</string>
+    <string name="meet_up_container_tabbar_late_person">지각 꾸물이</string>
 
 </resources>

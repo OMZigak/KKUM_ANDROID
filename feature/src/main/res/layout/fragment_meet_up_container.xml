@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar_meet_up_container"
+            layout="@layout/view_toolbar"
+            app:title="@{@string/my_group_title}" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_meet_up_container"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/sel_tab_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_meet_up_container"
+            app:tabIndicator="@drawable/shape_tab_indicator_selected"
+            app:tabIndicatorColor="@color/gray8"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="fixed"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabSelectedTextAppearance="@style/TextAppearance.Kkumul.body_05"
+            app:tabSelectedTextColor="@color/gray8"
+            app:tabTextAppearance="@style/TextAppearance.Kkumul.body_05"
+            app:tabTextColor="@color/gray3">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/sel_tab_indicator"
+                android:text="@string/meet_up_container_tabbar_info" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/sel_tab_indicator"
+                android:text="@string/meet_up_container_tabbar_ready_status" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/sel_tab_indicator"
+                android:text="@string/meet_up_container_tabbar_late_person" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_meet_up_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_meet_up_container" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
