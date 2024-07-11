@@ -75,7 +75,7 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
 
     private fun navigateToSetProfile(inputName: String) {
         val intent = Intent(this, SetProfileActivity::class.java).apply {
-            putExtra("inputName", inputName)
+            putExtra(INPUT_NAME, inputName)
         }
         startActivity(intent)
     }
@@ -85,5 +85,6 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
         private val nameRegex = Regex(NAME_PATTERN)
         private const val SET_NAME_DEBOUNCE_DELAY = 300L
         private const val NAME_MAX_LENGTH = 5
+        const val INPUT_NAME = "inputName"
     }
 }

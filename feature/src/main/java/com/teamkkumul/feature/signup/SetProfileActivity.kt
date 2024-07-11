@@ -8,6 +8,7 @@ import coil.load
 import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
+import com.teamkkumul.feature.signup.SetNameActivity.Companion.INPUT_NAME
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,7 +51,7 @@ class SetProfileActivity : BindingActivity<ActivitySetProfileBinding>(R.layout.a
 
     private fun navigateToWelcome(inputName: String) {
         val intent = Intent(this, WelcomeActivity::class.java).apply {
-            putExtra("inputName", inputName)
+            putExtra(INPUT_NAME, inputName)
         }
         startActivity(intent)
     }
