@@ -49,7 +49,7 @@
                 android:textColor="@color/white0"
                 app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
                 app:layout_constraintTop_toBottomOf="@id/iv_home_kkumul_logo"
-                tools:text="꾸물리안 님," />
+                android:text="꾸물리안 님," />
 
             <TextView
                 android:id="@+id/tv_home_meet_up"
@@ -60,7 +60,7 @@
                 android:textColor="@color/white0"
                 app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
                 app:layout_constraintTop_toBottomOf="@id/tv_home_nickname"
-                tools:text="14번의 약속에서" />
+                android:text="14번의 약속에서" />
 
             <TextView
                 android:id="@+id/tv_home_late_count"
@@ -71,7 +71,7 @@
                 android:textColor="@color/white0"
                 app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
                 app:layout_constraintTop_toBottomOf="@id/tv_home_meet_up"
-                tools:text="10번의 꾸물거렸어요" />
+                android:text="10번의 꾸물거렸어요" />
 
             <TextView
                 android:id="@+id/tv_home_fence"
@@ -111,7 +111,7 @@
                 android:textColor="@color/gray6"
                 app:layout_constraintBottom_toTopOf="@id/cl_home_card_back_bottom"
                 app:layout_constraintEnd_toEndOf="@id/gl_home_end_14"
-                tools:text="Lv.0 새끼 꾸물이" />
+                android:text="Lv.0 새끼 꾸물이" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_home_card_back_bottom"
@@ -168,7 +168,7 @@
                     android:textColor="@color/green3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="모임 이름" />
+                    android:text="모임 이름" />
 
                 <TextView
                     android:id="@+id/tv_home_meeting_title"
@@ -178,7 +178,7 @@
                     android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                     app:layout_constraintStart_toStartOf="@id/tv_home_group_text"
                     app:layout_constraintTop_toBottomOf="@id/tv_home_group_text"
-                    tools:text="기말고사 모각작" />
+                    android:text="기말고사 모각작" />
 
                 <ImageView
                     android:id="@+id/iv_home_location"
@@ -198,7 +198,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/iv_home_location"
                     app:layout_constraintStart_toEndOf="@id/iv_home_location"
                     app:layout_constraintTop_toTopOf="@id/iv_home_location"
-                    tools:text="용산역" />
+                    android:text="용산역" />
 
                 <ImageView
                     android:id="@+id/iv_home_time"
@@ -219,7 +219,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/iv_home_location"
                     app:layout_constraintStart_toEndOf="@id/iv_home_time"
                     app:layout_constraintTop_toTopOf="@id/iv_home_location"
-                    tools:text="PM 2:00" />
+                    android:text="PM 2:00" />
 
                 <TextView
                     android:id="@+id/tv_home_ready_time"

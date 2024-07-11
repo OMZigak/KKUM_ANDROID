@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragment_my_group) {
     private val myGroupViewModel: MyGroupViewModel by viewModels()
-    private var _memberAdapter: MyGroupListAdapter? = null
+    private var _memberAdapter: MyGroupAdapter? = null
     private val memberAdapter get() = requireNotNull(_memberAdapter)
 
     override fun initView() {
@@ -41,7 +41,10 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
     }
 
     private fun initGroupRecyclerView() {
-        _memberAdapter = MyGroupListAdapter(
+        binding.clMyGroupPlus.setOnClickListener {
+            findNavController().navigate(R.id.action_myGroupFragment_to_addMyGroupFragment)
+        }
+        _memberAdapter = MyGroupAdapter(
             myGroupListBtnClicked = {
                 findNavController().navigate(R.id.exampleComposeFragment)
             },

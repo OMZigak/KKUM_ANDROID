@@ -32,9 +32,9 @@ import com.teamkkumul.core.designsystem.theme.KkumulTheme
 import com.teamkkumul.core.designsystem.theme.Yellow
 import com.teamkkumul.core.ui.util.context.toast
 import com.teamkkumul.core.ui.util.intent.navigateTo
-import com.teamkkumul.feature.MainActivity
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.auth.model.LoginSideEffect
+import com.teamkkumul.feature.signup.SetNameActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -53,7 +53,7 @@ fun LoginRoute(
         viewModel.loginSideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
             .onEach { sideEffect ->
                 when (sideEffect) {
-                    is LoginSideEffect.NavigateToMain -> navigateTo<MainActivity>(context)
+                    is LoginSideEffect.NavigateToMain -> navigateTo<SetNameActivity>(context)
                     is LoginSideEffect.ShowSnackBar -> context.toast(sideEffect.message)
                 }
             }.launchIn(lifecycleOwner.lifecycleScope)

@@ -45,7 +45,7 @@
             android:backgroundTint="@color/green2"
             android:paddingHorizontal="8dp"
             android:paddingVertical="6dp"
-            tools:text="모임 이름"
+            android:text="모임 이름"
             android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
             android:textColor="@color/green3"
             android:visibility="visible"

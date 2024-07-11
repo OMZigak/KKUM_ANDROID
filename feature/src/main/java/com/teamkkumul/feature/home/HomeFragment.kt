@@ -16,9 +16,9 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentHomeBinding
 import com.teamkkumul.feature.home.model.BtnState
-import com.teamkkumul.feature.mygroup.MyGroupMeetUpItemDecoration
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.getCurrentTime
+import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -34,6 +34,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun initView() {
         initHomeBtnClick()
         initObserveBtnState()
+        initMeetingNextBtnClick()
     }
 
     private fun initHomeBtnClick() {
@@ -151,13 +152,19 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 findNavController().navigate(R.id.exampleComposeFragment) // 임시로 이동하는 페이지
             },
         ).apply {
-//            submitList(viewModel.mockMembers)
+            submitList(viewModel.mockMembers)
         }
         binding.rvMyGroupMeetUp.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeMeetUpAdapter
-            addItemDecoration(MyGroupMeetUpItemDecoration(requireContext()))
+            addItemDecoration(MeetUpFriendItemDecoration(requireContext()))
+        }
+    }
+
+    private fun initMeetingNextBtnClick() {
+        binding.ivHomeMeetingNext.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_meetUpContainerFragment)
         }
     }
 
