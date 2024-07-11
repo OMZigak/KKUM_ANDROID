@@ -28,7 +28,7 @@ class SetProfileActivity : BindingActivity<ActivitySetProfileBinding>(R.layout.a
         }
 
     override fun initView() {
-        val inputName = intent.getStringExtra("inputName")
+        val inputName = intent.getStringExtra(INPUT_NAME)
         with(binding) {
             ivBtnSetProfile.setOnClickListener {
                 openGallery()
