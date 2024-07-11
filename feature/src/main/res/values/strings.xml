@@ -10,6 +10,7 @@
     <string name="my_group_detail_title">내 모임 상세 페이지</string>
     <string name="meet_up_detail_title">내 모임 약속 상세 페이지</string>
     <string name="my_page_title">마이페이지</string>
+    <string name="set_profile_title">프로필을 설정</string>
     <!--    로그인-->
     <string name="login_kakao_btn_text">카카오로 계속하기</string>
 
@@ -37,6 +38,15 @@
     <string name="my_group_meet_up_empty_plus">약속을 추가</string>
     <string name="my_group_meet_up_empty_do_plus">해보세요!</string>
     <string name="my_group_remain_meet_up_due_date_d">D-</string>
+
+    <!--    홈 화면-->
+    <string name="home_fence_text">아직 한번도 정시에 도착하지 못했어요!\n정시 도착으로 캐릭터를 성장시켜 보세요.</string>
+    <string name="home_today_promise_text">오늘의 약속은?</string>
+    <string name="home_btn_ready_text">준비 중</string>
+    <string name="home_btn_moving_text">이동 시작</string>
+    <string name="home_btn_arrive_text">도착 완료</string>
+    <string name="home_btn_help_text">이동을 시작시 눌러주세요</string>
+    <string name="home_upcoming_text">다가올 나의 약속은</string>
 
     <!--    약속 상세 화면-->
     <string name="meet_up_participate_people">약속 참여 인원</string>
