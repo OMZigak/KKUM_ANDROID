@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.mygroup
+package com.teamkkumul.feature.mygroup.mygroupdetail.adpater
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,14 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.core.ui.view.ItemDiffCallback
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendBinding
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendPlusBinding
-import com.teamkkumul.feature.mygroup.viewholder.MyGroupDetailFriendPlusViewHolder
-import com.teamkkumul.feature.mygroup.viewholder.MyGroupDetailFriendViewHolder
+import com.teamkkumul.feature.mygroup.mygroupdetail.viewholder.MyGroupDetailFriendPlusViewHolder
+import com.teamkkumul.feature.mygroup.mygroupdetail.viewholder.MyGroupDetailFriendViewHolder
 import com.teamkkumul.model.MyGroupSealedItem
 
-class MyGroupDetailListAdapter(
+class MyGroupDetailFriendAdapter(
     private val onPlusBtnClicked: () -> Unit,
-) :
-    ListAdapter<MyGroupSealedItem, RecyclerView.ViewHolder>(DiffUtil) {
+) : ListAdapter<MyGroupSealedItem, RecyclerView.ViewHolder>(DiffUtil) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

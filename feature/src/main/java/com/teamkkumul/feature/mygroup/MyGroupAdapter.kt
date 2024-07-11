@@ -8,7 +8,7 @@ import com.teamkkumul.feature.databinding.ItemMyGroupBinding
 import com.teamkkumul.feature.mygroup.viewholder.MyGroupViewHolder
 import com.teamkkumul.model.MyGroupModel
 
-class MyGroupListAdapter(
+class MyGroupAdapter(
     private val myGroupListBtnClicked: () -> Unit,
 ) : ListAdapter<MyGroupModel.Meeting, MyGroupViewHolder>(DiffUtil) {
     override fun onCreateViewHolder(

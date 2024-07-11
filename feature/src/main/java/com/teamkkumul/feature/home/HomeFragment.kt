@@ -16,7 +16,7 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentHomeBinding
 import com.teamkkumul.feature.home.model.BtnState
-import com.teamkkumul.feature.mygroup.MyGroupMeetUpItemDecoration
+import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.getCurrentTime
 import kotlinx.coroutines.delay
@@ -158,7 +158,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeMeetUpAdapter
-            addItemDecoration(MyGroupMeetUpItemDecoration(requireContext()))
+            addItemDecoration(MeetUpFriendItemDecoration(requireContext()))
         }
     }
 

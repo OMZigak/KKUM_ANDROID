@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.mygroup
+package com.teamkkumul.feature.mygroup.mygroupdetail
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -8,19 +8,23 @@ import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
+import com.teamkkumul.feature.mygroup.MyGroupMockViewModel
+import com.teamkkumul.feature.mygroup.mygroupdetail.adpater.MyGroupDetailFriendAdapter
+import com.teamkkumul.feature.mygroup.mygroupdetail.adpater.MyGroupDetailMeetUpAdapter
+import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.model.MyGroupSealedItem
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MyGroupDetailFragment :
     BindingFragment<FragmentMyGroupDetailBinding>(R.layout.fragment_my_group_detail) {
-    private val groupFriendViewModel: MyGroupFriendViewModel by viewModels()
-    private val meetUpViewModel: MyGroupMeetUpViewModel by viewModels()
+    private val groupFriendViewModel: MyGroupMockViewModel by viewModels()
+    private val meetUpViewModel: MyGroupDetailViewModel by viewModels()
 
-    private var _memberAdapter: MyGroupDetailListAdapter? = null
+    private var _memberAdapter: MyGroupDetailFriendAdapter? = null
     private val memberAdapter get() = requireNotNull(_memberAdapter)
 
-    private var _meetUpAdapter: MyGroupMeetUpListAdapter? = null
+    private var _meetUpAdapter: MyGroupDetailMeetUpAdapter? = null
     private val meetUpAdapter get() = requireNotNull(_meetUpAdapter)
 
     override fun initView() {
@@ -63,19 +67,19 @@ class MyGroupDetailFragment :
     }
 
     private fun initMemberRecyclerView() {
-        _memberAdapter = MyGroupDetailListAdapter(
+        _memberAdapter = MyGroupDetailFriendAdapter(
             onPlusBtnClicked = { findNavController().navigate(R.id.exampleComposeFragment) }, // 임시로 이동하는 페이지
         )
         binding.rvMyGroupFriendList.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = memberAdapter
-            addItemDecoration(MyGroupMeetUpItemDecoration(requireContext()))
+            addItemDecoration(MeetUpFriendItemDecoration(requireContext()))
         }
     }
 
     private fun initMeetUpRecyclerView() {
-        _meetUpAdapter = MyGroupMeetUpListAdapter(
+        _meetUpAdapter = MyGroupDetailMeetUpAdapter(
             onMeetUpDetailBtnClicked = {
                 findNavController().navigate(R.id.exampleComposeFragment) // 임시로 이동하는 페이지
             },
@@ -84,7 +88,7 @@ class MyGroupDetailFragment :
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = meetUpAdapter
-            addItemDecoration(MyGroupMeetUpItemDecoration(requireContext()))
+            addItemDecoration(MeetUpFriendItemDecoration(requireContext()))
         }
     }
 

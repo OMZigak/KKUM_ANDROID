@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.mygroup.viewholder
+package com.teamkkumul.feature.mygroup.mygroupdetail.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load

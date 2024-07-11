@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/fragment_my_group_detail"
-        android:name="com.teamkkumul.feature.mygroup.MyGroupDetailFragment"
+        android:name="com.teamkkumul.feature.mygroup.mygroupdetail.MyGroupDetailFragment"
         android:label="My Group Detail"
         tools:layout="@layout/fragment_my_group_detail">
         <action

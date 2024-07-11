@@ -1,14 +1,14 @@
-package com.teamkkumul.feature.mygroup
+package com.teamkkumul.feature.mygroup.mygroupdetail.adpater
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.teamkkumul.core.ui.view.ItemDiffCallback
 import com.teamkkumul.feature.databinding.ItemMyGroupRemainMeetUpBinding
-import com.teamkkumul.feature.mygroup.viewholder.MyGroupDetailMeetUpViewHolder
+import com.teamkkumul.feature.mygroup.mygroupdetail.viewholder.MyGroupDetailMeetUpViewHolder
 import com.teamkkumul.model.MyGroupMeetUpModel
 
-class MyGroupMeetUpListAdapter(
+class MyGroupDetailMeetUpAdapter(
     private val onMeetUpDetailBtnClicked: () -> Unit,
 ) : ListAdapter<MyGroupMeetUpModel.Promise, MyGroupDetailMeetUpViewHolder>(DiffUtil) {
     override fun onCreateViewHolder(
