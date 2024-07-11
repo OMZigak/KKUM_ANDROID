@@ -1,6 +1,5 @@
 package com.teamkkumul.feature.signup
 
-import androidx.activity.viewModels
 import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.core.ui.util.intent.navigateTo
 import com.teamkkumul.feature.MainActivity
@@ -10,12 +9,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WelcomeActivity : BindingActivity<ActivityWelcomeBinding>(R.layout.activity_welcome) {
-
-    private val setNameViewModel: NameViewModel by viewModels()
     override fun initView() {
-        setNameViewModel.inputName.observe(this) { inputName ->
-            binding.tvWelcome.text = "${inputName}님 반가워요!"
-        }
+        val inputName = intent.getStringExtra("inputName") ?: ""
+        binding.tvWelcome.text = "${inputName}님 반가워요!"
+
         binding.btnOkay.setOnClickListener {
             navigateToMain()
         }

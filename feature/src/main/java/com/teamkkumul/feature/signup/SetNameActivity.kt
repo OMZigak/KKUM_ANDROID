@@ -15,15 +15,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activity_set_name) {
 
-    private val setNameViewModel: NameViewModel by viewModels()
     private val setNameDebouncer = Debouncer<String>()
     private var currentText: String = ""
 
     override fun initView() {
         setName()
         binding.btnNext.setOnClickListener {
-            setNameViewModel.getInputName(binding.etSetName.text.toString())
-            navigateToSetProfile()
+            val inputName = binding.etSetName.text.toString()
+            navigateToSetProfile(inputName)
         }
     }
 
@@ -74,8 +73,11 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
         binding.btnNext.isEnabled = isValid
     }
 
-    private fun navigateToSetProfile() {
-        startActivity(Intent(this, SetProfileActivity::class.java))
+    private fun navigateToSetProfile(inputName: String) {
+        val intent = Intent(this, SetProfileActivity::class.java).apply {
+            putExtra("inputName", inputName)
+        }
+        startActivity(intent)
     }
 
     companion object {

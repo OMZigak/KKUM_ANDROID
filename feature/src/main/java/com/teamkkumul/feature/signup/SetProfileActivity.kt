@@ -27,15 +27,16 @@ class SetProfileActivity : BindingActivity<ActivitySetProfileBinding>(R.layout.a
         }
 
     override fun initView() {
+        val inputName = intent.getStringExtra("inputName")
         with(binding) {
             ivBtnSetProfile.setOnClickListener {
                 openGallery()
             }
             btnOkay.setOnClickListener {
-                navigateToWelcome()
+                inputName?.let { navigateToWelcome(it) }
             }
             tvBtnNotNow.setOnClickListener {
-                navigateToWelcome()
+                inputName?.let { navigateToWelcome(it) }
             }
         }
     }
@@ -47,7 +48,10 @@ class SetProfileActivity : BindingActivity<ActivitySetProfileBinding>(R.layout.a
         selectImageLauncher.launch(intent)
     }
 
-    private fun navigateToWelcome() {
-        startActivity(Intent(this, WelcomeActivity::class.java))
+    private fun navigateToWelcome(inputName: String) {
+        val intent = Intent(this, WelcomeActivity::class.java).apply {
+            putExtra("inputName", inputName)
+        }
+        startActivity(intent)
     }
 }
