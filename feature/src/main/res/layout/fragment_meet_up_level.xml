@@ -113,22 +113,6 @@
 
         </com.google.android.material.chip.ChipGroup>
 
-        <Button
-            android:id="@+id/btn_create_meet_up"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="14dp"
-            android:layout_marginBottom="50dp"
-            android:background="@drawable/sel_btn"
-            android:enabled="false"
-            android:text="@string/create_meet_up"
-            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-            android:textColor="@color/white0"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="332:50"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
             android:id="@+id/tv_set_penalty"
             android:layout_width="wrap_content"
@@ -214,6 +198,22 @@
                 android:textColor="@color/gray5" />
 
         </com.google.android.material.chip.ChipGroup>
+
+        <Button
+            android:id="@+id/btn_create_meet_up"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/sel_btn"
+            android:enabled="false"
+            android:text="@string/create_meet_up"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            android:textColor="@color/white0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="332:50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
