@@ -50,7 +50,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="4dp"
                     android:hint="@string/hint_enter_invitation_code"
-                    android:textColorHint="@color/gray3" />
+                    android:textColorHint="@color/gray3"
+                    android:maxLength="6" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </FrameLayout>
