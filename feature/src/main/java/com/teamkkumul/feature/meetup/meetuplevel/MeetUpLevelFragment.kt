@@ -22,13 +22,29 @@ class MeetUpLevelFragment :
             for (i in 0 until chipGroup.childCount) {
                 val chip = chipGroup.getChildAt(i) as Chip
                 chip.setOnCheckedChangeListener { buttonView, isChecked ->
+                    if (isChecked) {
+                        val chipIndex = chipGroup.indexOfChild(buttonView)
+                        onChipSelected(chipGroup, chipIndex)
+                    }
                     updateChipStyle(chip, isChecked)
                     updateButtonState(chipGroups, btnCreateMeetUp)
                 }
             }
         }
+
         binding.btnCreateMeetUp.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete)
+        }
+    }
+
+    private fun onChipSelected(
+        chipGroup: ChipGroup,
+        chipIndex: Int,
+    ) { // chipGroupIndex는 0 or 1, chipIndex는 0 ~ 4(5)
+        val chipGroupIndex = when (chipGroup.id) {
+            R.id.cg_meet_up_level -> 0
+            R.id.cg_set_penalty -> 1
+            else -> -1
         }
     }
 
