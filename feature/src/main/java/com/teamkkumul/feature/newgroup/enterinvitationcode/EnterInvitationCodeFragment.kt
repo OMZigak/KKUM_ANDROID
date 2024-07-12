@@ -15,11 +15,7 @@ class EnterInvitationCodeFragment :
     private var currentText: String = ""
 
     override fun initView() {
-        setInvitationCode()
-        binding.btnNext.setOnClickListener {
-            val input = binding.etEnterInvitationCode.text.toString()
-            validInput(input)
-        }
+        blockEnterKey()
 
         binding.etEnterInvitationCode.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -31,24 +27,28 @@ class EnterInvitationCodeFragment :
                 updateButtonState(input.length == 6)
             }
         })
+
+        binding.btnNext.setOnClickListener {
+            val input = binding.etEnterInvitationCode.text.toString()
+            validInput(input)
+        }
     }
 
-    private fun setInvitationCode() = with(binding.etEnterInvitationCode) {
+    private fun blockEnterKey() = with(binding.etEnterInvitationCode) {
         setOnEditorActionListener { _, actionId, event ->
             (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER))
         }
     }
 
-    private fun validInput(input: String) {
+    private fun validInput(input: String) { // 서버 통신 patch 로직 추가 필요
         val isValid = input.length == 6
         if (isValid) {
             currentText = input
             setErrorState(null)
         } else {
             setColor(R.color.red)
-            setErrorState(getString(R.string.set_name_error_message))
+            setErrorState(getString(R.string.set_enter_invitation_code_error_message))
         }
-        updateButtonState(isValid)
     }
 
     private fun setErrorState(errorMessage: String?) {
