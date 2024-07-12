@@ -2,6 +2,7 @@ package com.teamkkumul.feature.meetup.meetuplevel
 
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.teamkkumul.core.ui.base.BindingFragment
@@ -25,6 +26,9 @@ class MeetUpLevelFragment :
                     updateButtonState(chipGroups, btnCreateMeetUp)
                 }
             }
+        }
+        binding.btnCreateMeetUp.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete)
         }
     }
 
