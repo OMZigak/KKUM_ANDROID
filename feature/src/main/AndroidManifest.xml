@@ -22,6 +22,7 @@
         <activity
             android:name=".signup.SetNameActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".signup.SetProfileActivity"
@@ -34,6 +35,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
     </application>
 
