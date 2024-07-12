@@ -113,4 +113,8 @@
     <string name="penalty_blind_eye">눈 감아주기</string>
     <string name="create_meet_up">약속 생성하기</string>
 
+    <!-- 약속 생성 완료 -->
+    <string name="tv_add_meet_up_complete">약속이 생성되었어요!</string>
+    <string name="tv_add_meet_up_complete_description">해당 약속은 모임 내에서 확인 가능해요</string>
+
 </resources>
