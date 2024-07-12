@@ -21,7 +21,7 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
     override fun initView() {
         statusBarColorOf(R.color.main_color)
         activityScope.launch {
-            delay(300)
+            delay(1000)
 
             val intent = Intent(this@SplashActivity, LoginActivity::class.java)
             startActivity(intent)
