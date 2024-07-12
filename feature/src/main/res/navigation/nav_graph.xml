@@ -119,7 +119,7 @@
         <action
             android:id="@+id/action_fragment_add_meet_up_complete_to_fragment_meet_up_detail"
             app:destination="@id/fragment_meet_up_detail"
-            app:popUpTp="@id/fragment_add_meet_up_complete"
+            app:popUpTo="@id/fragment_add_meet_up_complete"
             app:popUpToInclusive="true" />
     </fragment>
 
