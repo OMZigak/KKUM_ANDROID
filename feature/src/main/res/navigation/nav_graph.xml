@@ -62,10 +62,10 @@
         android:label="AddMyGroupFragment">
         <action
             android:id="@+id/action_fragment_add_my_group_to_fragment_enter_invitation_code"
-            app:destination="@+id/fragment_enter_invitation_code" />
+            app:destination="@id/fragment_enter_invitation_code" />
         <action
             android:id="@+id/action_fragment_add_my_group_to_fragment_add_new_group"
-            app:destination="@+id/fragment_add_new_group" />
+            app:destination="@id/fragment_add_new_group" />
     </fragment>
     <fragment
         android:id="@+id/fragment_enter_invitation_code"
@@ -97,8 +97,8 @@
         android:name="com.teamkkumul.feature.newgroup.addmygroup.AddMyGroupCompleteFragment"
         android:label="AddMyGroupCompleteFragment">
         <action
-            android:id="@+id/action_fragment_add_my_group_complete_to_fragment_add_my_group"
-            app:destination="@+id/fragment_add_my_group"
+            android:id="@+id/action_fragment_add_my_group_complete_to_fragment_my_group_detail"
+            app:destination="@id/fragment_my_group_detail"
             app:popUpTo="@id/fragment_add_my_group_complete"
             app:popUpToInclusive="true" />
     </fragment>
