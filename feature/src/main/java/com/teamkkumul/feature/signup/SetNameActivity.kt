@@ -1,13 +1,12 @@
 package com.teamkkumul.feature.signup
 
-import android.content.Context
 import android.content.Intent
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.core.ui.util.context.colorOf
+import com.teamkkumul.core.ui.util.context.hideKeyboard
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetNameBinding
 import com.teamkkumul.feature.utils.Debouncer
@@ -26,7 +25,7 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
             navigateToSetProfile(inputName)
         }
         binding.clSetName.setOnClickListener {
-            hideKeyBoard()
+            hideKeyboard(binding.clSetName)
         }
     }
 
@@ -82,14 +81,6 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
             putExtra(INPUT_NAME, inputName)
         }
         startActivity(intent)
-    }
-
-    private fun hideKeyBoard() {
-        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        val currentFocus = currentFocus
-        if (currentFocus != null) {
-            inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
-        }
     }
 
     companion object {
