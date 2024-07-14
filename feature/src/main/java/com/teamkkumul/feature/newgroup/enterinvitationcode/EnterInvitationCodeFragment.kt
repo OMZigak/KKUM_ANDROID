@@ -30,8 +30,8 @@ class EnterInvitationCodeFragment :
     private fun setupInvitationCode() {
         binding.etEnterInvitationCode.doAfterTextChanged { editable ->
             val input = editable?.toString().orEmpty()
-            enterInvitationCodeDebouncer.setDelay(input, 200L) { code ->
-                updateButtonState(code.length == 6)
+            enterInvitationCodeDebouncer.setDelay(input, 200L) { invitationCode ->
+                updateButtonState(invitationCode.length == 6)
             }
         }
     }
