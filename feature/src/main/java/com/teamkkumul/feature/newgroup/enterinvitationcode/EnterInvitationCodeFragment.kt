@@ -1,7 +1,5 @@
 package com.teamkkumul.feature.newgroup.enterinvitationcode
 
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.core.widget.doAfterTextChanged
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
@@ -19,23 +17,29 @@ class EnterInvitationCodeFragment :
 
     override fun initView() {
         initBlockEnterKey()
+        setupInvitationCode()
+        setupNextButton()
+    }
 
+    private fun initBlockEnterKey() = with(binding.etEnterInvitationCode) {
+        setOnEditorActionListener { _, actionId, event ->
+            (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER))
+        }
+    }
+
+    private fun setupInvitationCode() {
         binding.etEnterInvitationCode.doAfterTextChanged { editable ->
             val input = editable?.toString().orEmpty()
             enterInvitationCodeDebouncer.setDelay(input, 200L) { code ->
                 updateButtonState(code.length == 6)
             }
         }
+    }
 
+    private fun setupNextButton() {
         binding.btnNext.setOnClickListener {
             val input = binding.etEnterInvitationCode.text.toString()
             validInput(input)
-        }
-    }
-
-    private fun initBlockEnterKey() = with(binding.etEnterInvitationCode) {
-        setOnEditorActionListener { _, actionId, event ->
-            (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER))
         }
     }
 
