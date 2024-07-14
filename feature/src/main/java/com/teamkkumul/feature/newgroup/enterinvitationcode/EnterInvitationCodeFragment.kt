@@ -2,31 +2,30 @@ package com.teamkkumul.feature.newgroup.enterinvitationcode
 
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.core.widget.doAfterTextChanged
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentEnterInvitationCodeBinding
+import com.teamkkumul.feature.utils.Debouncer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EnterInvitationCodeFragment :
     BindingFragment<FragmentEnterInvitationCodeBinding>(R.layout.fragment_enter_invitation_code) {
 
+    private val enterInvitationCodeDebouncer = Debouncer<String>()
     private var currentText: String = ""
 
     override fun initView() {
-        blockEnterKey()
+        initBlockEnterKey()
 
-        binding.etEnterInvitationCode.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                val input = s.toString()
-                updateButtonState(input.length == 6)
+        binding.etEnterInvitationCode.doAfterTextChanged { editable ->
+            val input = editable?.toString().orEmpty()
+            enterInvitationCodeDebouncer.setDelay(input, 200L) { code ->
+                updateButtonState(code.length == 6)
             }
-        })
+        }
 
         binding.btnNext.setOnClickListener {
             val input = binding.etEnterInvitationCode.text.toString()
@@ -34,7 +33,7 @@ class EnterInvitationCodeFragment :
         }
     }
 
-    private fun blockEnterKey() = with(binding.etEnterInvitationCode) {
+    private fun initBlockEnterKey() = with(binding.etEnterInvitationCode) {
         setOnEditorActionListener { _, actionId, event ->
             (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER))
         }
