@@ -1,11 +1,12 @@
 package com.teamkkumul.feature.meetup.meetuplevel
 
 import android.view.View
-import androidx.core.content.ContextCompat
+import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.context.colorOf
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpLevelBinding
 
@@ -17,7 +18,11 @@ class MeetUpLevelFragment :
         val btnCreateMeetUp = binding.btnCreateMeetUp
 
         val chipGroups = listOf(meetUpLevel, penalty)
+        setupChipGroups(chipGroups, btnCreateMeetUp)
+        setupCreateMeetUpButton(btnCreateMeetUp)
+    }
 
+    private fun setupChipGroups(chipGroups: List<ChipGroup>, btnCreateMeetUp: Button) {
         chipGroups.forEach { chipGroup ->
             for (i in 0 until chipGroup.childCount) {
                 val chip = chipGroup.getChildAt(i) as Chip
@@ -31,16 +36,15 @@ class MeetUpLevelFragment :
                 }
             }
         }
+    }
 
-        binding.btnCreateMeetUp.setOnClickListener {
+    private fun setupCreateMeetUpButton(button: Button) {
+        button.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete)
         }
     }
 
-    private fun onChipSelected(
-        chipGroup: ChipGroup,
-        chipIndex: Int,
-    ) { // chipGroupIndex는 0 or 1, chipIndex는 0 ~ 4(5)
+    private fun onChipSelected(chipGroup: ChipGroup, chipIndex: Int) { // chipGroupIndex는 0 or 1, chipIndex는 0 ~ 4(5)
         val chipGroupIndex = when (chipGroup.id) {
             R.id.cg_meet_up_level -> 0
             R.id.cg_set_penalty -> 1
@@ -49,14 +53,15 @@ class MeetUpLevelFragment :
     }
 
     private fun updateChipStyle(chip: Chip, isChecked: Boolean) {
+        val context = requireContext()
         if (isChecked) {
             chip.setChipBackgroundColorResource(R.color.green2)
             chip.setChipStrokeColorResource(R.color.green3)
-            chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.green3))
+            chip.setTextColor(context.colorOf(R.color.green3))
         } else {
             chip.setChipBackgroundColorResource(R.color.white0)
             chip.setChipStrokeColorResource(R.color.gray2)
-            chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray5))
+            chip.setTextColor(context.colorOf(R.color.gray5))
         }
     }
 
