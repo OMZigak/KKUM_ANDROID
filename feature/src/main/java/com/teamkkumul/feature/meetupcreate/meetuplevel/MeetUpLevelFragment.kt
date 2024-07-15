@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetup.meetuplevel
+package com.teamkkumul.feature.meetupcreate.meetuplevel
 
 import android.view.View
 import android.widget.Button
