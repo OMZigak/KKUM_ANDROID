@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -39,13 +40,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginBottom="4dp"
             android:text="벌칙"
             android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
             app:layout_constraintBottom_toTopOf="@id/tv_penalty_description"
             app:layout_constraintStart_toEndOf="@id/iv_penalty_icon"
             app:layout_constraintTop_toTopOf="@id/iv_box_penalty"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:layout_marginBottom="4dp"/>
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/tv_penalty_description"
@@ -56,6 +57,37 @@
             app:layout_constraintBottom_toBottomOf="@id/iv_box_penalty"
             app:layout_constraintStart_toStartOf="@id/tv_penalty"
             app:layout_constraintTop_toBottomOf="@id/tv_penalty" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_late_person"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="48dp"
+            android:layout_marginHorizontal="14dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/btn_end_meet_up"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_box_penalty"
+            tools:listitem="@layout/item_meet_up_create_friend">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btn_end_meet_up"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/shape_gray_fill_8_rect"
+            android:backgroundTint="@color/main_color"
+            android:text="@string/end_meet_up"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="332:50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
