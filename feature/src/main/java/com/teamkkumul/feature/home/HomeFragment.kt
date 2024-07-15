@@ -15,6 +15,7 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentHomeBinding
+import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.getCurrentTime
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
@@ -76,7 +77,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             viewModel.clickReadyBtn()
             tvHomeReadyTime.text = getCurrentTime()
             viewLifeCycleScope.launch {
-                animateProgressBar(pgHomeReady, 0, progressNum)
+                animateProgressBar(pgHomeReady, 0, PROGRESS_NUM_100)
             }
         }
     }
@@ -86,7 +87,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             viewModel.clickMovingStartBtn()
             tvHomeMovingTime.text = getCurrentTime()
             viewLifeCycleScope.launch {
-                animateProgressBar(pgHomeMoving, 0, progressNum)
+                animateProgressBar(pgHomeMoving, 0, PROGRESS_NUM_100)
             }
         }
     }
@@ -97,9 +98,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             tvvHomeArriveTime.text = getCurrentTime()
 
             viewLifeCycleScope.launch {
-                animateProgressBar(pgHomeArrive, 0, progressNum)
+                animateProgressBar(pgHomeArrive, 0, PROGRESS_NUM_100)
                 delay(300L)
-                animateProgressBar(pgHomeArriveEnd, 0, progressNum)
+                animateProgressBar(pgHomeArriveEnd, 0, PROGRESS_NUM_100)
             }
         }
     }
