@@ -167,8 +167,8 @@ class ReadyInfoInputFragment :
 
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(requireContext(), AlarmReceiver::class.java).apply {
-            putExtra("title", alarmTitle)
-            putExtra("content", alarmContent)
+            putExtra(KeyStorage.ALARM_TITLE, alarmTitle)
+            putExtra(KeyStorage.ALARM_CONTENT, alarmContent)
             putExtra(KeyStorage.TAB_INDEX, 1)
         }
         val pendingIntent = PendingIntent.getBroadcast(

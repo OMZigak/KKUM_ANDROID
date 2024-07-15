@@ -2,6 +2,9 @@ package com.teamkkumul.feature.utils
 
 object KeyStorage {
     const val TAB_INDEX = "tabIndex"
+    const val ALARM_TITLE = "title"
+    const val ALARM_CONTENT = "content"
+    const val LOCAL_ALARM_CHANNEL = "101"
 }
 
 object PROGRESS {

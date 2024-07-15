@@ -7,6 +7,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import com.kakao.sdk.common.KakaoSdk
 import com.teamkkumul.core.network.BuildConfig
+import com.teamkkumul.feature.utils.KeyStorage.LOCAL_ALARM_CHANNEL
 import com.teamkkumul.kkumul.BuildConfig.KAKAO_APP_KEY
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
@@ -37,7 +38,7 @@ class KkumulApp : Application() {
         val name = "로컬 알람 채널"
         val descriptionText = "로컬 알람을 위한 채널입니다."
         val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel("101", name, importance).apply {
+        val channel = NotificationChannel(LOCAL_ALARM_CHANNEL, name, importance).apply {
             description = descriptionText
         }
         val notificationManager: NotificationManager =
