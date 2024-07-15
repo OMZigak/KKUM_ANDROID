@@ -12,6 +12,7 @@
     <string name="my_page_title">마이페이지</string>
     <string name="set_profile_title">프로필 설정</string>
     <string name="add_my_group_title">내 모임 추가하기</string>
+    <string name="add_meet_up_title">약속 추가하기</string>
 
     <!--    로그인-->
     <string name="login_kakao_btn_text">카카오로 계속하기</string>
@@ -35,12 +36,12 @@
     <string name="no_invitation_code">초대 코드가 없다면</string>
     <string name="add_new_group">직접 모임 추가하기</string>
     <string name="tv_enter_invitation_code">모임 초대 코드를\n입력해 주세요</string>
-    <string name="counter_6">0/6</string>
+    <string name="set_enter_invitation_code_error_message">모임 초대 코드를 다시 확인해주세요.</string>
     <string name="tv_enter_meeting_name">모임 이름을\n입력해 주세요</string>
     <string name="counter_10">0/10</string>
     <string name="hint_enter_invitation_code">모임 초대 코드를 입력해 주세요</string>
     <string name="hint_set_meeting_name">모임 이름을 입력해 주세요</string>
-    <string name="set_group_name_error_message">한글, 영문, 숫자만을 사용해 공백 포함 총 10자 이내일 것 같은데 물어보기</string>
+    <string name="set_group_name_error_message">공백 포함 한글, 영문, 숫자만을 사용해 총 10자 이내로 입력해주세요. (공백 포함)</string>
     <string name="btn_add_new_group">모임 생성하기</string>
     <string name="tv_invite_friend">친구 초대하기</string>
     <string name="tv_share_invitation_code">초대 코드를 공유해 함께할 꾸물이를 추가해 보세요</string>
@@ -93,6 +94,28 @@
     <string name="meet_up_container_tabbar_info">약속 정보</string>
     <string name="meet_up_container_tabbar_ready_status">준비 현황</string>
     <string name="meet_up_container_tabbar_late_person">지각 꾸물이</string>
+
+    <!-- 약속 내용 입력 (꾸레벨, 벌칙 설정) -->
+    <string name="meet_up_step_3">3/3</string>
+    <string name="tv_meet_up_level_title">약속 내용을\n입력해 주세요</string>
+    <string name="meet_up_level">꾸레벨</string>
+    <string name="meet_up_level_1">LV 1. 안꾸</string>
+    <string name="meet_up_level_2">LV 2. 꾸안꾸</string>
+    <string name="meet_up_level_3">LV 3. 꾸꾸</string>
+    <string name="meet_up_level_4">LV 4. 꾸꾸꾸</string>
+    <string name="meet_up_level_none">마음대로 입고 오기</string>
+    <string name="set_penalty">벌칙 설정</string>
+    <string name="penalty_reels">릴스 찍기</string>
+    <string name="penalty_cafe">맛있는 카페 쏘기</string>
+    <string name="penalty_late_fee">지각비 내기</string>
+    <string name="penalty_indian_bob">인디안밥 맞기</string>
+    <string name="penalty_tak_bam">딱밤 맞기</string>
+    <string name="penalty_blind_eye">눈 감아주기</string>
+    <string name="create_meet_up">약속 생성하기</string>
+
+    <!-- 약속 생성 완료 -->
+    <string name="tv_add_meet_up_complete">약속이 생성되었어요!</string>
+    <string name="tv_add_meet_up_complete_description">해당 약속은 모임 내에서 확인 가능해요</string>
 
     <!--    준비 정보 입력 화면-->
     <string name="ready_status_toolbar">준비 정보 입력하기</string>
