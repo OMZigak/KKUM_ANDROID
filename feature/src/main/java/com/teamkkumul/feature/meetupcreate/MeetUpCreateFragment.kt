@@ -9,6 +9,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.context.hideKeyboard
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
@@ -48,6 +49,7 @@ class MeetUpCreateFragment :
         observeSelectedLocation()
         observeFormValidation()
         navigateToFriend()
+        initHideKeyBoard()
     }
 
     private fun observeFormValidation() {
@@ -103,6 +105,12 @@ class MeetUpCreateFragment :
         }
         updateCounter(input.length)
         viewModel.setMeetUpName(isValid)
+    }
+
+    private fun initHideKeyBoard() {
+        binding.root.setOnClickListener {
+            requireContext().hideKeyboard(binding.root)
+        }
     }
 
     private fun setErrorState(errorMessage: String?) {
