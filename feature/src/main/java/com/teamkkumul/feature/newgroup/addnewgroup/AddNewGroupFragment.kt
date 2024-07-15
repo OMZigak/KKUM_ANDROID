@@ -2,24 +2,47 @@ package com.teamkkumul.feature.newgroup.addnewgroup
 
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import com.teamkkumul.core.network.dto.request.RequestAddNewGroupDto
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
+import com.teamkkumul.core.ui.util.fragment.toast
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentAddNewGroupBinding
 import com.teamkkumul.feature.utils.Debouncer
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AddNewGroupFragment : BindingFragment<FragmentAddNewGroupBinding>(R.layout.fragment_add_new_group) {
-    private val groupNameViewModel: GroupNameViewModel by activityViewModels()
+class AddNewGroupFragment :
+    BindingFragment<FragmentAddNewGroupBinding>(R.layout.fragment_add_new_group) {
+    private val viewModel by activityViewModels<AddNewGroupViewModel>()
     private val groupNameDebouncer = Debouncer<String>()
     private var currentText: String = ""
 
     override fun initView() {
         setName()
         binding.btnMakeNewGroup.setOnClickListener {
-            groupNameViewModel.getGroupName(binding.etSetGroupName.text.toString())
-            showInvitationDialog()
+            val name = binding.etSetGroupName.text.toString()
+            val request = RequestAddNewGroupDto(name)
+            viewModel.addNewGroup(request)
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.meetingsState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            toast("성공")
+                            showInvitationDialog()
+                        }
+                        is UiState.Failure -> toast("실패: ${state.errorMessage}")
+                        is UiState.Loading -> toast("로딩중")
+                        UiState.Empty -> Unit
+                    }
+                }
         }
     }
 

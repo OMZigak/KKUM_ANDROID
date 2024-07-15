@@ -4,20 +4,29 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingDialogFragment
 import com.teamkkumul.core.ui.util.context.dialogFragmentResize
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogInvitationCodeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DialogInvitationCodeFragment :
     BindingDialogFragment<FragmentDialogInvitationCodeBinding>(R.layout.fragment_dialog_invitation_code) {
+
+    private val viewModel by activityViewModels<AddNewGroupViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.DialogTheme)
     }
 
     override fun initView() {
+        viewModel.invitationCode.observe(this) { code ->
+            binding.tvInvitationCode.text = code
+        }
         binding.ivBtnCopy.setOnClickListener {
             copyToClipboard(binding.tvInvitationCode.text.toString())
             findNavController().navigate(R.id.action_fragment_add_new_group_to_fragment_add_my_group_complete)
