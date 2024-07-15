@@ -1,6 +1,7 @@
 package com.teamkkumul.feature.signup
 
 import com.teamkkumul.core.ui.base.BindingActivity
+import com.teamkkumul.core.ui.util.context.statusBarColorOf
 import com.teamkkumul.core.ui.util.intent.navigateTo
 import com.teamkkumul.feature.MainActivity
 import com.teamkkumul.feature.R
@@ -11,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class WelcomeActivity : BindingActivity<ActivityWelcomeBinding>(R.layout.activity_welcome) {
     override fun initView() {
+        statusBarColorOf(R.color.green1)
         intent.getStringExtra(INPUT_NAME)?.let { inputName ->
             binding.tvWelcome.text = "${inputName}님 반가워요!"
         }

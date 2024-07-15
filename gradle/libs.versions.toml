@@ -116,6 +116,7 @@ kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref =
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspplugin" }
+navigationSafeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "jetpack-navi" }
 
 [bundles]
 retrofit = ["retrofit", "retrofit-kotlin-serialization-converter"]

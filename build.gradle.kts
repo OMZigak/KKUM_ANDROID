@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.jetbrainsKotlinJvm) apply false
     alias(libs.plugins.dagger.hilt) apply false
+    alias(libs.plugins.navigationSafeArgs) apply false
 }
 
 apply(from = file(path = "gradle/projectDependencyGraph.gradle"))

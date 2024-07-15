@@ -25,7 +25,7 @@
         tools:layout="@layout/fragment_my_group">
         <action
             android:id="@+id/action_myGroupFragment_to_addMyGroupFragment"
-            app:destination="@id/fragment_add_my_group"/>
+            app:destination="@id/fragment_add_my_group" />
         <action
             android:id="@+id/action_myGroupFragment_to_myGroupDetailFragment"
             app:destination="@id/fragment_my_group_detail" />
@@ -62,10 +62,10 @@
         android:label="AddMyGroupFragment">
         <action
             android:id="@+id/action_fragment_add_my_group_to_fragment_enter_invitation_code"
-            app:destination="@+id/fragment_enter_invitation_code" />
+            app:destination="@id/fragment_enter_invitation_code" />
         <action
             android:id="@+id/action_fragment_add_my_group_to_fragment_add_new_group"
-            app:destination="@+id/fragment_add_new_group" />
+            app:destination="@id/fragment_add_new_group" />
     </fragment>
     <fragment
         android:id="@+id/fragment_enter_invitation_code"
@@ -89,10 +89,6 @@
         android:name="com.teamkkumul.feature.newgroup.addnewgroup.DialogInvitationCodeFragment"
         tools:layout="@layout/fragment_dialog_invitation_code" />
     <fragment
-        android:id="@+id/fragment_welcome"
-        android:name="com.teamkkumul.feature.signup.WelcomeFragment"
-        android:label="WelcomeFragment" />
-    <fragment
         android:id="@+id/fragment_meet_up_container"
         android:name="com.teamkkumul.feature.meetup.MeetUpContainerFragment"
         android:label="MeetUpContainerFragment" />
@@ -101,9 +97,29 @@
         android:name="com.teamkkumul.feature.newgroup.addmygroup.AddMyGroupCompleteFragment"
         android:label="AddMyGroupCompleteFragment">
         <action
-            android:id="@+id/action_fragment_add_my_group_complete_to_fragment_add_my_group"
-            app:destination="@+id/fragment_add_my_group"
+            android:id="@+id/action_fragment_add_my_group_complete_to_fragment_my_group_detail"
+            app:destination="@id/fragment_my_group_detail"
             app:popUpTo="@id/fragment_add_my_group_complete"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_meet_up_level"
+        android:name="com.teamkkumul.feature.meetup.meetuplevel.MeetUpLevelFragment"
+        android:label="MeetUpLevelFragment">
+        <action
+            android:id="@+id/action_fragment_meet_up_level_to_fragment_add_meet_up_complete"
+            app:destination="@id/fragment_add_meet_up_complete"
+            app:popUpTo="@id/fragment_meet_up_level"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_add_meet_up_complete"
+        android:name="com.teamkkumul.feature.meetup.AddMeetUpCompleteFragment"
+        android:label="AddMeetUpCompleteFragment">
+        <action
+            android:id="@+id/action_fragment_add_meet_up_complete_to_fragment_meet_up_detail"
+            app:destination="@id/fragment_meet_up_detail"
+            app:popUpTo="@id/fragment_add_meet_up_complete"
             app:popUpToInclusive="true" />
     </fragment>
 

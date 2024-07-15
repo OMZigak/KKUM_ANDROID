@@ -1,6 +1,8 @@
 package com.teamkkumul.feature
 
+import android.content.Context
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -13,6 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun initView() {
         setupBottomNavigation()
+        binding.clMain.setOnClickListener {
+            hideKeyBoard()
+        }
     }
 
     private fun setupBottomNavigation() {
@@ -40,6 +45,14 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             } else {
                 statusBarColorOf(R.color.white0)
             }
+        }
+    }
+
+    private fun hideKeyBoard() {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocus = currentFocus
+        if (currentFocus != null) {
+            inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
         }
     }
 }
