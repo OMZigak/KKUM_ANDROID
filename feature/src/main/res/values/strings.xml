@@ -81,5 +81,10 @@
     <string name="ready_info_input_time_time">시간</string>
     <string name="ready_info_input_minute">분</string>
     <string name="ready_info_input_moving_time">이동 시간</string>
+    <string name="ready_info_input_completed">완료</string>
+    <!--    준비 정보 입력 확인 화면-->
+    <string name="ready_input_completed">확인</string>
+    <string name="ready_info_input_completed_content">설정하신 시간에 맞춰서\n준비 및 이동 시간에 알림을 울려드릴게요</string>
+    <string name="ready_info_input_completed_title">준비 정보 설정이 완료되었어요!</string>
 
 </resources>
