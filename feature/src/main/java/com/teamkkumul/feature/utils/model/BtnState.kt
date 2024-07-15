@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.home.model
+package com.teamkkumul.feature.utils.model
 
 import com.teamkkumul.feature.R
 
