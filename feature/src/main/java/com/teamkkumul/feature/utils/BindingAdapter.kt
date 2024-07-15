@@ -1,11 +1,10 @@
 package com.teamkkumul.feature.utils
 
 import android.widget.ImageView
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.teamkkumul.feature.R
 
 /*@BindingAdapter("imageUrl")
 fun loadImage(
@@ -31,9 +30,8 @@ fun ImageView.setCircleImage(img: String?) {
 @BindingAdapter("setEmptyImageUrl")
 fun ImageView.setEmptyImageUrl(img: String?) {
     if (img.isNullOrEmpty()) {
-        this.isGone = true
+        load(R.drawable.ic_profile_basic_44)
     } else {
-        this.isVisible = true
         load(img)
     }
 }

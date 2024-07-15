@@ -1,23 +1,20 @@
 package com.teamkkumul.feature
 
-import android.content.Context
 import android.view.View
-import android.view.inputmethod.InputMethodManager
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.core.ui.util.context.statusBarColorOf
 import com.teamkkumul.feature.databinding.ActivityMainBinding
+import com.teamkkumul.feature.utils.KeyStorage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun initView() {
         setupBottomNavigation()
-        binding.clMain.setOnClickListener {
-            hideKeyBoard()
-        }
     }
 
     private fun setupBottomNavigation() {
@@ -27,6 +24,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         binding.bnvHome.setupWithNavController(navController)
         setBottomNaviVisible(navController)
         updateStatusBarColor(navController)
+        navigateToMeetUpContainer(navController)
     }
 
     private fun setBottomNaviVisible(navController: NavController) {
@@ -48,11 +46,14 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         }
     }
 
-    private fun hideKeyBoard() {
-        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        val currentFocus = currentFocus
-        if (currentFocus != null) {
-            inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+    private fun navigateToMeetUpContainer(navController: NavController) {
+        intent?.action?.let { action ->
+            if (action == "android.intent.action.MAIN") {
+                navController.navigate(
+                    R.id.fragment_meet_up_container,
+                    bundleOf(KeyStorage.TAB_INDEX to 1),
+                )
+            }
         }
     }
 }
