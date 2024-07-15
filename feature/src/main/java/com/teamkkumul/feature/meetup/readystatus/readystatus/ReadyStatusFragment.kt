@@ -1,24 +1,21 @@
-package com.teamkkumul.feature.home
+package com.teamkkumul.feature.meetup.readystatus.readystatus
 
-import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
-import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
-import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
-import com.teamkkumul.feature.databinding.FragmentHomeBinding
+import com.teamkkumul.feature.databinding.FragmentReadyStatusBinding
+import com.teamkkumul.feature.meetup.readystatus.viewholder.ReadyStatusFriendItemDecoration
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
+import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_TIME
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.getCurrentTime
-import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.model.BtnState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
@@ -26,50 +23,40 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-    private val viewModel by viewModels<HomeViewModel>()
+class ReadyStatusFragment :
+    BindingFragment<FragmentReadyStatusBinding>(R.layout.fragment_ready_status) {
+    private val viewModel: ReadyStatusViewModel by viewModels()
 
-    private var _homeMeetUpAdapter: HomeMeetUpAdapter? = null
-    private val homeMeetUpAdapter get() = requireNotNull(_homeMeetUpAdapter)
+    private var _readyStatusAdapter: ReadyStatusAdapter? = null
+    private val readyStatusAdapter get() = requireNotNull(_readyStatusAdapter)
 
     override fun initView() {
-        initHomeBtnClick()
+        initReadyStatusBtnClick()
         initObserveBtnState()
-        initMeetingNextBtnClick()
-        initHomeMeetUpRecyclerView()
-        initObserveHomePromiseState()
+        initReadyStatusRecyclerview()
+        initReadyInputBtnClick()
     }
 
-    private fun initHomeBtnClick() {
+    private fun initReadyInputBtnClick() {
+        binding.tvReadyInfoNext.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_meet_up_container_to_readyInfoInputFragment)
+        }
+    }
+
+    private fun initReadyStatusRecyclerview() {
+        _readyStatusAdapter = ReadyStatusAdapter().apply {
+            submitList(viewModel.mockMembers)
+        }
+        binding.rvReadyStatusFriendList.apply {
+            adapter = readyStatusAdapter
+            addItemDecoration(ReadyStatusFriendItemDecoration(requireContext()))
+        }
+    }
+
+    private fun initReadyStatusBtnClick() {
         initReadyBtnClick()
         initMovingBtnClick()
         initArriveBtnClick()
-    }
-
-    private fun initObserveHomePromiseState() {
-        viewModel.homePromiseState.flowWithLifecycle(viewLifeCycle).onEach {
-            when (it) {
-                is UiState.Success -> {
-                    showPromiseRecyclerView()
-//                    homeMeetUpAdapter.submitList(it.data)
-                }
-
-                is UiState.Empty -> showEmptyView()
-
-                is UiState.Failure -> toast(it.errorMessage)
-                is UiState.Loading -> Unit
-            }
-        }.launchIn(viewLifeCycleScope)
-    }
-
-    private fun showPromiseRecyclerView() {
-        binding.rvMyGroupMeetUp.visibility = View.VISIBLE
-        binding.viewHomePromiseEmpty.visibility = View.GONE
-    }
-
-    private fun showEmptyView() {
-        binding.rvMyGroupMeetUp.visibility = View.GONE
-        binding.viewHomePromiseEmpty.visibility = View.VISIBLE
     }
 
     private fun initReadyBtnClick() = with(binding) {
@@ -99,7 +86,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
             viewLifeCycleScope.launch {
                 animateProgressBar(pgHomeArrive, PROGRESS_NUM_100)
-                delay(300L)
+                delay(PROGRESS_TIME)
                 animateProgressBar(pgHomeArriveEnd, PROGRESS_NUM_100)
             }
         }
@@ -147,30 +134,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         circle.setImageResource(state.circleImage)
     }
 
-    private fun initHomeMeetUpRecyclerView() {
-        _homeMeetUpAdapter = HomeMeetUpAdapter(
-            onMeetUpDetailBtnClicked = {
-                findNavController().navigate(R.id.exampleComposeFragment) // 임시로 이동하는 페이지
-            },
-        ).apply {
-            submitList(viewModel.mockMembers)
-        }
-        binding.rvMyGroupMeetUp.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = homeMeetUpAdapter
-            addItemDecoration(MeetUpFriendItemDecoration(requireContext()))
-        }
-    }
-
-    private fun initMeetingNextBtnClick() {
-        binding.ivHomeMeetingNext.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_home_to_meetUpContainerFragment)
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        _homeMeetUpAdapter = null
+        _readyStatusAdapter = null
     }
 }

@@ -1,16 +1,17 @@
-package com.teamkkumul.feature.home
+package com.teamkkumul.feature.meetup.readystatus.readystatus
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.model.MeetUpDetailFriendModel
 import com.teamkkumul.model.MyGroupMeetUpModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class ReadyStatusViewModel : ViewModel() {
     private val _readyBtnState =
         MutableStateFlow<BtnState>(BtnState.Default(isEnabled = true))
     val readyBtnState: StateFlow<BtnState> get() = _readyBtnState
@@ -58,58 +59,42 @@ class HomeViewModel : ViewModel() {
         return stateFlow.value is BtnState.Complete
     }
 
-    fun getHomePromiseList() {
-        viewModelScope.launch {
-            if (mockMembers.isNotEmpty()) {
-                _homePromiseState.emit(UiState.Success(mockMembers))
-            } else {
-                _homePromiseState.emit(UiState.Empty)
-            }
-        }
-    }
-
     val mockMembers = listOf(
-        MyGroupMeetUpModel.Promise(
-            dDay = 0,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
+        MeetUpDetailFriendModel.Participant(
+            id = 2,
+            name = "Eric",
+            profileImg = "https://example.com/alice.jpg",
+            state = "이동중",
         ),
-        MyGroupMeetUpModel.Promise(
-            dDay = 0,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
+        MeetUpDetailFriendModel.Participant(
+            id = 3,
+            name = "Bob",
+            profileImg = "https://example.com/alice.jpg",
+            state = "이동중",
         ),
-        MyGroupMeetUpModel.Promise(
-            dDay = 1,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
+        MeetUpDetailFriendModel.Participant(
+            id = 2,
+            name = "Alice",
+            profileImg = "https://example.com/alice.jpg",
+            state = "이동중",
         ),
-        MyGroupMeetUpModel.Promise(
-            dDay = 1,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
+        MeetUpDetailFriendModel.Participant(
+            id = 2,
+            name = "Eric",
+            profileImg = "https://example.com/alice.jpg",
+            state = "이동중",
         ),
-        MyGroupMeetUpModel.Promise(
-            dDay = 1,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
+        MeetUpDetailFriendModel.Participant(
+            id = 3,
+            name = "Bob",
+            profileImg = "https://example.com/alice.jpg",
+            state = "이동중",
         ),
-        MyGroupMeetUpModel.Promise(
-            dDay = 1,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
+        MeetUpDetailFriendModel.Participant(
+            id = 2,
+            name = "Alice",
+            profileImg = "https://example.com/alice.jpg",
+            state = "이동중",
         ),
     )
 }

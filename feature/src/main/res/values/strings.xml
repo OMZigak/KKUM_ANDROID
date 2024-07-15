@@ -117,4 +117,22 @@
     <string name="tv_add_meet_up_complete">약속이 생성되었어요!</string>
     <string name="tv_add_meet_up_complete_description">해당 약속은 모임 내에서 확인 가능해요</string>
 
+    <!--    준비 정보 입력 화면-->
+    <string name="ready_status_toolbar">준비 정보 입력하기</string>
+    <string name="ready_info_input_minute_error">분은 59분까지만 입력할 수 있어요!</string>
+    <string name="ready_info_input_hour_error">시간은 23시간 까지만 입력할 수 있어요!</string>
+    <string name="ready_info_input_ready_title">⏰ 준비를 시작할 시간이에요 ⏰</string>
+    <string name="ready_info_input_ready_content">%1$s 모임의 %2$s 약속 준비를 출발해야 해요.\n꾸물거릴 시간이 없어요😵!!</string>
+    <string name="ready_info_input_title">준비 정보를 입력해보세요!</string>
+    <string name="ready_info_input_ready_time">준비 시간</string>
+    <string name="ready_info_input_time_hint">00</string>
+    <string name="ready_info_input_time_time">시간</string>
+    <string name="ready_info_input_minute">분</string>
+    <string name="ready_info_input_moving_time">이동 시간</string>
+    <string name="ready_info_input_completed">완료</string>
+    <!--    준비 정보 입력 확인 화면-->
+    <string name="ready_input_completed">확인</string>
+    <string name="ready_info_input_completed_content">설정하신 시간에 맞춰서\n준비 및 이동 시간에 알림을 울려드릴게요</string>
+    <string name="ready_info_input_completed_title">준비 정보 설정이 완료되었어요!</string>
+
 </resources>
