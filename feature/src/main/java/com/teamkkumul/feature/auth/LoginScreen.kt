@@ -19,7 +19,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -33,7 +32,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.teamkkumul.core.designsystem.theme.Gray8
-import com.teamkkumul.core.designsystem.theme.Green3
 import com.teamkkumul.core.designsystem.theme.Green4
 import com.teamkkumul.core.designsystem.theme.KkumulAndroidTheme
 import com.teamkkumul.core.designsystem.theme.KkumulTheme
