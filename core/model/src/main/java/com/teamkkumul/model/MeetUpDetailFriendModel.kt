@@ -8,5 +8,6 @@ class MeetUpDetailFriendModel(
         val id: Int,
         val name: String,
         val profileImg: String,
+        val state: String? = null,
     )
 }
