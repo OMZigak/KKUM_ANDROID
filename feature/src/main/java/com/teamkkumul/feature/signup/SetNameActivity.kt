@@ -1,30 +1,27 @@
 package com.teamkkumul.feature.signup
 
+import android.content.Intent
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import com.teamkkumul.core.ui.base.BindingFragment
-import com.teamkkumul.core.ui.util.fragment.colorOf
+import com.teamkkumul.core.ui.base.BindingActivity
+import com.teamkkumul.core.ui.util.context.colorOf
 import com.teamkkumul.feature.R
-import com.teamkkumul.feature.databinding.FragmentSetNameBinding
+import com.teamkkumul.feature.databinding.ActivitySetNameBinding
 import com.teamkkumul.feature.utils.Debouncer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragment_set_name) {
+class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activity_set_name) {
 
-    private val setNameViewModel: SetNameViewModel by activityViewModels()
     private val setNameDebouncer = Debouncer<String>()
     private var currentText: String = ""
 
     override fun initView() {
         setName()
         binding.btnNext.setOnClickListener {
-            setNameViewModel.getInputName(binding.etSetName.text.toString())
-            findNavController().navigate(R.id.action_fragment_set_name_to_fragment_set_profile)
+            val inputName = binding.etSetName.text.toString()
+            navigateToSetProfile(inputName)
         }
     }
 
@@ -75,10 +72,18 @@ class SetNameFragment : BindingFragment<FragmentSetNameBinding>(R.layout.fragmen
         binding.btnNext.isEnabled = isValid
     }
 
+    private fun navigateToSetProfile(inputName: String) {
+        val intent = Intent(this, SetProfileActivity::class.java).apply {
+            putExtra(INPUT_NAME, inputName)
+        }
+        startActivity(intent)
+    }
+
     companion object {
         private const val NAME_PATTERN = "^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{1,5}$"
         private val nameRegex = Regex(NAME_PATTERN)
         private const val SET_NAME_DEBOUNCE_DELAY = 300L
         private const val NAME_MAX_LENGTH = 5
+        const val INPUT_NAME = "inputName"
     }
 }

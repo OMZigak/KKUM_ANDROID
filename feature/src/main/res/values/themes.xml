@@ -53,12 +53,18 @@
     <style name="TextInputEditTextStyle">
         <item name="android:textAppearance">@style/TextAppearance.Kkumul.body_04</item>
         <item name="android:includeFontPadding">true</item>
-        <item name="android:textColor">@color/main_color</item>
+        <item name="android:textColor">@color/black0</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.Circle" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
     </style>
 
 

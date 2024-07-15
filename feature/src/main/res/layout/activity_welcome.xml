@@ -12,11 +12,12 @@
         android:background="@color/green1">
 
         <ImageView
-            android:id="@+id/iv_character"
-            android:layout_width="139dp"
-            android:layout_height="139dp"
-            android:layout_marginTop="202dp"
-            android:background="@color/gray2"
+            android:id="@+id/iv_welcome_character"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="94dp"
+            android:layout_marginTop="220dp"
+            android:src="@drawable/ic_welcome_character"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,18 +28,33 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:text="@string/tv_welcome"
-            android:textAppearance="@style/TextAppearance.Kkumul.body_01"
+            android:textAppearance="@style/TextAppearance.Kkumul.head_01"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_character" />
+            app:layout_constraintTop_toBottomOf="@id/iv_welcome_character" />
+
+        <TextView
+            android:id="@+id/tv_welcome_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/tv_welcome_description"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_06"
+            android:textColor="@color/gray6"
+            app:layout_constraintTop_toBottomOf="@id/tv_welcome"/>
 
         <Button
-            android:id="@+id/btn_next"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:id="@+id/btn_okay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="14dp"
+            app:layout_constraintDimensionRatio="332:50"
             android:layout_marginBottom="50dp"
-            android:background="@drawable/shape_green_fill_8_rect"
+            android:background="@drawable/shape_gray_fill_8_rect"
+            android:backgroundTint="@color/main_color"
             android:text="@string/okay"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
             app:layout_constraintBottom_toBottomOf="parent"

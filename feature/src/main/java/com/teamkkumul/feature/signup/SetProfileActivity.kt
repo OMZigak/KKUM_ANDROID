@@ -4,15 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.navigation.fragment.findNavController
 import coil.load
-import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.feature.R
-import com.teamkkumul.feature.databinding.FragmentSetProfileBinding
+import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
+import com.teamkkumul.feature.signup.SetNameActivity.Companion.INPUT_NAME
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SetProfileFragment : BindingFragment<FragmentSetProfileBinding>(R.layout.fragment_set_profile) {
+class SetProfileActivity : BindingActivity<ActivitySetProfileBinding>(R.layout.activity_set_profile) {
     private val selectImageLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -28,15 +28,16 @@ class SetProfileFragment : BindingFragment<FragmentSetProfileBinding>(R.layout.f
         }
 
     override fun initView() {
+        val inputName = intent.getStringExtra(INPUT_NAME)
         with(binding) {
             ivBtnSetProfile.setOnClickListener {
                 openGallery()
             }
             btnOkay.setOnClickListener {
-                findNavController().navigate(R.id.action_fragment_set_profile_to_fragment_welcome)
+                inputName?.let { navigateToWelcome(it) }
             }
             tvBtnNotNow.setOnClickListener {
-                findNavController().navigate(R.id.action_fragment_set_profile_to_fragment_welcome)
+                inputName?.let { navigateToWelcome(it) }
             }
         }
     }
@@ -46,5 +47,12 @@ class SetProfileFragment : BindingFragment<FragmentSetProfileBinding>(R.layout.f
             type = "image/*"
         }
         selectImageLauncher.launch(intent)
+    }
+
+    private fun navigateToWelcome(inputName: String) {
+        val intent = Intent(this, WelcomeActivity::class.java).apply {
+            putExtra(INPUT_NAME, inputName)
+        }
+        startActivity(intent)
     }
 }
