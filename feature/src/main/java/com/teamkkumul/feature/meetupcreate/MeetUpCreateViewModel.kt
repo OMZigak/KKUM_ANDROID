@@ -13,8 +13,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MeetUpCreateViewModel @Inject constructor() : ViewModel() {
-    private val _meetUpLocation = MutableLiveData<String>()
-    val meetUpLocation: LiveData<String> get() = _meetUpLocation
+
+    private val _meetUpInputState = MutableStateFlow(false)
+    val meetUpInputState: StateFlow<Boolean> get() = _meetUpInputState
+
+    private val _meetUpLocation = MutableStateFlow<String>("")
+    val meetUpLocation: StateFlow<String> get() = _meetUpLocation
 
     private val _meetUpDate = MutableStateFlow<String>("")
     val meetUpDate: StateFlow<String> get() = _meetUpDate
@@ -32,12 +36,20 @@ class MeetUpCreateViewModel @Inject constructor() : ViewModel() {
     private val _members = MutableLiveData<List<MeetUpSealedItem.Participant>>()
     val members: LiveData<List<MeetUpSealedItem.Participant>> get() = _members
 
+    private val _meetUpName = MutableStateFlow<Boolean>(false)
+
     fun setMeetUpDate(input: String) {
-        _meetUpDate.value = input
+        viewModelScope.launch {
+            _meetUpDate.emit(input)
+            validateForm()
+        }
     }
 
     fun setMeetUpTime(input: String) {
-        _meetUpTime.value = input
+        viewModelScope.launch {
+            _meetUpTime.emit(input)
+            validateForm()
+        }
     }
 
     fun setProgressBar(value: Int) {
@@ -45,12 +57,34 @@ class MeetUpCreateViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setMeetUpLocation(location: String) {
-        _meetUpLocation.value = location
+        viewModelScope.launch {
+            _meetUpLocation.emit(location)
+            validateForm()
+        }
+    }
+
+    fun setMeetUpName(input: Boolean) {
+        viewModelScope.launch {
+            _meetUpName.emit(input)
+            validateForm()
+        }
     }
 
     fun getLocation() {
         viewModelScope.launch {
             _location.value = UiState.Empty
+        }
+    }
+
+    private fun validateForm() {
+        viewModelScope.launch {
+            val isFormValid =
+                _meetUpLocation.value.isNotEmpty() &&
+                    _meetUpDate.value.isNotEmpty() &&
+                    _meetUpTime.value.isNotEmpty() &&
+                    _meetUpName.value
+
+            _meetUpInputState.emit(isFormValid)
         }
     }
 
