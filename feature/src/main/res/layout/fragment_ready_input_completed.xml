@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -6,66 +7,70 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_add_my_group_complete"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/green1">
 
         <include
-            android:id="@+id/tb_add_my_group"
+            android:id="@+id/toolbar_ready_info_input"
             layout="@layout/view_toolbar"
-            app:title="@{@string/add_my_group_title}" />
+            app:title="@{@string/ready_status_toolbar}" />
 
         <ImageView
-            android:id="@+id/iv_character"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="60dp"
-            android:layout_marginTop="189dp"
-            android:src="@drawable/ic_add_my_group_complete_character"
+            android:id="@+id/iv_ready_info_input_completed"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="94dp"
+            android:src="@drawable/img_ready_input_completed"
+            app:layout_constraintBottom_toTopOf="@id/tv_ready_info_input_title"
+            app:layout_constraintDimensionRatio="172:134"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tb_add_my_group" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
-            android:id="@+id/tv_add_my_group_complete"
+            android:id="@+id/tv_ready_info_input_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/tv_add_my_group_complete"
+            android:layout_marginTop="36dp"
+            android:text="@string/ready_info_input_completed_title"
             android:textAppearance="@style/TextAppearance.Kkumul.head_01"
+            app:layout_constraintBottom_toTopOf="@id/tv_ready_info_input_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_character" />
+            app:layout_constraintTop_toBottomOf="@id/iv_ready_info_input_completed" />
 
         <TextView
-            android:id="@+id/tv_add_my_group_complete_description"
+            android:id="@+id/tv_ready_info_input_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="@string/tv_add_my_group_complete_description"
+            android:layout_marginTop="10dp"
+            android:lineHeight="22dp"
+            android:text="@string/ready_info_input_completed_content"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Kkumul.body_06"
             android:textColor="@color/gray6"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_add_my_group_complete" />
+            app:layout_constraintTop_toBottomOf="@id/tv_ready_info_input_title" />
 
         <Button
-            android:id="@+id/btn_okay"
+            android:id="@+id/btn_ready_info_completed_next"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="14dp"
             android:layout_marginBottom="50dp"
-            android:background="@drawable/shape_gray_fill_8_rect"
-            android:backgroundTint="@color/main_color"
-            android:text="@string/okay"
+            android:background="@drawable/sel_btn"
+            android:enabled="true"
+            android:text="@string/ready_input_completed"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            android:textColor="@color/white0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="332:50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

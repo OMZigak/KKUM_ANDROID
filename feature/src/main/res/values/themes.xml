@@ -15,8 +15,9 @@
         <!--        <item name="snackbarStyle">@style/CustomSnackBar</item>-->
     </style>
 
-
-    <style name="Theme.Kkumul" parent="Base.Theme.Kkumul" />
+    <style name="Theme.Kkumul" parent="Base.Theme.Kkumul">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
@@ -93,6 +94,18 @@
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxStrokeWidthFocused">1dp</item>
         <item name="boxStrokeColor">@color/sel_btn_et_color_stroke</item>
+    </style>
+
+    <style name="ChipGroupTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/white0</item>
+        <item name="chipStrokeColor">@color/gray2</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="android:textColor">@color/gray5</item>
+        <item name="chipMinHeight">44dp</item>
+        <item name="chipMinTouchTargetSize">44dp</item>
+        <item name="chipSpacingHorizontal">4dp</item>
+        <item name="chipSpacingVertical">8dp</item>
     </style>
 
 </resources>

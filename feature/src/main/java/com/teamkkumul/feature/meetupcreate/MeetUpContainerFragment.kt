@@ -1,10 +1,10 @@
-package com.teamkkumul.feature.meetupcreate
+package com.teamkkumul.feature.meetup
 
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpContainerBinding
-import com.teamkkumul.feature.meetup.MeetUpDetailVpAdapter
+import com.teamkkumul.feature.utils.KeyStorage.TAB_INDEX
 
 class MeetUpContainerFragment :
     BindingFragment<FragmentMeetUpContainerBinding>(R.layout.fragment_meet_up_container) {
@@ -27,6 +27,9 @@ class MeetUpContainerFragment :
         }.attach()
 
         vpMeetUpContainer.setUserInputEnabled(false)
+
+        val tabIndex = arguments?.getInt(TAB_INDEX) ?: 0
+        vpMeetUpContainer.setCurrentItem(tabIndex, false)
     }
 
     companion object {
