@@ -12,12 +12,14 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.auth.LoginActivity
 import com.teamkkumul.feature.databinding.ActivitySplashBinding
 import com.teamkkumul.feature.splash.model.AutoLoginState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_splash) {
     private val viewModel by viewModels<SplashViewModel>()
     override fun initView() {
