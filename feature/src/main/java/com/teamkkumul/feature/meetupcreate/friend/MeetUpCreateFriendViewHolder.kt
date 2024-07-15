@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetupcreate.viewholder
+package com.teamkkumul.feature.meetupcreate.friend
 
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat

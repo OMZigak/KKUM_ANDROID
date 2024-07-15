@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetupcreate
+package com.teamkkumul.feature.meetupcreate.friend
 
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -10,6 +10,7 @@ import com.teamkkumul.core.ui.util.context.pxToDp
 import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpFriendPlusBinding
+import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
 import com.teamkkumul.feature.utils.itemdecorator.GridSpacingItemDecoration
 import com.teamkkumul.feature.utils.animateProgressBar
 import dagger.hilt.android.AndroidEntryPoint

@@ -66,13 +66,13 @@
 
     <fragment
         android:id="@+id/fragment_meet_up_create_friend"
-        android:name="com.teamkkumul.feature.meetupcreate.MeetUpCreateFriendFragment"
+        android:name="com.teamkkumul.feature.meetupcreate.friend.MeetUpCreateFriendFragment"
         android:label="Meet Up Create friend"
         tools:layout="@layout/fragment_meet_up_friend_plus" />
 
     <fragment
         android:id="@+id/fragment_meet_up_create_location"
-        android:name="com.teamkkumul.feature.meetupcreate.MeetUpCreateLocationFragment"
+        android:name="com.teamkkumul.feature.meetupcreate.location.MeetUpCreateLocationFragment"
         android:label="Meet Up Create Location"
         tools:layout="@layout/fragment_meet_up_create_location">
         <action

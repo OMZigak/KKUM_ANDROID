@@ -1,11 +1,10 @@
-package com.teamkkumul.feature.meetupcreate
+package com.teamkkumul.feature.meetupcreate.friend
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.teamkkumul.core.ui.view.ItemDiffCallback
 import com.teamkkumul.feature.databinding.ItemMeetUpCreateFriendBinding
-import com.teamkkumul.feature.meetupcreate.viewholder.MeetUpCreateFriendViewHolder
 import com.teamkkumul.model.MeetUpSealedItem
 
 class MeetUpCreateFriendAdapter(

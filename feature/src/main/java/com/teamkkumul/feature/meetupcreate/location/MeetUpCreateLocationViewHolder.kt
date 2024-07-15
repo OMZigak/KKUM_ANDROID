@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetupcreate.viewholder
+package com.teamkkumul.feature.meetupcreate.location
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView

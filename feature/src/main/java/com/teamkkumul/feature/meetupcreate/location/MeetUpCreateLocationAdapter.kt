@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetupcreate
+package com.teamkkumul.feature.meetupcreate.location
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.core.ui.view.ItemDiffCallback
 import com.teamkkumul.feature.databinding.ItemMeetUpCreateLocationBinding
-import com.teamkkumul.feature.meetupcreate.viewholder.MeetUpCreateLocationViewHolder
 import com.teamkkumul.model.MeetUpCreateLocationModel
 
 class MeetUpCreateLocationAdapter(

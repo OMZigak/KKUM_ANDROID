@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetupcreate
+package com.teamkkumul.feature.meetupcreate.location
 
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -9,6 +9,7 @@ import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpCreateLocationBinding
+import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

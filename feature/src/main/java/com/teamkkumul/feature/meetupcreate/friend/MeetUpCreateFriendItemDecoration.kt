@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetupcreate
+package com.teamkkumul.feature.meetupcreate.friend
 
 import android.content.Context
 import android.graphics.Rect
