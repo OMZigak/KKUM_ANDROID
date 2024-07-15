@@ -13,7 +13,9 @@
         <!--        <item name="snackbarStyle">@style/CustomSnackBar</item>-->
     </style>
 
-    <style name="Theme.Kkumul" parent="Base.Theme.Kkumul" />
+    <style name="Theme.Kkumul" parent="Base.Theme.Kkumul">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>

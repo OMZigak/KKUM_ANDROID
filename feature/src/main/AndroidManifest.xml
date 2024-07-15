@@ -9,9 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kkumul">
         <activity
-            android:name=".auth.LoginActivity"
+            android:name=".splash.SplashActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +19,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".auth.LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".signup.SetNameActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"
@@ -27,10 +31,12 @@
         <activity
             android:name=".signup.SetProfileActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".signup.WelcomeActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
