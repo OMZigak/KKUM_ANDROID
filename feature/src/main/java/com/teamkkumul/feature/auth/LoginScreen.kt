@@ -1,10 +1,12 @@
 package com.teamkkumul.feature.auth
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,8 +16,11 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
@@ -23,10 +28,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.teamkkumul.core.designsystem.theme.Gray8
+import com.teamkkumul.core.designsystem.theme.Green3
+import com.teamkkumul.core.designsystem.theme.Green4
 import com.teamkkumul.core.designsystem.theme.KkumulAndroidTheme
 import com.teamkkumul.core.designsystem.theme.KkumulTheme
 import com.teamkkumul.core.designsystem.theme.Yellow
@@ -68,12 +76,21 @@ fun LoginRoute(
 fun LoginScreen(
     onLoginBtnClick: () -> Unit,
 ) {
+    SetStatusBarColor(color = Green4.toArgb())
+
     Column(
-        verticalArrangement = Arrangement.Bottom,
+        verticalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = 160.dp),
+            .fillMaxSize(),
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.img_login),
+            contentDescription = null,
+            modifier = Modifier.fillMaxWidth(),
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
         Button(
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Yellow),
@@ -99,6 +116,21 @@ fun LoginScreen(
                     modifier = Modifier.align(Alignment.Center),
                 )
             }
+        }
+        Spacer(modifier = Modifier.weight(1f))
+    }
+}
+
+@Composable
+fun SetStatusBarColor(color: Int) {
+    val activity = LocalContext.current as? Activity
+    SideEffect {
+        activity?.window?.let { window ->
+            WindowCompat.getInsetsController(
+                window,
+                window.decorView,
+            ).isAppearanceLightStatusBars = false // Set to false if your status bar color is light
+            window.statusBarColor = color
         }
     }
 }
