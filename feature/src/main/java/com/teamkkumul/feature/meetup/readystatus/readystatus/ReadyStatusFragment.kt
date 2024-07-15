@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetup.readystatus
+package com.teamkkumul.feature.meetup.readystatus.readystatus
 
 import android.widget.ImageView
 import androidx.fragment.app.viewModels

@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetup.readystatus
+package com.teamkkumul.feature.meetup.readystatus.readystatus
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
