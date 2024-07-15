@@ -1,9 +1,11 @@
 package com.teamkkumul.kkumul
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import com.kakao.sdk.common.KakaoSdk
-import com.kakao.sdk.common.util.Utility
 import com.teamkkumul.core.network.BuildConfig
 import com.teamkkumul.kkumul.BuildConfig.KAKAO_APP_KEY
 import dagger.hilt.android.HiltAndroidApp
@@ -16,6 +18,7 @@ class KkumulApp : Application() {
         setTimber()
         setDarkMode()
         setKaKaoSdk()
+        createNotificationChannel()
     }
 
     private fun setTimber() {
@@ -28,8 +31,17 @@ class KkumulApp : Application() {
 
     private fun setKaKaoSdk() {
         KakaoSdk.init(this, KAKAO_APP_KEY)
-        // 요건 각자 찍어보고 저한테 알려주세요!
-        val keyHash = Utility.getKeyHash(this)
-        Timber.tag("Hash").d(keyHash)
+    }
+
+    private fun createNotificationChannel() {
+        val name = "로컬 알람 채널"
+        val descriptionText = "로컬 알람을 위한 채널입니다."
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel("101", name, importance).apply {
+            description = descriptionText
+        }
+        val notificationManager: NotificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }
