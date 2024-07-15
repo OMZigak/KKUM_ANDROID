@@ -1,9 +1,10 @@
-package com.teamkkumul.feature.meetup
+package com.teamkkumul.feature.meetupcreate
 
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpContainerBinding
+import com.teamkkumul.feature.meetup.MeetUpDetailVpAdapter
 
 class MeetUpContainerFragment :
     BindingFragment<FragmentMeetUpContainerBinding>(R.layout.fragment_meet_up_container) {
