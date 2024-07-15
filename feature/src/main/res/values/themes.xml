@@ -10,8 +10,11 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/white0</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
+        <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
         <!--        <item name="snackbarStyle">@style/CustomSnackBar</item>-->
     </style>
+
 
     <style name="Theme.Kkumul" parent="Base.Theme.Kkumul" />
 
@@ -72,9 +75,24 @@
         <item name="shapeAppearance">@style/CustomExtendedFabShape</item>
     </style>
 
+    <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
+        <item name="android:background">@color/white0</item>
+        <item name="colorPrimary">@color/main_color</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TimePicker" parent="@style/ThemeOverlay.Material3.MaterialTimePicker">
+        <item name="android:backgroundTint">@color/white0</item>
+    </style>
+
     <style name="CustomExtendedFabShape" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">28dp</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeColor">@color/sel_btn_et_color_stroke</item>
     </style>
 
 </resources>
