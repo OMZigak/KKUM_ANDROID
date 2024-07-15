@@ -11,8 +11,8 @@ import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpFriendPlusBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
-import com.teamkkumul.feature.utils.itemdecorator.GridSpacingItemDecoration
 import com.teamkkumul.feature.utils.animateProgressBar
+import com.teamkkumul.feature.utils.itemdecorator.GridSpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
