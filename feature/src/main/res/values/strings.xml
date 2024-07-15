@@ -140,4 +140,9 @@
     <string name="ready_info_input_completed_content">설정하신 시간에 맞춰서\n준비 및 이동 시간에 알림을 울려드릴게요</string>
     <string name="ready_info_input_completed_title">준비 정보 설정이 완료되었어요!</string>
 
+    <!-- 지각 꾸물이 화면 -->
+    <string name="end_meet_up">약속 마치기</string>
+    <string name="tv_penalty">벌칙</string>
+    <string name="tv_penalty_description">탕후루 릴스 찍기</string>
+
 </resources>
