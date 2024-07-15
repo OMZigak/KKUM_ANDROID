@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:name=".KkumulApp"
@@ -30,5 +32,6 @@
                     android:scheme="kakao${kakaoAppkey}" />
             </intent-filter>
         </activity>
+        <receiver android:name="com.teamkkumul.feature.meetup.readystatus.readyinfoinput.alarm.AlarmReceiver" />
     </application>
 </manifest>
