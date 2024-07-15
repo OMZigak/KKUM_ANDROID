@@ -15,10 +15,11 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentHomeBinding
-import com.teamkkumul.feature.home.model.BtnState
+import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.getCurrentTime
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
+import com.teamkkumul.feature.utils.model.BtnState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -35,14 +36,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         initHomeBtnClick()
         initObserveBtnState()
         initMeetingNextBtnClick()
+        initHomeMeetUpRecyclerView()
+        initObserveHomePromiseState()
     }
 
     private fun initHomeBtnClick() {
         initReadyBtnClick()
         initMovingBtnClick()
         initArriveBtnClick()
-        initHomeMeetUpRecyclerView()
-        initObserveHomePromiseState()
     }
 
     private fun initObserveHomePromiseState() {
@@ -76,7 +77,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             viewModel.clickReadyBtn()
             tvHomeReadyTime.text = getCurrentTime()
             viewLifeCycleScope.launch {
-                animateProgressBar(pgHomeReady, progressNum)
+                animateProgressBar(pgHomeReady, PROGRESS_NUM_100)
             }
         }
     }
@@ -86,7 +87,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             viewModel.clickMovingStartBtn()
             tvHomeMovingTime.text = getCurrentTime()
             viewLifeCycleScope.launch {
-                animateProgressBar(pgHomeMoving, progressNum)
+                animateProgressBar(pgHomeMoving, PROGRESS_NUM_100)
             }
         }
     }
@@ -97,9 +98,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             tvvHomeArriveTime.text = getCurrentTime()
 
             viewLifeCycleScope.launch {
-                animateProgressBar(pgHomeArrive, progressNum)
+                animateProgressBar(pgHomeArrive, PROGRESS_NUM_100)
                 delay(300L)
-                animateProgressBar(pgHomeArriveEnd, progressNum)
+                animateProgressBar(pgHomeArriveEnd, PROGRESS_NUM_100)
             }
         }
     }
@@ -171,9 +172,5 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun onDestroyView() {
         super.onDestroyView()
         _homeMeetUpAdapter = null
-    }
-
-    companion object {
-        private const val progressNum = 100
     }
 }
