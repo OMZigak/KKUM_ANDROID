@@ -22,7 +22,6 @@ import com.teamkkumul.feature.utils.TimeStorage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 import java.util.Calendar
 
 @AndroidEntryPoint
@@ -33,12 +32,27 @@ class ReadyInfoInputFragment :
     private val setTimeDebouncer = Debouncer<String>()
 
     override fun initView() {
+        initSetEditText()
+        initObserveState()
         initReadyInputBtnClick()
+    }
+
+    private fun initSetEditText() {
         setReadyHour()
         setReadyMinute()
         setMovingHour()
         setMovingMinute()
+    }
 
+    private fun initObserveState() {
+        observeNextBtnState()
+        observeReadyHourState()
+        observeReadyMinuteState()
+        observeMovingHourState()
+        observeMovingMinuteState()
+    }
+
+    private fun observeNextBtnState() {
         viewModel.readyInputState.flowWithLifecycle(viewLifeCycle).onEach { state ->
             binding.btnReadyInfoNext.isEnabled = state
         }.launchIn(viewLifeCycleScope)
@@ -52,16 +66,6 @@ class ReadyInfoInputFragment :
                 }
             }
         }
-
-        viewModel.readyHour.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
-            val color = if (isValid) colorOf(R.color.main_color) else colorOf(R.color.red)
-            binding.tilReadyStatusReadHour.boxStrokeColor = color
-            binding.etReadyStatusReadHour.setTextColor(color)
-            if (!isValid) {
-                binding.etReadyStatusReadHour.setText(TimeStorage.END_HOUR.toString())
-                toast(getString(R.string.ready_info_input_hour_error))
-            }
-        }.launchIn(viewLifeCycleScope)
     }
 
     private fun setReadyMinute() {
@@ -72,15 +76,6 @@ class ReadyInfoInputFragment :
                 }
             }
         }
-        viewModel.readyMinute.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
-            val color = if (isValid) colorOf(R.color.main_color) else colorOf(R.color.red)
-            binding.tilReadyStatusReadyMinute.boxStrokeColor = color
-            binding.etReadyStatusReadyMinute.setTextColor(color)
-            if (!isValid && binding.etReadyStatusReadyMinute.text.toString() != "") {
-                binding.etReadyStatusReadyMinute.setText(TimeStorage.END_MINUTE.toString())
-                toast(getString(R.string.ready_info_input_minute_error))
-            }
-        }.launchIn(viewLifeCycleScope)
     }
 
     private fun setMovingHour() {
@@ -91,15 +86,6 @@ class ReadyInfoInputFragment :
                 }
             }
         }
-        viewModel.movingHour.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
-            val color = if (isValid) colorOf(R.color.main_color) else colorOf(R.color.red)
-            binding.tilReadyStatusMovingHour.boxStrokeColor = color
-            binding.etReadyStatusMovingHour.setTextColor(color)
-            if (!isValid) {
-                binding.etReadyStatusMovingHour.setText(TimeStorage.END_HOUR.toString())
-                toast(getString(R.string.ready_info_input_hour_error))
-            }
-        }.launchIn(viewLifeCycleScope)
     }
 
     private fun setMovingMinute() {
@@ -110,12 +96,51 @@ class ReadyInfoInputFragment :
                 }
             }
         }
+    }
+
+    private fun observeReadyHourState() = with(binding) {
+        viewModel.readyHour.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
+            val color = if (isValid) colorOf(R.color.main_color) else colorOf(R.color.red)
+            tilReadyStatusReadHour.boxStrokeColor = color
+            etReadyStatusReadHour.setTextColor(color)
+            if (!isValid) {
+                etReadyStatusReadHour.setText(TimeStorage.END_HOUR.toString())
+                toast(getString(R.string.ready_info_input_hour_error))
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun observeReadyMinuteState() = with(binding) {
+        viewModel.readyMinute.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
+            val color = if (isValid) colorOf(R.color.main_color) else colorOf(R.color.red)
+            tilReadyStatusReadyMinute.boxStrokeColor = color
+            etReadyStatusReadyMinute.setTextColor(color)
+            if (!isValid) {
+                etReadyStatusReadyMinute.setText(TimeStorage.END_MINUTE.toString())
+                toast(getString(R.string.ready_info_input_minute_error))
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun observeMovingHourState() = with(binding) {
+        viewModel.movingHour.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
+            val color = if (isValid) colorOf(R.color.main_color) else colorOf(R.color.red)
+            tilReadyStatusMovingHour.boxStrokeColor = color
+            etReadyStatusMovingHour.setTextColor(color)
+            if (!isValid) {
+                etReadyStatusMovingHour.setText(TimeStorage.END_HOUR.toString())
+                toast(getString(R.string.ready_info_input_hour_error))
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun observeMovingMinuteState() = with(binding) {
         viewModel.movingMinute.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
             val color = if (isValid) colorOf(R.color.main_color) else colorOf(R.color.red)
-            binding.tilReadyStatusMovingMinute.boxStrokeColor = color
-            binding.etReadyStatusMovingMinute.setTextColor(color)
+            tilReadyStatusMovingMinute.boxStrokeColor = color
+            etReadyStatusMovingMinute.setTextColor(color)
             if (!isValid) {
-                binding.etReadyStatusMovingMinute.setText(TimeStorage.END_MINUTE.toString())
+                etReadyStatusMovingMinute.setText(TimeStorage.END_MINUTE.toString())
                 toast(getString(R.string.ready_info_input_minute_error))
             }
         }.launchIn(viewLifeCycleScope)
@@ -179,6 +204,5 @@ class ReadyInfoInputFragment :
         )
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-        Timber.tag("AlarmSet").d("$alarmTitle Alarm set for: ${calendar.time}")
     }
 }
