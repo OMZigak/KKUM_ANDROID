@@ -77,4 +77,16 @@
         <item name="cornerSize">28dp</item>
     </style>
 
+    <style name="ChipGroupTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/white0</item>
+        <item name="chipStrokeColor">@color/gray2</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="android:textColor">@color/gray5</item>
+        <item name="chipMinHeight">44dp</item>
+        <item name="chipMinTouchTargetSize">44dp</item>
+        <item name="chipSpacingHorizontal">4dp</item>
+        <item name="chipSpacingVertical">8dp</item>
+    </style>
+
 </resources>
