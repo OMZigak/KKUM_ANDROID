@@ -84,7 +84,7 @@
         android:id="@+id/fragment_meet_up_container"
         android:name="com.teamkkumul.feature.meetup.MeetUpContainerFragment"
         android:label="MeetUpContainerFragment"
-        tools:layout="@layout/fragment_meet_up_container" >
+        tools:layout="@layout/fragment_meet_up_container">
         <action
             android:id="@+id/action_fragment_meet_up_container_to_readyInfoInputFragment"
             app:destination="@id/fragment_ready_info_input" />
@@ -93,11 +93,28 @@
         android:id="@+id/fragment_ready_info_input"
         android:name="com.teamkkumul.feature.meetup.readystatus.readyinfoinput.ReadyInfoInputFragment"
         android:label="ReadyInfoInputFragment"
-        tools:layout="@layout/fragment_ready_info_input" />
+        tools:layout="@layout/fragment_ready_info_input">
+        <action
+            android:id="@+id/action_fragment_ready_info_input_to_readyInputCompletedFragment"
+            app:destination="@id/fragment_ready_input_completed" />
+    </fragment>
+
     <fragment
         android:id="@+id/fragment_ready_status"
         android:name="com.teamkkumul.feature.meetup.readystatus.readystatus.ReadyStatusFragment"
         android:label="ReadyStatusFragment"
-        tools:layout="@layout/fragment_ready_status"/>
+        tools:layout="@layout/fragment_ready_status" />
+
+    <fragment
+        android:id="@+id/fragment_ready_input_completed"
+        android:name="com.teamkkumul.feature.meetup.readystatus.complete.ReadyInputCompletedFragment"
+        android:label="ReadyInputCompletedFragment"
+        tools:layout="@layout/fragment_ready_input_completed">
+        <action
+            android:id="@+id/action_readyInputCompletedFragment_to_fragment_meet_up_container"
+            app:destination="@id/fragment_meet_up_container"
+            app:popUpTo="@id/fragment_ready_info_input"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

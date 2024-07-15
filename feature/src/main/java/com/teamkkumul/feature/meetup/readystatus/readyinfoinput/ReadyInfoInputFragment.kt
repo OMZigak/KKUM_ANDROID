@@ -170,7 +170,7 @@ class ReadyInfoInputFragment :
                 1,
             )
 
-            findNavController().navigate(R.id.fragment_home)
+            findNavController().navigate(R.id.action_fragment_ready_info_input_to_readyInputCompletedFragment)
         }
     }
 
