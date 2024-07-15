@@ -8,6 +8,7 @@ import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupBinding
+import com.teamkkumul.feature.mygroup.adapter.MyGroupAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,13 +41,14 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
         }
     }
 
+    //    cl_my_group_plus
     private fun initGroupRecyclerView() {
         binding.clMyGroupPlus.setOnClickListener {
             findNavController().navigate(R.id.action_myGroupFragment_to_addMyGroupFragment)
         }
         _memberAdapter = MyGroupAdapter(
-            myGroupListBtnClicked = {
-                findNavController().navigate(R.id.exampleComposeFragment)
+            onMyGroupListBtnClicked = {
+                findNavController().navigate(R.id.action_myGroupFragment_to_myGroupDetailFragment)
             },
         )
         binding.rvMyGroupList.apply {

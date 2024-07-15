@@ -22,7 +22,13 @@ class MyGroupViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    //    init {
+//        getPromise()
+//    }
     init {
-        getPromise()
+        val mockGroups = listOf(
+            MyGroupModel.Meeting(id = 3, 3, "모각작"),
+        )
+        _group.value = UiState.Success(mockGroups)
     }
 }
