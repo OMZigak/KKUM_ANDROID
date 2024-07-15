@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.context.hideKeyboard
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
@@ -32,9 +33,16 @@ class ReadyInfoInputFragment :
     private val setTimeDebouncer = Debouncer<String>()
 
     override fun initView() {
+        initHideKeyBoard()
         initSetEditText()
         initObserveState()
         initReadyInputBtnClick()
+    }
+
+    private fun initHideKeyBoard() {
+        binding.root.setOnClickListener {
+            requireContext().hideKeyboard(binding.root)
+        }
     }
 
     private fun initSetEditText() {

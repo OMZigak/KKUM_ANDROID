@@ -67,11 +67,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="@string/ready_info_input_time_hint"
+                android:imeOptions="actionNext"
                 android:includeFontPadding="false"
                 android:inputType="time"
                 android:maxEms="2"
                 android:maxLength="2"
                 android:maxLines="1"
+                android:nextFocusDown="@id/et_ready_status_ready_minute"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_02" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -107,11 +109,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="@string/ready_info_input_time_hint"
+                android:imeOptions="actionNext"
                 android:includeFontPadding="false"
                 android:inputType="time"
                 android:maxEms="2"
                 android:maxLength="2"
                 android:maxLines="1"
+                android:nextFocusDown="@id/et_ready_status_moving_hour"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_02" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -155,11 +159,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="@string/ready_info_input_time_hint"
+                android:imeOptions="actionNext"
                 android:includeFontPadding="false"
                 android:inputType="time"
                 android:maxEms="2"
                 android:maxLength="2"
                 android:maxLines="1"
+                android:nextFocusDown="@id/et_ready_status_moving_minute"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_02" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -194,6 +200,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="@string/ready_info_input_time_hint"
+                android:imeOptions="actionDone"
                 android:includeFontPadding="false"
                 android:inputType="time"
                 android:maxEms="2"

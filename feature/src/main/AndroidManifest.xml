@@ -43,7 +43,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
     </application>
 
