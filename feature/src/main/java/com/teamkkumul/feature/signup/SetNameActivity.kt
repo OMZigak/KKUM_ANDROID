@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doAfterTextChanged
 import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.core.ui.util.context.colorOf
+import com.teamkkumul.core.ui.util.context.hideKeyboard
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetNameBinding
 import com.teamkkumul.feature.utils.Debouncer
@@ -22,6 +23,9 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
         binding.btnNext.setOnClickListener {
             val inputName = binding.etSetName.text.toString()
             navigateToSetProfile(inputName)
+        }
+        binding.clSetName.setOnClickListener {
+            hideKeyboard(binding.clSetName)
         }
     }
 
