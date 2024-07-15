@@ -63,6 +63,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_meet_up_participate_people_count"
             tools:listitem="@layout/item_my_group_friend" />
+        />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_meet_up_remain_meet_up"

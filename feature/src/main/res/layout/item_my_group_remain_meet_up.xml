@@ -48,7 +48,7 @@
             android:text="모임 이름"
             android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
             android:textColor="@color/green3"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/tv_my_group_remain_meet_up_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_my_group_remain_meet_up_due_date_day" />

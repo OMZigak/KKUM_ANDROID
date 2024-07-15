@@ -8,7 +8,6 @@ import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
-import com.teamkkumul.feature.mygroup.MyGroupMockViewModel
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
@@ -18,8 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MyGroupDetailFragment :
     BindingFragment<FragmentMyGroupDetailBinding>(R.layout.fragment_my_group_detail) {
-    private val groupFriendViewModel: MyGroupMockViewModel by viewModels()
-    private val meetUpViewModel: MyGroupDetailViewModel by viewModels()
+    private val viewModel: MyGroupDetailViewModel by viewModels()
 
     private var _memberAdapter: MyGroupDetailFriendAdapter? = null
     private val memberAdapter get() = requireNotNull(_memberAdapter)
@@ -34,12 +32,12 @@ class MyGroupDetailFragment :
         initObserveMeetUpState()
 
         binding.extendedFab.setOnClickListener {
-            findNavController().navigate(R.id.action_myGroupDetailFragment_to_meetUpDetailFragment)
+            findNavController().navigate(R.id.action_myGroupDetailFragment_to_meetUpCreateFragment)
         }
     }
 
     private fun initObserveMemberState() {
-        groupFriendViewModel.members.observe(viewLifecycleOwner) {
+        viewModel.members.observe(viewLifecycleOwner) {
             val newList = mutableListOf<MyGroupSealedItem>()
             newList.add(MyGroupSealedItem.MyGroupPlus(0))
             newList.addAll(it)
@@ -48,7 +46,7 @@ class MyGroupDetailFragment :
     }
 
     private fun initObserveMeetUpState() {
-        meetUpViewModel.promise.observe(viewLifecycleOwner) {
+        viewModel.promise.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Empty -> {
                     binding.viewMyGroupMeetUpEmpty.visibility = View.VISIBLE
