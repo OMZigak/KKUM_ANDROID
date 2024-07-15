@@ -176,7 +176,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_meet_up_level"
-        android:name="com.teamkkumul.feature.meetup.meetuplevel.MeetUpLevelFragment"
+        android:name="com.teamkkumul.feature.meetupcreate.meetuplevel.MeetUpLevelFragment"
         android:label="MeetUpLevelFragment">
         <action
             android:id="@+id/action_fragment_meet_up_level_to_fragment_add_meet_up_complete"
@@ -186,7 +186,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_add_meet_up_complete"
-        android:name="com.teamkkumul.feature.meetup.AddMeetUpCompleteFragment"
+        android:name="com.teamkkumul.feature.meetupcreate.AddMeetUpCompleteFragment"
         android:label="AddMeetUpCompleteFragment">
         <action
             android:id="@+id/action_fragment_add_meet_up_complete_to_fragment_meet_up_detail"

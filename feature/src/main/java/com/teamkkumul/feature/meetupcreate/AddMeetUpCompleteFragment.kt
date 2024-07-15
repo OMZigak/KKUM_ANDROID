@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetup
+package com.teamkkumul.feature.meetupcreate
 
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
