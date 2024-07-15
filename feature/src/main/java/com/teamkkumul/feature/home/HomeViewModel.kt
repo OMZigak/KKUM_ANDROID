@@ -3,7 +3,7 @@ package com.teamkkumul.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.ui.view.UiState
-import com.teamkkumul.feature.home.model.BtnState
+import com.teamkkumul.feature.utils.model.BtnState
 import com.teamkkumul.model.MyGroupMeetUpModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
