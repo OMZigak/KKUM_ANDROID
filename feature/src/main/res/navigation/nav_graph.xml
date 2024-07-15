@@ -89,10 +89,6 @@
         android:name="com.teamkkumul.feature.newgroup.addnewgroup.DialogInvitationCodeFragment"
         tools:layout="@layout/fragment_dialog_invitation_code" />
     <fragment
-        android:id="@+id/fragment_welcome"
-        android:name="com.teamkkumul.feature.signup.WelcomeFragment"
-        android:label="WelcomeFragment" />
-    <fragment
         android:id="@+id/fragment_meet_up_container"
         android:name="com.teamkkumul.feature.meetup.MeetUpContainerFragment"
         android:label="MeetUpContainerFragment"
