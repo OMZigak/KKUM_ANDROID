@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -40,12 +39,6 @@ class LoginViewModel @Inject constructor(
 
     private val _fcmToken: MutableStateFlow<String> = MutableStateFlow("")
     private val _kakaoToken: MutableStateFlow<String> = MutableStateFlow("")
-
-    private fun saveAccessToken(token: String) {
-        runBlocking {
-            userInfoRepository.saveAccessToken(token)
-        }
-    }
 
     private fun saveRefreshToken(token: String) {
         viewModelScope.launch {
@@ -92,10 +85,14 @@ class LoginViewModel @Inject constructor(
     private fun kakaoLoginSuccess(token: OAuthToken) {
         viewModelScope.launch {
             saveAccessToken(token.accessToken)
-            _kakaoToken.emit(token.accessToken)
+            _kakaoToken.value = token.accessToken
             Timber.tag("kakao").d("accessToken: ${token.accessToken}")
             postLogin()
         }
+    }
+
+    private suspend fun saveAccessToken(token: String) {
+        userInfoRepository.saveAccessToken(token)
     }
 
     fun setFcmToken(token: String) {
