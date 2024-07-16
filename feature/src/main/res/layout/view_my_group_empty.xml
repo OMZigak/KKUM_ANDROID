@@ -6,35 +6,12 @@
 
     <ImageView
         android:id="@+id/iv_my_group_empty"
-        android:layout_width="182dp"
-        android:layout_height="232dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="82dp"
-        android:background="@color/green2"
+        android:background="@drawable/ic_my_group_empty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_my_group_empty"
-        style="@style/TextAppearance.Kkumul.caption_01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/my_group_plus"
-        android:textColor="@color/gray6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_my_group_empty" />
-
-    <TextView
-        android:id="@+id/tv_my_group_empty_plus"
-        style="@style/TextAppearance.Kkumul.caption_01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:text="@string/my_group_do_plus"
-        android:textColor="@color/gray6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_my_group_empty" />
 </androidx.constraintlayout.widget.ConstraintLayout>

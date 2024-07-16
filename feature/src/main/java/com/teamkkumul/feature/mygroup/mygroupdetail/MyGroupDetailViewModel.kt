@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.model.MyGroupMeetUpModel
+import com.teamkkumul.model.MyGroupSealedItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,13 +17,62 @@ class MyGroupDetailViewModel @Inject constructor() : ViewModel() {
         MutableLiveData(UiState.Loading)
     val promise: LiveData<UiState<List<MyGroupMeetUpModel.Promise>>> get() = _promise
 
+    private val _members = MutableLiveData<List<MyGroupSealedItem.Member>>()
+    val members: LiveData<List<MyGroupSealedItem.Member>> get() = _members
+
     fun getPromise() {
         viewModelScope.launch {
             _promise.value = UiState.Empty
         }
     }
 
+//    init {
+//        getPromise()
+//    }
+
     init {
-        getPromise()
+        val mockMembers = listOf(
+            MyGroupSealedItem.Member(id = 3, "Alice", "https://example.com/alice.jpg"),
+            MyGroupSealedItem.Member(2, "Bob", "https://example.com/bob.jpg"),
+            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+        )
+        _members.value = mockMembers
+    }
+
+    init {
+        val mockPromise = listOf(
+            MyGroupMeetUpModel.Promise(
+                3,
+                date = "2024.07.30",
+                name = "약속명",
+                placeName = "홍대입구",
+                time = "PM 6:00",
+            ),
+            MyGroupMeetUpModel.Promise(
+                3,
+                date = "2024.07.30",
+                name = "약속명",
+                placeName = "홍대입구",
+                time = "PM 6:00",
+            ),
+            MyGroupMeetUpModel.Promise(
+                3,
+                date = "2024.07.30",
+                name = "약속명",
+                placeName = "홍대입구",
+                time = "PM 6:00",
+            ),
+        )
+        _promise.value = UiState.Success(mockPromise)
     }
 }
