@@ -61,7 +61,9 @@
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_fragment_meet_up_create_to_fragment_meet_up_create_friend"
-            app:destination="@id/fragment_meet_up_create_friend" />
+            app:destination="@id/fragment_meet_up_create_friend"
+            app:popUpTo="@id/fragment_meet_up_create"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -83,7 +85,9 @@
         tools:layout="@layout/fragment_meet_up_create_location">
         <action
             android:id="@+id/action_fragment_meet_up_create_location_to_fragment_meet_up_create_friend"
-            app:destination="@id/fragment_meet_up_create_friend" />
+            app:destination="@id/fragment_meet_up_create_friend"
+            app:popUpTo="@id/fragment_meet_up_create_location"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_fragment_meet_up_create_location_to_fragment_meet_up_create"
             app:destination="@id/fragment_meet_up_create"
