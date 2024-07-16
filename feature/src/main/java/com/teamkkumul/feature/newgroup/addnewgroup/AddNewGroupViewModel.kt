@@ -21,12 +21,11 @@ class AddNewGroupViewModel @Inject constructor(
     private val _invitationCode = MutableLiveData<String>()
     val invitationCode: LiveData<String> = _invitationCode
 
-    private val _meetingsState = MutableStateFlow<UiState<String>>(UiState.Empty)
+    private val _meetingsState = MutableStateFlow<UiState<String>>(UiState.Loading)
     val meetingsState get() = _meetingsState.asStateFlow()
 
     fun addNewGroup(request: String) {
         viewModelScope.launch {
-            _meetingsState.emit(UiState.Loading)
             meetingsRepository.addNewGroup(request)
                 .onSuccess {
                     if (it.isNotEmpty()) _meetingsState.emit(UiState.Success(it))
