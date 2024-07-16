@@ -17,8 +17,8 @@ internal class UserInfoRepositoryImpl @Inject constructor(
     override fun getAutoLogin(): Flow<Boolean> =
         kumulPreferencesDataSource.autoLogin
 
-    override fun getMemberId(): Flow<Int> =
-        kumulPreferencesDataSource.memberId
+    override fun getMemberName(): Flow<String> =
+        kumulPreferencesDataSource.memberName
 
     override suspend fun saveAccessToken(accessToken: String) {
         kumulPreferencesDataSource.updateAccessToken(accessToken)
@@ -32,8 +32,8 @@ internal class UserInfoRepositoryImpl @Inject constructor(
         kumulPreferencesDataSource.updateAutoLogin(autoLogin)
     }
 
-    override suspend fun saveMemberId(id: Int) {
-        kumulPreferencesDataSource.updateMemberId(id)
+    override suspend fun saveMemberName(name: String) {
+        kumulPreferencesDataSource.updateMemberName(name)
     }
 
     override suspend fun clearAll() {
