@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,18 +21,46 @@ class SplashViewModel @Inject constructor(
         MutableStateFlow(AutoLoginState.Loading)
     val loginState: StateFlow<AutoLoginState> get() = _loginState.asStateFlow()
 
+    private val _refreshToken: MutableStateFlow<String> = MutableStateFlow("")
+
+    private val _userName: MutableStateFlow<String> = MutableStateFlow("")
+
     init {
-        getUserToken()
+        observeUserState()
+        getRefreshToken()
+        getUserName()
     }
 
-    private fun getUserToken() {
+    private fun observeUserState() {
         viewModelScope.launch {
-            userInfoRepository.getAccessToken().collectLatest {
-                if (it.isNotEmpty()) {
-                    _loginState.emit(AutoLoginState.NavigateToMain)
-                } else {
-                    _loginState.emit(AutoLoginState.NavigateToLogin)
+            combine(_refreshToken, _userName) { refreshToken, userName ->
+                when {
+                    refreshToken.isEmpty() -> AutoLoginState.NavigateToLogin
+
+                    refreshToken.isNotEmpty() && userName.isEmpty() -> AutoLoginState.NavigateToOnBoarding
+
+                    refreshToken.isNotEmpty() && userName.isEmpty() -> AutoLoginState.NavigateToMain
+
+                    else -> AutoLoginState.Loading
                 }
+            }.collectLatest { state ->
+                _loginState.emit(state)
+            }
+        }
+    }
+
+    private fun getRefreshToken() {
+        viewModelScope.launch {
+            userInfoRepository.getRefreshToken().collectLatest {
+                _refreshToken.emit(it)
+            }
+        }
+    }
+
+    private fun getUserName() {
+        viewModelScope.launch {
+            userInfoRepository.getMemberName().collectLatest {
+                _userName.emit(it)
             }
         }
     }
