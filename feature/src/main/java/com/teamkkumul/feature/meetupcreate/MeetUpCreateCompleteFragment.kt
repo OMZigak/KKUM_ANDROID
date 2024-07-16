@@ -1,6 +1,5 @@
 package com.teamkkumul.feature.meetupcreate
 
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
@@ -10,21 +9,17 @@ import com.teamkkumul.feature.utils.animateProgressBar
 class MeetUpCreateCompleteFragment :
     BindingFragment<FragmentMeetUpCreateCompleteBinding>(R.layout.fragment_meet_up_create_complete) {
 
-    private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
     override fun initView() {
-        viewModel.setProgressBar(100)
-        observeProgress()
+        setProgressBar(100)
 
         binding.btnCreateMeetUpComplete.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_meet_up_create_complete_to_fragment_meet_up_detail)
         }
     }
 
-    private fun observeProgress() {
+    private fun setProgressBar(progress: Int) {
         val progressBar = binding.pbMeetUpCreateComplete
-        viewModel.progressLiveData.observe(viewLifecycleOwner) { progress ->
-            progressBar.progress = progress
-            animateProgressBar(progressBar, 75, progress)
-        }
+        progressBar.progress = progress
+        animateProgressBar(progressBar, 75, progress)
     }
 }
