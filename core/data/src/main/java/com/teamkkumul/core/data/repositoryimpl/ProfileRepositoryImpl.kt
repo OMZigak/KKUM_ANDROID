@@ -3,6 +3,7 @@ package com.teamkkumul.core.data.repositoryimpl
 import android.util.Log
 import com.teamkkumul.core.data.repository.ProfileRepository
 import com.teamkkumul.core.network.api.ProfileService
+import com.teamkkumul.core.network.dto.request.RequestNameDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -14,6 +15,12 @@ import javax.inject.Inject
 internal class ProfileRepositoryImpl @Inject constructor(
     private val profileService: ProfileService,
 ) : ProfileRepository {
+    override suspend fun updateName(request: String): Result<String> =
+        runCatching {
+            profileService.updateName(RequestNameDto(request)).data?.name
+                ?: throw Exception("data is null")
+        }
+
     override suspend fun updateImage(file: File): Result<Unit> {
         return withContext(Dispatchers.IO) {
             try {

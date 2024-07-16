@@ -8,4 +8,5 @@ object KeyStorage {
     const val USERS = "users"
     const val ME = "me"
     const val IMAGE = "image"
+    const val NAME = "name"
 }
