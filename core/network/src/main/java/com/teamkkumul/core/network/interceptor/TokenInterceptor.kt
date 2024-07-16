@@ -51,10 +51,10 @@ class TokenInterceptor @Inject constructor(
 
                     runBlocking {
                         defaultKumulPreferenceDatasource.updateAccessToken(
-                            responseRefresh.data.accessToken,
+                            BEARER + responseRefresh.data.accessToken,
                         )
                         defaultKumulPreferenceDatasource.updateRefreshToken(
-                            responseRefresh.data.refreshToken,
+                            BEARER + responseRefresh.data.refreshToken,
                         )
                     }
 
@@ -88,5 +88,6 @@ class TokenInterceptor @Inject constructor(
     companion object {
         const val CODE_TOKEN_EXPIRE = 401
         const val AUTHORIZATION = "Authorization"
+        const val BEARER = "Bearer "
     }
 }
