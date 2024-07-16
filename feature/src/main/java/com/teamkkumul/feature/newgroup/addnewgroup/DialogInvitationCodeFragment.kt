@@ -24,8 +24,8 @@ class DialogInvitationCodeFragment :
     }
 
     override fun initView() {
-        viewModel.invitationCode.observe(this) { code ->
-            binding.tvInvitationCode.text = code
+        viewModel.invitationCode.observe(this) { invitationCode ->
+            binding.tvInvitationCode.text = invitationCode
         }
         binding.ivBtnCopy.setOnClickListener {
             copyToClipboard(binding.tvInvitationCode.text.toString())
