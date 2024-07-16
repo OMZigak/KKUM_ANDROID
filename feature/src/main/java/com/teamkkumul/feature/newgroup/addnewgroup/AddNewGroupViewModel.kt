@@ -27,9 +27,12 @@ class AddNewGroupViewModel @Inject constructor(
     fun addNewGroup(request: String) {
         viewModelScope.launch {
             meetingsRepository.addNewGroup(request)
-                .onSuccess {
-                    if (it.isNotEmpty()) _meetingsState.emit(UiState.Success(it))
-                    Log.e("AddNewGroup", "성공")
+                .onSuccess { invitationCode ->
+                    if (invitationCode.isNotEmpty()) {
+                        _invitationCode.value = invitationCode
+                        _meetingsState.emit(UiState.Success(invitationCode))
+                        Log.e("AddNewGroup", "성공")
+                    }
                 }.onFailure {
                     _meetingsState.emit(UiState.Failure(it.message.toString()))
                     Log.e("AddNewGroup", "실패")
