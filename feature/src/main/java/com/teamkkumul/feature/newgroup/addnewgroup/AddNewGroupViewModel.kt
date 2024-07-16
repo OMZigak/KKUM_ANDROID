@@ -6,8 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.MeetingsRepository
-import com.teamkkumul.core.network.dto.request.RequestAddNewGroupDto
-import com.teamkkumul.core.network.dto.response.ResponseAddNewGroupDto
 import com.teamkkumul.core.ui.view.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,21 +21,18 @@ class AddNewGroupViewModel @Inject constructor(
     private val _invitationCode = MutableLiveData<String>()
     val invitationCode: LiveData<String> = _invitationCode
 
-    private val _meetingsState = MutableStateFlow<UiState<ResponseAddNewGroupDto>>(UiState.Empty)
+    private val _meetingsState = MutableStateFlow<UiState<String>>(UiState.Empty)
     val meetingsState get() = _meetingsState.asStateFlow()
 
-    fun addNewGroup(request: RequestAddNewGroupDto) {
+    fun addNewGroup(request: String) {
         viewModelScope.launch {
             _meetingsState.emit(UiState.Loading)
             meetingsRepository.addNewGroup(request)
-                .onSuccess { response ->
-                    response.data?.invitationCode.let {
-                        _invitationCode.postValue(it)
-                    }
-                    //_meetingsState.emit(UiState.Success(response.data))
+                .onSuccess {
+                    if (it.isNotEmpty()) _meetingsState.emit(UiState.Success(it))
                     Log.e("AddNewGroup", "성공")
                 }.onFailure {
-                    //_meetingsState.emit(UiState.Failure(it))
+                    _meetingsState.emit(UiState.Failure(it.message.toString()))
                     Log.e("AddNewGroup", "실패")
                 }
         }
