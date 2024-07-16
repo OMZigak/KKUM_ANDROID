@@ -5,4 +5,7 @@ object KeyStorage {
     const val V1 = "v1"
     const val MEETINGS = "meetings"
     const val REGISTER = "register"
+    const val USERS = "users"
+    const val ME = "me"
+    const val IMAGE = "image"
 }

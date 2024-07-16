@@ -1,6 +1,7 @@
 package com.teamkkumul.core.network.di
 
 import com.teamkkumul.core.network.api.MeetingsService
+import com.teamkkumul.core.network.api.ProfileService
 import com.teamkkumul.core.network.api.ReqresService
 import dagger.Module
 import dagger.Provides
@@ -21,4 +22,9 @@ object ApiModule {
     @Singleton
     fun provideMeetingsService(@KKUMUL retrofit: Retrofit): MeetingsService =
         retrofit.create(MeetingsService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideProfileService(@KKUMUL retrofit: Retrofit): ProfileService =
+        retrofit.create(ProfileService::class.java)
 }

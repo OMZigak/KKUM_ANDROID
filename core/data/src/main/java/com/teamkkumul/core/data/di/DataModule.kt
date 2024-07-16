@@ -1,9 +1,11 @@
 package com.teamkkumul.core.data.di
 
 import com.teamkkumul.core.data.repository.MeetingsRepository
+import com.teamkkumul.core.data.repository.ProfileRepository
 import com.teamkkumul.core.data.repository.ReqresRepository
 import com.teamkkumul.core.data.repository.UserInfoRepository
 import com.teamkkumul.core.data.repositoryimpl.MeetingsRepositoryImpl
+import com.teamkkumul.core.data.repositoryimpl.ProfileRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.ReqresRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.UserInfoRepositoryImpl
 import com.teamkkumul.core.datastore.datasource.DefaultKumulPreferenceDatasource
@@ -40,4 +42,10 @@ internal abstract class DataModule {
     abstract fun bindsMeetingsRepo(
         meetingsRepository: MeetingsRepositoryImpl,
     ): MeetingsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsProfileRepo(
+        profileRepository: ProfileRepositoryImpl,
+    ): ProfileRepository
 }
