@@ -153,4 +153,12 @@
     <string name="meet_up_name_error_message">공백 포함 한글, 영문, 숫자만을 사용해 총 10자 이내로 입력해주세요.</string>
 
 
+    <!-- 지각 꾸물이 화면 -->
+    <string name="end_meet_up">약속 마치기</string>
+    <string name="tv_penalty">벌칙</string>
+    <string name="tv_penalty_description">탕후루 릴스 찍기</string>
+    <string name="tv_congratulations">축하해요!</string>
+    <string name="tv_congratulations_description">약속 시간까지 아무도 꾸물거리지 않았어요!</string>
+    <string name="tv_late_person_waiting">꾸물이들이 도착하길\n기다리는 중이에요</string>
+
 </resources>

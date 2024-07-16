@@ -66,7 +66,7 @@ class MeetUpCreateFriendFragment :
             this.isEnabled = isEnabled
             if (isEnabled) {
                 setOnClickListener {
-                    findNavController().navigate(R.id.compose_example) // 이동할 페이지
+                    findNavController().navigate(R.id.action_fragment_meet_up_create_friend_to_fragment_meet_up_level) // 이동할 페이지
                 }
                 ViewCompat.setBackgroundTintList(
                     this,
