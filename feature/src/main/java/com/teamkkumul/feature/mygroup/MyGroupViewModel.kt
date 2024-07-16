@@ -22,9 +22,6 @@ class MyGroupViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    //    init {
-//        getPromise()
-//    }
     init {
         val mockGroups = listOf(
             MyGroupModel.Meeting(id = 3, 3, "모각작"),

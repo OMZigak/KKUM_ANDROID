@@ -9,6 +9,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.context.hideKeyboard
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
@@ -42,19 +43,31 @@ class MeetUpCreateFragment :
         binding.clMyGroupEnterLocation.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_location)
         }
-        binding.tvNextToMeetUpCreateFriend.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend)
-        }
         observeMeetUpDate()
         observeMeetUpTime()
         observeProgress()
         observeSelectedLocation()
+        observeFormValidation()
+        navigateToFriend()
+        initHideKeyBoard()
+    }
+
+    private fun observeFormValidation() {
+        viewModel.meetUpInputState.flowWithLifecycle(viewLifeCycle).onEach { isFormValid ->
+            binding.btnMeetUpCreateNext.isEnabled = isFormValid
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun navigateToFriend() {
+        binding.btnMeetUpCreateNext.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend)
+        }
     }
 
     private fun observeSelectedLocation() {
-        viewModel.meetUpLocation.observe(viewLifecycleOwner) { location ->
+        viewModel.meetUpLocation.flowWithLifecycle(viewLifeCycle).onEach { location ->
             binding.tvMeetUpCreateLocationEnter.text = location
-        }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun observeProgress() {
@@ -88,10 +101,16 @@ class MeetUpCreateFragment :
             setErrorState(null)
         } else {
             setColor(R.color.red)
-            setErrorState(getString(R.string.set_group_name_error_message))
+            setErrorState(getString(R.string.meet_up_name_error_message))
         }
         updateCounter(input.length)
-        updateButtonState(isValid)
+        viewModel.setMeetUpName(isValid)
+    }
+
+    private fun initHideKeyBoard() {
+        binding.root.setOnClickListener {
+            requireContext().hideKeyboard(binding.root)
+        }
     }
 
     private fun setErrorState(errorMessage: String?) {
@@ -112,10 +131,6 @@ class MeetUpCreateFragment :
 
     private fun updateCounter(length: Int) {
         binding.tvCounter.text = "${length.coerceAtMost(10)}/10"
-    }
-
-    private fun updateButtonState(isValid: Boolean) {
-        binding.tvNextToMeetUpCreateFriend.isEnabled = isValid
     }
 
     private fun showDatePickerDialog() {
@@ -198,5 +213,6 @@ class MeetUpCreateFragment :
         super.onDestroy()
         viewModel.setMeetUpDate("")
         viewModel.setMeetUpTime("")
+        viewModel.setMeetUpLocation("")
     }
 }
