@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.google.services)
 }
 
 val properties = Properties()
@@ -58,6 +59,9 @@ android {
 dependencies {
     implementation(project(":core:network"))
     implementation(project(":feature"))
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.bundles.firebase)
 
     implementation(libs.kakao.login)
     implementation(libs.timber)

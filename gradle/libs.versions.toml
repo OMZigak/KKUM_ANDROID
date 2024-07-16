@@ -44,6 +44,11 @@ hiltNavigationComposeVersion = "1.2.0"
 lifecycleRuntimeCompose = "2.8.2"
 runtimeLivedata = "1.6.8"
 
+# google
+google-services = "4.4.2"
+firebaseBom = "33.1.2"
+firebaseMessagingKtx = "24.0.0"
+
 [libraries]
 
 # android
@@ -105,6 +110,12 @@ androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "jetpack-navi" }
 
+# firebase
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
+firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -117,6 +128,7 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspplugin" }
 navigationSafeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "jetpack-navi" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 
 [bundles]
 retrofit = ["retrofit", "retrofit-kotlin-serialization-converter"]
@@ -131,3 +143,4 @@ compose = ["androidx-activity-compose", "compose-ui", "compose-ui-graphics",
     "kotlinx-collections-immutable"
 ]
 androidx-compose-feature = ["androidx-runtime-livedata", "androidx-lifecycle-runtime-compose", "androidx-lifecycle-viewmodel-compose", "androidx-hilt-navigation-compose", "androidx-navigation-compose"]
+firebase = ["firebase-analytics", "firebase-messaging","firebase-messaging-ktx"]
