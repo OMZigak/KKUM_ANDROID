@@ -6,9 +6,21 @@ import com.teamkkumul.model.MyGroupModel
 
 class MyGroupViewHolder(
     private val binding: ItemMyGroupBinding,
-    myGroupListBtnClicked: () -> Unit,
+    onMyGroupListBtnClicked: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    private var item: MyGroupModel.Meeting? = null
+
+    init {
+        binding.root.setOnClickListener {
+            item?.let {
+                onMyGroupListBtnClicked(it.id)
+            }
+        }
+    }
+
     fun onBind(data: MyGroupModel.Meeting) {
+        item = data
         with(binding) {
             tvMyGroupGroupName.text = data.name
             tvMyGroupParticipateInCount.text = data.memberCount.toString()

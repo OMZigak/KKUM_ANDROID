@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.mygroup
+package com.teamkkumul.feature.mygroup.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.teamkkumul.feature.mygroup.viewholder.MyGroupViewHolder
 import com.teamkkumul.model.MyGroupModel
 
 class MyGroupAdapter(
-    private val myGroupListBtnClicked: () -> Unit,
+    private val onMyGroupListBtnClicked: (Int) -> Unit,
 ) : ListAdapter<MyGroupModel.Meeting, MyGroupViewHolder>(DiffUtil) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -20,7 +20,10 @@ class MyGroupAdapter(
             parent,
             false,
         )
-        return MyGroupViewHolder(binding, myGroupListBtnClicked)
+        return MyGroupViewHolder(
+            binding = binding,
+            onMyGroupListBtnClicked = onMyGroupListBtnClicked,
+        )
     }
 
     override fun onBindViewHolder(holder: MyGroupViewHolder, position: Int) {

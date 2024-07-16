@@ -1,7 +1,8 @@
-package com.teamkkumul.feature.meetup.meetuplevel
+package com.teamkkumul.feature.meetupcreate.meetuplevel
 
 import android.view.View
 import android.widget.Button
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -9,10 +10,17 @@ import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.colorOf
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpLevelBinding
+import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
+import com.teamkkumul.feature.utils.animateProgressBar
 
 class MeetUpLevelFragment :
     BindingFragment<FragmentMeetUpLevelBinding>(R.layout.fragment_meet_up_level) {
+
+    private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
     override fun initView() {
+        viewModel.setProgressBar(75)
+        observeProgress()
+
         val meetUpLevel = binding.cgMeetUpLevel
         val penalty = binding.cgSetPenalty
         val btnCreateMeetUp = binding.btnCreateMeetUp
@@ -20,6 +28,14 @@ class MeetUpLevelFragment :
         val chipGroups = listOf(meetUpLevel, penalty)
         setupChipGroups(chipGroups, btnCreateMeetUp)
         setupCreateMeetUpButton(btnCreateMeetUp)
+    }
+
+    private fun observeProgress() {
+        val progressBar = binding.pbMeetUpLevel
+        viewModel.progressLiveData.observe(viewLifecycleOwner) { progress ->
+            progressBar.progress = progress
+            animateProgressBar(progressBar, 50, progress)
+        }
     }
 
     private fun setupChipGroups(chipGroups: List<ChipGroup>, btnCreateMeetUp: Button) {
@@ -44,7 +60,10 @@ class MeetUpLevelFragment :
         }
     }
 
-    private fun onChipSelected(chipGroup: ChipGroup, chipIndex: Int) { // chipGroupIndex는 0 or 1, chipIndex는 0 ~ 4(5)
+    private fun onChipSelected(
+        chipGroup: ChipGroup,
+        chipIndex: Int,
+    ) { // chipGroupIndex는 0 or 1, chipIndex는 0 ~ 4(5)
         val chipGroupIndex = when (chipGroup.id) {
             R.id.cg_meet_up_level -> 0
             R.id.cg_set_penalty -> 1

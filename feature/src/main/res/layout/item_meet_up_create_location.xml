@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_meet_up_create_location_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_white0_radius_8"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_meet_up_create_location_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="건국대학교 서울캠퍼스"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_meet_up_create_road_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_gray3_radius_4"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="3dp"
+                android:text="도로명"
+                android:textAppearance="@style/TextAppearance.Kkumul.label_01"
+                android:textColor="@color/gray6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_create_location_name" />
+
+            <TextView
+                android:id="@+id/tv_meet_up_create_road_name_enter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="서울 광진구 능동로 120"
+                android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
+                android:textColor="@color/gray6"
+                app:layout_constraintBottom_toBottomOf="@id/tv_meet_up_create_road_name"
+                app:layout_constraintStart_toEndOf="@id/tv_meet_up_create_road_name"
+                app:layout_constraintTop_toTopOf="@id/tv_meet_up_create_road_name" />
+
+            <TextView
+                android:id="@+id/tv_meet_up_create_road_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_gray3_radius_4"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:text="지번"
+                android:textAppearance="@style/TextAppearance.Kkumul.label_01"
+                android:textColor="@color/gray6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_create_road_name_enter" />
+
+            <TextView
+                android:id="@+id/tv_meet_up_create_road_number_enter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="화양동 1"
+                android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
+                android:textColor="@color/gray6"
+                app:layout_constraintBottom_toBottomOf="@id/tv_meet_up_create_road_number"
+                app:layout_constraintStart_toEndOf="@id/tv_meet_up_create_road_number"
+                app:layout_constraintTop_toTopOf="@id/tv_meet_up_create_road_number" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/v_meet_up_create_location"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_green_line_8_rect"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
