@@ -77,7 +77,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             viewModel.clickReadyBtn()
             tvHomeReadyTime.text = getCurrentTime()
             viewLifeCycleScope.launch {
-                animateProgressBar(pgHomeReady, PROGRESS_NUM_100)
+                animateProgressBar(pgHomeReady, 0, PROGRESS_NUM_100)
             }
         }
     }
@@ -87,7 +87,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             viewModel.clickMovingStartBtn()
             tvHomeMovingTime.text = getCurrentTime()
             viewLifeCycleScope.launch {
-                animateProgressBar(pgHomeMoving, PROGRESS_NUM_100)
+                animateProgressBar(pgHomeMoving, 0, PROGRESS_NUM_100)
             }
         }
     }
@@ -98,9 +98,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             tvvHomeArriveTime.text = getCurrentTime()
 
             viewLifeCycleScope.launch {
-                animateProgressBar(pgHomeArrive, PROGRESS_NUM_100)
+                animateProgressBar(pgHomeArrive, 0, PROGRESS_NUM_100)
                 delay(300L)
-                animateProgressBar(pgHomeArriveEnd, PROGRESS_NUM_100)
+                animateProgressBar(pgHomeArriveEnd, 0, PROGRESS_NUM_100)
             }
         }
     }

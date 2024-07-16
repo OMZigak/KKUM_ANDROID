@@ -10,7 +10,8 @@ import com.teamkkumul.feature.utils.Debouncer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddNewGroupFragment : BindingFragment<FragmentAddNewGroupBinding>(R.layout.fragment_add_new_group) {
+class AddNewGroupFragment :
+    BindingFragment<FragmentAddNewGroupBinding>(R.layout.fragment_add_new_group) {
     private val groupNameViewModel: GroupNameViewModel by activityViewModels()
     private val groupNameDebouncer = Debouncer<String>()
     private var currentText: String = ""
