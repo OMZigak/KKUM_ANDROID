@@ -10,7 +10,7 @@ data class BaseResponse<T>(
     @SerialName("error")
     val error: Error? = null,
     @SerialName("data")
-    val data: T? = null,
+    val data: T,
 ) {
     @Serializable
     data class Error(
