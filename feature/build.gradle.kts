@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.navigationSafeArgs)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -49,9 +50,12 @@ dependencies {
     implementation(project(":core:model"))
 
     implementation(libs.kakao.login)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.bundles.firebase)
 
     // Compose
     implementation(libs.bundles.compose)
+    implementation(libs.firebase.messaging.ktx)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
     implementation(libs.bundles.androidx.compose.feature)

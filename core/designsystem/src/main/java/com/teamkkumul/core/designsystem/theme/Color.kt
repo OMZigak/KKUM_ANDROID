@@ -7,6 +7,7 @@ val MainColor = Color(0xFF0FD380)
 val Green1 = Color(0xFFECFCF5)
 val Green2 = Color(0xFFD4F7E8)
 val Green3 = Color(0xFF00A775)
+val Green4 = Color(0xFF00CB75)
 
 val LightGreen = Color(0xFFEAFF84)
 

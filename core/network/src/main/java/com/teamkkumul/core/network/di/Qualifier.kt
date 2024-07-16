@@ -9,3 +9,7 @@ annotation class KKUMUL
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class AccessToken
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class WithoutTokenInterceptor

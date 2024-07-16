@@ -6,7 +6,7 @@ interface UserInfoRepository {
     fun getAccessToken(): Flow<String>
     fun getRefreshToken(): Flow<String>
     fun getAutoLogin(): Flow<Boolean>
-    fun getMemberId(): Flow<Int>
+    fun getMemberName(): Flow<String>
 
     suspend fun saveAccessToken(accessToken: String)
 
@@ -14,7 +14,7 @@ interface UserInfoRepository {
 
     suspend fun saveAutoLogin(autoLogin: Boolean)
 
-    suspend fun saveMemberId(id: Int)
+    suspend fun saveMemberName(name: String)
 
     suspend fun clearAll()
 
