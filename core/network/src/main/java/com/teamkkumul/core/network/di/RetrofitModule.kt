@@ -2,7 +2,7 @@ package com.teamkkumul.core.network.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.teamkkumul.core.network.BuildConfig.KKUMUL_BASE_URL
-import com.teamkkumul.core.network.interceptor.TokenInterceptor
+import com.teamkkumul.core.network.interceptor.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,7 +36,7 @@ object RetrofitModule {
     @Provides
     @Singleton
     @AccessToken
-    fun provideAuthInterceptor(interceptor: TokenInterceptor): Interceptor = interceptor
+    fun provideAuthInterceptor(interceptor: AuthInterceptor): Interceptor = interceptor
 
     @Provides
     @Singleton
@@ -68,6 +68,24 @@ object RetrofitModule {
     @Provides
     @KKUMUL
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .baseUrl(KKUMUL_BASE_URL)
+            .client(okHttpClient)
+            .build()
+
+    @Provides
+    @Singleton
+    @WithoutTokenInterceptor
+    fun provideOkHttpClientWithoutTokenInterceptor(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+
+    @Provides
+    @Singleton
+    @WithoutTokenInterceptor
+    fun provideRetrofitWithoutTokenInterceptor(@WithoutTokenInterceptor okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .baseUrl(KKUMUL_BASE_URL)
