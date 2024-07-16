@@ -5,7 +5,6 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
-import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -20,7 +19,6 @@ class DefaultKumulPreferenceDatasource @Inject constructor(
         val AccessToken = stringPreferencesKey("accessToken")
         val RefreshToken = stringPreferencesKey("refreshToken")
         val Nickname = stringPreferencesKey("nickname")
-        val Id = intPreferencesKey("id")
         val AutoLogin = booleanPreferencesKey("autoLogin")
     }
 
@@ -59,7 +57,7 @@ class DefaultKumulPreferenceDatasource @Inject constructor(
             preferences[PreferencesKeys.AutoLogin] ?: false
         }
 
-    override val memberId: Flow<Int> = dataStore.data
+    override val memberName: Flow<String> = dataStore.data
         .catch {
             if (it is IOException) {
                 emit(emptyPreferences())
@@ -67,7 +65,7 @@ class DefaultKumulPreferenceDatasource @Inject constructor(
                 throw it
             }
         }.map { preferences ->
-            preferences[PreferencesKeys.Id]?.toInt() ?: -1
+            preferences[PreferencesKeys.Nickname].orEmpty()
         }
 
     override suspend fun updateAccessToken(accessToken: String) {
@@ -88,9 +86,9 @@ class DefaultKumulPreferenceDatasource @Inject constructor(
         }
     }
 
-    override suspend fun updateMemberId(id: Int) {
+    override suspend fun updateMemberName(name: String) {
         dataStore.edit { preferences ->
-            preferences[PreferencesKeys.Id] = id
+            preferences[PreferencesKeys.Nickname] = name
         }
     }
 

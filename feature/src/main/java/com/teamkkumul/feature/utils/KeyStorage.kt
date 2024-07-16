@@ -5,6 +5,7 @@ object KeyStorage {
     const val ALARM_TITLE = "title"
     const val ALARM_CONTENT = "content"
     const val LOCAL_ALARM_CHANNEL = "101"
+    const val DATA_NULL = "null"
 }
 
 object PROGRESS {
