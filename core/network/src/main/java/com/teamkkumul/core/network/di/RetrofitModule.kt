@@ -2,7 +2,7 @@ package com.teamkkumul.core.network.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.teamkkumul.core.network.BuildConfig.KKUMUL_BASE_URL
-import com.teamkkumul.core.network.interceptor.AuthInterceptor
+import com.teamkkumul.core.network.interceptor.TokenInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,7 +36,7 @@ object RetrofitModule {
     @Provides
     @Singleton
     @AccessToken
-    fun provideAuthInterceptor(interceptor: AuthInterceptor): Interceptor = interceptor
+    fun provideAuthInterceptor(interceptor: TokenInterceptor): Interceptor = interceptor
 
     @Provides
     @Singleton

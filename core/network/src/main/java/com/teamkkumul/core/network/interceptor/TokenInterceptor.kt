@@ -13,47 +13,32 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
-import timber.log.Timber
 import javax.inject.Inject
 
 class TokenInterceptor @Inject constructor(
-    private val context: Application,
     private val json: Json,
     private val defaultKumulPreferenceDatasource: DefaultKumulPreferenceDatasource,
+    private val context: Application,
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        // 기존 request
         val originalRequest = chain.request()
-//        val authRequest = originalRequest.newAuthBuilder()
-        /*     val authRequest = runBlocking {
-                 originalRequest.newAuthBuilder()
-             }
-     */
-        val authRequest =
-            if (runBlocking { defaultKumulPreferenceDatasource.autoLogin.first() }) originalRequest.newAuthBuilder() else originalRequest
+        val authRequest = originalRequest.newAuthBuilder()
+        if (runBlocking { defaultKumulPreferenceDatasource.autoLogin.first() }) originalRequest.newAuthBuilder() else originalRequest
         val response = chain.proceed(authRequest)
-
-        val accessToken = runBlocking { defaultKumulPreferenceDatasource.accessToken.first() }
-        val refreshToken = runBlocking { defaultKumulPreferenceDatasource.refreshToken.first() }
-
-        Timber.tag("TokenInterceptor").d("accessToken: $accessToken")
-        Timber.tag("TokenInterceptor").d("refreshToken: $refreshToken")
 
         when (response.code) {
             CODE_TOKEN_EXPIRE -> {
                 response.close()
-                val refreshToken =
-                    runBlocking { defaultKumulPreferenceDatasource.refreshToken.first() }
-                val jsonMediaType = "application/json".toMediaType()
-
                 val refreshTokenRequest = originalRequest.newBuilder().get()
-                    .url("${BuildConfig.KKUMUL_BASE_URL}/v1/auth/reissue")
-                    .post("".toRequestBody(jsonMediaType))
-                    .addHeader(AUTHORIZATION, refreshToken)
+                    .url("${BuildConfig.KKUMUL_BASE_URL}/api/v1/auth/reissue")
+                    .post("".toRequestBody(null))
+                    .addHeader(
+                        AUTHORIZATION,
+                        runBlocking { defaultKumulPreferenceDatasource.refreshToken.first() },
+                    )
                     .build()
                 val refreshTokenResponse = chain.proceed(refreshTokenRequest)
 
@@ -65,16 +50,12 @@ class TokenInterceptor @Inject constructor(
                         )
 
                     runBlocking {
-                        responseRefresh.data?.let {
-                            defaultKumulPreferenceDatasource.updateAccessToken(
-                                it.accessToken,
-                            )
-                        }
-                        responseRefresh.data?.let {
-                            defaultKumulPreferenceDatasource.updateRefreshToken(
-                                it.refreshToken,
-                            )
-                        }
+                        defaultKumulPreferenceDatasource.updateAccessToken(
+                            responseRefresh.data.accessToken,
+                        )
+                        defaultKumulPreferenceDatasource.updateRefreshToken(
+                            responseRefresh.data.refreshToken,
+                        )
                     }
 
                     refreshTokenResponse.close()
@@ -97,13 +78,6 @@ class TokenInterceptor @Inject constructor(
         }
         return response
     }
-
-    /*  private fun Request.newAuthBuilder() =
-          this.newBuilder()
-              .addHeader(
-                  AUTHORIZATION,
-                  runBlocking { defaultKumulPreferenceDatasource.accessToken.first() },
-              ).build()*/
 
     private fun Request.newAuthBuilder() =
         this.newBuilder().addHeader(
