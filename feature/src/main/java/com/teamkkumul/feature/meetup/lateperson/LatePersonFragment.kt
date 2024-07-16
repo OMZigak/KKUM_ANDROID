@@ -1,6 +1,8 @@
 package com.teamkkumul.feature.meetup.lateperson
 
+import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
@@ -8,18 +10,19 @@ import com.teamkkumul.core.ui.util.context.pxToDp
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentLatePersonBinding
 import com.teamkkumul.feature.utils.itemdecorator.GridSpacingItemDecoration
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class LatePersonFragment :
     BindingFragment<FragmentLatePersonBinding>(R.layout.fragment_late_person) {
 
-    private val viewModel: LatePersonViewModel by viewModels()
+    private val latePersonViewModel: LatePersonViewModel by viewModels()
 
     private var _latePersonAdapter: LatePersonAdapter? = null
     private val latePersonAdapter get() = requireNotNull(_latePersonAdapter)
     override fun initView() {
         initRecyclerView()
-        observeViewModel()
+        initObserveGroupState()
     }
 
     private fun initRecyclerView() {
@@ -31,11 +34,16 @@ class LatePersonFragment :
         }
     }
 
-    private fun observeViewModel() {
-        lifecycleScope.launch {
-            viewModel.latePerson.collect { latePerson ->
+    private fun initObserveGroupState() {
+        latePersonViewModel.latePerson.flowWithLifecycle(lifecycle).onEach { latePerson ->
+            if (latePerson.isEmpty()) {
+                binding.viewLatePersonEmpty.visibility = View.VISIBLE
+                binding.rvLatePerson.visibility = View.GONE
+            } else {
+                binding.rvLatePerson.visibility = View.VISIBLE
+                binding.viewLatePersonEmpty.visibility = View.GONE
                 latePersonAdapter.submitList(latePerson)
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 }
