@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.MeetingsRepository
-import com.teamkkumul.core.network.dto.request.RequestEnterInvitationCodeDto
-import com.teamkkumul.core.network.dto.response.BaseResponse
 import com.teamkkumul.core.ui.view.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,18 +15,17 @@ import javax.inject.Inject
 class InvitationCodeViewModel @Inject constructor(
     private val meetingsRepository: MeetingsRepository
 ) : ViewModel() {
-    private val _meetingsState = MutableStateFlow<UiState<BaseResponse<Unit>>>(UiState.Empty)
+    private val _meetingsState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
     val meetingsState get() = _meetingsState.asStateFlow()
 
-    fun enterInvitationCode(request: RequestEnterInvitationCodeDto) {
+    private fun enterInvitationCode(request: String) {
         viewModelScope.launch {
-            _meetingsState.emit(UiState.Loading)
             meetingsRepository.enterInvitationCode(request)
                 .onSuccess { response ->
                     _meetingsState.emit(UiState.Success(response))
                     Log.e("EnterInvitationCode", "성공")
                 }.onFailure {
-                    _meetingsState.emit(UiState.Failure("실패"))
+                    _meetingsState.emit(UiState.Failure(it.message.toString()))
                     Log.e("EnterInvitationCode", "실패")
                 }
         }
@@ -37,7 +34,7 @@ class InvitationCodeViewModel @Inject constructor(
     fun validInput(input: String) {
         val isValid = input.length == 6
         if (isValid) {
-            enterInvitationCode(RequestEnterInvitationCodeDto(input))
+            enterInvitationCode(input)
         } else {
             _meetingsState.value = UiState.Failure("Invalid invitation code")
         }
