@@ -3,17 +3,18 @@ package com.teamkkumul.feature.newgroup.addnewgroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
-import com.teamkkumul.core.network.dto.request.RequestAddNewGroupDto
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.toast
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentAddNewGroupBinding
 import com.teamkkumul.feature.utils.Debouncer
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class AddNewGroupFragment :
@@ -26,24 +27,20 @@ class AddNewGroupFragment :
         setName()
         binding.btnMakeNewGroup.setOnClickListener {
             val name = binding.etSetGroupName.text.toString()
-            val request = RequestAddNewGroupDto(name)
-            viewModel.addNewGroup(request)
+            viewModel.addNewGroup(name)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.meetingsState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .collect { state ->
-                    when (state) {
-                        is UiState.Success -> {
-                            toast("성공")
-                            showInvitationDialog()
-                        }
-                        is UiState.Failure -> toast("실패: ${state.errorMessage}")
-                        is UiState.Loading -> toast("로딩중")
-                        UiState.Empty -> Unit
-                    }
+        viewModel.meetingsState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    toast("성공")
+                    showInvitationDialog()
                 }
-        }
+                is UiState.Failure -> toast("실패: ${it.errorMessage}")
+                is UiState.Loading -> toast("로딩중")
+                UiState.Empty -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun setName() = with(binding.etSetGroupName) {

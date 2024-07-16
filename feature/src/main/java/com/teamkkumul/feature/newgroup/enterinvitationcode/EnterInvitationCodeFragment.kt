@@ -21,7 +21,6 @@ class EnterInvitationCodeFragment :
 
     private val viewModel by viewModels<InvitationCodeViewModel>()
     private val enterInvitationCodeDebouncer = Debouncer<String>()
-    private var currentText: String = ""
 
     override fun initView() {
         initBlockEnterKey()
@@ -69,8 +68,7 @@ class EnterInvitationCodeFragment :
                         setErrorState(getString(R.string.set_enter_invitation_code_error_message))
                     }
 
-                    else -> {
-                    }
+                    else -> {}
                 }
             }
         }
