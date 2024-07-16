@@ -4,15 +4,23 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import coil.load
 import com.teamkkumul.core.ui.base.BindingActivity
+import com.teamkkumul.core.ui.util.context.toast
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
 import com.teamkkumul.feature.signup.SetNameActivity.Companion.INPUT_NAME
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import java.io.File
 
 @AndroidEntryPoint
-class SetProfileActivity : BindingActivity<ActivitySetProfileBinding>(R.layout.activity_set_profile) {
+class SetProfileActivity :
+    BindingActivity<ActivitySetProfileBinding>(R.layout.activity_set_profile) {
+
+    private val setProfileViewModel: SetProfileViewModel by viewModels()
+
     private val selectImageLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -23,6 +31,10 @@ class SetProfileActivity : BindingActivity<ActivitySetProfileBinding>(R.layout.a
                         ivBtnSetProfile.load(selectedImageUri)
                         btnOkay.isEnabled = true
                     }
+                }
+                selectedImageUri?.let { uri ->
+                    val file = uriToFile(uri)
+                    file?.let { setProfileViewModel.updateImage(it) }
                 }
             }
         }
@@ -40,6 +52,17 @@ class SetProfileActivity : BindingActivity<ActivitySetProfileBinding>(R.layout.a
                 inputName?.let { navigateToWelcome(it) }
             }
         }
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        setProfileViewModel.updateImageResult.observe(this) { result ->
+            result.onSuccess {
+                toast("Image updated successfully")
+            }.onFailure {
+                toast("Failed to update image")
+            }
+        }
     }
 
     private fun openGallery() {
@@ -54,5 +77,16 @@ class SetProfileActivity : BindingActivity<ActivitySetProfileBinding>(R.layout.a
             putExtra(INPUT_NAME, inputName)
         }
         startActivity(intent)
+    }
+
+    private fun uriToFile(uri: Uri): File? {
+        val contentResolver = applicationContext.contentResolver
+        val tempFile = File.createTempFile("profile_image", ".jpg", cacheDir)
+        val inputStream = contentResolver.openInputStream(uri) ?: return null
+        val outputStream = tempFile.outputStream()
+        inputStream.copyTo(outputStream)
+        inputStream.close()
+        outputStream.close()
+        return tempFile
     }
 }
