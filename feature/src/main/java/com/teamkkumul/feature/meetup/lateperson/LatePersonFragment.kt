@@ -46,4 +46,9 @@ class LatePersonFragment :
             }
         }.launchIn(lifecycleScope)
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _latePersonAdapter = null
+    }
 }
