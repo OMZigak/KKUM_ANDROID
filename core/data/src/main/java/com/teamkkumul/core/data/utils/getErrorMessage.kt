@@ -12,8 +12,12 @@ fun Throwable.getErrorMessage(): String {
     return when (this) {
         is HttpException -> {
             val errorBody = response()?.errorBody()?.string() ?: return "Unknown error"
-            val errorResponse = Json.decodeFromString<BaseResponse<Error>>(errorBody)
-            errorResponse.error.message
+            try {
+                val errorResponse = Json.decodeFromString<BaseResponse.Error>(errorBody)
+                errorResponse.message
+            } catch (e: Exception) {
+                "Unknown error"
+            }
         }
 
         else -> "An unknown error occurred."
@@ -32,6 +36,10 @@ fun <T> Throwable.handleThrowable(): Result<T> {
 
 fun Response<*>?.getResponseErrorMessage(): String {
     val errorBody = this?.errorBody()?.string() ?: return "Unknown error"
-    val errorResponse = Json.decodeFromString<BaseResponse<Error>>(errorBody)
-    return errorResponse.error.message
+    return try {
+        val errorResponse = Json.decodeFromString<BaseResponse.Error>(errorBody)
+        errorResponse.message
+    } catch (e: Exception) {
+        "Unknown error"
+    }
 }

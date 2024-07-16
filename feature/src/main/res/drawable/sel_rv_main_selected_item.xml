@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true" android:drawable="@drawable/shape_green1_fill_8_rect" />
+    <item android:state_activated="false" android:drawable="@drawable/shape_fill_8_rect" />
+</selector>
