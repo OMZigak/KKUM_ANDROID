@@ -52,6 +52,7 @@ dependencies {
 
     // Compose
     implementation(libs.bundles.compose)
+    implementation(project(":core:network"))
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
     implementation(libs.bundles.androidx.compose.feature)
