@@ -71,7 +71,9 @@
         tools:layout="@layout/fragment_meet_up_friend_plus">
         <action
             android:id="@+id/action_fragment_meet_up_create_friend_to_fragment_meet_up_level"
-            app:destination="@id/fragment_meet_up_level" />
+            app:destination="@id/fragment_meet_up_level"
+            app:popUpTo="@id/fragment_meet_up_create_friend"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
