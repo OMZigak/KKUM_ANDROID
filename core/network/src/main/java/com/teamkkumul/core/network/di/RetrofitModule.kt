@@ -2,12 +2,14 @@ package com.teamkkumul.core.network.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.teamkkumul.core.network.BuildConfig.KKUMUL_BASE_URL
+import com.teamkkumul.core.network.interceptor.TokenInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,13 +35,18 @@ object RetrofitModule {
 
     @Provides
     @Singleton
+    @AccessToken
+    fun provideAuthInterceptor(interceptor: TokenInterceptor): Interceptor = interceptor
+
+    @Provides
+    @Singleton
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-//        @AccessToken tokenInterceptor: Interceptor,
+        @AccessToken tokenInterceptor: Interceptor,
     ): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-//            .addInterceptor(tokenInterceptor)
+            .addInterceptor(tokenInterceptor)
             .build()
 
     @Provides
