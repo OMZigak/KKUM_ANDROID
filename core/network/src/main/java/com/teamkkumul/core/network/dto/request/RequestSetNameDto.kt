@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RequestNameDto(
+data class RequestSetNameDto(
     @SerialName("name")
     val name: String,
 )

@@ -6,9 +6,9 @@ import com.teamkkumul.core.network.api.util.KeyStorage.ME
 import com.teamkkumul.core.network.api.util.KeyStorage.NAME
 import com.teamkkumul.core.network.api.util.KeyStorage.USERS
 import com.teamkkumul.core.network.api.util.KeyStorage.V1
-import com.teamkkumul.core.network.dto.request.RequestNameDto
+import com.teamkkumul.core.network.dto.request.RequestSetNameDto
 import com.teamkkumul.core.network.dto.response.BaseResponse
-import com.teamkkumul.core.network.dto.response.ResponseNameDto
+import com.teamkkumul.core.network.dto.response.ResponseSetNameDto
 import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.Multipart
@@ -19,8 +19,8 @@ interface ProfileService {
 
     @PATCH("/$API/$V1/$USERS/$ME/$NAME")
     suspend fun updateName(
-        @Body request: RequestNameDto,
-    ): BaseResponse<ResponseNameDto>
+        @Body request: RequestSetNameDto,
+    ): BaseResponse<ResponseSetNameDto>
 
     @Multipart
     @PATCH("/$API/$V1/$USERS/$ME/$IMAGE")

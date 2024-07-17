@@ -4,7 +4,7 @@ import android.content.ContentResolver
 import com.teamkkumul.core.data.repository.ProfileRepository
 import com.teamkkumul.core.data.utils.createImagePart
 import com.teamkkumul.core.network.api.ProfileService
-import com.teamkkumul.core.network.dto.request.RequestNameDto
+import com.teamkkumul.core.network.dto.request.RequestSetNameDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -15,10 +15,10 @@ internal class ProfileRepositoryImpl @Inject constructor(
 ) : ProfileRepository {
     override suspend fun updateName(request: String): Result<String> =
         runCatching {
-            profileService.updateName(RequestNameDto(request)).data?.name ?: throw Exception("Data is null")
+            profileService.updateName(RequestSetNameDto(request)).data?.name ?: throw Exception("Data is null")
         }
 
-    override suspend fun updateImage(content: String, uriString: String?): Result<Boolean> {
+    override suspend fun updateImage(uriString: String?): Result<Boolean> {
         return runCatching {
             val imagePart = withContext(Dispatchers.IO) {
                 createImagePart(contentResolver, uriString)
