@@ -66,12 +66,9 @@ class SetProfileActivity :
             setProfileViewModel.updateImageState.collect { state ->
                 when (state) {
                     is UiState.Success -> {
-                        toast("Image updated successfully")
                         inputName?.let { navigateToWelcome(it) }
                     }
-                    is UiState.Failure -> {
-                        toast("Failed to update image: ${state.errorMessage}")
-                    }
+                    is UiState.Failure -> {}
                     else -> Unit
                 }
             }

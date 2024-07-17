@@ -42,9 +42,9 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
     private fun observeViewModel() {
         setNameViewModel.updateNameState.flowWithLifecycle(lifecycle).onEach {
             when (it) {
-                is UiState.Success -> toast("성공")
-                is UiState.Failure -> toast("실패: ${it.errorMessage}")
-                is UiState.Loading -> toast("로딩중")
+                is UiState.Success -> {}
+                is UiState.Failure -> {}
+                is UiState.Loading -> {}
                 UiState.Empty -> Unit
             }
         }.launchIn(lifecycleScope)

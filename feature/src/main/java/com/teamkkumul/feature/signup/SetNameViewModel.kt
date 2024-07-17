@@ -30,11 +30,9 @@ class SetNameViewModel @Inject constructor(
                     if (name.isNotEmpty()) {
                         _name.value = name
                         _updateNameState.emit(UiState.Success(name))
-                        Log.e("UpdateName", "이름 업데이트 성공")
                     }
                 }.onFailure {
                     _updateNameState.emit(UiState.Failure(it.message.toString()))
-                    Log.e("UpdateName", "이름 업데이트 실패")
                 }
         }
     }
