@@ -9,8 +9,8 @@ import javax.inject.Inject
 class MyGroupRepositoryImpl @Inject constructor(
     private val myGroupService: MyGroupService,
 ) : MyGroupRepository {
-    override suspend fun getMyGroupList(): Result<MyGroupModel> = runCatching {
+    override suspend fun getMyGroup(): Result<MyGroupModel> = runCatching {
         val response = myGroupService.getMyGroupList()
-        response.data?.toMyGroupModel() ?: throw Exception(response.error.message)
+        response.data.toMyGroupModel()
     }
 }
