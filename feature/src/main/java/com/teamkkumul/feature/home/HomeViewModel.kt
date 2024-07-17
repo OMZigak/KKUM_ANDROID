@@ -5,8 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.utils.model.BtnState
-import com.teamkkumul.model.HomeTodayMeetingModel
-import com.teamkkumul.model.MyGroupMeetUpModel
+import com.teamkkumul.model.home.HomeTodayMeetingModel
 import com.teamkkumul.model.home.UserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,10 +30,6 @@ class HomeViewModel @Inject constructor(
         MutableStateFlow<BtnState>(BtnState.DefaultGray(isEnabled = false))
     val completedBtnState: StateFlow<BtnState> get() = _completedBtnState
 
-    private val _homePromiseState =
-        MutableStateFlow<UiState<List<MyGroupMeetUpModel.Promise>>>(UiState.Loading)
-    val homePromiseState get() = _homePromiseState.asStateFlow()
-
     private val _homeState = MutableStateFlow<UiState<UserModel>>(UiState.Loading)
     val homeState: StateFlow<UiState<UserModel>> = _homeState.asStateFlow()
 
@@ -43,6 +38,26 @@ class HomeViewModel @Inject constructor(
     )
     val todayMeetingState: StateFlow<UiState<HomeTodayMeetingModel?>> =
         _todayMeetingState.asStateFlow()
+
+    private val _upComingMeetingState =
+        MutableStateFlow<UiState<List<HomeTodayMeetingModel>>>(UiState.Loading)
+    val upComingMeetingState: StateFlow<UiState<List<HomeTodayMeetingModel>>> =
+        _upComingMeetingState.asStateFlow()
+
+    fun getUpComingMeeting() {
+        viewModelScope.launch {
+            homeRepository.getUpComingMeeting()
+                .onSuccess {
+                    if (it.isEmpty()) {
+                        _upComingMeetingState.emit(UiState.Empty)
+                    } else {
+                        _upComingMeetingState.emit(UiState.Success(it))
+                    }
+                }.onFailure {
+                    _upComingMeetingState.emit(UiState.Failure(it.message.toString()))
+                }
+        }
+    }
 
     fun getTodayMeeting() {
         viewModelScope.launch {
@@ -100,59 +115,4 @@ class HomeViewModel @Inject constructor(
     private fun isCompleteState(stateFlow: StateFlow<BtnState>): Boolean {
         return stateFlow.value is BtnState.Complete
     }
-
-    fun getHomePromiseList() {
-        viewModelScope.launch {
-            if (mockMembers.isNotEmpty()) {
-                _homePromiseState.emit(UiState.Success(mockMembers))
-            } else {
-                _homePromiseState.emit(UiState.Empty)
-            }
-        }
-    }
-
-    val mockMembers = listOf(
-        MyGroupMeetUpModel.Promise(
-            dDay = 0,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
-        ),
-        MyGroupMeetUpModel.Promise(
-            dDay = 0,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
-        ),
-        MyGroupMeetUpModel.Promise(
-            dDay = 1,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
-        ),
-        MyGroupMeetUpModel.Promise(
-            dDay = 1,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
-        ),
-        MyGroupMeetUpModel.Promise(
-            dDay = 1,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
-        ),
-        MyGroupMeetUpModel.Promise(
-            dDay = 1,
-            date = "2024.07.30",
-            time = "PM 6:00",
-            name = "약속명",
-            placeName = "홍대입구",
-        ),
-    )
 }
