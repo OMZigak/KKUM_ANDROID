@@ -2,6 +2,7 @@ package com.teamkkumul.feature.meetup.meetupdetail
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
@@ -16,6 +17,7 @@ import com.teamkkumul.model.MeetUpParticipantModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MeetUpDetailFragment :
@@ -42,7 +44,7 @@ class MeetUpDetailFragment :
     private fun initObserveMeetUpDetailState() {
         viewModel.meetupDetailState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Failure -> error(uiState.errorMessage)
+                is UiState.Failure -> Timber.tag("meetupdetail").d(uiState.errorMessage)
                 is UiState.Success -> successMeetUpDetailState(uiState.data)
                 else -> {}
             }
@@ -58,7 +60,7 @@ class MeetUpDetailFragment :
     private fun initObserveMeetUpParticipantState() {
         viewModel.meetUpParticipantState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Failure -> error(uiState.errorMessage)
+                is UiState.Failure -> Timber.tag("meetupdetail").d(uiState.errorMessage)
                 is UiState.Success -> successParticipantState(uiState.data)
                 else -> {}
             }
@@ -72,7 +74,7 @@ class MeetUpDetailFragment :
     private fun initObserveMeetUpParticipantListState() {
         viewModel.meetUpParticipantListState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Failure -> error(uiState.errorMessage)
+                is UiState.Failure -> Timber.tag("meetupdetail").d(uiState.errorMessage)
                 is UiState.Success -> {
                     meetUpDetailAdapter.submitList(uiState.data)
                 }
