@@ -11,7 +11,7 @@ import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
-import com.teamkkumul.model.MyGroupSealedItem
+import com.teamkkumul.model.MyGroupDetailSealedItem
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,8 +38,8 @@ class MyGroupDetailFragment :
 
     private fun initObserveMemberState() {
         viewModel.members.observe(viewLifecycleOwner) {
-            val newList = mutableListOf<MyGroupSealedItem>()
-            newList.add(MyGroupSealedItem.MyGroupPlus(0))
+            val newList = mutableListOf<MyGroupDetailSealedItem>()
+            newList.add(MyGroupDetailSealedItem.MyGroupDetailPlus(0))
             newList.addAll(it)
             memberAdapter.submitList(newList)
         }

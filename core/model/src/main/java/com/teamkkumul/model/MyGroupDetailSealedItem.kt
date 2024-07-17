@@ -1,13 +1,13 @@
 package com.teamkkumul.model
 
-sealed class MyGroupSealedItem {
-    data class MyGroupPlus(
+sealed class MyGroupDetailSealedItem {
+    data class MyGroupDetailPlus(
         val num: Int,
-    ) : MyGroupSealedItem()
+    ) : MyGroupDetailSealedItem()
 
     data class Member(
         val id: Int,
         val name: String,
         val profileImg: String,
-    ) : MyGroupSealedItem()
+    ) : MyGroupDetailSealedItem()
 }

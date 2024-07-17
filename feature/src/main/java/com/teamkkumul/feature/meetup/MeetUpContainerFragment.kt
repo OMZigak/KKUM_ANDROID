@@ -4,17 +4,20 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpContainerBinding
+import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.KeyStorage.TAB_INDEX
 
 class MeetUpContainerFragment :
     BindingFragment<FragmentMeetUpContainerBinding>(R.layout.fragment_meet_up_container) {
     override fun initView() {
         binding.toolbarMeetUpContainer.toolbarTitle.text = "내모임"
-        initMyPageTabLayout()
+        val promiseId = arguments?.getInt(PROMISE_ID) ?: -1
+        initMyPageTabLayout(promiseId)
     }
 
-    private fun initMyPageTabLayout() = with(binding) {
-        vpMeetUpContainer.adapter = MeetUpDetailVpAdapter(this@MeetUpContainerFragment)
+    private fun initMyPageTabLayout(promiseId: Int) = with(binding) {
+        vpMeetUpContainer.adapter =
+            MeetUpContainerVpAdapter(this@MeetUpContainerFragment, promiseId)
 
         val tabTitleArray = arrayOf(
             MEETUP_INFO,

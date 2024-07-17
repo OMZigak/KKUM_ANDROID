@@ -92,11 +92,16 @@
     <string name="home_btn_moving_text">이동 시작</string>
     <string name="home_btn_arrive_text">도착 완료</string>
     <string name="home_btn_help_text">이동을 시작시 눌러주세요</string>
-    <string name="home_upcoming_text">다가올 나의 약속은</string>
-    <string name="home_level_text">Lv.%1$d 밍기적 꾸물이</string>
+    <string name="home_upcoming_text">다가올 나의 약속은?</string>
+    <string name="home_level_text">Lv.%1$d %2$s</string>
     <string name="home_nickname_text">%1$s 님,</string>
     <string name="home_meeting_count_text">%1$d번</string>
     <string name="home_late_count_text">%1$d번</string>
+    <string name="home_empty_text">꾸물꾸물...\n오늘 약속은 없네요!</string>
+    <string name="home_lv1">빼꼼 꾸물이</string>
+    <string name="home_lv2">밍기적 꾸물이</string>
+    <string name="home_lv3">기적 꾸물이</string>
+    <string name="home_lv4">꾸물꿈</string>
 
     <!--    약속 상세 화면 탭 바-->
     <string name="meet_up_container_tabbar_info">약속 정보</string>
