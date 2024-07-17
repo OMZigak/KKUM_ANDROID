@@ -37,8 +37,7 @@ class AddNewGroupFragment :
                     showInvitationDialog()
                 }
                 is UiState.Failure -> toast("실패: ${it.errorMessage}")
-                is UiState.Loading -> toast("로딩중")
-                UiState.Empty -> Unit
+                else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
