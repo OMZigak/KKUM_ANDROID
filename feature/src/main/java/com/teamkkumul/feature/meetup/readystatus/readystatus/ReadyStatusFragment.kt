@@ -1,5 +1,6 @@
 package com.teamkkumul.feature.meetup.readystatus.readystatus
 
+import android.os.Bundle
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -12,6 +13,7 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentReadyStatusBinding
 import com.teamkkumul.feature.meetup.readystatus.viewholder.ReadyStatusFriendItemDecoration
+import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_TIME
 import com.teamkkumul.feature.utils.animateProgressBar
@@ -22,6 +24,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ReadyStatusFragment :
     BindingFragment<FragmentReadyStatusBinding>(R.layout.fragment_ready_status) {
@@ -29,6 +32,10 @@ class ReadyStatusFragment :
 
     private var _readyStatusAdapter: ReadyStatusAdapter? = null
     private val readyStatusAdapter get() = requireNotNull(_readyStatusAdapter)
+
+    private val promiseId: Int by lazy {
+        requireArguments().getInt(PROMISE_ID)
+    }
 
     override fun initView() {
         initReadyStatusBtnClick()
@@ -132,6 +139,15 @@ class ReadyStatusFragment :
             isEnabled = state.isEnabled
         }
         circle.setImageResource(state.circleImage)
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(promiseId: Int) = ReadyStatusFragment().apply {
+            arguments = Bundle().apply {
+                putInt(PROMISE_ID, promiseId)
+            }
+        }
     }
 
     override fun onDestroyView() {
