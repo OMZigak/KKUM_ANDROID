@@ -7,12 +7,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import coil.load
 import com.teamkkumul.core.ui.base.BindingActivity
-import com.teamkkumul.core.ui.util.context.toast
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
 import com.teamkkumul.feature.signup.SetNameActivity.Companion.INPUT_NAME
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
@@ -52,18 +50,18 @@ class SetProfileActivity :
                 inputName?.let { navigateToWelcome(it) }
             }
         }
-        observeViewModel()
+        //observeViewModel()
     }
 
-    private fun observeViewModel() {
-        setProfileViewModel.updateImageResult.observe(this) { result ->
-            result.onSuccess {
-                toast("Image updated successfully")
-            }.onFailure {
-                toast("Failed to update image")
-            }
-        }
-    }
+//    private fun observeViewModel() {
+//        setProfileViewModel.updateImageResult.observe(this) { result ->
+//            result.onSuccess {
+//                toast("Image updated successfully")
+//            }.onFailure {
+//                toast("Failed to update image")
+//            }
+//        }
+//    }
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK).apply {

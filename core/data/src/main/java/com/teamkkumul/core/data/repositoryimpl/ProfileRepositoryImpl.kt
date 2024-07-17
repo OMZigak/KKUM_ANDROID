@@ -17,8 +17,7 @@ internal class ProfileRepositoryImpl @Inject constructor(
 ) : ProfileRepository {
     override suspend fun updateName(request: String): Result<String> =
         runCatching {
-            profileService.updateName(RequestNameDto(request)).data?.name
-                ?: throw Exception("data is null")
+            profileService.updateName(RequestNameDto(request)).data.name
         }
 
     override suspend fun updateImage(file: File): Result<Unit> {
@@ -31,8 +30,8 @@ internal class ProfileRepositoryImpl @Inject constructor(
                     Log.e("Profile Image", "프로필 이미지 업로드 성공")
                     Result.success(Unit)
                 } else {
-                    Log.e("Profile Image", "프로필 이미지 업로드 실패: ${response.error.message}")
-                    Result.failure(Throwable(response.error.message))
+                    Log.e("Profile Image", "프로필 이미지 업로드 실패")
+                    Result.failure(Throwable(response.error?.message))
                 }
             } catch (e: Exception) {
                 Log.e("Profile Image", "프로필 이미지 업로드 예외 발생: ${e.message}")

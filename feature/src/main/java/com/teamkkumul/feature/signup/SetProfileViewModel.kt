@@ -14,13 +14,13 @@ import javax.inject.Inject
 class SetProfileViewModel @Inject constructor(
     private val profileRepository: ProfileRepository,
 ) : ViewModel() {
-    private val _updateImageResult = MutableLiveData<Result<Unit>>()
-    val updateImageResult: LiveData<Result<Unit>> get() = _updateImageResult
+    private val _updateImageResult = MutableLiveData<Unit>()
+    val updateImageResult: LiveData<Unit> get() = _updateImageResult
 
     fun updateImage(file: File) {
-        viewModelScope.launch {
-            val result = profileRepository.updateImage(file)
-            _updateImageResult.value = result
-        }
+//        viewModelScope.launch {
+//            val result = profileRepository.updateImage(file)
+//            _updateImageResult.value = result
+//        }
     }
 }
