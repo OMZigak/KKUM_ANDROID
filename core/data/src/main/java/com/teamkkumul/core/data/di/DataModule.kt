@@ -1,10 +1,12 @@
 package com.teamkkumul.core.data.di
 
 import com.teamkkumul.core.data.repository.MeetingsRepository
+import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.data.repository.LoginRepository
 import com.teamkkumul.core.data.repository.ReqresRepository
 import com.teamkkumul.core.data.repository.UserInfoRepository
 import com.teamkkumul.core.data.repositoryimpl.MeetingsRepositoryImpl
+import com.teamkkumul.core.data.repositoryimpl.HomeRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.LoginRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.ReqresRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.UserInfoRepositoryImpl
@@ -48,4 +50,10 @@ internal abstract class DataModule {
     abstract fun bindsMeetingsRepo(
         meetingsRepository: MeetingsRepositoryImpl,
     ): MeetingsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsHomeRepo(
+        repository: HomeRepositoryImpl,
+    ): HomeRepository
 }
