@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.core.ui.util.context.colorOf
 import com.teamkkumul.core.ui.util.context.hideKeyboard
-import com.teamkkumul.core.ui.util.context.toast
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetNameBinding
@@ -28,18 +27,21 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
 
     override fun initView() {
         setName()
-        binding.btnNext.setOnClickListener {
-            val inputName = binding.etSetName.text.toString()
-            setNameViewModel.updateName(inputName)
-            navigateToSetProfile(inputName)
-        }
-        binding.clSetName.setOnClickListener {
-            hideKeyboard(binding.clSetName)
-        }
-        observeViewModel()
+        initNextBtnClick()
+        initObserveNameState()
+        hideKeyboard()
     }
 
-    private fun observeViewModel() {
+    private fun setName() = with(binding.etSetName) {
+        doAfterTextChanged {
+            setNameDebouncer.setDelay(text.toString(), SET_NAME_DEBOUNCE_DELAY, ::validInput)
+        }
+        setOnEditorActionListener { _, actionId, event ->
+            (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER))
+        }
+    }
+
+    private fun initObserveNameState() {
         setNameViewModel.updateNameState.flowWithLifecycle(lifecycle).onEach {
             when (it) {
                 is UiState.Success -> {}
@@ -50,12 +52,17 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
         }.launchIn(lifecycleScope)
     }
 
-    private fun setName() = with(binding.etSetName) {
-        doAfterTextChanged {
-            setNameDebouncer.setDelay(text.toString(), SET_NAME_DEBOUNCE_DELAY, ::validInput)
+    private fun initNextBtnClick() {
+        binding.btnNext.setOnClickListener {
+            val inputName = binding.etSetName.text.toString()
+            setNameViewModel.updateName(inputName)
+            navigateToSetProfile(inputName)
         }
-        setOnEditorActionListener { _, actionId, event ->
-            (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER))
+    }
+
+    private fun hideKeyboard() {
+        binding.clSetName.setOnClickListener {
+            hideKeyboard(binding.clSetName)
         }
     }
 
