@@ -1,5 +1,6 @@
 package com.teamkkumul.core.network.di
 
+import com.teamkkumul.core.network.api.MeetingsService
 import com.teamkkumul.core.network.api.HomeService
 import com.teamkkumul.core.network.api.LoginService
 import com.teamkkumul.core.network.api.ReqresService
@@ -22,6 +23,11 @@ object ApiModule {
     @Singleton
     fun provideLoginService(@WithoutTokenInterceptor retrofit: Retrofit): LoginService =
         retrofit.create(LoginService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideMeetingsService(@KKUMUL retrofit: Retrofit): MeetingsService =
+        retrofit.create(MeetingsService::class.java)
 
     @Provides
     @Singleton

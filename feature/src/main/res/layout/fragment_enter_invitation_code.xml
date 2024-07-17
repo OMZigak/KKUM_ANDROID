@@ -50,9 +50,19 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="4dp"
                     android:hint="@string/hint_enter_invitation_code"
-                    android:textColorHint="@color/gray3"
-                    android:maxLength="6" />
+                    android:maxLength="6"
+                    android:textColorHint="@color/gray3" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/iv_invitation_code_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_enter_invitation_code_check_green_24"
+                android:visibility="invisible" />
 
         </FrameLayout>
 
@@ -63,12 +73,12 @@
             android:layout_marginHorizontal="14dp"
             android:layout_marginBottom="50dp"
             android:background="@drawable/sel_btn"
-            app:layout_constraintDimensionRatio="332:50"
-            android:textColor="@color/white0"
             android:enabled="false"
             android:text="@string/next"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            android:textColor="@color/white0"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="332:50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
