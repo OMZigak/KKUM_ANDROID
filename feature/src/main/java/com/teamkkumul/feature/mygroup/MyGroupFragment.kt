@@ -17,6 +17,7 @@ import com.teamkkumul.model.MyGroupModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragment_my_group) {
@@ -26,17 +27,41 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
 
     override fun initView() {
         initGroupRecyclerView()
-        initObserveUiState()
+        initObserveMyGroupListState()
+        obserbe()
         viewModel.getMyGroupList()
     }
 
-    private fun initObserveUiState() {
+    private fun initObserveMyGroupListState() {
         viewModel.myGroupState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Empty -> emptyState()
-                is UiState.Loading -> loadingState()
-                is UiState.Success -> successState(uiState.data)
+                is UiState.Success -> {
+                    updateVisibility(isEmpty = false)
+                    successState(uiState.data)
+                }
+
                 is UiState.Failure -> errorState(uiState.errorMessage)
+                else -> {}
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun obserbe() {
+        viewModel.myGroupListState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Empty -> {
+                    emptyState()
+                }
+
+                is UiState.Failure -> Timber.tag("my gropu").d(it.errorMessage)
+                is UiState.Success -> {
+//                    binding.viewMyGroupEmpty.visibility = View.GONE
+//                    binding.rvMyGroupList.visibility = View.VISIBLE
+                    updateVisibility(true)
+                    memberAdapter.submitList(it.data)
+                }
+
+                else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
@@ -48,27 +73,28 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
         }
     }
 
-    private fun loadingState() {
-        with(binding) {
-            viewMyGroupEmpty.visibility = View.GONE
-            rvMyGroupList.visibility = View.GONE
-        }
-    }
-
+    // ui도그리고 다 그리니까 visibitluty 만 따로 함수로 빼라
     private fun successState(myGroupModel: MyGroupModel) {
         with(binding) {
-            viewMyGroupEmpty.visibility = View.GONE
-            rvMyGroupList.visibility = View.VISIBLE
+            tvMyGroupTotalCount.text = myGroupModel.count.toString()
         }
-        memberAdapter.submitList(myGroupModel.meetings)
     }
 
     private fun errorState(errorMessage: String) {
-        with(binding) {
-            viewMyGroupEmpty.visibility = View.VISIBLE
-            rvMyGroupList.visibility = View.GONE
-        }
+        updateVisibility(isEmpty = true)
         Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun updateVisibility(isEmpty: Boolean) {
+        with(binding) {
+            if (isEmpty) {
+                viewMyGroupEmpty.visibility = View.VISIBLE
+                rvMyGroupList.visibility = View.GONE
+            } else {
+                viewMyGroupEmpty.visibility = View.GONE
+                rvMyGroupList.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun initGroupRecyclerView() {
