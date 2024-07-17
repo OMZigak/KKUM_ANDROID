@@ -74,6 +74,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/pretendard_semibold</item>
         <item name="android:lineSpacingMultiplier">1.6</item>
+        <item name="android:lineHeight">20dp</item>
     </style>
 
     <style name="TextAppearance.Kkumul.body_06" parent="">
@@ -108,12 +109,12 @@
         <item name="android:textSize">10sp</item>
         <item name="android:fontFamily">@font/pretendard_semibold</item>
         <item name="android:lineSpacingMultiplier">1.6</item>
+        <item name="android:lineHeight">16dp</item>
     </style>
 
     <style name="TextAppearance.Kkumul.label_02" parent="">
         <item name="android:textSize">10sp</item>
         <item name="android:fontFamily">@font/pretendard_regular</item>
         <item name="android:lineSpacingMultiplier">1.6</item>
-        <item name="android:lineHeight">16dp</item>
     </style>
 </resources>

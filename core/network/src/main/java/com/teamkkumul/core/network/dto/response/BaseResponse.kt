@@ -8,12 +8,12 @@ data class BaseResponse<T>(
     @SerialName("success")
     val success: Boolean,
     @SerialName("error")
-    val error: Error? = null,
+    val error: BaseError? = null,
     @SerialName("data")
-    val data: T,
+    val data: T? = null,
 ) {
     @Serializable
-    data class Error(
+    data class BaseError(
         @SerialName("code")
         val code: Int,
         @SerialName("message")
