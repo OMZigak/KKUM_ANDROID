@@ -2,15 +2,23 @@ package com.teamkkumul.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.model.HomeTodayMeetingModel
 import com.teamkkumul.model.MyGroupMeetUpModel
+import com.teamkkumul.model.home.UserModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val homeRepository: HomeRepository,
+) : ViewModel() {
     private val _readyBtnState =
         MutableStateFlow<BtnState>(BtnState.Default(isEnabled = true))
     val readyBtnState: StateFlow<BtnState> get() = _readyBtnState
@@ -26,6 +34,41 @@ class HomeViewModel : ViewModel() {
     private val _homePromiseState =
         MutableStateFlow<UiState<List<MyGroupMeetUpModel.Promise>>>(UiState.Loading)
     val homePromiseState get() = _homePromiseState.asStateFlow()
+
+    private val _homeState = MutableStateFlow<UiState<UserModel>>(UiState.Loading)
+    val homeState: StateFlow<UiState<UserModel>> = _homeState.asStateFlow()
+
+    private val _todayMeetingState = MutableStateFlow<UiState<HomeTodayMeetingModel?>>(
+        UiState.Loading,
+    )
+    val todayMeetingState: StateFlow<UiState<HomeTodayMeetingModel?>> =
+        _todayMeetingState.asStateFlow()
+
+    fun getTodayMeeting() {
+        viewModelScope.launch {
+            homeRepository.getTodayMeeting()
+                .onSuccess {
+                    if (it == null) {
+                        _todayMeetingState.emit(UiState.Empty)
+                    } else {
+                        _todayMeetingState.emit(UiState.Success(it))
+                    }
+                }.onFailure {
+                    _todayMeetingState.emit(UiState.Failure(it.message.toString()))
+                }
+        }
+    }
+
+    fun getUserInfo() {
+        viewModelScope.launch {
+            homeRepository.getUserInfo()
+                .onSuccess {
+                    _homeState.emit(UiState.Success(it))
+                }.onFailure {
+                    _homeState.emit(UiState.Failure(it.message.toString()))
+                }
+        }
+    }
 
     fun clickReadyBtn() {
         viewModelScope.launch {
