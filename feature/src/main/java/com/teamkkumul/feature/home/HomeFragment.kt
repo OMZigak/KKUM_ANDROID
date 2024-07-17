@@ -103,21 +103,35 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         tvHomeMeetingCount.text =
             getString(R.string.home_meeting_count_text, data.promiseCount)
         tvHomeLateCount.text = getString(R.string.home_late_count_text, data.tardyCount)
-        spannableLevelString(data.level)
         updateLevelImage(data.level)
     }
 
     private fun updateLevelImage(level: Int) = with(binding) {
         when (level) {
-            1 -> ivHomeLevel.setImageResource(R.drawable.ic_home_lv_1)
-            2 -> ivHomeLevel.setImageResource(R.drawable.ic_home_lv_2)
-            3 -> ivHomeLevel.setImageResource(R.drawable.ic_home_lv_3)
-            4 -> ivHomeLevel.setImageResource(R.drawable.ic_home_lv_4)
+            1 -> {
+                ivHomeLevel.setImageResource(R.drawable.ic_home_lv_1)
+                spannableLevelString(level, getString(R.string.home_lv1))
+            }
+
+            2 -> {
+                ivHomeLevel.setImageResource(R.drawable.ic_home_lv_2)
+                spannableLevelString(level, getString(R.string.home_lv2))
+            }
+
+            3 -> {
+                ivHomeLevel.setImageResource(R.drawable.ic_home_lv_3)
+                spannableLevelString(level, getString(R.string.home_lv3))
+            }
+
+            4 -> {
+                ivHomeLevel.setImageResource(R.drawable.ic_home_lv_4)
+                spannableLevelString(level, getString(R.string.home_lv4))
+            }
         }
     }
 
-    private fun spannableLevelString(level: Int) {
-        val fullText = getString(R.string.home_level_text, level)
+    private fun spannableLevelString(level: Int, text: String) {
+        val fullText = getString(R.string.home_level_text, level, text)
         val spannable = SpannableString(fullText)
 
         spannable.setSpan(
