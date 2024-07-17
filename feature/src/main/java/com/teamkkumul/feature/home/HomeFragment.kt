@@ -1,5 +1,8 @@
 package com.teamkkumul.feature.home
 
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
@@ -20,12 +23,17 @@ import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.getCurrentTime
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.model.HomeTodayMeetingModel
+import com.teamkkumul.model.home.UserModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
+@AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel by viewModels<HomeViewModel>()
 
@@ -33,11 +41,89 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private val homeMeetUpAdapter get() = requireNotNull(_homeMeetUpAdapter)
 
     override fun initView() {
+        initGetHomeApi()
+        initObserveTodayMeetingState()
+        initObsereveHomeTopbannerState()
         initHomeBtnClick()
         initObserveBtnState()
         initMeetingNextBtnClick()
         initHomeMeetUpRecyclerView()
         initObserveHomePromiseState()
+    }
+
+    private fun initGetHomeApi() {
+        viewModel.getUserInfo()
+        viewModel.getTodayMeeting()
+    }
+
+    private fun initObserveTodayMeetingState() {
+        viewModel.todayMeetingState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    updateMeetingVisibility(true)
+                    updateTodayMeetingUI(it.data)
+                }
+
+                is UiState.Empty -> updateMeetingVisibility(false)
+
+                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun updateTodayMeetingUI(data: HomeTodayMeetingModel?) = with(binding) {
+        if (data == null) return
+        tvHomeGroupText.text = data.name.toString()
+        tvHomeMeetingTitle.text = data.meetingName.toString()
+        tvHomeMeetingWhere.text = data.placeName.toString()
+        tvHomeMeetingTime.text = data.time
+    }
+
+    private fun updateMeetingVisibility(isVisible: Boolean) {
+        binding.groupHomeMeeting.visibility = if (isVisible) View.VISIBLE else View.GONE
+        binding.groupHomeMeetingEmpty.visibility = if (isVisible) View.GONE else View.VISIBLE
+    }
+
+    private fun initObsereveHomeTopbannerState() {
+        viewModel.homeState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> updateHomeTopBannerUI(it.data)
+                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun updateHomeTopBannerUI(data: UserModel) = with(binding) {
+        tvHomeNickname.text = getString(R.string.home_nickname_text, data.name.toString())
+        tvHomeMeetingCount.text =
+            getString(R.string.home_meeting_count_text, data.promiseCount)
+        tvHomeLateCount.text = getString(R.string.home_late_count_text, data.tardyCount)
+        spannableLevelString(data.level)
+        updateLevelImage(data.level)
+    }
+
+    private fun updateLevelImage(level: Int) = with(binding) {
+        when (level) {
+            1 -> ivHomeLevel.setImageResource(R.drawable.ic_home_lv_1)
+            2 -> ivHomeLevel.setImageResource(R.drawable.ic_home_lv_2)
+            3 -> ivHomeLevel.setImageResource(R.drawable.ic_home_lv_3)
+            4 -> ivHomeLevel.setImageResource(R.drawable.ic_home_lv_4)
+        }
+    }
+
+    private fun spannableLevelString(level: Int) {
+        val fullText = getString(R.string.home_level_text, level)
+        val spannable = SpannableString(fullText)
+
+        spannable.setSpan(
+            ForegroundColorSpan(colorOf(R.color.main_color)),
+            0,
+            4,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
+        )
+        binding.tvHomeLevel.text = spannable
     }
 
     private fun initHomeBtnClick() {
