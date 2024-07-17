@@ -29,6 +29,12 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
         initObserveMyGroupListState()
         initObserveMyGroupState()
         viewModel.getMyGroupList()
+        viewModel.getName()
+        initGetName()
+    }
+
+    private fun initGetName() {
+        binding.tvMyGroupName.text = viewModel.userName
     }
 
     private fun initObserveMyGroupListState() {
@@ -45,7 +51,7 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
     }
 
     private fun initObserveMyGroupState() {
-        viewModel.myGroupListState.flowWithLifecycle(viewLifeCycle).onEach {uiState ->
+        viewModel.myGroupListState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Empty -> {
                     updateMyGroupVisibility(false)
