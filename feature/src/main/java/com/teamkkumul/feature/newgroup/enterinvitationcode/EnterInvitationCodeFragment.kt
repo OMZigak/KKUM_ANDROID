@@ -1,24 +1,33 @@
 package com.teamkkumul.feature.newgroup.enterinvitationcode
 
+import android.view.View
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentEnterInvitationCodeBinding
 import com.teamkkumul.feature.utils.Debouncer
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class EnterInvitationCodeFragment :
     BindingFragment<FragmentEnterInvitationCodeBinding>(R.layout.fragment_enter_invitation_code) {
 
+    private val viewModel by viewModels<InvitationCodeViewModel>()
     private val enterInvitationCodeDebouncer = Debouncer<String>()
-    private var currentText: String = ""
 
     override fun initView() {
+        initInvitationCode()
         initBlockEnterKey()
         setupInvitationCode()
         setupNextButton()
+        observeViewModel()
     }
 
     private fun initBlockEnterKey() = with(binding.etEnterInvitationCode) {
@@ -39,32 +48,37 @@ class EnterInvitationCodeFragment :
     private fun setupNextButton() {
         binding.btnNext.setOnClickListener {
             val input = binding.etEnterInvitationCode.text.toString()
-            validInput(input)
+            viewModel.validInput(input)
         }
     }
 
-    private fun validInput(input: String) { // 서버 통신 patch 로직 추가 필요
-        val isValid = input.length == 6
-        if (isValid) {
-            currentText = input
-            setErrorState(null)
-        } else {
-            setColor(R.color.red)
-            setErrorState(getString(R.string.set_enter_invitation_code_error_message))
+    private fun observeViewModel() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.meetingsState.collect { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        binding.ivInvitationCodeCheck.visibility = View.VISIBLE
+                        delay(500L)
+                        findNavController().navigate(R.id.action_fragment_enter_invitation_code_to_fragment_my_group_detail)
+                    }
+                    is UiState.Failure -> {
+                        setErrorState(getString(R.string.set_enter_invitation_code_error_message))
+                    }
+                    else -> Unit
+                }
+            }
         }
+    }
+
+    private fun initInvitationCode() {
+        binding.ivInvitationCodeCheck.visibility = View.GONE
     }
 
     private fun setErrorState(errorMessage: String?) {
         with(binding) {
             tilEnterInvitationCode.error = errorMessage
             tilEnterInvitationCode.isErrorEnabled = errorMessage != null
-        }
-    }
-
-    private fun setColor(colorResId: Int) {
-        val color = colorOf(colorResId)
-        with(binding) {
-            tilEnterInvitationCode.boxStrokeColor = color
+            tilEnterInvitationCode.boxStrokeColor = colorOf(R.color.red)
         }
     }
 
