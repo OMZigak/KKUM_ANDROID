@@ -36,7 +36,6 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
         viewModel.myGroupState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
-                    updateVisibility(isEmpty = false)
                     successState(uiState.data)
                 }
 
@@ -55,9 +54,8 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
 
                 is UiState.Failure -> Timber.tag("my gropu").d(it.errorMessage)
                 is UiState.Success -> {
-//                    binding.viewMyGroupEmpty.visibility = View.GONE
-//                    binding.rvMyGroupList.visibility = View.VISIBLE
-                    updateVisibility(true)
+                    binding.viewMyGroupEmpty.visibility = View.GONE
+                    binding.rvMyGroupList.visibility = View.VISIBLE
                     memberAdapter.submitList(it.data)
                 }
 
@@ -81,20 +79,11 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
     }
 
     private fun errorState(errorMessage: String) {
-        updateVisibility(isEmpty = true)
-        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun updateVisibility(isEmpty: Boolean) {
         with(binding) {
-            if (isEmpty) {
-                viewMyGroupEmpty.visibility = View.VISIBLE
-                rvMyGroupList.visibility = View.GONE
-            } else {
-                viewMyGroupEmpty.visibility = View.GONE
-                rvMyGroupList.visibility = View.VISIBLE
-            }
+            viewMyGroupEmpty.visibility = View.VISIBLE
+            rvMyGroupList.visibility = View.GONE
         }
+        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
     }
 
     private fun initGroupRecyclerView() {
