@@ -10,7 +10,6 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
-import com.teamkkumul.feature.utils.TimeStorage
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.model.MeetUpDetailModel

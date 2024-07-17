@@ -15,7 +15,6 @@ import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendA
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.model.MyGroupInfoModel
-import com.teamkkumul.model.MyGroupMeetUpModel
 import com.teamkkumul.model.MyGroupMemberModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -59,11 +58,9 @@ class MyGroupDetailFragment :
     private fun initObserveMemberListState() {
         viewModel.myGroupMemberListState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Failure ->{}
-                is UiState.Success ->{}
-                is UiState.Empty -> {
-
-                }
+                is UiState.Failure -> Timber.tag("my group member list").d(uiState.errorMessage)
+                is UiState.Success -> {}
+                is UiState.Empty -> {}
 
                 else -> {}
             }

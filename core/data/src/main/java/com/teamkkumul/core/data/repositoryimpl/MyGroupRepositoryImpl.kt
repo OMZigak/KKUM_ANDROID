@@ -28,24 +28,24 @@ class MyGroupRepositoryImpl @Inject constructor(
     ): Result<List<MyGroupMeetUpModel.Promise>> =
         runCatching {
             val response = myGroupService.getMyGroupMeetUp(meetingId, done)
-            response.data.toMyGroupMeetUpModel()
+            response.data?.toMyGroupMeetUpModel() ?: throw Exception("null")
         }
 
     override suspend fun getMyGroupMemberList(meetingId: Int): Result<List<MyGroupDetailMemeberSealedItem>> {
         return runCatching {
             val response = myGroupService.getMyGroupMember(meetingId)
-            response.data.toMyGroupSealedItem()
+            response.data?.toMyGroupSealedItem() ?: throw Exception("null")
         }
     }
 
     override suspend fun getMyGroupInfo(meetingId: Int): Result<MyGroupInfoModel> = runCatching {
         val response = myGroupService.getMyGroupInfo(meetingId)
-        response.data.toMyGroupInfoModel()
+        response.data?.toMyGroupInfoModel() ?: throw Exception("null")
     }
 
     override suspend fun getMyGroupMember(meetingId: Int): Result<MyGroupMemberModel> =
         runCatching {
             val response = myGroupService.getMyGroupMember(meetingId)
-            response.data.toMyGroupMemberModel()
+            response.data?.toMyGroupMemberModel() ?: throw Exception("null")
         }
 }
