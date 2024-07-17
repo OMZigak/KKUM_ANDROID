@@ -3,18 +3,26 @@ package com.teamkkumul.feature.signup
 import android.content.Intent
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
+import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.core.ui.util.context.colorOf
 import com.teamkkumul.core.ui.util.context.hideKeyboard
+import com.teamkkumul.core.ui.util.context.toast
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetNameBinding
 import com.teamkkumul.feature.utils.Debouncer
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activity_set_name) {
 
+    private val setNameViewModel: SetNameViewModel by viewModels()
     private val setNameDebouncer = Debouncer<String>()
     private var currentText: String = ""
 
@@ -22,11 +30,24 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
         setName()
         binding.btnNext.setOnClickListener {
             val inputName = binding.etSetName.text.toString()
+            setNameViewModel.updateName(inputName)
             navigateToSetProfile(inputName)
         }
         binding.clSetName.setOnClickListener {
             hideKeyboard(binding.clSetName)
         }
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        setNameViewModel.updateNameState.flowWithLifecycle(lifecycle).onEach {
+            when (it) {
+                is UiState.Success -> toast("성공")
+                is UiState.Failure -> toast("실패: ${it.errorMessage}")
+                is UiState.Loading -> toast("로딩중")
+                UiState.Empty -> Unit
+            }
+        }.launchIn(lifecycleScope)
     }
 
     private fun setName() = with(binding.etSetName) {
