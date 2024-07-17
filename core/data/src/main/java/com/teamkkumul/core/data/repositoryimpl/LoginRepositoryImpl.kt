@@ -19,7 +19,7 @@ internal class LoginRepositoryImpl @Inject constructor(
             loginService.postLogin(
                 RequestLoginDto(socialType, fcmToken),
                 header,
-            ).data.toLoginModel()
+            ).data?.toLoginModel() ?: throw Exception("null")
         }.onFailure { throwable ->
             return Result.failure(Exception(throwable.message))
         }
