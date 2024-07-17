@@ -59,18 +59,30 @@
             app:layout_constraintStart_toStartOf="@id/tv_penalty"
             app:layout_constraintTop_toBottomOf="@id/tv_penalty" />
 
+        <TextView
+            android:id="@+id/tv_late_person_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이번 약속의 지각 꾸물이는?"
+            android:layout_marginTop="24dp"
+            android:textAppearance="@style/TextAppearance.Kkumul.head_01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_box_penalty" />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_late_person"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="14dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="18dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/btn_end_meet_up"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_box_penalty"
+            app:layout_constraintTop_toBottomOf="@id/tv_late_person_question"
             tools:listitem="@layout/item_meet_up_create_friend">
 
         </androidx.recyclerview.widget.RecyclerView>
