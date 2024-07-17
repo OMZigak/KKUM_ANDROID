@@ -19,6 +19,7 @@ class ContentUriRequestBody(
     private val uri: Uri,
 ) : RequestBody() {
 
+    private var fileName = ""
     private var size = -1L
     private var compressedImage: ByteArray? = null
 
@@ -32,6 +33,8 @@ class ContentUriRequestBody(
         )?.use { cursor ->
             if (cursor.moveToFirst()) {
                 size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE))
+                fileName =
+                    cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
             }
         }
 
@@ -115,7 +118,7 @@ class ContentUriRequestBody(
         return inSampleSize
     }
 
-    // private fun getFileName() = fileName
+    private fun getFileName() = fileName
 
     override fun contentLength(): Long = size
 
@@ -126,7 +129,7 @@ class ContentUriRequestBody(
         compressedImage?.let(sink::write)
     }
 
-    fun toMultiPartData(name: String) = MultipartBody.Part.createFormData(name, null, this)
+    fun toMultiPartData(name: String) = MultipartBody.Part.createFormData(name, getFileName(), this)
 
     companion object {
         const val MAX_WIDTH = 1024
