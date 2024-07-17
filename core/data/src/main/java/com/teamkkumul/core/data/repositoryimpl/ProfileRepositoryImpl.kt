@@ -17,7 +17,7 @@ internal class ProfileRepositoryImpl @Inject constructor(
 ) : ProfileRepository {
     override suspend fun updateName(request: String): Result<String> =
         runCatching {
-            profileService.updateName(RequestNameDto(request)).data.name
+            profileService.updateName(RequestNameDto(request)).data?.name ?: throw Exception("Data is null")
         }
 
     override suspend fun updateImage(content: String, uriString: String?): Result<Boolean> {
