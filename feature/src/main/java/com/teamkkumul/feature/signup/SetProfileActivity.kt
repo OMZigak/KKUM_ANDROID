@@ -32,7 +32,7 @@ class SetProfileActivity :
                 }
                 selectedImageUri?.let { uri ->
                     val file = uriToFile(uri)
-                    file?.let { setProfileViewModel.updateImage(it) }
+                    //file?.let { setProfileViewModel.updateImage(it.toURI()) }
                 }
             }
         }
