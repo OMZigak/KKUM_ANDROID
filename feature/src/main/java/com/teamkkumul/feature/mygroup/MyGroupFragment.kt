@@ -1,7 +1,6 @@
 package com.teamkkumul.feature.mygroup
 
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -28,37 +27,40 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
     override fun initView() {
         initGroupRecyclerView()
         initObserveMyGroupListState()
-        obserbe()
+        initObserveMyGroupState()
         viewModel.getMyGroupList()
+        viewModel.getName()
+        initGetName()
+    }
+
+    private fun initGetName() {
+        binding.tvMyGroupName.text = viewModel.userName
     }
 
     private fun initObserveMyGroupListState() {
         viewModel.myGroupState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
-                    updateVisibility(isEmpty = false)
                     successState(uiState.data)
                 }
 
-                is UiState.Failure -> errorState(uiState.errorMessage)
+                is UiState.Failure -> Timber.tag("my group list").d(uiState.errorMessage)
                 else -> {}
             }
         }.launchIn(viewLifeCycleScope)
     }
 
-    private fun obserbe() {
-        viewModel.myGroupListState.flowWithLifecycle(viewLifeCycle).onEach {
-            when (it) {
+    private fun initObserveMyGroupState() {
+        viewModel.myGroupListState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
+            when (uiState) {
                 is UiState.Empty -> {
-                    emptyState()
+                    updateMyGroupVisibility(false)
                 }
 
-                is UiState.Failure -> Timber.tag("my gropu").d(it.errorMessage)
+                is UiState.Failure -> Timber.tag("my group count").d(uiState.errorMessage)
                 is UiState.Success -> {
-//                    binding.viewMyGroupEmpty.visibility = View.GONE
-//                    binding.rvMyGroupList.visibility = View.VISIBLE
-                    updateVisibility(true)
-                    memberAdapter.submitList(it.data)
+                    updateMyGroupVisibility(true)
+                    memberAdapter.submitList(uiState.data)
                 }
 
                 else -> Unit
@@ -66,35 +68,15 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
         }.launchIn(viewLifeCycleScope)
     }
 
-    private fun emptyState() {
-        with(binding) {
-            viewMyGroupEmpty.visibility = View.VISIBLE
-            rvMyGroupList.visibility = View.GONE
-        }
-    }
-
-    // ui도그리고 다 그리니까 visibitluty 만 따로 함수로 빼라
     private fun successState(myGroupModel: MyGroupModel) {
         with(binding) {
             tvMyGroupTotalCount.text = myGroupModel.count.toString()
         }
     }
 
-    private fun errorState(errorMessage: String) {
-        updateVisibility(isEmpty = true)
-        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun updateVisibility(isEmpty: Boolean) {
-        with(binding) {
-            if (isEmpty) {
-                viewMyGroupEmpty.visibility = View.VISIBLE
-                rvMyGroupList.visibility = View.GONE
-            } else {
-                viewMyGroupEmpty.visibility = View.GONE
-                rvMyGroupList.visibility = View.VISIBLE
-            }
-        }
+    private fun updateMyGroupVisibility(isVisible: Boolean) {
+        binding.rvMyGroupList.visibility = if (isVisible) View.VISIBLE else View.GONE
+        binding.viewMyGroupEmpty.visibility = if (isVisible) View.GONE else View.VISIBLE
     }
 
     private fun initGroupRecyclerView() {

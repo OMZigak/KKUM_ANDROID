@@ -5,39 +5,36 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ItemMyGroupRemainMeetUpBinding
-import com.teamkkumul.model.MyGroupMeetUpModel
+import com.teamkkumul.model.home.HomeTodayMeetingModel
 
 class HomeMeetUpViewHolder(
     private val binding: ItemMyGroupRemainMeetUpBinding,
-    private val onMeetUpDetailBtnClicked: () -> Unit,
+    private val onItemClicked: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
+    private var item: HomeTodayMeetingModel? = null
 
     init {
         binding.root.setOnClickListener {
-            onMeetUpDetailBtnClicked()
+            item?.let { onItemClicked(it.promiseId) }
         }
     }
 
-    fun onBind(data: MyGroupMeetUpModel.Promise) = with(binding) {
+    fun onBind(data: HomeTodayMeetingModel) = with(binding) {
+        item = data
+        setDdayTextColor(data)
         tvMeetUpGroupText.visibility = View.VISIBLE
-        tvMyGroupRemainMeetUpDueDateDay.text = data.dDay.toString()
+        tvMeetUpGroupText.text = data.meetingName
         tvMyGroupRemainMeetUpName.text = data.name
         tvMyGroupRemainMeetUpDate.text = data.date
         tvMyGroupRemainMeetUpLocation.text = data.placeName
         tvMyGroupRemainMeetUpTime.text = data.time
-
-        setDdayTextColor(data)
     }
 
-    private fun setDdayTextColor(data: MyGroupMeetUpModel.Promise) = with(binding) {
-        if (data.dDay == 0) {
-            val orangeColor = ContextCompat.getColor(binding.root.context, R.color.orange)
-            tvMyGroupRemainMeetUpDueDateDay.setTextColor(orangeColor)
-            tvMyGroupRemainMeetUpDueDateD.setTextColor(orangeColor)
-        } else {
-            val defaultColor = ContextCompat.getColor(binding.root.context, R.color.gray8)
-            tvMyGroupRemainMeetUpDueDateDay.setTextColor(defaultColor)
-            tvMyGroupRemainMeetUpDueDateD.setTextColor(defaultColor)
-        }
+    private fun setDdayTextColor(data: HomeTodayMeetingModel) = with(binding) {
+        val colorResId = if (data.dDay == 0) R.color.orange else R.color.gray5
+        val color = ContextCompat.getColor(binding.root.context, colorResId)
+
+        tvMyGroupRemainMeetUpDueDateDay.setTextColor(color)
+        tvMyGroupRemainMeetUpDueDateDay.text = if (data.dDay == 0) "D-DAY" else "D-${data.dDay}"
     }
 }

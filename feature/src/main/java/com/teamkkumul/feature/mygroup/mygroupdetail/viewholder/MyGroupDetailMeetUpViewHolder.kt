@@ -18,25 +18,20 @@ class MyGroupDetailMeetUpViewHolder(
         }
     }
 
-    fun onBind(data: MyGroupMeetUpModel.Promise) {
-        with(binding) {
-            tvMeetUpGroupText.visibility = View.GONE
-            tvMyGroupRemainMeetUpDueDateDay.text = data.dDay.toString()
-            tvMyGroupRemainMeetUpName.text = data.name
-            tvMyGroupRemainMeetUpDate.text = data.date
-            tvMyGroupRemainMeetUpLocation.text = data.placeName
-            tvMyGroupRemainMeetUpTime.text = data.time
-        }
+    fun onBind(data: MyGroupMeetUpModel.Promise) = with(binding) {
         setDdayTextColor(data)
+        tvMeetUpGroupText.visibility = View.GONE
+        tvMyGroupRemainMeetUpName.text = data.name
+        tvMyGroupRemainMeetUpDate.text = data.date
+        tvMyGroupRemainMeetUpLocation.text = data.placeName
+        tvMyGroupRemainMeetUpTime.text = data.time
     }
 
     private fun setDdayTextColor(data: MyGroupMeetUpModel.Promise) = with(binding) {
-        if (data.dDay == 0) {
-            val orangeColor = ContextCompat.getColor(binding.root.context, R.color.orange)
-            tvMyGroupRemainMeetUpDueDateDay.setTextColor(orangeColor)
-        } else {
-            val defaultColor = ContextCompat.getColor(binding.root.context, R.color.gray8)
-            tvMyGroupRemainMeetUpDueDateDay.setTextColor(defaultColor)
-        }
+        val colorResId = if (data.dDay == 0) R.color.orange else R.color.gray5
+        val color = ContextCompat.getColor(binding.root.context, colorResId)
+
+        tvMyGroupRemainMeetUpDueDateDay.setTextColor(color)
+        tvMyGroupRemainMeetUpDueDateDay.text = if (data.dDay == 0) "D-DAY" else "D-${data.dDay}"
     }
 }

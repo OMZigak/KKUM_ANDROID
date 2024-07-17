@@ -50,6 +50,7 @@ class TokenInterceptor @Inject constructor(
                         )
 
                     runBlocking {
+                        if (responseRefresh.data == null) return@runBlocking
                         defaultKumulPreferenceDatasource.updateAccessToken(
                             BEARER + responseRefresh.data.accessToken,
                         )

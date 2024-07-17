@@ -45,48 +45,72 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:text="@string/add_meet_up_title"
                 android:textAppearance="@style/TextAppearance.Kkumul.title_00"
                 android:textColor="@color/white0"
                 app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
-                app:layout_constraintTop_toBottomOf="@id/iv_home_kkumul_logo"
-                android:text="꾸물리안 님," />
+                app:layout_constraintTop_toBottomOf="@id/iv_home_kkumul_logo" />
+
+            <TextView
+                android:id="@+id/tv_home_meeting_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="14번"
+                android:textAppearance="@style/TextAppearance.Kkumul.title_00"
+                android:textColor="@color/light_green"
+                app:layout_constraintEnd_toStartOf="@id/tv_home_meet_up"
+                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_nickname" />
 
             <TextView
                 android:id="@+id/tv_home_meet_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:text="의 약속에서"
                 android:textAppearance="@style/TextAppearance.Kkumul.title_02"
                 android:textColor="@color/white0"
-                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
-                app:layout_constraintTop_toBottomOf="@id/tv_home_nickname"
-                android:text="14번의 약속에서" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_home_meeting_count"
+                app:layout_constraintStart_toEndOf="@id/tv_home_meeting_count"
+                app:layout_constraintTop_toTopOf="@id/tv_home_meeting_count" />
 
             <TextView
                 android:id="@+id/tv_home_late_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:text="10번"
+                android:textAppearance="@style/TextAppearance.Kkumul.title_00"
+                android:textColor="@color/light_green"
+                app:layout_constraintEnd_toStartOf="@id/tv_home_late_text"
+                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_meet_up" />
+
+            <TextView
+                android:id="@+id/tv_home_late_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="의 꾸물거렸어요"
                 android:textAppearance="@style/TextAppearance.Kkumul.title_02"
                 android:textColor="@color/white0"
-                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
-                app:layout_constraintTop_toBottomOf="@id/tv_home_meet_up"
-                android:text="10번의 꾸물거렸어요" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_home_late_count"
+                app:layout_constraintStart_toEndOf="@id/tv_home_late_count"
+                app:layout_constraintTop_toTopOf="@id/tv_home_late_count" />
 
             <TextView
                 android:id="@+id/tv_home_fence"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="46dp"
-                android:background="@drawable/ic_home_fence_title"
+                android:background="@drawable/ic_home_rect_green"
                 android:gravity="center|start"
                 android:padding="9dp"
                 android:paddingEnd="20dp"
                 android:text="@string/home_fence_text"
-                android:textAppearance="@style/TextAppearance.Kkumul.label_02"
-                android:textColor="@color/gray7"
+                android:textAppearance="@style/TextAppearance.Kkumul.label_01"
+                android:textColor="@color/white0"
                 app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
-                app:layout_constraintTop_toBottomOf="@id/tv_home_late_count" />
+                app:layout_constraintTop_toBottomOf="@id/tv_home_late_text" />
 
             <ImageView
                 android:id="@+id/iv_home_fence"
@@ -94,24 +118,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="-10dp"
-                android:src="@drawable/ic_home_fence_bar"
+                android:src="@drawable/ic_home_bar_green"
                 android:translationZ="-1dp"
                 app:layout_constraintStart_toStartOf="@id/tv_home_fence"
                 app:layout_constraintTop_toTopOf="@id/tv_home_fence" />
 
+            <ImageView
+                android:id="@+id/iv_home_level"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_home_lv_1"
+                app:layout_constraintBottom_toTopOf="@id/tv_home_level"
+                app:layout_constraintDimensionRatio="160:198"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@id/tv_home_fence" />
+
             <TextView
+                android:id="@+id/tv_home_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="21dp"
                 android:background="@drawable/shape_rect_200"
                 android:backgroundTint="@color/white0"
                 android:paddingHorizontal="18dp"
-                android:paddingVertical="8dp"
+                android:paddingVertical="9dp"
+                android:text="Lv.0 새끼 꾸물이"
                 android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
-                android:textColor="@color/gray6"
                 app:layout_constraintBottom_toTopOf="@id/cl_home_card_back_bottom"
-                app:layout_constraintEnd_toEndOf="@id/gl_home_end_14"
-                android:text="Lv.0 새끼 꾸물이" />
+                app:layout_constraintEnd_toEndOf="@id/gl_home_end_14" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_home_card_back_bottom"
@@ -143,6 +178,7 @@
                 app:layout_constraintEnd_toEndOf="@id/gl_home_end_14"
                 app:layout_constraintTop_toTopOf="@id/tv_home_today_meeting_text" />
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_home_today_info_list"
                 android:layout_width="0dp"
@@ -154,6 +190,46 @@
                 app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
                 app:layout_constraintTop_toBottomOf="@id/tv_home_today_meeting_text">
 
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_home_meeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:constraint_referenced_ids="tv_home_group_text,tv_home_meeting_title,iv_home_location,tv_home_meeting_where,iv_home_time,tv_home_meeting_time,tv_home_ready_time,iv_home_ready_circle,pg_home_ready,tv_home_moving_time,iv_home_moving_circle,pg_home_moving,tvv_home_arrive_time,iv_home_arrive_circle,pg_home_arrive,pg_home_arrive_end,btn_home_ready,btn_home_moving,btn_home_arrive,tv_home_moving_start_help_text" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_home_meeting_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:constraint_referenced_ids="iv_home_empty,tv_home_empty" />
+
+                <ImageView
+                    android:id="@+id/iv_home_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:background="@drawable/ic_home_empty"
+                    app:layout_constraintBottom_toTopOf="@id/iv_home_empty"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_home_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/home_empty_text"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+                    android:textColor="@color/gray3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_home_empty" />
+
                 <TextView
                     android:id="@+id/tv_home_group_text"
                     android:layout_width="wrap_content"
@@ -164,21 +240,21 @@
                     android:backgroundTint="@color/green2"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="6dp"
+                    android:text="모임 이름"
                     android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
                     android:textColor="@color/green3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="모임 이름" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_home_meeting_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:text="기말고사 모각작"
                     android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                     app:layout_constraintStart_toStartOf="@id/tv_home_group_text"
-                    app:layout_constraintTop_toBottomOf="@id/tv_home_group_text"
-                    android:text="기말고사 모각작" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_home_group_text" />
 
                 <ImageView
                     android:id="@+id/iv_home_location"
@@ -194,11 +270,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
+                    android:text="용산역"
                     android:textAppearance="@style/TextAppearance.Kkumul.body_06"
                     app:layout_constraintBottom_toBottomOf="@id/iv_home_location"
                     app:layout_constraintStart_toEndOf="@id/iv_home_location"
-                    app:layout_constraintTop_toTopOf="@id/iv_home_location"
-                    android:text="용산역" />
+                    app:layout_constraintTop_toTopOf="@id/iv_home_location" />
 
                 <ImageView
                     android:id="@+id/iv_home_time"
@@ -215,11 +291,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
+                    android:text="PM 2:00"
                     android:textAppearance="@style/TextAppearance.Kkumul.body_06"
                     app:layout_constraintBottom_toBottomOf="@id/iv_home_location"
                     app:layout_constraintStart_toEndOf="@id/iv_home_time"
-                    app:layout_constraintTop_toTopOf="@id/iv_home_location"
-                    android:text="PM 2:00" />
+                    app:layout_constraintTop_toTopOf="@id/iv_home_location" />
 
                 <TextView
                     android:id="@+id/tv_home_ready_time"
