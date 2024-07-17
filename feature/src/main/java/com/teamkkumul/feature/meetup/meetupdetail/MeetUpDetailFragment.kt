@@ -9,12 +9,14 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
+import com.teamkkumul.feature.utils.TimeStorage
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.model.MeetUpDetailModel
 import com.teamkkumul.model.MeetUpParticipantModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MeetUpDetailFragment :
@@ -44,7 +46,6 @@ class MeetUpDetailFragment :
         }.launchIn(viewLifeCycleScope)
     }
 
-    // 여기에 location 하나 더 추가해야 됨
     private fun successMeetUpDetailState(meetUpDetailModel: MeetUpDetailModel) {
         binding.tvMeetUpDetailLocation.text = meetUpDetailModel.placeName
         binding.tvMeetUpDetailTime.text = meetUpDetailModel.time
@@ -55,7 +56,7 @@ class MeetUpDetailFragment :
     private fun initObserveMeetUpParticipantState() {
         viewModel.meetUpParticipantState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Failure -> error(uiState.errorMessage)
+                is UiState.Failure -> Timber.tag("meet up participant").d(uiState.errorMessage)
                 is UiState.Success -> successParticipantState(uiState.data)
                 else -> {}
             }
@@ -69,7 +70,7 @@ class MeetUpDetailFragment :
     private fun initObserveMeetUpParticipantListState() {
         viewModel.meetUpParticipantListState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Failure -> error(uiState.errorMessage)
+                is UiState.Failure -> Timber.tag("meet up participant").d(uiState.errorMessage)
                 is UiState.Success -> {
                     meetUpDetailAdapter.submitList(uiState.data)
                 }
