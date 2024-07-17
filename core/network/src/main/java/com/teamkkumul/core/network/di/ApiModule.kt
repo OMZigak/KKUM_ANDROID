@@ -1,8 +1,10 @@
 package com.teamkkumul.core.network.di
 
-import com.teamkkumul.core.network.api.MeetingsService
 import com.teamkkumul.core.network.api.HomeService
 import com.teamkkumul.core.network.api.LoginService
+import com.teamkkumul.core.network.api.MeetUpService
+import com.teamkkumul.core.network.api.MeetingsService
+import com.teamkkumul.core.network.api.MyGroupService
 import com.teamkkumul.core.network.api.ReqresService
 import dagger.Module
 import dagger.Provides
@@ -21,8 +23,18 @@ object ApiModule {
 
     @Provides
     @Singleton
+    fun provideMyGroupService(@KKUMUL retrofit: Retrofit): MyGroupService =
+        retrofit.create(MyGroupService::class.java)
+
+    @Provides
+    @Singleton
     fun provideLoginService(@WithoutTokenInterceptor retrofit: Retrofit): LoginService =
         retrofit.create(LoginService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideMeetUpService(@KKUMUL retrofit: Retrofit): MeetUpService =
+        retrofit.create(MeetUpService::class.java)
 
     @Provides
     @Singleton

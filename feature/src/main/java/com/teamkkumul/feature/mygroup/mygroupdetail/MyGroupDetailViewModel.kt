@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.model.MyGroupMeetUpModel
-import com.teamkkumul.model.MyGroupSealedItem
+import com.teamkkumul.model.MyGroupDetailSealedItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,8 +17,8 @@ class MyGroupDetailViewModel @Inject constructor() : ViewModel() {
         MutableLiveData(UiState.Loading)
     val promise: LiveData<UiState<List<MyGroupMeetUpModel.Promise>>> get() = _promise
 
-    private val _members = MutableLiveData<List<MyGroupSealedItem.Member>>()
-    val members: LiveData<List<MyGroupSealedItem.Member>> get() = _members
+    private val _members = MutableLiveData<List<MyGroupDetailSealedItem.Member>>()
+    val members: LiveData<List<MyGroupDetailSealedItem.Member>> get() = _members
 
     fun getPromise() {
         viewModelScope.launch {
@@ -32,19 +32,19 @@ class MyGroupDetailViewModel @Inject constructor() : ViewModel() {
 
     init {
         val mockMembers = listOf(
-            MyGroupSealedItem.Member(id = 3, "Alice", "https://example.com/alice.jpg"),
-            MyGroupSealedItem.Member(2, "Bob", "https://example.com/bob.jpg"),
-            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupDetailSealedItem.Member(id = 3, "Alice", "https://example.com/alice.jpg"),
+            MyGroupDetailSealedItem.Member(2, "Bob", "https://example.com/bob.jpg"),
+            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
+            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
         )
         _members.value = mockMembers
     }

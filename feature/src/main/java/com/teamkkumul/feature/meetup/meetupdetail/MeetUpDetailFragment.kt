@@ -4,20 +4,26 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
-import com.teamkkumul.model.MeetUpSealedItem
+import com.teamkkumul.model.MeetUpDetailModel
+import com.teamkkumul.model.MeetUpParticipantModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class MeetUpDetailFragment :
     BindingFragment<FragmentMeetUpDetailBinding>(R.layout.fragment_meet_up_detail) {
-    private val groupFriendViewModel: MeetUpDetailFriendViewModel by viewModels()
+    private val viewModel: MeetUpDetailFriendViewModel by viewModels()
 
-    private var _memberAdapter: MeetUpDetailListAdapter? = null
-    private val memberAdapter get() = requireNotNull(_memberAdapter)
+    private var _meetUpDetailAdapter: MeetUpDetailListAdapter? = null
+    private val meetUpDetailAdapter get() = requireNotNull(_meetUpDetailAdapter)
 
     private val promiseId: Int by lazy {
         requireArguments().getInt(PROMISE_ID)
@@ -25,24 +31,63 @@ class MeetUpDetailFragment :
 
     override fun initView() {
         initMemberRecyclerView()
-        initObserveMemberState()
+        viewModel.getMeetUpParticipant(0)
+        viewModel.getMeetUpParticipantList(0)
+        viewModel.getMeetUpDetail(0)
+        initObserveMeetUpDetailState()
+        initObserveMeetUpParticipantListState()
+        initObserveMeetUpParticipantState()
     }
 
-    private fun initObserveMemberState() {
-        groupFriendViewModel.members.observe(viewLifecycleOwner) {
-            val newList = mutableListOf<MeetUpSealedItem>()
-            newList.add(MeetUpSealedItem.MyGroupPlus(0))
-            newList.addAll(it)
-            memberAdapter.submitList(newList)
-        }
+    private fun initObserveMeetUpDetailState() {
+        viewModel.meetupDetailState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Failure -> error(uiState.errorMessage)
+                is UiState.Success -> successMeetUpDetailState(uiState.data)
+                else -> {}
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun successMeetUpDetailState(meetUpDetailModel: MeetUpDetailModel) {
+        binding.tvMeetUpDetailTime.text = meetUpDetailModel.time
+        binding.tvMeetUpDetailReadyLevel.text = meetUpDetailModel.dressUpLevel
+        binding.tvMeetUpDetailPenalty.text = meetUpDetailModel.penalty
+    }
+
+    private fun initObserveMeetUpParticipantState() {
+        viewModel.meetUpParticipantState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Failure -> error(uiState.errorMessage)
+                is UiState.Success -> successParticipantState(uiState.data)
+                else -> {}
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun successParticipantState(meetUpParticipantModel: MeetUpParticipantModel) {
+        binding.tvMeetUpParticipatePeople.text = meetUpParticipantModel.participantCount.toString()
+    }
+
+    private fun initObserveMeetUpParticipantListState() {
+        viewModel.meetUpParticipantListState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Failure -> error(uiState.errorMessage)
+                is UiState.Success -> {
+                    meetUpDetailAdapter.submitList(uiState.data)
+                }
+
+                else -> {}
+            }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun initMemberRecyclerView() {
-        _memberAdapter = MeetUpDetailListAdapter()
+        _meetUpDetailAdapter = MeetUpDetailListAdapter()
         binding.rvMeetUpFriendList.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = memberAdapter
+            adapter = meetUpDetailAdapter
             addItemDecoration(MeetUpFriendItemDecoration(requireContext()))
         }
     }
@@ -58,6 +103,6 @@ class MeetUpDetailFragment :
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _memberAdapter = null
+        _meetUpDetailAdapter = null
     }
 }
