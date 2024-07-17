@@ -86,13 +86,17 @@
     <string name="meet_up_detail_information_penalty">벌칙</string>
 
     <!--    홈 화면-->
-    <string name="home_fence_text">아직 한번도 정시에 도착하지 못했어요!\n정시 도착으로 캐릭터를 성장시켜 보세요.</string>
+    <string name="home_fence_text">꾸물꿈에 오신 것을 환영해요!\n정시 도착으로 캐릭터를 성장시켜 보세요.</string>
     <string name="home_today_promise_text">오늘의 약속은?</string>
     <string name="home_btn_ready_text">준비 중</string>
     <string name="home_btn_moving_text">이동 시작</string>
     <string name="home_btn_arrive_text">도착 완료</string>
     <string name="home_btn_help_text">이동을 시작시 눌러주세요</string>
     <string name="home_upcoming_text">다가올 나의 약속은</string>
+    <string name="home_level_text">Lv.%1$d 밍기적 꾸물이</string>
+    <string name="home_nickname_text">%1$s 님,</string>
+    <string name="home_meeting_count_text">%1$d번</string>
+    <string name="home_late_count_text">%1$d번</string>
 
     <!--    약속 상세 화면 탭 바-->
     <string name="meet_up_container_tabbar_info">약속 정보</string>
@@ -160,5 +164,6 @@
     <string name="tv_congratulations">축하해요!</string>
     <string name="tv_congratulations_description">약속 시간까지 아무도 꾸물거리지 않았어요!</string>
     <string name="tv_late_person_waiting">꾸물이들이 도착하길\n기다리는 중이에요</string>
+    <string name="home_empty_text">꾸물꾸물...\n오늘 약속은 없네요!</string>
 
 </resources>
