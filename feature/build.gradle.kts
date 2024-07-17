@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.navigationSafeArgs)
-    id("com.google.gms.google-services")
+    alias(libs.plugins.google.services)
 }
 
 android {
