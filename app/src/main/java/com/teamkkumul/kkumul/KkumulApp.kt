@@ -9,6 +9,8 @@ import com.kakao.sdk.common.KakaoSdk
 import com.teamkkumul.core.network.BuildConfig
 import com.teamkkumul.feature.utils.KeyStorage.LOCAL_ALARM_CHANNEL
 import com.teamkkumul.kkumul.BuildConfig.KAKAO_APP_KEY
+import com.teamkkumul.kkumul.KkumulFirebaseMessagingService.FcmTag.CHANNEL_ID
+import com.teamkkumul.kkumul.KkumulFirebaseMessagingService.FcmTag.CHANNEL_NAME
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -19,7 +21,8 @@ class KkumulApp : Application() {
         setTimber()
         setDarkMode()
         setKaKaoSdk()
-        createNotificationChannel()
+        createLocalNotificationChannel()
+        createFcmNotificationChannel()
     }
 
     private fun setTimber() {
@@ -34,7 +37,7 @@ class KkumulApp : Application() {
         KakaoSdk.init(this, KAKAO_APP_KEY)
     }
 
-    private fun createNotificationChannel() {
+    private fun createLocalNotificationChannel() {
         val name = "로컬 알람 채널"
         val descriptionText = "로컬 알람을 위한 채널입니다."
         val importance = NotificationManager.IMPORTANCE_HIGH
@@ -44,5 +47,16 @@ class KkumulApp : Application() {
         val notificationManager: NotificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
+    }
+
+    private fun createFcmNotificationChannel() {
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            CHANNEL_NAME,
+            NotificationManager.IMPORTANCE_HIGH,
+        )
+        notificationManager?.createNotificationChannel(channel)
     }
 }
