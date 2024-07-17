@@ -44,7 +44,6 @@ class MeetUpDetailFragment :
         }.launchIn(viewLifeCycleScope)
     }
 
-    // 여기에 location 하나 더 추가해야 됨
     private fun successMeetUpDetailState(meetUpDetailModel: MeetUpDetailModel) {
         binding.tvMeetUpDetailTime.text = meetUpDetailModel.time
         binding.tvMeetUpDetailReadyLevel.text = meetUpDetailModel.dressUpLevel
