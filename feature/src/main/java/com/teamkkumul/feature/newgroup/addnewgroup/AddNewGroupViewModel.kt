@@ -1,8 +1,5 @@
 package com.teamkkumul.feature.newgroup.addnewgroup
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.MeetingsRepository
@@ -18,8 +15,8 @@ class AddNewGroupViewModel @Inject constructor(
     private val meetingsRepository: MeetingsRepository,
 ) : ViewModel() {
 
-    private val _invitationCode = MutableLiveData<String>()
-    val invitationCode: LiveData<String> = _invitationCode
+    private val _invitationCode = MutableStateFlow("")
+    val invitationCode = _invitationCode.asStateFlow()
 
     private val _meetingsState = MutableStateFlow<UiState<String>>(UiState.Loading)
     val meetingsState get() = _meetingsState.asStateFlow()
@@ -31,11 +28,9 @@ class AddNewGroupViewModel @Inject constructor(
                     if (invitationCode.isNotEmpty()) {
                         _invitationCode.value = invitationCode
                         _meetingsState.emit(UiState.Success(invitationCode))
-                        Log.e("AddNewGroup", "성공")
                     }
                 }.onFailure {
                     _meetingsState.emit(UiState.Failure(it.message.toString()))
-                    Log.e("AddNewGroup", "실패")
                 }
         }
     }

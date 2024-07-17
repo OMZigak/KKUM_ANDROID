@@ -23,6 +23,7 @@ class EnterInvitationCodeFragment :
     private val enterInvitationCodeDebouncer = Debouncer<String>()
 
     override fun initView() {
+        initInvitationCode()
         initBlockEnterKey()
         setupInvitationCode()
         setupNextButton()
@@ -55,23 +56,22 @@ class EnterInvitationCodeFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.meetingsState.collect { state ->
                 when (state) {
-                    is UiState.Loading -> {
-                    }
-
                     is UiState.Success -> {
                         binding.ivInvitationCodeCheck.visibility = View.VISIBLE
                         delay(500L)
                         findNavController().navigate(R.id.action_fragment_enter_invitation_code_to_fragment_my_group_detail)
                     }
-
                     is UiState.Failure -> {
                         setErrorState(getString(R.string.set_enter_invitation_code_error_message))
                     }
-
-                    else -> {}
+                    else -> Unit
                 }
             }
         }
+    }
+
+    private fun initInvitationCode() {
+        binding.ivInvitationCodeCheck.visibility = View.GONE
     }
 
     private fun setErrorState(errorMessage: String?) {

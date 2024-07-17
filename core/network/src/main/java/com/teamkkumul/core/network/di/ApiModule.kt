@@ -37,6 +37,9 @@ object ApiModule {
 
     @Provides
     @Singleton
+
+    @Provides
+    @Singleton
     fun provideHomeService(@KKUMUL retrofit: Retrofit): HomeService =
         retrofit.create(HomeService::class.java)
 }
