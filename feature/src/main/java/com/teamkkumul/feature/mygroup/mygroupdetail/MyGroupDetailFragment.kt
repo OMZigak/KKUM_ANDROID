@@ -2,17 +2,25 @@ package com.teamkkumul.feature.mygroup.mygroupdetail
 
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
-import com.teamkkumul.model.MyGroupDetailSealedItem
+import com.teamkkumul.model.MyGroupInfoModel
+import com.teamkkumul.model.MyGroupMeetUpModel
+import com.teamkkumul.model.MyGroupMemberModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MyGroupDetailFragment :
@@ -27,41 +35,54 @@ class MyGroupDetailFragment :
 
     override fun initView() {
         initMemberRecyclerView()
-        initObserveMemberState()
+        initObserveMemberListState()
         initMeetUpRecyclerView()
-        initObserveMeetUpState()
+//        initObserveMeetUpState()
+        initObserveMyGroupMeetUpState()
 
         binding.extendedFab.setOnClickListener {
             findNavController().navigate(R.id.action_myGroupDetailFragment_to_meetUpCreateFragment)
         }
     }
 
-    private fun initObserveMemberState() {
-        viewModel.members.observe(viewLifecycleOwner) {
-            val newList = mutableListOf<MyGroupDetailSealedItem>()
-            newList.add(MyGroupDetailSealedItem.MyGroupDetailPlus(0))
-            newList.addAll(it)
-            memberAdapter.submitList(newList)
+    private fun successMyGroupInfoState(myGroupInfoModel: MyGroupInfoModel) {
+        binding.tvMyGroupCreateDate.text = myGroupInfoModel.createdAt
+        binding.tvMyGroupMeetUpCount.text = myGroupInfoModel.metCount.toString()
+    }
+
+    private fun successMyGroupMember(myGroupMemberModel: MyGroupMemberModel) {
+        with(binding) {
+            tvMyGroupParticipatePeopleCount.text = myGroupMemberModel.memberCount.toString()
         }
     }
 
-    private fun initObserveMeetUpState() {
-        viewModel.promise.observe(viewLifecycleOwner) {
-            when (it) {
+    private fun initObserveMemberListState() {
+        viewModel.myGroupMemberListState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Failure ->{}
+                is UiState.Success ->{}
                 is UiState.Empty -> {
-                    binding.viewMyGroupMeetUpEmpty.visibility = View.VISIBLE
-                    binding.rvMyGroupMeetUp.visibility = View.GONE
-                }
 
-                is UiState.Success -> {
-                    binding.rvMyGroupMeetUp.visibility = View.VISIBLE
-                    binding.viewMyGroupMeetUpEmpty.visibility = View.GONE
-                    meetUpAdapter.submitList(it.data)
                 }
 
                 else -> {}
             }
         }
+    }
+
+    private fun initObserveMyGroupMeetUpState() {
+        viewModel.myGroupMeetUpState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Failure -> Timber.tag("my group meet up list").d(uiState.errorMessage)
+                is UiState.Success -> {
+                    updateMeetingVisibility(true)
+                    meetUpAdapter.submitList(uiState.data)
+                }
+
+                is UiState.Empty -> updateMeetingVisibility(false)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun initMemberRecyclerView() {
@@ -88,6 +109,11 @@ class MyGroupDetailFragment :
             adapter = meetUpAdapter
             addItemDecoration(MeetUpFriendItemDecoration(requireContext()))
         }
+    }
+
+    private fun updateMeetingVisibility(isVisible: Boolean) {
+        binding.rvMyGroupMeetUp.visibility = if (isVisible) View.VISIBLE else View.GONE
+        binding.viewMyGroupMeetUpEmpty.visibility = if (isVisible) View.GONE else View.VISIBLE
     }
 
     override fun onDestroyView() {

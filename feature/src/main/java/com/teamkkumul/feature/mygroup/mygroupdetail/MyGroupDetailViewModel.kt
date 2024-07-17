@@ -1,78 +1,73 @@
 package com.teamkkumul.feature.mygroup.mygroupdetail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.teamkkumul.core.data.repository.MyGroupRepository
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.model.MyGroupDetailMemeberSealedItem
+import com.teamkkumul.model.MyGroupInfoModel
 import com.teamkkumul.model.MyGroupMeetUpModel
-import com.teamkkumul.model.MyGroupDetailSealedItem
+import com.teamkkumul.model.MyGroupMemberModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MyGroupDetailViewModel @Inject constructor() : ViewModel() {
-    private val _promise: MutableLiveData<UiState<List<MyGroupMeetUpModel.Promise>>> =
-        MutableLiveData(UiState.Loading)
-    val promise: LiveData<UiState<List<MyGroupMeetUpModel.Promise>>> get() = _promise
+class MyGroupDetailViewModel @Inject constructor(
+    private val myGroupRepository: MyGroupRepository,
+) : ViewModel() {
 
-    private val _members = MutableLiveData<List<MyGroupDetailSealedItem.Member>>()
-    val members: LiveData<List<MyGroupDetailSealedItem.Member>> get() = _members
+    private val _myGroupInfoState = MutableStateFlow<UiState<MyGroupInfoModel>>(UiState.Loading)
+    val myGroupInfoState get() = _myGroupInfoState.asStateFlow()
 
-    fun getPromise() {
-        viewModelScope.launch {
-            _promise.value = UiState.Empty
-        }
+    private val _myGroupMemberState =
+        MutableStateFlow<UiState<MyGroupMemberModel>>(UiState.Loading)
+    val myGroupMemberState get() = _myGroupMemberState.asStateFlow()
+
+    private val _myGroupMemberListState =
+        MutableStateFlow<UiState<List<MyGroupDetailMemeberSealedItem>>>(UiState.Loading)
+    val myGroupMemberListState get() = _myGroupMemberListState.asStateFlow()
+
+    private val _myGroupMeetUpState =
+        MutableStateFlow<UiState<List<MyGroupMeetUpModel.Promise>>>(UiState.Loading)
+    val myGroupMeetUpState get() = _myGroupMeetUpState.asStateFlow()
+
+    fun getMyGroupInfo(memberId: Int) = viewModelScope.launch {
+        myGroupRepository.getMyGroupInfo(memberId)
+            .onSuccess { myGroupInfoModel ->
+                _myGroupInfoState.emit(UiState.Success(myGroupInfoModel))
+            }
+            .onFailure { exception ->
+                _myGroupInfoState.emit(UiState.Failure(exception.message.toString()))
+            }
     }
 
-//    init {
-//        getPromise()
-//    }
-
-    init {
-        val mockMembers = listOf(
-            MyGroupDetailSealedItem.Member(id = 3, "Alice", "https://example.com/alice.jpg"),
-            MyGroupDetailSealedItem.Member(2, "Bob", "https://example.com/bob.jpg"),
-            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-            MyGroupDetailSealedItem.Member(3, "Charlie", "https://example.com/charlie.jpg"),
-        )
-        _members.value = mockMembers
+    fun getMyGroupMember(memberId: Int) = viewModelScope.launch {
+        myGroupRepository.getMyGroupMember(memberId)
+            .onSuccess { myGroupMemberModel ->
+                _myGroupMemberState.emit(UiState.Success(myGroupMemberModel))
+            }.onFailure { exception ->
+                _myGroupMemberState.emit(UiState.Failure(exception.message.toString()))
+            }
     }
 
-    init {
-        val mockPromise = listOf(
-            MyGroupMeetUpModel.Promise(
-                3,
-                date = "2024.07.30",
-                name = "약속명",
-                placeName = "홍대입구",
-                time = "PM 6:00",
-            ),
-            MyGroupMeetUpModel.Promise(
-                3,
-                date = "2024.07.30",
-                name = "약속명",
-                placeName = "홍대입구",
-                time = "PM 6:00",
-            ),
-            MyGroupMeetUpModel.Promise(
-                3,
-                date = "2024.07.30",
-                name = "약속명",
-                placeName = "홍대입구",
-                time = "PM 6:00",
-            ),
-        )
-        _promise.value = UiState.Success(mockPromise)
+    fun getMyGroupMemberList(memberId: Int) = viewModelScope.launch {
+        myGroupRepository.getMyGroupMemberList(memberId)
+            .onSuccess {
+                _myGroupMemberListState.emit(UiState.Success(it))
+            }.onFailure { exception ->
+                _myGroupMemberListState.emit(UiState.Failure(exception.message.toString()))
+            }
+    }
+
+    fun getMyGroupMeetUp(memberId: Int, done: Boolean) = viewModelScope.launch {
+        myGroupRepository.getMyGroupMeetUp(memberId, done)
+            .onSuccess { myGroupMemeberModel ->
+                _myGroupMeetUpState.emit(UiState.Success(myGroupMemeberModel))
+            }.onFailure { exception ->
+                _myGroupMeetUpState.emit(UiState.Failure(exception.message.toString()))
+            }
     }
 }
