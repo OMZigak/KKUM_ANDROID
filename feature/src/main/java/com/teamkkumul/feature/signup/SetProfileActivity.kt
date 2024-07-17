@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.teamkkumul.core.ui.base.BindingActivity
@@ -13,7 +14,8 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
 import com.teamkkumul.feature.signup.SetNameActivity.Companion.INPUT_NAME
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class SetProfileActivity :
@@ -46,18 +48,16 @@ class SetProfileActivity :
     }
 
     private fun initObserveImageState() {
-        lifecycleScope.launch {
-            setProfileViewModel.updateImageState.collect { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        inputName?.let { navigateToWelcome(it) }
-                    }
-
-                    is UiState.Failure -> {}
-                    else -> Unit
+        setProfileViewModel.updateImageState.flowWithLifecycle(lifecycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    inputName?.let { navigateToWelcome(it) }
                 }
+
+                is UiState.Failure -> {}
+                else -> Unit
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun initSetProfileBtnClick() {
@@ -68,8 +68,8 @@ class SetProfileActivity :
 
     private fun initOkayBtnClick() {
         binding.btnOkay.setOnClickListener {
-            setProfileViewModel.photoUri.value?.let { uriString ->
-                setProfileViewModel.updateImage(inputName ?: "", uriString)
+            setProfileViewModel.photoUri?.let { uriString ->
+                setProfileViewModel.updateImage(uriString)
             }
         }
     }

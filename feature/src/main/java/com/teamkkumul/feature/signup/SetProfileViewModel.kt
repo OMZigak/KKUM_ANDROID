@@ -6,7 +6,6 @@ import com.teamkkumul.core.data.repository.ProfileRepository
 import com.teamkkumul.core.ui.view.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,16 +17,16 @@ class SetProfileViewModel @Inject constructor(
     private val _updateImageState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
     val updateImageState get() = _updateImageState.asStateFlow()
 
-    private val _photoUri = MutableStateFlow<String?>(null)
-    val photoUri: StateFlow<String?> = _photoUri
+    private var _photoUri: String? = null
+    val photoUri: String? get() = _photoUri
 
     fun setPhotoUri(uri: String?) {
-        _photoUri.value = uri
+        _photoUri = uri
     }
 
-    fun updateImage(contentText: String, imageString: String?) {
+    fun updateImage(imageString: String?) {
         viewModelScope.launch {
-            profileRepository.updateImage(contentText, imageString)
+            profileRepository.updateImage(imageString)
                 .onSuccess { isSuccess ->
                     if (isSuccess) {
                         _updateImageState.emit(UiState.Success(Unit))
