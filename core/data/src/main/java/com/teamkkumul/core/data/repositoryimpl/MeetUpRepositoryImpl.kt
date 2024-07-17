@@ -16,19 +16,19 @@ class MeetUpRepositoryImpl @Inject constructor(
     override suspend fun getMeetUpParticipant(promiseId: Int): Result<MeetUpParticipantModel> =
         runCatching {
             val response = meetUpService.getMeetUpParticipantList(promiseId)
-            response.data.toMeetUpParticipantModel()
+            response.data?.toMeetUpParticipantModel() ?: throw Exception("null")
         }
 
     override suspend fun getMeetUpDetail(promiseId: Int): Result<MeetUpDetailModel> =
         runCatching {
             val response = meetUpService.getMeetUpDetail(promiseId)
-            response.data.toMeetUpDetailModel()
+            response.data?.toMeetUpDetailModel() ?: throw Exception("null")
         }
 
     override suspend fun getMeetUpFriendList(promiseId: Int): Result<List<MeetUpSealedItem>> {
         return runCatching {
             val response = meetUpService.getMeetUpParticipantList(promiseId)
-            response.data.toMeetUpSealedItem()
+            response.data?.toMeetUpSealedItem() ?: throw Exception("null")
         }
     }
 }

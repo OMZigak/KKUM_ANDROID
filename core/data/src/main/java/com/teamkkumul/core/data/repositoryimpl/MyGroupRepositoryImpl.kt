@@ -11,6 +11,6 @@ class MyGroupRepositoryImpl @Inject constructor(
 ) : MyGroupRepository {
     override suspend fun getMyGroup(): Result<MyGroupModel> = runCatching {
         val response = myGroupService.getMyGroupList()
-        response.data.toMyGroupModel()
+        response.data?.toMyGroupModel() ?: throw Exception("null")
     }
 }
