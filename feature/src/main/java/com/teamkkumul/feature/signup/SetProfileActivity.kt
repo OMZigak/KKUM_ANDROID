@@ -8,7 +8,6 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.teamkkumul.core.ui.base.BindingActivity
-import com.teamkkumul.core.ui.util.context.toast
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
@@ -28,50 +27,56 @@ class SetProfileActivity :
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
                 val selectedImageUri: Uri? = data?.data
-                selectedImageUri?.let { uri ->
-                    val mimeType = contentResolver.getType(uri)
-                    if (mimeType == "image/heif" || mimeType == "image/heic") {
-                        toast("HEIF 형식의 이미지는 지원되지 않습니다. 다른 형식의 이미지를 선택해 주세요.")
-                    } else {
-                        with(binding) {
-                            ivBtnSetProfile.load(selectedImageUri)
-                            btnOkay.isEnabled = true
-                        }
-                        setProfileViewModel.setPhotoUri(selectedImageUri.toString())
+                selectedImageUri?.let {
+                    with(binding) {
+                        ivBtnSetProfile.load(selectedImageUri)
+                        btnOkay.isEnabled = true
                     }
+                    setProfileViewModel.setPhotoUri(selectedImageUri.toString())
                 }
             }
         }
 
     override fun initView() {
         inputName = intent.getStringExtra(INPUT_NAME)
-        with(binding) {
-            ivBtnSetProfile.setOnClickListener {
-                openGallery()
-            }
-            btnOkay.setOnClickListener {
-                setProfileViewModel.photoUri.value?.let { uriString ->
-                    setProfileViewModel.updateImage(inputName ?: "", uriString)
-                }
-            }
-            tvBtnNotNow.setOnClickListener {
-                inputName?.let { navigateToWelcome(it) }
-            }
-        }
-        observeViewModel()
+        initObserveImageState()
+        initSetProfileBtnClick()
+        initOkayBtnClick()
+        initNotNowBtnClick()
     }
 
-    private fun observeViewModel() {
+    private fun initObserveImageState() {
         lifecycleScope.launch {
             setProfileViewModel.updateImageState.collect { state ->
                 when (state) {
                     is UiState.Success -> {
                         inputName?.let { navigateToWelcome(it) }
                     }
+
                     is UiState.Failure -> {}
                     else -> Unit
                 }
             }
+        }
+    }
+
+    private fun initSetProfileBtnClick() {
+        binding.ivBtnSetProfile.setOnClickListener {
+            openGallery()
+        }
+    }
+
+    private fun initOkayBtnClick() {
+        binding.btnOkay.setOnClickListener {
+            setProfileViewModel.photoUri.value?.let { uriString ->
+                setProfileViewModel.updateImage(inputName ?: "", uriString)
+            }
+        }
+    }
+
+    private fun initNotNowBtnClick() {
+        binding.tvBtnNotNow.setOnClickListener {
+            inputName?.let { navigateToWelcome(it) }
         }
     }
 
