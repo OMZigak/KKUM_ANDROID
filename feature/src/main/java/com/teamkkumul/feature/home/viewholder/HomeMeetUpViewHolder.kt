@@ -21,8 +21,9 @@ class HomeMeetUpViewHolder(
 
     fun onBind(data: HomeTodayMeetingModel) = with(binding) {
         item = data
-        tvMeetUpGroupText.visibility = View.VISIBLE
         setDdayTextColor(data)
+        tvMeetUpGroupText.visibility = View.VISIBLE
+        tvMeetUpGroupText.text = data.meetingName
         tvMyGroupRemainMeetUpName.text = data.name
         tvMyGroupRemainMeetUpDate.text = data.date
         tvMyGroupRemainMeetUpLocation.text = data.placeName
