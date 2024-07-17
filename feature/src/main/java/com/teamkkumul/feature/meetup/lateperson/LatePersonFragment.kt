@@ -14,7 +14,6 @@ import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.itemdecorator.GridSpacingItemDecoration
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 class LatePersonFragment :
     BindingFragment<FragmentLatePersonBinding>(R.layout.fragment_late_person) {

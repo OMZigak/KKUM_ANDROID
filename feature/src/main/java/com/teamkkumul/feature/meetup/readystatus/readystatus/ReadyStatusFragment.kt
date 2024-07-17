@@ -24,7 +24,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class ReadyStatusFragment :
     BindingFragment<FragmentReadyStatusBinding>(R.layout.fragment_ready_status) {
