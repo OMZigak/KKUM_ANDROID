@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_home_today_info_empty"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white0_radius_8"
+    android:paddingHorizontal="37dp"
+    android:paddingVertical="34dp"
+    app:layout_constraintEnd_toEndOf="@id/gl_home_end_14"
+    app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
+    app:layout_constraintTop_toBottomOf="@id/tv_home_today_meeting_text">
+
+    <ImageView
+        android:id="@+id/iv_home_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_home_empty"
+        app:layout_constraintBottom_toTopOf="@id/iv_home_empty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_home_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/home_empty_text"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+        android:textColor="@color/gray3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_home_empty" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
