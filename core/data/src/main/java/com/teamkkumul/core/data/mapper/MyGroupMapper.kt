@@ -1,18 +1,14 @@
 package com.teamkkumul.core.data.mapper
 
 import com.teamkkumul.core.network.dto.response.ResponseMyGroupDto
-import com.teamkkumul.core.network.dto.response.ResponseMyGroupFriendDto
-import com.teamkkumul.model.MyGroupDetailSealedItem
+import com.teamkkumul.core.network.dto.response.ResponseMyGroupInfoDto
+import com.teamkkumul.core.network.dto.response.ResponseMyGroupMeetUpDto
+import com.teamkkumul.core.network.dto.response.ResponseMyGroupMemberDto
+import com.teamkkumul.model.MyGroupDetailMemeberSealedItem
+import com.teamkkumul.model.MyGroupInfoModel
+import com.teamkkumul.model.MyGroupMeetUpModel
+import com.teamkkumul.model.MyGroupMemberModel
 import com.teamkkumul.model.MyGroupModel
-
-internal fun ResponseMyGroupFriendDto.toMyGroupModel(): List<MyGroupDetailSealedItem.Member> =
-    members.map {
-        MyGroupDetailSealedItem.Member(
-            id = it.id,
-            name = it.name,
-            profileImg = it.profileImg,
-        )
-    }
 
 internal fun ResponseMyGroupDto.toMyGroupModel(): MyGroupModel =
     MyGroupModel(
@@ -22,6 +18,55 @@ internal fun ResponseMyGroupDto.toMyGroupModel(): MyGroupModel =
                 id = meeting.meetingId,
                 memberCount = meeting.memberCount,
                 name = meeting.name,
+            )
+        },
+    )
+
+internal fun ResponseMyGroupMeetUpDto.toMyGroupMeetUpModel(): List<MyGroupMeetUpModel.Promise> =
+    promises.map { promise ->
+        MyGroupMeetUpModel.Promise(
+            dDay = promise.dDay,
+            date = promise.date,
+            name = promise.name,
+            placeName = promise.placeName,
+            time = promise.time,
+            promiseId = promise.promiseId,
+        )
+    }
+
+internal fun ResponseMyGroupInfoDto.toMyGroupInfoModel(): MyGroupInfoModel =
+    MyGroupInfoModel(
+        meetingId = meetingId,
+        name = name,
+        createdAt = createdAt,
+        metCount = metCount,
+        invitationCode = invitationCode,
+    )
+
+internal fun ResponseMyGroupMemberDto.toMyGroupSealedItem(): List<MyGroupDetailMemeberSealedItem> {
+    val items = mutableListOf<MyGroupDetailMemeberSealedItem>()
+
+    items.add(MyGroupDetailMemeberSealedItem.MyGroupDetailMemeberPlus(0))
+    members.forEach {
+        items.add(
+            MyGroupDetailMemeberSealedItem.Member(
+                name = it.name,
+                id = it.id,
+                profileImg = it.profileImg,
+            ),
+        )
+    }
+    return items
+}
+
+internal fun ResponseMyGroupMemberDto.toMyGroupMemberModel(): MyGroupMemberModel =
+    MyGroupMemberModel(
+        memberCount = memberCount,
+        members = members.map { member ->
+            MyGroupMemberModel.Member(
+                id = member.id,
+                name = member.name,
+                profileImg = member.profileImg,
             )
         },
     )
