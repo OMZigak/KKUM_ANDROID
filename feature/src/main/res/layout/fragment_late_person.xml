@@ -63,13 +63,12 @@
             android:id="@+id/tv_late_person_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="이번 약속의 지각 꾸물이는?"
+            android:text="@string/tv_late_person_question"
             android:layout_marginTop="24dp"
             android:textAppearance="@style/TextAppearance.Kkumul.head_01"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_box_penalty" />
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_late_person"

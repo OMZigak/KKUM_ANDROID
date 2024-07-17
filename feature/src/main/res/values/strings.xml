@@ -165,5 +165,6 @@
     <string name="tv_congratulations_description">약속 시간까지 아무도 꾸물거리지 않았어요!</string>
     <string name="tv_late_person_waiting">꾸물이들이 도착하길\n기다리는 중이에요</string>
     <string name="home_empty_text">꾸물꾸물...\n오늘 약속은 없네요!</string>
+    <string name="tv_late_person_question">이번 약속의 지각 꾸물이는?</string>
 
 </resources>
