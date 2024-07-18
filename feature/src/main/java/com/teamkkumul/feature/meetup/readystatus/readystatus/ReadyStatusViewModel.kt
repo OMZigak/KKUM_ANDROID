@@ -2,16 +2,23 @@ package com.teamkkumul.feature.meetup.readystatus.readystatus
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.utils.model.BtnState
 import com.teamkkumul.model.MeetUpDetailFriendModel
 import com.teamkkumul.model.MyGroupMeetUpModel
+import com.teamkkumul.model.home.HomeReadyStatusModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ReadyStatusViewModel : ViewModel() {
+@HiltViewModel
+class ReadyStatusViewModel @Inject constructor(
+    private val homeRepository: HomeRepository,
+) : ViewModel() {
     private val _readyBtnState =
         MutableStateFlow<BtnState>(BtnState.Default(isEnabled = true))
     val readyBtnState: StateFlow<BtnState> get() = _readyBtnState
@@ -27,6 +34,50 @@ class ReadyStatusViewModel : ViewModel() {
     private val _homePromiseState =
         MutableStateFlow<UiState<List<MyGroupMeetUpModel.Promise>>>(UiState.Loading)
     val homePromiseState get() = _homePromiseState.asStateFlow()
+
+    private val _readyStatusState =
+        MutableStateFlow<UiState<HomeReadyStatusModel?>>(UiState.Loading)
+    val readyStatusState: StateFlow<UiState<HomeReadyStatusModel?>> =
+        _readyStatusState.asStateFlow()
+
+    fun getReadyStatus(promiseId: Int) {
+        viewModelScope.launch {
+            homeRepository.getReadyStatus(promiseId)
+                .onSuccess {
+                    if (it == null) {
+                        _readyStatusState.emit(UiState.Empty)
+                    } else {
+                        _readyStatusState.emit(UiState.Success(it))
+                    }
+                }.onFailure {
+                    _readyStatusState.emit(UiState.Failure(it.message.toString()))
+                }
+        }
+    }
+
+    fun patchReady(promiseId: Int) {
+        viewModelScope.launch {
+            homeRepository.patchReady(promiseId = promiseId).onSuccess {
+                clickReadyBtn()
+            }
+        }
+    }
+
+    fun patchMoving(promiseId: Int) {
+        viewModelScope.launch {
+            homeRepository.patchMoving(promiseId = promiseId).onSuccess {
+                clickMovingStartBtn()
+            }
+        }
+    }
+
+    fun patchCompleted(promiseId: Int) {
+        viewModelScope.launch {
+            homeRepository.patchCompleted(promiseId = promiseId).onSuccess {
+                clickCompletedBtn()
+            }
+        }
+    }
 
     fun clickReadyBtn() {
         viewModelScope.launch {

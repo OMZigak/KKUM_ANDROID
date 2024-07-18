@@ -6,25 +6,30 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentReadyStatusBinding
 import com.teamkkumul.feature.meetup.readystatus.viewholder.ReadyStatusFriendItemDecoration
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
-import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_TIME
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.getCurrentTime
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.model.home.HomeReadyStatusModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
+@AndroidEntryPoint
 class ReadyStatusFragment :
     BindingFragment<FragmentReadyStatusBinding>(R.layout.fragment_ready_status) {
     private val viewModel: ReadyStatusViewModel by viewModels()
@@ -41,6 +46,39 @@ class ReadyStatusFragment :
         initObserveBtnState()
         initReadyStatusRecyclerview()
         initReadyInputBtnClick()
+        initObserveReadyStatusState()
+    }
+
+    private fun initObserveReadyStatusState() {
+        viewModel.getReadyStatus(promiseId)
+        viewModel.readyStatusState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> updateReadyStatusUI(it.data)
+                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
+                is UiState.Empty -> Timber.tag("home").d("empty")
+                is UiState.Loading -> Timber.tag("home").d("loading")
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun updateReadyStatusUI(data: HomeReadyStatusModel?) = with(binding) {
+        data ?: return
+        tvHomeReadyTime.text = data.preparationStartAt
+        tvHomeMovingTime.text = data.departureAt
+        tvvHomeArriveTime.text = data.arrivalAt
+        when {
+            data.preparationStartAt != null && data.departureAt != null && data.arrivalAt != null -> {
+                viewModel.clickCompletedBtn()
+            }
+
+            data.departureAt != null && data.preparationStartAt != null -> {
+                viewModel.clickMovingStartBtn()
+            }
+
+            data.preparationStartAt != null -> {
+                viewModel.clickReadyBtn()
+            }
+        }
     }
 
     private fun initReadyInputBtnClick() {
@@ -67,7 +105,7 @@ class ReadyStatusFragment :
 
     private fun initReadyBtnClick() = with(binding) {
         btnHomeReady.setOnClickListener {
-            viewModel.clickReadyBtn()
+            viewModel.patchReady(promiseId)
             tvHomeReadyTime.text = getCurrentTime()
             viewLifeCycleScope.launch {
                 animateProgressBar(pgHomeReady, 0, PROGRESS_NUM_100)
@@ -77,7 +115,7 @@ class ReadyStatusFragment :
 
     private fun initMovingBtnClick() = with(binding) {
         btnHomeMoving.setOnClickListener {
-            viewModel.clickMovingStartBtn()
+            viewModel.patchMoving(promiseId)
             tvHomeMovingTime.text = getCurrentTime()
             viewLifeCycleScope.launch {
                 animateProgressBar(pgHomeMoving, 0, PROGRESS_NUM_100)
@@ -87,12 +125,11 @@ class ReadyStatusFragment :
 
     private fun initArriveBtnClick() = with(binding) {
         btnHomeArrive.setOnClickListener {
-            viewModel.clickCompletedBtn()
+            viewModel.patchCompleted(promiseId)
             tvvHomeArriveTime.text = getCurrentTime()
-
             viewLifeCycleScope.launch {
                 animateProgressBar(pgHomeArrive, 0, PROGRESS_NUM_100)
-                delay(PROGRESS_TIME)
+                delay(300L)
                 animateProgressBar(pgHomeArriveEnd, 0, PROGRESS_NUM_100)
             }
         }
@@ -103,16 +140,22 @@ class ReadyStatusFragment :
             viewModel.readyBtnState,
             btnHomeReady,
             ivHomeReadyCircle,
+            pgHomeReady,
+            null,
         )
         observeBtnState(
             viewModel.movingStartBtnState,
             binding.btnHomeMoving,
             ivHomeMovingCircle,
+            pgHomeMoving,
+            null,
         )
         observeBtnState(
             viewModel.completedBtnState,
             binding.btnHomeArrive,
             ivHomeArriveCircle,
+            pgHomeArrive,
+            pgHomeArriveEnd,
         )
     }
 
@@ -120,9 +163,11 @@ class ReadyStatusFragment :
         stateFlow: StateFlow<BtnState>,
         button: MaterialButton,
         circle: ImageView,
+        progressBar: LinearProgressIndicator,
+        progressBarEnd: LinearProgressIndicator?,
     ) {
         stateFlow.flowWithLifecycle(viewLifeCycle).onEach { state ->
-            setUpButton(state, button, circle)
+            setUpButton(state, button, circle, progressBar, progressBarEnd)
         }.launchIn(viewLifeCycleScope)
     }
 
@@ -130,6 +175,8 @@ class ReadyStatusFragment :
         state: BtnState,
         button: MaterialButton,
         circle: ImageView,
+        progressBar: LinearProgressIndicator,
+        progressBarEnd: LinearProgressIndicator?,
     ) {
         button.apply {
             setStrokeColorResource(state.strokeColor)
@@ -138,6 +185,10 @@ class ReadyStatusFragment :
             isEnabled = state.isEnabled
         }
         circle.setImageResource(state.circleImage)
+        progressBar.progress = state.progress
+        if (progressBarEnd != null) {
+            progressBarEnd.progress = state.progress
+        }
     }
 
     companion object {
