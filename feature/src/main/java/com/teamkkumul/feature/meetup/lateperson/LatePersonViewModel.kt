@@ -2,38 +2,31 @@ package com.teamkkumul.feature.meetup.lateperson
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.teamkkumul.model.LatePerson
+import com.teamkkumul.core.data.repository.MeetUpRepository
+import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.model.LatePersonModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LatePersonViewModel : ViewModel() {
+@HiltViewModel
+class LatePersonViewModel @Inject constructor(
+    private val meetUpRepository: MeetUpRepository,
+) : ViewModel() {
 
-    private val _latePerson = MutableStateFlow<List<LatePerson>>(emptyList())
-    val latePerson: StateFlow<List<LatePerson>> = _latePerson
+    private val _latePersonState = MutableStateFlow<UiState<LatePersonModel>>(UiState.Loading)
+    val latePersonState get() = _latePersonState.asStateFlow()
 
-    init {
-        loadDummyData()
-    }
-
-    private fun loadDummyData() {
-        val dummyData = listOf(
-            LatePerson(1, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(2, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(3, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(4, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(5, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(6, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(7, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(8, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(9, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(10, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(11, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(12, "혜진 티엘", "https://example.com/image1.jpg"),
-            LatePerson(13, "혜진 티엘", "https://example.com/image1.jpg"),
-        )
+    fun getLateComersList(promiseId: Int) {
         viewModelScope.launch {
-            _latePerson.emit(dummyData)
+            meetUpRepository.getLateComersList(promiseId)
+                .onSuccess {
+                    _latePersonState.emit(UiState.Success(it))
+                }.onFailure { exception ->
+                    _latePersonState.emit(UiState.Failure(exception.message.toString()))
+                }
         }
     }
 }
