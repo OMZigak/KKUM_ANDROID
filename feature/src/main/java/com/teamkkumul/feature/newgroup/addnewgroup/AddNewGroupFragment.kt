@@ -34,7 +34,6 @@ class AddNewGroupFragment :
                 is UiState.Success -> {
                     showInvitationDialog(it.data)
                 }
-                is UiState.Failure -> {}
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
