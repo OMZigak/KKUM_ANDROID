@@ -73,6 +73,8 @@ class ReadyStatusViewModel @Inject constructor(
         viewModelScope.launch {
             homeRepository.patchReady(promiseId = promiseId).onSuccess {
                 clickReadyBtn()
+                _membersReadyStatus.emit(UiState.Loading)
+                getMembersReadyStatus(promiseId = promiseId)
             }
         }
     }
@@ -81,6 +83,8 @@ class ReadyStatusViewModel @Inject constructor(
         viewModelScope.launch {
             homeRepository.patchMoving(promiseId = promiseId).onSuccess {
                 clickMovingStartBtn()
+                _membersReadyStatus.emit(UiState.Loading)
+                getMembersReadyStatus(promiseId = promiseId)
             }
         }
     }
@@ -89,6 +93,8 @@ class ReadyStatusViewModel @Inject constructor(
         viewModelScope.launch {
             homeRepository.patchCompleted(promiseId = promiseId).onSuccess {
                 clickCompletedBtn()
+                _membersReadyStatus.emit(UiState.Loading)
+                getMembersReadyStatus(promiseId = promiseId)
             }
         }
     }
