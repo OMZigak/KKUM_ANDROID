@@ -1,5 +1,6 @@
 package com.teamkkumul.model
 
+//
 class MeetUpDetailFriendModel(
     val memberCount: Int,
     val participants: List<Participant>,

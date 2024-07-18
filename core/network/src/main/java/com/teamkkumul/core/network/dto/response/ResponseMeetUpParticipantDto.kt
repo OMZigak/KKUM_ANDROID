@@ -19,7 +19,7 @@ data class ResponseMeetUpParticipantDto(
         @SerialName("participantId")
         val participantId: Int,
         @SerialName("profileImg")
-        val profileImg: String,
+        val profileImg: String?,
         @SerialName("state")
         val state: String,
     )

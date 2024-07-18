@@ -8,7 +8,7 @@ data class MeetUpParticipantModel(
         val memberId: Int,
         val name: String,
         val participantId: Int,
-        val profileImg: String,
+        val profileImg: String?,
         val state: String,
     )
 }
