@@ -46,6 +46,8 @@
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
                     android:paddingVertical="12dp"
                     android:paddingStart="12dp"
                     android:textAppearance="@style/TextAppearance.Kkumul.body_04"
