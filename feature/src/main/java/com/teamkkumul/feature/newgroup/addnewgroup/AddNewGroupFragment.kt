@@ -90,7 +90,7 @@ class AddNewGroupFragment :
     }
 
     private fun showInvitationDialog() {
-        val dialog = DialogInvitationCodeFragment()
+        val dialog = DialogInvitationCodeFragment.newInstance("AddNewGroupFragment")
         dialog.show(parentFragmentManager, "DialogInvitationCodeFragment")
     }
 

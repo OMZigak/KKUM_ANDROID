@@ -20,6 +20,10 @@ import kotlinx.coroutines.flow.onEach
 class DialogInvitationCodeFragment :
     BindingDialogFragment<FragmentDialogInvitationCodeBinding>(R.layout.fragment_dialog_invitation_code) {
 
+    private val sourceFragment: String by lazy {
+        requireArguments().getString(SOURCE_FRAGMENT) ?: ""
+    }
+
     private val viewModel by activityViewModels<AddNewGroupViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,12 +51,21 @@ class DialogInvitationCodeFragment :
     private fun onButtonClick() {
         binding.ivBtnCopy.setOnClickListener {
             copyToClipboard(binding.tvInvitationCode.text.toString())
-            findNavController().navigate(R.id.action_fragment_add_new_group_to_fragment_add_my_group_complete)
+            handleNavigation()
             dismiss()
         }
         binding.ivBtnInviteLater.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_add_new_group_to_fragment_add_my_group_complete)
+            handleNavigation()
             dismiss()
+        }
+    }
+
+    private fun handleNavigation() {
+        when (sourceFragment) {
+            "AddNewGroupFragment" -> {
+                findNavController().navigate(R.id.action_fragment_add_new_group_to_fragment_add_my_group_complete)
+            }
+            "MyGroupDetailFragment" -> {}
         }
     }
 
@@ -61,5 +74,16 @@ class DialogInvitationCodeFragment :
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("invitation_code", text)
         clipboard.setPrimaryClip(clip)
+    }
+
+    companion object {
+        private const val SOURCE_FRAGMENT = "sourceFragment"
+
+        @JvmStatic
+        fun newInstance(sourceFragment: String) = DialogInvitationCodeFragment().apply {
+            arguments = Bundle().apply {
+                putString(SOURCE_FRAGMENT, sourceFragment)
+            }
+        }
     }
 }

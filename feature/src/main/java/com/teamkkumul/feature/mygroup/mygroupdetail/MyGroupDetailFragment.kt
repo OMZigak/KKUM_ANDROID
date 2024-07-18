@@ -10,6 +10,7 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
+import com.teamkkumul.feature.newgroup.addnewgroup.DialogInvitationCodeFragment
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.model.MyGroupDetailSealedItem
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,7 +67,11 @@ class MyGroupDetailFragment :
 
     private fun initMemberRecyclerView() {
         _memberAdapter = MyGroupDetailFriendAdapter(
-            onPlusBtnClicked = { findNavController().navigate(R.id.exampleComposeFragment) }, // 임시로 이동하는 페이지
+            onPlusBtnClicked = {
+                val dialog = DialogInvitationCodeFragment.newInstance("MyGroupDetailFragment")
+                dialog.show(parentFragmentManager, "DialogInvitationCodeFragment")
+            },
+//            onPlusBtnClicked = { findNavController().navigate(R.id.action_myGroupDetailFragment_to_dialogInvitationCodeFragment) }, // 다이얼로그 띄우기
         )
         binding.rvMyGroupFriendList.apply {
             layoutManager =
