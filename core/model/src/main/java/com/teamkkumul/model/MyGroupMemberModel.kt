@@ -5,7 +5,7 @@ data class MyGroupMemberModel(
     val members: List<Member>,
 ) {
     data class Member(
-        val id: Int,
+        val memberId: Int,
         val name: String,
         val profileImg: String?,
     )

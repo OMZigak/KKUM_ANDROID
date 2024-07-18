@@ -46,12 +46,12 @@ internal fun ResponseMyGroupInfoDto.toMyGroupInfoModel(): MyGroupInfoModel =
 internal fun ResponseMyGroupMemberDto.toMyGroupSealedItem(): List<MyGroupDetailMemeberSealedItem> {
     val items = mutableListOf<MyGroupDetailMemeberSealedItem>()
 
-    items.add(MyGroupDetailMemeberSealedItem.MyGroupDetailMemeberPlus(0))
+    items.add(MyGroupDetailMemeberSealedItem.MyGroupDetailMemeberPlus(1))
     members.forEach {
         items.add(
             MyGroupDetailMemeberSealedItem.Member(
                 name = it.name,
-                id = it.id,
+                memberId = it.memberId,
                 profileImg = it.profileImg,
             ),
         )
@@ -64,7 +64,7 @@ internal fun ResponseMyGroupMemberDto.toMyGroupMemberModel(): MyGroupMemberModel
         memberCount = memberCount,
         members = members.map { member ->
             MyGroupMemberModel.Member(
-                id = member.id,
+                memberId = member.memberId,
                 name = member.name,
                 profileImg = member.profileImg,
             )
