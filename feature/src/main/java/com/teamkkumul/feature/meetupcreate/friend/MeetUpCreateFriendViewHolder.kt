@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ItemMeetUpCreateFriendBinding
+import com.teamkkumul.feature.utils.setEmptyImageUrl
 import com.teamkkumul.model.MeetUpSealedItem
 
 class MeetUpCreateFriendViewHolder(
@@ -17,7 +18,7 @@ class MeetUpCreateFriendViewHolder(
 
     fun onBind(data: MeetUpSealedItem.Participant, isSelected: Boolean) {
         with(binding) {
-            ivMeetUpCreateFriendProfileImage.load(data.profileImg)
+            ivMeetUpCreateFriendProfileImage.setEmptyImageUrl(data.profileImg)
             tvMyGroupCreateFrinedProfileName.text = data.name
             updateBackground(isSelected)
         }
