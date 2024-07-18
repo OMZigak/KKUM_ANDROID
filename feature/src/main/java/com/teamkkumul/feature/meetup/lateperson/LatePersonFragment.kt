@@ -19,7 +19,6 @@ import com.teamkkumul.model.LatePersonModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class LatePersonFragment :
