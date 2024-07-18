@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_marginStart="3dp"
             android:textAppearance="@style/TextAppearance.Kkumul.body_01"
             android:textColor="@color/main_color"
             app:layout_constraintStart_toEndOf="@id/tv_meet_up_participate_people"
