@@ -9,9 +9,9 @@ import com.teamkkumul.feature.databinding.ItemMeetUpCreateLocationBinding
 import com.teamkkumul.model.MeetUpCreateLocationModel
 
 class MeetUpCreateLocationAdapter(
-    private val onMeetUpCreateLocationSelected: (MeetUpCreateLocationModel.Place) -> Unit,
+    private val onMeetUpCreateLocationSelected: (MeetUpCreateLocationModel.Location) -> Unit,
 ) :
-    ListAdapter<MeetUpCreateLocationModel.Place, MeetUpCreateLocationViewHolder>(DiffUtil) {
+    ListAdapter<MeetUpCreateLocationModel.Location, MeetUpCreateLocationViewHolder>(DiffUtil) {
     private var selectedPosition = RecyclerView.NO_POSITION
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -39,7 +39,7 @@ class MeetUpCreateLocationAdapter(
     }
 
     companion object {
-        private val DiffUtil = ItemDiffCallback<MeetUpCreateLocationModel.Place>(
+        private val DiffUtil = ItemDiffCallback<MeetUpCreateLocationModel.Location>(
             onItemsTheSame = { old, new -> old.address == new.address },
             onContentsTheSame = { old, new -> old == new },
         )

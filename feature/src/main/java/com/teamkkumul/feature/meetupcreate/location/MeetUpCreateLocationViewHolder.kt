@@ -8,9 +8,9 @@ import com.teamkkumul.model.MeetUpCreateLocationModel
 class MeetUpCreateLocationViewHolder(
     private val binding: ItemMeetUpCreateLocationBinding,
     private val onMeetUpCreateLocationClicked: (Int) -> Unit,
-    private val onMeetUpCreateLocationSelected: (MeetUpCreateLocationModel.Place) -> Unit,
+    private val onMeetUpCreateLocationSelected: (MeetUpCreateLocationModel.Location) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
-    private var item: MeetUpCreateLocationModel.Place? = null
+    private var item: MeetUpCreateLocationModel.Location? = null
 
     init {
         binding.root.setOnClickListener {
@@ -21,7 +21,7 @@ class MeetUpCreateLocationViewHolder(
         }
     }
 
-    fun onBind(data: MeetUpCreateLocationModel.Place, isSelected: Boolean) {
+    fun onBind(data: MeetUpCreateLocationModel.Location, isSelected: Boolean) {
         item = data
         with(binding) {
             tvMeetUpCreateLocationName.text = data.location

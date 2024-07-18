@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_myGroupDetailFragment_to_meetUpCreateFragment"
             app:destination="@id/fragment_meet_up_create" />
+        <action
+            android:id="@+id/action_myGroupDetailFragment_to_dialogInvitationCodeFragment"
+            app:destination="@id/fragment_dialog_invitation_code" />
     </fragment>
 
     <fragment
@@ -143,7 +146,11 @@
     <dialog
         android:id="@+id/fragment_dialog_invitation_code"
         android:name="com.teamkkumul.feature.newgroup.addnewgroup.DialogInvitationCodeFragment"
-        tools:layout="@layout/fragment_dialog_invitation_code" />
+        tools:layout="@layout/fragment_dialog_invitation_code">
+        <argument
+            android:name="sourceFragment"
+            app:argType="string" />
+    </dialog>
     <fragment
         android:id="@+id/fragment_meet_up_container"
         android:name="com.teamkkumul.feature.meetup.MeetUpContainerFragment"

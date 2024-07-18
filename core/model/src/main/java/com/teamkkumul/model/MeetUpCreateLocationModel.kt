@@ -1,11 +1,13 @@
 package com.teamkkumul.model
 
 data class MeetUpCreateLocationModel(
-    val places: List<Place>,
+    val locations: List<Location>,
 ) {
-    data class Place(
-        val address: String,
+    data class Location(
+        val address: String?,
         val location: String,
-        val roadAddress: String,
+        val roadAddress: String?,
+        val x: Double,
+        val y: Double,
     )
 }

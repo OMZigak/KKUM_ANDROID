@@ -4,23 +4,20 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingDialogFragment
 import com.teamkkumul.core.ui.util.context.dialogFragmentResize
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogInvitationCodeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class DialogInvitationCodeFragment :
     BindingDialogFragment<FragmentDialogInvitationCodeBinding>(R.layout.fragment_dialog_invitation_code) {
 
-    private val viewModel by activityViewModels<AddNewGroupViewModel>()
+    private val invitationCode: String by lazy {
+        requireArguments().getString(SOURCE_FRAGMENT) ?: ""
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +26,7 @@ class DialogInvitationCodeFragment :
 
     override fun initView() {
         getInvitationCode()
-        onButtonClick()
+        setupDialogBtn()
     }
 
     override fun onResume() {
@@ -38,20 +35,18 @@ class DialogInvitationCodeFragment :
     }
 
     private fun getInvitationCode() {
-        viewModel.invitationCode.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { invitationCode ->
-                binding.tvInvitationCode.text = invitationCode
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+        if (invitationCode.isNotEmpty()) {
+            binding.tvInvitationCode.text = invitationCode
+        }
     }
 
-    private fun onButtonClick() {
+    private fun setupDialogBtn() {
         binding.ivBtnCopy.setOnClickListener {
             copyToClipboard(binding.tvInvitationCode.text.toString())
             findNavController().navigate(R.id.action_fragment_add_new_group_to_fragment_add_my_group_complete)
             dismiss()
         }
         binding.ivBtnInviteLater.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_add_new_group_to_fragment_add_my_group_complete)
             dismiss()
         }
     }
@@ -61,5 +56,17 @@ class DialogInvitationCodeFragment :
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("invitation_code", text)
         clipboard.setPrimaryClip(clip)
+    }
+
+    companion object {
+        private const val SOURCE_FRAGMENT = "sourceFragment"
+
+        @JvmStatic
+        fun newInstance(invitationCode: String) =
+            DialogInvitationCodeFragment().apply {
+                arguments = Bundle().apply {
+                    putString(SOURCE_FRAGMENT, invitationCode)
+                }
+            }
     }
 }
