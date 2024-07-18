@@ -132,7 +132,7 @@ class MyGroupDetailFragment :
                 dialog.show(parentFragmentManager, "DialogInvitationCodeFragment")
             },
 //            onPlusBtnClicked = { findNavController().navigate(R.id.action_myGroupDetailFragment_to_dialogInvitationCodeFragment) }, // 다이얼로그 띄우기
-            onPlusBtnClicked = { findNavController().navigate(R.id.tv_meet_up_detail_information) },
+            //onPlusBtnClicked = { findNavController().navigate(R.id.tv_meet_up_detail_information) },
         )
         binding.rvMyGroupFriendList.apply {
             layoutManager =
