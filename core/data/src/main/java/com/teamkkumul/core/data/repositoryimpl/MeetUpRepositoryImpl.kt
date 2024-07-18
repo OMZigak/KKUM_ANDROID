@@ -1,10 +1,12 @@
 package com.teamkkumul.core.data.repositoryimpl
 
+import com.teamkkumul.core.data.mapper.toLatePersonModel
 import com.teamkkumul.core.data.mapper.toMeetUpDetailModel
 import com.teamkkumul.core.data.mapper.toMeetUpParticipantModel
 import com.teamkkumul.core.data.mapper.toMeetUpSealedItem
 import com.teamkkumul.core.data.repository.MeetUpRepository
 import com.teamkkumul.core.network.api.MeetUpService
+import com.teamkkumul.model.LatePersonModel
 import com.teamkkumul.model.MeetUpDetailModel
 import com.teamkkumul.model.MeetUpParticipantModel
 import com.teamkkumul.model.MeetUpSealedItem
@@ -29,6 +31,13 @@ class MeetUpRepositoryImpl @Inject constructor(
         return runCatching {
             val response = meetUpService.getMeetUpParticipantList(promiseId)
             response.data?.toMeetUpSealedItem() ?: throw Exception("null")
+        }
+    }
+
+    override suspend fun getLateComersList(promiseId: Int): Result<LatePersonModel> {
+        return runCatching {
+            val response = meetUpService.getLateComersList(promiseId)
+            response.data?.toLatePersonModel() ?: throw Exception("null")
         }
     }
 }
