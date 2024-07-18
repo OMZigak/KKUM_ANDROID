@@ -107,10 +107,10 @@
                 android:layout_marginStart="2dp"
                 android:text="@string/my_group_meet"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-                app:layout_constraintBottom_toBottomOf="@id/tv_my_group_meet_up"
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_group_meet_up_count_num"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_meet_up_count_num"
-                app:layout_constraintTop_toTopOf="@id/tv_my_group_meet_up" />
+                app:layout_constraintTop_toTopOf="@id/tv_my_group_meet_up_count_num" />
 
             <ImageView
                 android:id="@+id/iv_my_group_detail_kkumul"
