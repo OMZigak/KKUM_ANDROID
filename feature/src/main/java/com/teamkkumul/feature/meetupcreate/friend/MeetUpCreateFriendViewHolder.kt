@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ItemMeetUpCreateFriendBinding
+import com.teamkkumul.model.MyGroupMemberModel
+import com.teamkkumul.feature.utils.setEmptyImageUrl
 import com.teamkkumul.model.MeetUpSealedItem
 
 class MeetUpCreateFriendViewHolder(
@@ -15,9 +17,9 @@ class MeetUpCreateFriendViewHolder(
     private val selectedDrawable: Drawable? =
         ContextCompat.getDrawable(binding.root.context, R.drawable.sel_rv_main_selected_item)
 
-    fun onBind(data: MeetUpSealedItem.Participant, isSelected: Boolean) {
+    fun onBind(data: MyGroupMemberModel.Member, isSelected: Boolean) {
         with(binding) {
-            ivMeetUpCreateFriendProfileImage.load(data.profileImg)
+            ivMeetUpCreateFriendProfileImage.setEmptyImageUrl(data.profileImg)
             tvMyGroupCreateFrinedProfileName.text = data.name
             updateBackground(isSelected)
         }

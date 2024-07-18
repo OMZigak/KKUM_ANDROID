@@ -14,6 +14,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:scaleType="centerCrop"
             android:background="@drawable/sel_rv_main_selected_item"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="104:128"
@@ -22,26 +23,25 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.imageview.ShapeableImageView
-                app:layout_constraintVertical_chainStyle="packed"
                 android:id="@+id/iv_meet_up_create_friend_profile_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@color/gray2"
-                android:scaleType="centerCrop"
                 android:layout_marginHorizontal="17dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@id/tv_my_group_create_frined_profile_name"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
                 app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
             <TextView
-                android:layout_marginTop="12dp"
                 android:id="@+id/tv_my_group_create_frined_profile_name"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_06"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_06"
                 android:textColor="@color/gray6"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/iv_meet_up_create_friend_profile_image"

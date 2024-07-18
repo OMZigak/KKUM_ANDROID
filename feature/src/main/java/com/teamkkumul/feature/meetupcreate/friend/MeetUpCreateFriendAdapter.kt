@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.teamkkumul.core.ui.view.ItemDiffCallback
 import com.teamkkumul.feature.databinding.ItemMeetUpCreateFriendBinding
-import com.teamkkumul.model.MeetUpSealedItem
+import com.teamkkumul.model.MyGroupMemberModel
 
 class MeetUpCreateFriendAdapter(
     private val onMeetUpCreateFriendClicked: (List<Int>) -> Unit,
     private val onMeetUpCreateFriendSelected: (Boolean) -> Unit,
 ) :
-    ListAdapter<MeetUpSealedItem.Participant, MeetUpCreateFriendViewHolder>(DiffUtil) {
+    ListAdapter<MyGroupMemberModel.Member, MeetUpCreateFriendViewHolder>(DiffUtil) {
 
     private val selectedItem = mutableSetOf<Int>()
     override fun onCreateViewHolder(
@@ -44,8 +44,8 @@ class MeetUpCreateFriendAdapter(
     }
 
     companion object {
-        private val DiffUtil = ItemDiffCallback<MeetUpSealedItem.Participant>(
-            onItemsTheSame = { old, new -> old.id == new.id },
+        private val DiffUtil = ItemDiffCallback<MyGroupMemberModel.Member>(
+            onItemsTheSame = { old, new -> old.memberId == new.memberId },
             onContentsTheSame = { old, new -> old == new },
         )
     }

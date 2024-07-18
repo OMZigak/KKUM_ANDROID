@@ -11,6 +11,7 @@ import com.teamkkumul.core.ui.util.context.colorOf
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpLevelBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
+import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.animateProgressBar
 
 class MeetUpLevelFragment :
@@ -18,6 +19,8 @@ class MeetUpLevelFragment :
 
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
     override fun initView() {
+        val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
+
         viewModel.setProgressBar(75)
         observeProgress()
 

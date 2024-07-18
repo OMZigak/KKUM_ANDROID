@@ -5,18 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.MeetUpCreateLocationRepository
+import com.teamkkumul.core.data.repository.MyGroupRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.model.MeetUpCreateLocationModel
-import com.teamkkumul.model.MeetUpSealedItem
+import com.teamkkumul.model.MyGroupMemberModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @HiltViewModel
 class MeetUpCreateViewModel @Inject constructor(
     private val meetUpCreateLocationRepository: MeetUpCreateLocationRepository,
+    private val myGroupRepository: MyGroupRepository,
 ) : ViewModel() {
 
     private val _meetUpInputState = MutableStateFlow(false)
@@ -38,8 +41,9 @@ class MeetUpCreateViewModel @Inject constructor(
     private val _progressLiveData = MutableLiveData<Int>(0)
     val progressLiveData: LiveData<Int> get() = _progressLiveData
 
-    private val _members = MutableLiveData<List<MeetUpSealedItem.Participant>>()
-    val members: LiveData<List<MeetUpSealedItem.Participant>> get() = _members
+    private val _meetUpCreateMemberState =
+        MutableStateFlow<UiState<List<MyGroupMemberModel.Member>>>(UiState.Loading)
+    val meetUpCreateMemberState get() = _meetUpCreateMemberState.asStateFlow()
 
     private val _meetUpName = MutableStateFlow<Boolean>(false)
 
@@ -84,6 +88,15 @@ class MeetUpCreateViewModel @Inject constructor(
             }
     }
 
+    fun getMyGroupMemberToMeetUp(memberId: Int) = viewModelScope.launch {
+        myGroupRepository.getMyGroupMemberToMeetUp(memberId)
+            .onSuccess { myGroupRepository ->
+                _meetUpCreateMemberState.emit(UiState.Success(myGroupRepository))
+            }.onFailure { exception ->
+                _meetUpCreateMemberState.emit(UiState.Failure(exception.message.toString()))
+            }
+    }
+
     private fun validateForm() {
         viewModelScope.launch {
             val isFormValid =
@@ -94,44 +107,5 @@ class MeetUpCreateViewModel @Inject constructor(
 
             _meetUpInputState.emit(isFormValid)
         }
-    }
-
-    init {
-    }
-
-    init {
-        val mockMembers = listOf(
-            MeetUpSealedItem.Participant(
-                id = 2,
-                name = "Eric",
-                profileImg = "https://example.com/alice.jpg",
-            ),
-            MeetUpSealedItem.Participant(
-                id = 3,
-                name = "Bob",
-                profileImg = "https://example.com/alice.jpg",
-            ),
-            MeetUpSealedItem.Participant(
-                id = 2,
-                name = "Alice",
-                profileImg = "https://example.com/alice.jpg",
-            ),
-            MeetUpSealedItem.Participant(
-                id = 2,
-                name = "Eric",
-                profileImg = "https://example.com/alice.jpg",
-            ),
-            MeetUpSealedItem.Participant(
-                id = 3,
-                name = "Bob",
-                profileImg = "https://example.com/alice.jpg",
-            ),
-            MeetUpSealedItem.Participant(
-                id = 2,
-                name = "Alice",
-                profileImg = "https://example.com/alice.jpg",
-            ),
-        )
-        _members.value = mockMembers
     }
 }

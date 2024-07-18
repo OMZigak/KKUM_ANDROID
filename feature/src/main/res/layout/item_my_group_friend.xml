@@ -15,7 +15,6 @@
             android:id="@+id/iv_my_group_friend_profile_image"
             android:layout_width="64dp"
             android:layout_height="0dp"
-            android:background="@color/gray2"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintStart_toStartOf="parent"
