@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.model.home.HomeReadyStatusModel
 import com.teamkkumul.model.home.HomeTodayMeetingModel
 import com.teamkkumul.model.home.UserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,6 +45,26 @@ class HomeViewModel @Inject constructor(
     val upComingMeetingState: StateFlow<UiState<List<HomeTodayMeetingModel>>> =
         _upComingMeetingState.asStateFlow()
 
+    private val _readyStatusState =
+        MutableStateFlow<UiState<HomeReadyStatusModel?>>(UiState.Loading)
+    val readyStatusState: StateFlow<UiState<HomeReadyStatusModel?>> =
+        _readyStatusState.asStateFlow()
+
+    fun getReadyStatus(promiseId: Int) {
+        viewModelScope.launch {
+            homeRepository.getReadyStatus(promiseId)
+                .onSuccess {
+                    if (it == null) {
+                        _readyStatusState.emit(UiState.Empty)
+                    } else {
+                        _readyStatusState.emit(UiState.Success(it))
+                    }
+                }.onFailure {
+                    _readyStatusState.emit(UiState.Failure(it.message.toString()))
+                }
+        }
+    }
+
     fun getUpComingMeeting() {
         viewModelScope.launch {
             homeRepository.getUpComingMeeting()
@@ -82,6 +103,30 @@ class HomeViewModel @Inject constructor(
                 }.onFailure {
                     _homeState.emit(UiState.Failure(it.message.toString()))
                 }
+        }
+    }
+
+    fun patchReady(promiseId: Int) {
+        viewModelScope.launch {
+            homeRepository.patchReady(promiseId = promiseId).onSuccess {
+                clickReadyBtn()
+            }
+        }
+    }
+
+    fun patchMoving(promiseId: Int) {
+        viewModelScope.launch {
+            homeRepository.patchMoving(promiseId = promiseId).onSuccess {
+                clickMovingStartBtn()
+            }
+        }
+    }
+
+    fun patchCompleted(promiseId: Int) {
+        viewModelScope.launch {
+            homeRepository.patchCompleted(promiseId = promiseId).onSuccess {
+                clickCompletedBtn()
+            }
         }
     }
 
