@@ -33,9 +33,9 @@ class MeetUpDetailFragment :
 
     override fun initView() {
         initMemberRecyclerView()
-        viewModel.getMeetUpParticipant(0)
-        viewModel.getMeetUpParticipantList(0)
-        viewModel.getMeetUpDetail(0)
+        viewModel.getMeetUpParticipant(promiseId)
+        viewModel.getMeetUpParticipantList(promiseId)
+        viewModel.getMeetUpDetail(promiseId)
         initObserveMeetUpDetailState()
         initObserveMeetUpParticipantListState()
         initObserveMeetUpParticipantState()
@@ -44,7 +44,7 @@ class MeetUpDetailFragment :
     private fun initObserveMeetUpDetailState() {
         viewModel.meetupDetailState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Failure -> Timber.tag("meetupdetail").d(uiState.errorMessage)
+                is UiState.Failure -> Timber.tag("meet up detail").d(uiState.errorMessage)
                 is UiState.Success -> successMeetUpDetailState(uiState.data)
                 else -> {}
             }
@@ -69,7 +69,8 @@ class MeetUpDetailFragment :
     }
 
     private fun successParticipantState(meetUpParticipantModel: MeetUpParticipantModel) {
-        binding.tvMeetUpParticipatePeople.text = meetUpParticipantModel.participantCount.toString()
+        binding.tvMeetUpParticipatePeopleCount.text =
+            meetUpParticipantModel.participantCount.toString()
     }
 
     private fun initObserveMeetUpParticipantListState() {
