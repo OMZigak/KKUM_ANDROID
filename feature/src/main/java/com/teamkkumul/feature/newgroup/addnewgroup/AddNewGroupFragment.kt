@@ -1,11 +1,10 @@
 package com.teamkkumul.feature.newgroup.addnewgroup
 
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
-import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
@@ -19,7 +18,7 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class AddNewGroupFragment :
     BindingFragment<FragmentAddNewGroupBinding>(R.layout.fragment_add_new_group) {
-    private val viewModel by activityViewModels<AddNewGroupViewModel>()
+    private val viewModel: AddNewGroupViewModel by viewModels()
     private val groupNameDebouncer = Debouncer<String>()
     private var currentText: String = ""
 
@@ -33,10 +32,8 @@ class AddNewGroupFragment :
         viewModel.meetingsState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> {
-                    toast("성공")
-                    showInvitationDialog()
+                    showInvitationDialog(it.data)
                 }
-                is UiState.Failure -> toast("실패: ${it.errorMessage}")
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
@@ -89,8 +86,8 @@ class AddNewGroupFragment :
         binding.btnMakeNewGroup.isEnabled = isValid
     }
 
-    private fun showInvitationDialog() {
-        val dialog = DialogInvitationCodeFragment()
+    private fun showInvitationDialog(invitationCode: String) {
+        val dialog = DialogInvitationCodeFragment.newInstance(invitationCode)
         dialog.show(parentFragmentManager, "DialogInvitationCodeFragment")
     }
 

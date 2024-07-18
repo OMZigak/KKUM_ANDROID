@@ -4,17 +4,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.pxToDp
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentLatePersonBinding
 import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.itemdecorator.GridSpacingItemDecoration
+import com.teamkkumul.model.LatePersonModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
+@AndroidEntryPoint
 class LatePersonFragment :
     BindingFragment<FragmentLatePersonBinding>(R.layout.fragment_late_person) {
 
@@ -28,7 +34,8 @@ class LatePersonFragment :
 
     override fun initView() {
         initRecyclerView()
-        initObserveGroupState()
+        initObserveLatePersonState()
+        latePersonViewModel.getLateComersList(promiseId)
     }
 
     private fun initRecyclerView() {
@@ -40,17 +47,35 @@ class LatePersonFragment :
         }
     }
 
-    private fun initObserveGroupState() {
-        latePersonViewModel.latePerson.flowWithLifecycle(lifecycle).onEach { latePerson ->
-            if (latePerson.isEmpty()) {
-                binding.viewLatePersonEmpty.visibility = View.VISIBLE
-                binding.rvLatePerson.visibility = View.GONE
-            } else {
-                binding.rvLatePerson.visibility = View.VISIBLE
-                binding.viewLatePersonEmpty.visibility = View.GONE
-                latePersonAdapter.submitList(latePerson)
-            }
-        }.launchIn(lifecycleScope)
+    private fun initObserveLatePersonState() {
+        latePersonViewModel.latePersonState.flowWithLifecycle(viewLifeCycle)
+            .onEach { latePersonState ->
+                when (latePersonState) {
+                    is UiState.Success -> {
+                        Timber.tag("aa").d(latePersonState.data.penalty.toString())
+                        initPenaltyState(latePersonState.data)
+                        val lateComers = latePersonState.data.lateComers
+                        if (lateComers.isEmpty()) {
+                            binding.viewLatePersonEmpty.visibility = View.VISIBLE
+                            binding.rvLatePerson.visibility = View.GONE
+                        } else {
+                            binding.rvLatePerson.visibility = View.VISIBLE
+                            binding.viewLatePersonEmpty.visibility = View.GONE
+                            latePersonAdapter.submitList(lateComers)
+                        }
+                    }
+
+                    is UiState.Failure -> Timber.tag("aa")
+                        .d(latePersonState.errorMessage)
+
+                    is UiState.Loading -> {}
+                    else -> Unit
+                }
+            }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun initPenaltyState(latePersonModel: LatePersonModel) {
+        binding.tvPenaltyDescription.text = latePersonModel.penalty
     }
 
     companion object {

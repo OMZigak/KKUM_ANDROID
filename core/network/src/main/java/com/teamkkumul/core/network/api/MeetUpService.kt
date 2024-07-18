@@ -1,6 +1,7 @@
 package com.teamkkumul.core.network.api
 
 import com.teamkkumul.core.network.dto.response.BaseResponse
+import com.teamkkumul.core.network.dto.response.ResponseLatePersonDto
 import com.teamkkumul.core.network.dto.response.ResponseMeetUpDetailDto
 import com.teamkkumul.core.network.dto.response.ResponseMeetUpParticipantDto
 import retrofit2.http.GET
@@ -16,4 +17,9 @@ interface MeetUpService {
     suspend fun getMeetUpDetail(
         @Path("promiseId") promiseId: Int,
     ): BaseResponse<ResponseMeetUpDetailDto>
+
+    @GET("/api/v1/promises/{promiseId}/tardy")
+    suspend fun getLateComersList(
+        @Path("promiseId") promiseId: Int,
+    ): BaseResponse<ResponseLatePersonDto>
 }
