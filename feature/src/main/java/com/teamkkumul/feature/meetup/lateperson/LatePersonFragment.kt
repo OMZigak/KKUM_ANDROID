@@ -7,6 +7,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.pxToDp
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
@@ -34,7 +35,9 @@ class LatePersonFragment :
     override fun initView() {
         initRecyclerView()
         initObserveLatePersonState()
+        initObservePatchMeetUpState()
         latePersonViewModel.getLateComersList(promiseId)
+        setupMeetUpCompleteBtn()
     }
 
     private fun initRecyclerView() {
@@ -76,8 +79,24 @@ class LatePersonFragment :
         }.launchIn(viewLifeCycleScope)
     }
 
+    private fun initObservePatchMeetUpState() {
+        latePersonViewModel.patchMeetUpState.flowWithLifecycle(viewLifeCycle).onEach { patchMeetUpState ->
+            when (patchMeetUpState) {
+                is UiState.Success -> { toast("약속 마치기 성공 !") }
+                is UiState.Failure -> { toast("약속 마치기 실패 ${patchMeetUpState.errorMessage}") }
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
     private fun initPenaltyState(latePersonModel: LatePersonModel) {
         binding.tvPenaltyDescription.text = latePersonModel.penalty
+    }
+
+    private fun setupMeetUpCompleteBtn() {
+        binding.btnEndMeetUp.setOnClickListener {
+            latePersonViewModel.patchMeetUpComplete(promiseId)
+        }
     }
 
     companion object {
