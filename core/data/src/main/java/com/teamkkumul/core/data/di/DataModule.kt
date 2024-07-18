@@ -1,19 +1,21 @@
 package com.teamkkumul.core.data.di
 
-import com.teamkkumul.core.data.repository.MeetingsRepository
-import com.teamkkumul.core.data.repository.ProfileRepository
 import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.data.repository.LoginRepository
+import com.teamkkumul.core.data.repository.MeetUpCreateLocationRepository
 import com.teamkkumul.core.data.repository.MeetUpRepository
+import com.teamkkumul.core.data.repository.MeetingsRepository
 import com.teamkkumul.core.data.repository.MyGroupRepository
+import com.teamkkumul.core.data.repository.ProfileRepository
 import com.teamkkumul.core.data.repository.ReqresRepository
 import com.teamkkumul.core.data.repository.UserInfoRepository
-import com.teamkkumul.core.data.repositoryimpl.MeetingsRepositoryImpl
-import com.teamkkumul.core.data.repositoryimpl.ProfileRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.HomeRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.LoginRepositoryImpl
+import com.teamkkumul.core.data.repositoryimpl.MeetUpCreateLocationRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.MeetUpRepositoryImpl
+import com.teamkkumul.core.data.repositoryimpl.MeetingsRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.MyGroupRepositoryImpl
+import com.teamkkumul.core.data.repositoryimpl.ProfileRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.ReqresRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.UserInfoRepositoryImpl
 import com.teamkkumul.core.datastore.datasource.DefaultKumulPreferenceDatasource
@@ -80,4 +82,10 @@ internal abstract class DataModule {
     abstract fun bindsHomeRepo(
         repository: HomeRepositoryImpl,
     ): HomeRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsMeetUpCreateRepo(
+        repository: MeetUpCreateLocationRepositoryImpl,
+    ): MeetUpCreateLocationRepository
 }
