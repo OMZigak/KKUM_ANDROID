@@ -14,6 +14,7 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
+import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.model.MyGroupInfoModel
@@ -35,8 +36,7 @@ class MyGroupDetailFragment :
     private val meetUpAdapter get() = requireNotNull(_meetUpAdapter)
 
     override fun initView() {
-        val id = arguments?.getInt("meetingId") ?: -1
-        Timber.tag("id").d(id.toString())
+        val id = arguments?.getInt(MEETING_ID) ?: -1
 
         initMemberRecyclerView()
         initMeetUpRecyclerView()
@@ -51,7 +51,10 @@ class MyGroupDetailFragment :
         initObserveMemberListState()
 
         binding.extendedFab.setOnClickListener {
-            findNavController().navigate(R.id.action_myGroupDetailFragment_to_meetUpCreateFragment)
+            findNavController().navigate(
+                R.id.action_myGroupDetailFragment_to_meetUpCreateFragment,
+                bundleOf(MEETING_ID to id),
+            )
         }
     }
 
