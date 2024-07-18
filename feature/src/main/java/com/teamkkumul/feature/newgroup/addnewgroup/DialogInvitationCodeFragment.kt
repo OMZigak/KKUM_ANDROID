@@ -33,7 +33,7 @@ class DialogInvitationCodeFragment :
 
     override fun initView() {
         getInvitationCode()
-        onButtonClick()
+        setupDialogBtn()
     }
 
     override fun onResume() {
@@ -48,7 +48,7 @@ class DialogInvitationCodeFragment :
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun onButtonClick() {
+    private fun setupDialogBtn() {
         binding.ivBtnCopy.setOnClickListener {
             copyToClipboard(binding.tvInvitationCode.text.toString())
             handleNavigation()
