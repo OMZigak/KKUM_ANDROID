@@ -19,20 +19,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_my_group_remain_meet_up_due_date_d"
-            style="@style/TextAppearance.Kkumul.body_05"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/my_group_remain_meet_up_due_date_d"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/tv_my_group_remain_meet_up_due_date_day"
             style="@style/TextAppearance.Kkumul.body_05"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/tv_my_group_remain_meet_up_due_date_d"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="DAY" />
 

@@ -1,6 +1,7 @@
 package com.teamkkumul.core.network.api
 
 import com.teamkkumul.core.network.dto.response.BaseResponse
+import com.teamkkumul.core.network.dto.response.ResponseHomeUpComingMeetingDto
 import com.teamkkumul.core.network.dto.response.ResponseTodayMeetingDto
 import com.teamkkumul.core.network.dto.response.ResponseUserDto
 import retrofit2.http.GET
@@ -11,4 +12,7 @@ interface HomeService {
 
     @GET("api/v1/promises/today/next")
     suspend fun getTodayMeeting(): BaseResponse<ResponseTodayMeetingDto>
+
+    @GET("/api/v1/promises/upcoming")
+    suspend fun getUpComingMeeting(): BaseResponse<ResponseHomeUpComingMeetingDto>
 }

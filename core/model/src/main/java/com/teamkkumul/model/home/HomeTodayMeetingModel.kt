@@ -1,4 +1,4 @@
-package com.teamkkumul.model
+package com.teamkkumul.model.home
 
 data class HomeTodayMeetingModel(
     val dDay: Int,

@@ -9,23 +9,23 @@ import com.teamkkumul.feature.databinding.ItemMyGroupFriendBinding
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendPlusBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.viewholder.MyGroupDetailFriendPlusViewHolder
 import com.teamkkumul.feature.mygroup.mygroupdetail.viewholder.MyGroupDetailFriendViewHolder
-import com.teamkkumul.model.MyGroupSealedItem
+import com.teamkkumul.model.MyGroupDetailSealedItem
 
 class MyGroupDetailFriendAdapter(
     private val onPlusBtnClicked: () -> Unit,
-) : ListAdapter<MyGroupSealedItem, RecyclerView.ViewHolder>(DiffUtil) {
+) : ListAdapter<MyGroupDetailSealedItem, RecyclerView.ViewHolder>(DiffUtil) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MyGroupDetailFriendViewHolder -> holder.onBind(getItem(position) as MyGroupSealedItem.Member)
-            is MyGroupDetailFriendPlusViewHolder -> holder.onBind(getItem(position) as MyGroupSealedItem.MyGroupPlus)
+            is MyGroupDetailFriendViewHolder -> holder.onBind(getItem(position) as MyGroupDetailSealedItem.Member)
+            is MyGroupDetailFriendPlusViewHolder -> holder.onBind(getItem(position) as MyGroupDetailSealedItem.MyGroupDetailPlus)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (currentList[position]) {
-            is MyGroupSealedItem.Member -> VIEW_TYPE_MEMBER
-            is MyGroupSealedItem.MyGroupPlus -> VIEW_TYPE_PLUS_ICON
+            is MyGroupDetailSealedItem.Member -> VIEW_TYPE_MEMBER
+            is MyGroupDetailSealedItem.MyGroupDetailPlus -> VIEW_TYPE_PLUS_ICON
             else -> throw IllegalArgumentException()
         }
     }
@@ -55,7 +55,7 @@ class MyGroupDetailFriendAdapter(
     }
 
     companion object {
-        private val DiffUtil = ItemDiffCallback<MyGroupSealedItem>(
+        private val DiffUtil = ItemDiffCallback<MyGroupDetailSealedItem>(
             onItemsTheSame = { old, new -> old.javaClass == new.javaClass },
             onContentsTheSame = { old, new -> old == new },
         )
