@@ -69,6 +69,12 @@ internal abstract class DataModule {
 
     @Binds
     @Singleton
+    abstract fun bindsProfileRepo(
+        profileRepository: ProfileRepositoryImpl,
+    ): ProfileRepository
+
+    @Binds
+    @Singleton
     abstract fun bindsHomeRepo(
         repository: HomeRepositoryImpl,
     ): HomeRepository
