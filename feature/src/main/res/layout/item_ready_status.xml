@@ -23,6 +23,7 @@
             setEmptyImageUrl="@{participant.profileImg}"
             android:layout_width="44dp"
             android:layout_height="0dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/img_profile_basic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1"
