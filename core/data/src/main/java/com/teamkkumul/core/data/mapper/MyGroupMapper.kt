@@ -59,6 +59,15 @@ internal fun ResponseMyGroupMemberDto.toMyGroupSealedItem(): List<MyGroupDetailM
     return items
 }
 
+internal fun ResponseMyGroupMemberDto.toMyGroupMemberToMeetUp(): List<MyGroupMemberModel.Member> =
+    members.map { member ->
+        MyGroupMemberModel.Member(
+            memberId = member.memberId,
+            profileImg = member.profileImg,
+            name = member.name,
+        )
+    }
+
 internal fun ResponseMyGroupMemberDto.toMyGroupMemberModel(): MyGroupMemberModel =
     MyGroupMemberModel(
         memberCount = memberCount,
