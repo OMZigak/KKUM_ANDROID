@@ -1,8 +1,8 @@
 package com.teamkkumul.core.data.mapper
 
+import com.teamkkumul.core.network.dto.response.ResponseHomeMembersReadyStatus
 import com.teamkkumul.core.network.dto.response.ResponseHomeReadyStatusDto
 import com.teamkkumul.core.network.dto.response.ResponseHomeUpComingMeetingDto
-import com.teamkkumul.core.network.dto.response.ResponseMembersReadyStatus
 import com.teamkkumul.core.network.dto.response.ResponseTodayMeetingDto
 import com.teamkkumul.core.network.dto.response.ResponseUserDto
 import com.teamkkumul.model.home.HomeMembersStatus
@@ -55,7 +55,7 @@ internal fun ResponseHomeReadyStatusDto.toReadyStatusModel(): HomeReadyStatusMod
         travelTime,
     )
 
-internal fun ResponseMembersReadyStatus.Participant.toMembersStatus(): HomeMembersStatus.Participant =
+internal fun ResponseHomeMembersReadyStatus.Participant.toMembersStatus(): HomeMembersStatus.Participant =
     HomeMembersStatus.Participant(
         memberId,
         name,
