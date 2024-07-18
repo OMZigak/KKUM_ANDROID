@@ -1,8 +1,10 @@
 package com.teamkkumul.core.data.mapper
 
+import com.teamkkumul.core.network.dto.response.ResponseHomeReadyStatusDto
 import com.teamkkumul.core.network.dto.response.ResponseHomeUpComingMeetingDto
 import com.teamkkumul.core.network.dto.response.ResponseTodayMeetingDto
 import com.teamkkumul.core.network.dto.response.ResponseUserDto
+import com.teamkkumul.model.home.HomeReadyStatusModel
 import com.teamkkumul.model.home.HomeTodayMeetingModel
 import com.teamkkumul.model.home.UserModel
 
@@ -39,4 +41,14 @@ internal fun ResponseHomeUpComingMeetingDto.Promise.toPromiseModel(): HomeTodayM
         dressUpLevel = dressUpLevel,
         time = time,
         placeName = placeName,
+    )
+
+internal fun ResponseHomeReadyStatusDto.toReadyStatusModel(): HomeReadyStatusModel =
+    HomeReadyStatusModel(
+        arrivalAt,
+        departureAt,
+        preparationStartAt,
+        preparationTime,
+        promiseTime,
+        travelTime,
     )

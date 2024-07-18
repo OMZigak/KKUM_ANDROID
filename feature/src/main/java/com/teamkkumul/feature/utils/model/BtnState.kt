@@ -8,6 +8,7 @@ sealed class BtnState(
     open val backGroundColor: Int,
     open val circleImage: Int,
     open val isEnabled: Boolean,
+    open val progress: Int,
 ) {
     data class Default(
         override val strokeColor: Int = R.color.main_color,
@@ -15,12 +16,14 @@ sealed class BtnState(
         override val backGroundColor: Int = R.color.white0,
         override val circleImage: Int = R.drawable.shape_circle_gray02_16,
         override val isEnabled: Boolean,
+        override val progress: Int = 0,
     ) : BtnState(
         strokeColor,
         textColor,
         backGroundColor,
         circleImage,
         isEnabled,
+        progress,
     )
 
     data class DefaultGray(
@@ -29,12 +32,14 @@ sealed class BtnState(
         override val backGroundColor: Int = R.color.white0,
         override val circleImage: Int = R.drawable.shape_circle_gray02_16,
         override val isEnabled: Boolean = false,
+        override val progress: Int = 0,
     ) : BtnState(
         strokeColor,
         textColor,
         backGroundColor,
         circleImage,
         isEnabled,
+        progress,
     )
 
     data class InProgress(
@@ -43,12 +48,15 @@ sealed class BtnState(
         override val backGroundColor: Int = R.color.green2,
         override val circleImage: Int = R.drawable.shape_circle_green2_16,
         override val isEnabled: Boolean,
+        override val progress: Int = 100,
+
     ) : BtnState(
         strokeColor,
         textColor,
         backGroundColor,
         circleImage,
         isEnabled,
+        progress,
     )
 
     data class Complete(
@@ -57,11 +65,13 @@ sealed class BtnState(
         override val backGroundColor: Int = R.color.main_color,
         override val circleImage: Int = R.drawable.ic_check_green_24,
         override val isEnabled: Boolean = false,
+        override val progress: Int = 100,
     ) : BtnState(
         strokeColor,
         textColor,
         backGroundColor,
         circleImage,
         isEnabled,
+        progress,
     )
 }
