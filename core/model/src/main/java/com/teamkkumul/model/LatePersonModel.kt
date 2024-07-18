@@ -8,6 +8,6 @@ data class LatePersonModel(
     data class LateComers(
         val participantId: Int,
         val name: String,
-        val profileImg: String,
+        val profileImg: String?,
     )
 }

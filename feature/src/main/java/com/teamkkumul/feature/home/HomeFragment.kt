@@ -11,6 +11,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
@@ -24,6 +25,7 @@ import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.getCurrentTime
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.model.home.HomeReadyStatusModel
 import com.teamkkumul.model.home.HomeTodayMeetingModel
 import com.teamkkumul.model.home.UserModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +43,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private var _homeMeetUpAdapter: HomeMeetUpAdapter? = null
     private val homeMeetUpAdapter get() = requireNotNull(_homeMeetUpAdapter)
 
+    private var promiseId: Int = -1
+
     override fun initView() {
         initGetHomeApi()
         initObserveTodayMeetingState()
@@ -49,12 +53,44 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         initObserveBtnState()
         initHomeMeetUpRecyclerView()
         initObserveHomePromiseState()
+        initObserveReadyStatusState()
     }
 
     private fun initGetHomeApi() {
         viewModel.getUserInfo()
         viewModel.getTodayMeeting()
         viewModel.getUpComingMeeting()
+    }
+
+    private fun initObserveReadyStatusState() {
+        viewModel.readyStatusState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> updateReadyStatusUI(it.data)
+                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
+                is UiState.Empty -> Timber.tag("home").d("empty")
+                is UiState.Loading -> Timber.tag("home").d("loading")
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun updateReadyStatusUI(data: HomeReadyStatusModel?) = with(binding) {
+        data ?: return
+        tvHomeReadyTime.text = data.preparationStartAt
+        tvHomeMovingTime.text = data.departureAt
+        tvvHomeArriveTime.text = data.arrivalAt
+        when {
+            data.preparationStartAt != null && data.departureAt != null && data.arrivalAt != null -> {
+                viewModel.clickCompletedBtn()
+            }
+
+            data.departureAt != null && data.preparationStartAt != null -> {
+                viewModel.clickMovingStartBtn()
+            }
+
+            data.preparationStartAt != null -> {
+                viewModel.clickReadyBtn()
+            }
+        }
     }
 
     private fun initObserveTodayMeetingState() {
@@ -79,7 +115,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         tvHomeMeetingTitle.text = data.meetingName.toString()
         tvHomeMeetingWhere.text = data.placeName.toString()
         tvHomeMeetingTime.text = data.time
+        promiseId = data.promiseId
         initMeetingNextBtnClick(data.promiseId)
+        viewModel.getReadyStatus(data.promiseId)
     }
 
     private fun updateMeetingVisibility(isVisible: Boolean) {
@@ -172,7 +210,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun initReadyBtnClick() = with(binding) {
         btnHomeReady.setOnClickListener {
-            viewModel.clickReadyBtn()
+            viewModel.patchReady(promiseId)
             tvHomeReadyTime.text = getCurrentTime()
             viewLifeCycleScope.launch {
                 animateProgressBar(pgHomeReady, 0, PROGRESS_NUM_100)
@@ -182,7 +220,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun initMovingBtnClick() = with(binding) {
         btnHomeMoving.setOnClickListener {
-            viewModel.clickMovingStartBtn()
+            viewModel.patchMoving(promiseId)
             tvHomeMovingTime.text = getCurrentTime()
             viewLifeCycleScope.launch {
                 animateProgressBar(pgHomeMoving, 0, PROGRESS_NUM_100)
@@ -192,9 +230,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun initArriveBtnClick() = with(binding) {
         btnHomeArrive.setOnClickListener {
-            viewModel.clickCompletedBtn()
+            viewModel.patchCompleted(promiseId)
             tvvHomeArriveTime.text = getCurrentTime()
-
             viewLifeCycleScope.launch {
                 animateProgressBar(pgHomeArrive, 0, PROGRESS_NUM_100)
                 delay(300L)
@@ -208,16 +245,22 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             viewModel.readyBtnState,
             btnHomeReady,
             ivHomeReadyCircle,
+            pgHomeReady,
+            null,
         )
         observeBtnState(
             viewModel.movingStartBtnState,
             binding.btnHomeMoving,
             ivHomeMovingCircle,
+            pgHomeMoving,
+            null,
         )
         observeBtnState(
             viewModel.completedBtnState,
             binding.btnHomeArrive,
             ivHomeArriveCircle,
+            pgHomeArrive,
+            pgHomeArriveEnd,
         )
     }
 
@@ -225,9 +268,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         stateFlow: StateFlow<BtnState>,
         button: MaterialButton,
         circle: ImageView,
+        progressBar: LinearProgressIndicator,
+        progressBarEnd: LinearProgressIndicator?,
     ) {
         stateFlow.flowWithLifecycle(viewLifeCycle).onEach { state ->
-            setUpButton(state, button, circle)
+            setUpButton(state, button, circle, progressBar, progressBarEnd)
         }.launchIn(viewLifeCycleScope)
     }
 
@@ -235,6 +280,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         state: BtnState,
         button: MaterialButton,
         circle: ImageView,
+        progressBar: LinearProgressIndicator,
+        progressBarEnd: LinearProgressIndicator?,
     ) {
         button.apply {
             setStrokeColorResource(state.strokeColor)
@@ -243,6 +290,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             isEnabled = state.isEnabled
         }
         circle.setImageResource(state.circleImage)
+        progressBar.progress = state.progress
+        if (progressBarEnd != null) {
+            progressBarEnd.progress = state.progress
+        }
     }
 
     private fun initHomeMeetUpRecyclerView() {

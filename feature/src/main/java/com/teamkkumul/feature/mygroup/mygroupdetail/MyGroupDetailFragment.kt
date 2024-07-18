@@ -35,6 +35,8 @@ class MyGroupDetailFragment :
     private var _meetUpAdapter: MyGroupDetailMeetUpAdapter? = null
     private val meetUpAdapter get() = requireNotNull(_meetUpAdapter)
 
+    private var code: String = ""
+
     override fun initView() {
         val id = arguments?.getInt("meetingId") ?: -1
         Timber.tag("id").d(id.toString())
@@ -61,10 +63,9 @@ class MyGroupDetailFragment :
             when (uiState) {
                 is UiState.Success -> {
                     successMyGroupInfoState(uiState.data)
+                    code = uiState.data.invitationCode
                 }
-
-                is UiState.Failure -> Timber.tag("My Group Info").d(uiState.errorMessage)
-                else -> {}
+                else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
@@ -80,9 +81,7 @@ class MyGroupDetailFragment :
                 is UiState.Success -> {
                     successMyGroupMemberState(uiState.data)
                 }
-
-                is UiState.Failure -> Timber.tag("my group member").d(uiState.errorMessage)
-                else -> {}
+                else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
@@ -96,12 +95,10 @@ class MyGroupDetailFragment :
     private fun initObserveMemberListState() {
         viewModel.myGroupMemberListState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Failure -> Timber.tag("my group member list").d(uiState.errorMessage)
                 is UiState.Success -> {
                     memberAdapter.submitList(uiState.data)
                 }
-
-                else -> {}
+                else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
@@ -109,7 +106,6 @@ class MyGroupDetailFragment :
     private fun initObserveMyGroupMeetUpState() {
         viewModel.myGroupMeetUpState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Failure -> Timber.tag("my group meet up list").d(uiState.errorMessage)
                 is UiState.Success -> {
                     if (uiState.data.isEmpty()) {
                         updateMeetingVisibility(false)
@@ -118,7 +114,6 @@ class MyGroupDetailFragment :
                         meetUpAdapter.submitList(uiState.data)
                     }
                 }
-
                 is UiState.Empty -> updateMeetingVisibility(false)
                 else -> Unit
             }
@@ -128,11 +123,13 @@ class MyGroupDetailFragment :
     private fun initMemberRecyclerView() {
         _memberAdapter = MyGroupDetailFriendAdapter(
             onPlusBtnClicked = {
-                val dialog = DialogInvitationCodeFragment.newInstance("MyGroupDetailFragment")
+                initObserveMyGroupInfoState()
+                Timber.tag("code").d(code)
+                val dialog = DialogInvitationCodeFragment.newInstance(
+                    code,
+                )
                 dialog.show(parentFragmentManager, "DialogInvitationCodeFragment")
             },
-//            onPlusBtnClicked = { findNavController().navigate(R.id.action_myGroupDetailFragment_to_dialogInvitationCodeFragment) }, // 다이얼로그 띄우기
-            //onPlusBtnClicked = { findNavController().navigate(R.id.tv_meet_up_detail_information) },
         )
         binding.rvMyGroupFriendList.apply {
             layoutManager =

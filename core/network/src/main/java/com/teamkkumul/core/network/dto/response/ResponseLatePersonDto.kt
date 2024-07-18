@@ -8,7 +8,7 @@ data class ResponseLatePersonDto(
     @SerialName("penalty")
     val penalty: String,
     @SerialName("isPastDue")
-    val isPastDue: String,
+    val isPastDue: Boolean,
     @SerialName("lateComers")
     val lateComers: List<LateComers>,
 ) {
@@ -19,6 +19,6 @@ data class ResponseLatePersonDto(
         @SerialName("name")
         val name: String,
         @SerialName("profileImg")
-        val profileImg: String,
+        val profileImg: String?,
     )
 }

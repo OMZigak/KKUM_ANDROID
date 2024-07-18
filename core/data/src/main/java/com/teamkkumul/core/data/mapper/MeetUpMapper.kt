@@ -51,7 +51,7 @@ internal fun ResponseMeetUpDetailDto.toMeetUpDetailModel(): MeetUpDetailModel =
 internal fun ResponseLatePersonDto.toLatePersonModel(): LatePersonModel {
     return LatePersonModel(
         penalty = this.penalty,
-        isPastDue = this.isPastDue.toBoolean(),
+        isPastDue = this.isPastDue,
         lateComers = this.lateComers.map {
             LatePersonModel.LateComers(
                 participantId = it.participantId,

@@ -1,16 +1,23 @@
 package com.teamkkumul.feature.meetupcreate.location
 
+import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpCreateLocationBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MeetUpCreateLocationFragment :
@@ -22,8 +29,21 @@ class MeetUpCreateLocationFragment :
 
     override fun initView() {
         initRecyclerView()
-        initObserveViewModel()
+        initObserveMeetUpLocationState()
         updateNextButton(false)
+        setupLocationNameEditorAction()
+    }
+
+    private fun setupLocationNameEditorAction() {
+        binding.etMeetUpCreateLocationNameEnter.setOnEditorActionListener { v, actionId, event ->
+            var handled = false
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val inputText = binding.etMeetUpCreateLocationNameEnter.text.toString()
+                viewModel.getMeetUpCreateLocation(inputText)
+                handled = true
+            }
+            handled
+        }
     }
 
     private fun initRecyclerView() {
@@ -40,19 +60,19 @@ class MeetUpCreateLocationFragment :
         }
     }
 
-    private fun initObserveViewModel() {
-        viewModel.location.observe(viewLifecycleOwner) {
-            when (it) {
-                is UiState.Empty -> {
-                }
-
+    private fun initObserveMeetUpLocationState() {
+        viewModel.meetUpCreateLocationState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
+            when (uiState) {
                 is UiState.Success -> {
-                    locationAdapter.submitList(it.data)
+                    if (uiState.data.isNotEmpty()) {
+                        locationAdapter.submitList(uiState.data)
+                    }
                 }
 
-                else -> {}
+                is UiState.Failure -> Timber.tag("meet up create location").d(uiState.errorMessage)
+                else -> Unit
             }
-        }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun updateNextButton(isEnabled: Boolean) {

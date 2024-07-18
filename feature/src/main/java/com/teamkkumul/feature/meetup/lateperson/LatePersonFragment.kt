@@ -19,6 +19,7 @@ import com.teamkkumul.model.LatePersonModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class LatePersonFragment :
@@ -50,33 +51,30 @@ class LatePersonFragment :
     }
 
     private fun initObserveLatePersonState() {
-        latePersonViewModel.latePersonState.flowWithLifecycle(viewLifeCycle).onEach { latePersonState ->
-            when (latePersonState) {
-                is UiState.Success -> {
-                    val data = latePersonState.data
-                    initPenaltyState(data)
-                    if (!data.isPastDue) {
-                        binding.rvLatePerson.visibility = View.GONE
-                        binding.viewLatePersonEmpty.visibility = View.GONE
-                        binding.viewWaitingEmpty.visibility = View.VISIBLE
-                        binding.btnEndMeetUp.isEnabled = false
-                    } else {
-                        binding.viewWaitingEmpty.visibility = View.GONE
-                        if (data.lateComers.isEmpty()) {
+        latePersonViewModel.latePersonState.flowWithLifecycle(viewLifeCycle)
+            .onEach { latePersonState ->
+                when (latePersonState) {
+                    is UiState.Success -> {
+                        Timber.tag("aa").d(latePersonState.data.penalty.toString())
+                        initPenaltyState(latePersonState.data)
+                        val lateComers = latePersonState.data.lateComers
+                        if (lateComers.isEmpty()) {
                             binding.viewLatePersonEmpty.visibility = View.VISIBLE
                             binding.rvLatePerson.visibility = View.GONE
                         } else {
                             binding.rvLatePerson.visibility = View.VISIBLE
                             binding.viewLatePersonEmpty.visibility = View.GONE
-                            latePersonAdapter.submitList(data.lateComers)
+                            latePersonAdapter.submitList(lateComers)
                         }
-                        binding.btnEndMeetUp.isEnabled = true
                     }
+
+                    is UiState.Failure -> Timber.tag("aa")
+                        .d(latePersonState.errorMessage)
+
+                    is UiState.Loading -> {}
+                    else -> Unit
                 }
-                is UiState.Failure -> {}
-                else -> Unit
-            }
-        }.launchIn(viewLifeCycleScope)
+            }.launchIn(viewLifeCycleScope)
     }
 
     private fun initObservePatchMeetUpState() {
