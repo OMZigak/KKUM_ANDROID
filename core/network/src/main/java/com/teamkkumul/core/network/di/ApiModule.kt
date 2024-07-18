@@ -5,7 +5,6 @@ import com.teamkkumul.core.network.api.ProfileService
 import com.teamkkumul.core.network.api.HomeService
 import com.teamkkumul.core.network.api.LoginService
 import com.teamkkumul.core.network.api.MeetUpService
-import com.teamkkumul.core.network.api.MeetingsService
 import com.teamkkumul.core.network.api.MyGroupService
 import com.teamkkumul.core.network.api.ReqresService
 import dagger.Module
