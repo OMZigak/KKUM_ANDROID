@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseMembersReadyStatus(
+data class ResponseHomeMembersReadyStatus(
     @SerialName("participantCount")
     val participantCount: Int,
     @SerialName("participants")
@@ -19,7 +19,7 @@ data class ResponseMembersReadyStatus(
         @SerialName("participantId")
         val participantId: Int,
         @SerialName("profileImg")
-        val profileImg: String,
+        val profileImg: String?,
         @SerialName("state")
         val state: String,
     )
