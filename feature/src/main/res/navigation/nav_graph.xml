@@ -40,6 +40,9 @@
             android:id="@+id/action_myGroupDetailFragment_to_meetUpDetailFragment"
             app:destination="@id/fragment_meet_up_detail" />
         <action
+            android:id="@+id/action_myGroupDetailFragment_to_meetUpContainerFragment"
+            app:destination="@id/fragment_meet_up_container" />
+        <action
             android:id="@+id/action_myGroupDetailFragment_to_meetUpCreateFragment"
             app:destination="@id/fragment_meet_up_create" />
         <action

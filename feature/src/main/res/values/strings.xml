@@ -75,6 +75,7 @@
     <string name="my_group_empty">아직 모임이 없네요!</string>
     <string name="my_group_do_plus">모임을 추가해 보세요.</string>
     <string name="my_group_participate_in">명 참여중</string>
+    <string name="my_group_meet_up_count">번</string>
 
 
     <!--    약속 상세 화면-->
