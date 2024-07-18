@@ -1,7 +1,6 @@
 package com.teamkkumul.feature.newgroup.addnewgroup
 
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import com.teamkkumul.core.ui.base.BindingFragment
