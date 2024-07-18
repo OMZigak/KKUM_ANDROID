@@ -1,6 +1,7 @@
 package com.teamkkumul.feature.mygroup
 
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -85,7 +86,11 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
         }
         _memberAdapter = MyGroupAdapter(
             onMyGroupListBtnClicked = {
-                findNavController().navigate(R.id.action_myGroupFragment_to_myGroupDetailFragment)
+                findNavController().navigate(
+                    R.id.action_myGroupFragment_to_myGroupDetailFragment,
+                    bundleOf("meetingId" to it),
+                )
+                Timber.tag("ididid").d(it.toString())
             },
         )
         binding.rvMyGroupList.apply {
