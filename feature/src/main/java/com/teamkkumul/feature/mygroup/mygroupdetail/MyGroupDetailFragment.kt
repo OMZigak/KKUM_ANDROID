@@ -15,6 +15,7 @@ import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
 import com.teamkkumul.feature.newgroup.addnewgroup.DialogInvitationCodeFragment
+import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.model.MyGroupInfoModel
@@ -38,8 +39,7 @@ class MyGroupDetailFragment :
     private var code: String = ""
 
     override fun initView() {
-        val id = arguments?.getInt("meetingId") ?: -1
-        Timber.tag("id").d(id.toString())
+        val id = arguments?.getInt(MEETING_ID) ?: -1
 
         initMemberRecyclerView()
         initMeetUpRecyclerView()
@@ -54,7 +54,10 @@ class MyGroupDetailFragment :
         initObserveMemberListState()
 
         binding.extendedFab.setOnClickListener {
-            findNavController().navigate(R.id.action_myGroupDetailFragment_to_meetUpCreateFragment)
+            findNavController().navigate(
+                R.id.action_myGroupDetailFragment_to_meetUpCreateFragment,
+                bundleOf(MEETING_ID to id),
+            )
         }
     }
 
@@ -65,6 +68,7 @@ class MyGroupDetailFragment :
                     successMyGroupInfoState(uiState.data)
                     code = uiState.data.invitationCode
                 }
+
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
@@ -98,6 +102,7 @@ class MyGroupDetailFragment :
                 is UiState.Success -> {
                     memberAdapter.submitList(uiState.data)
                 }
+
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
@@ -106,6 +111,7 @@ class MyGroupDetailFragment :
     private fun initObserveMyGroupMeetUpState() {
         viewModel.myGroupMeetUpState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
+                is UiState.Failure -> Timber.tag("my group meet up list").d(uiState.errorMessage)
                 is UiState.Success -> {
                     if (uiState.data.isEmpty()) {
                         updateMeetingVisibility(false)
@@ -114,6 +120,7 @@ class MyGroupDetailFragment :
                         meetUpAdapter.submitList(uiState.data)
                     }
                 }
+
                 is UiState.Empty -> updateMeetingVisibility(false)
                 else -> Unit
             }
@@ -124,7 +131,6 @@ class MyGroupDetailFragment :
         _memberAdapter = MyGroupDetailFriendAdapter(
             onPlusBtnClicked = {
                 initObserveMyGroupInfoState()
-                Timber.tag("code").d(code)
                 val dialog = DialogInvitationCodeFragment.newInstance(
                     code,
                 )

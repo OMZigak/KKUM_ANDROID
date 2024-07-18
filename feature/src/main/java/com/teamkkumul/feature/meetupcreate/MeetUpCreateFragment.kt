@@ -1,6 +1,7 @@
 package com.teamkkumul.feature.meetupcreate
 
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -16,6 +17,7 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpCreateBinding
 import com.teamkkumul.feature.utils.Debouncer
+import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.animateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -32,6 +34,8 @@ class MeetUpCreateFragment :
     private var currentText: String = ""
 
     override fun initView() {
+        val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
+
         viewModel.setProgressBar(25)
         binding.clMeetUpDate.setOnClickListener {
             showDatePickerDialog()
@@ -41,14 +45,16 @@ class MeetUpCreateFragment :
         }
         setName()
         binding.clMyGroupEnterLocation.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_location)
+            findNavController().navigate(
+                R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_location,
+            )
         }
         observeMeetUpDate()
         observeMeetUpTime()
         observeProgress()
         observeSelectedLocation()
         observeFormValidation()
-        navigateToFriend()
+        navigateToFriend(id)
         initHideKeyBoard()
     }
 
@@ -58,9 +64,14 @@ class MeetUpCreateFragment :
         }.launchIn(viewLifeCycleScope)
     }
 
-    private fun navigateToFriend() {
+    private fun navigateToFriend(id: Int) {
         binding.btnMeetUpCreateNext.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend)
+            findNavController().navigate(
+                R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
+                bundleOf(
+                    KeyStorage.MEETING_ID to id,
+                ),
+            )
         }
     }
 
