@@ -14,10 +14,6 @@ import javax.inject.Inject
 class AddNewGroupViewModel @Inject constructor(
     private val meetingsRepository: MeetingsRepository,
 ) : ViewModel() {
-
-    private val _invitationCode = MutableStateFlow("")
-    val invitationCode = _invitationCode.asStateFlow()
-
     private val _meetingsState = MutableStateFlow<UiState<String>>(UiState.Loading)
     val meetingsState get() = _meetingsState.asStateFlow()
 
@@ -26,7 +22,6 @@ class AddNewGroupViewModel @Inject constructor(
             meetingsRepository.addNewGroup(request)
                 .onSuccess { invitationCode ->
                     if (invitationCode.isNotEmpty()) {
-                        _invitationCode.value = invitationCode
                         _meetingsState.emit(UiState.Success(invitationCode))
                     }
                 }.onFailure {

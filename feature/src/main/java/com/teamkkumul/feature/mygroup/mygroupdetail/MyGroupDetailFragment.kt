@@ -35,6 +35,8 @@ class MyGroupDetailFragment :
     private var _meetUpAdapter: MyGroupDetailMeetUpAdapter? = null
     private val meetUpAdapter get() = requireNotNull(_meetUpAdapter)
 
+    private var code: String = ""
+
     override fun initView() {
         val id = arguments?.getInt("meetingId") ?: -1
         Timber.tag("id").d(id.toString())
@@ -61,6 +63,7 @@ class MyGroupDetailFragment :
             when (uiState) {
                 is UiState.Success -> {
                     successMyGroupInfoState(uiState.data)
+                    code = uiState.data.invitationCode
                 }
 
                 is UiState.Failure -> Timber.tag("My Group Info").d(uiState.errorMessage)
@@ -128,11 +131,13 @@ class MyGroupDetailFragment :
     private fun initMemberRecyclerView() {
         _memberAdapter = MyGroupDetailFriendAdapter(
             onPlusBtnClicked = {
-                val dialog = DialogInvitationCodeFragment.newInstance("MyGroupDetailFragment")
+                initObserveMyGroupInfoState()
+                Timber.tag("code").d(code)
+                val dialog = DialogInvitationCodeFragment.newInstance(
+                    code,
+                )
                 dialog.show(parentFragmentManager, "DialogInvitationCodeFragment")
             },
-//            onPlusBtnClicked = { findNavController().navigate(R.id.action_myGroupDetailFragment_to_dialogInvitationCodeFragment) }, // 다이얼로그 띄우기
-            //onPlusBtnClicked = { findNavController().navigate(R.id.tv_meet_up_detail_information) },
         )
         binding.rvMyGroupFriendList.apply {
             layoutManager =

@@ -36,8 +36,9 @@ class MeetUpRepositoryImpl @Inject constructor(
 
     override suspend fun getLateComersList(promiseId: Int): Result<LatePersonModel> {
         return runCatching {
-            val response = meetUpService.getLateComersList(promiseId)
-            response.data?.toLatePersonModel() ?: throw Exception("null")
+            meetUpService.getLateComersList(promiseId).data?.toLatePersonModel() ?: throw Exception(
+                "null",
+            )
         }
     }
 }
