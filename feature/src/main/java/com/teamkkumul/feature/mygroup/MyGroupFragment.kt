@@ -13,6 +13,7 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupBinding
 import com.teamkkumul.feature.mygroup.adapter.MyGroupAdapter
+import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.model.MyGroupModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -88,9 +89,8 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
             onMyGroupListBtnClicked = {
                 findNavController().navigate(
                     R.id.action_myGroupFragment_to_myGroupDetailFragment,
-                    bundleOf("meetingId" to it),
+                    bundleOf(MEETING_ID to it),
                 )
-                Timber.tag("ididid").d(it.toString())
             },
         )
         binding.rvMyGroupList.apply {
