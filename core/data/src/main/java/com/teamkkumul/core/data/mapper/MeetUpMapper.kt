@@ -1,7 +1,9 @@
 package com.teamkkumul.core.data.mapper
 
+import com.teamkkumul.core.network.dto.response.ResponseLatePersonDto
 import com.teamkkumul.core.network.dto.response.ResponseMeetUpDetailDto
 import com.teamkkumul.core.network.dto.response.ResponseMeetUpParticipantDto
+import com.teamkkumul.model.LatePersonModel
 import com.teamkkumul.model.MeetUpDetailModel
 import com.teamkkumul.model.MeetUpParticipantModel
 import com.teamkkumul.model.MeetUpSealedItem
@@ -44,4 +46,17 @@ internal fun ResponseMeetUpDetailDto.toMeetUpDetailModel(): MeetUpDetailModel =
         penalty = penalty,
         placeName = placeName,
         time = time,
+    )
+
+internal fun ResponseLatePersonDto.toLatePersonModel(): LatePersonModel =
+    LatePersonModel(
+        penalty = penalty,
+        isPastDue = isPastDue,
+        lateComers = lateComers.map { lateComer ->
+            LatePersonModel.LateComers(
+                participantId = lateComer.participantId,
+                name = lateComer.name,
+                profileImg = lateComer.profileImg,
+            )
+        },
     )
