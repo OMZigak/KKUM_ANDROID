@@ -2,7 +2,7 @@ package com.teamkkumul.feature.mygroup.mygroupdetail.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendPlusBinding
-import com.teamkkumul.model.MyGroupDetailSealedItem
+import com.teamkkumul.model.MyGroupDetailMemeberSealedItem
 
 class MyGroupDetailFriendPlusViewHolder(
     private val binding: ItemMyGroupFriendPlusBinding,
@@ -14,5 +14,5 @@ class MyGroupDetailFriendPlusViewHolder(
         }
     }
 
-    fun onBind(data: MyGroupDetailSealedItem.MyGroupDetailPlus) {}
+    fun onBind(data: MyGroupDetailMemeberSealedItem.MyGroupDetailMemeberPlus) {}
 }

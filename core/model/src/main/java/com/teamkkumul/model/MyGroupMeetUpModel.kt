@@ -9,5 +9,6 @@ data class MyGroupMeetUpModel(
         val name: String,
         val placeName: String,
         val time: String,
+        val promiseId: Int,
     )
 }

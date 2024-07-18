@@ -9,23 +9,23 @@ import com.teamkkumul.feature.databinding.ItemMyGroupFriendBinding
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendPlusBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.viewholder.MyGroupDetailFriendPlusViewHolder
 import com.teamkkumul.feature.mygroup.mygroupdetail.viewholder.MyGroupDetailFriendViewHolder
-import com.teamkkumul.model.MyGroupDetailSealedItem
+import com.teamkkumul.model.MyGroupDetailMemeberSealedItem
 
 class MyGroupDetailFriendAdapter(
     private val onPlusBtnClicked: () -> Unit,
-) : ListAdapter<MyGroupDetailSealedItem, RecyclerView.ViewHolder>(DiffUtil) {
+) : ListAdapter<MyGroupDetailMemeberSealedItem, RecyclerView.ViewHolder>(DiffUtil) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MyGroupDetailFriendViewHolder -> holder.onBind(getItem(position) as MyGroupDetailSealedItem.Member)
-            is MyGroupDetailFriendPlusViewHolder -> holder.onBind(getItem(position) as MyGroupDetailSealedItem.MyGroupDetailPlus)
+            is MyGroupDetailFriendViewHolder -> holder.onBind(getItem(position) as MyGroupDetailMemeberSealedItem.Member)
+            is MyGroupDetailFriendPlusViewHolder -> holder.onBind(getItem(position) as MyGroupDetailMemeberSealedItem.MyGroupDetailMemeberPlus)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (currentList[position]) {
-            is MyGroupDetailSealedItem.Member -> VIEW_TYPE_MEMBER
-            is MyGroupDetailSealedItem.MyGroupDetailPlus -> VIEW_TYPE_PLUS_ICON
+            is MyGroupDetailMemeberSealedItem.Member -> VIEW_TYPE_MEMBER
+            is MyGroupDetailMemeberSealedItem.MyGroupDetailMemeberPlus -> VIEW_TYPE_PLUS_ICON
             else -> throw IllegalArgumentException()
         }
     }
@@ -55,7 +55,7 @@ class MyGroupDetailFriendAdapter(
     }
 
     companion object {
-        private val DiffUtil = ItemDiffCallback<MyGroupDetailSealedItem>(
+        private val DiffUtil = ItemDiffCallback<MyGroupDetailMemeberSealedItem>(
             onItemsTheSame = { old, new -> old.javaClass == new.javaClass },
             onContentsTheSame = { old, new -> old == new },
         )

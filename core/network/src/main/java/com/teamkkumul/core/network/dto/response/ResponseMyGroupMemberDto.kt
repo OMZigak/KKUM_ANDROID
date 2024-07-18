@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseMyGroupFriendDto(
+data class ResponseMyGroupMemberDto(
     @SerialName("memberCount")
     val memberCount: Int,
     @SerialName("members")
@@ -12,11 +12,11 @@ data class ResponseMyGroupFriendDto(
 ) {
     @Serializable
     data class Member(
-        @SerialName("id")
-        val id: Int,
+        @SerialName("memberId")
+        val memberId: Int,
         @SerialName("name")
         val name: String,
         @SerialName("profileImg")
-        val profileImg: String,
+        val profileImg: String?,
     )
 }

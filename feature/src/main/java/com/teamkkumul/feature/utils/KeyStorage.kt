@@ -7,6 +7,7 @@ object KeyStorage {
     const val LOCAL_ALARM_CHANNEL = "101"
     const val DATA_NULL = "null"
     const val PROMISE_ID = "promiseId"
+    const val MEETING_ID = "meetingId"
 }
 
 object PROGRESS {
