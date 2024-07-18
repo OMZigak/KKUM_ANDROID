@@ -10,7 +10,6 @@ import com.teamkkumul.core.ui.util.context.dialogFragmentResize
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogInvitationCodeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class DialogInvitationCodeFragment :
@@ -27,7 +26,6 @@ class DialogInvitationCodeFragment :
 
     override fun initView() {
         getInvitationCode()
-        Timber.tag("invite").d(invitationCode)
         setupDialogBtn()
     }
 
@@ -40,7 +38,6 @@ class DialogInvitationCodeFragment :
         if (invitationCode.isNotEmpty()) {
             binding.tvInvitationCode.text = invitationCode
         }
-        Timber.tag("invite666").d(invitationCode)
     }
 
     private fun setupDialogBtn() {
