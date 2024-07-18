@@ -47,6 +47,19 @@ class ReadyStatusFragment :
         initReadyStatusRecyclerview()
         initReadyInputBtnClick()
         initObserveReadyStatusState()
+        initObserveMembersReadyStatus()
+    }
+
+    private fun initObserveMembersReadyStatus() {
+        viewModel.getMembersReadyStatus(promiseId)
+        viewModel.membersReadyStatus.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> readyStatusAdapter.submitList(it.data)
+                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
+                is UiState.Empty -> Timber.tag("home").d("empty")
+                is UiState.Loading -> Timber.tag("home").d("loading")
+            }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun initObserveReadyStatusState() {
@@ -88,9 +101,7 @@ class ReadyStatusFragment :
     }
 
     private fun initReadyStatusRecyclerview() {
-        _readyStatusAdapter = ReadyStatusAdapter().apply {
-            submitList(viewModel.mockMembers)
-        }
+        _readyStatusAdapter = ReadyStatusAdapter()
         binding.rvReadyStatusFriendList.apply {
             adapter = readyStatusAdapter
             addItemDecoration(ReadyStatusFriendItemDecoration(requireContext()))

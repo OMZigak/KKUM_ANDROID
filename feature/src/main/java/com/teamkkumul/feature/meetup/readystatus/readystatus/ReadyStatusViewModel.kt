@@ -5,8 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.utils.model.BtnState
-import com.teamkkumul.model.MeetUpDetailFriendModel
-import com.teamkkumul.model.MyGroupMeetUpModel
+import com.teamkkumul.model.home.HomeMembersStatus
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,14 +30,29 @@ class ReadyStatusViewModel @Inject constructor(
         MutableStateFlow<BtnState>(BtnState.DefaultGray(isEnabled = false))
     val completedBtnState: StateFlow<BtnState> get() = _completedBtnState
 
-    private val _homePromiseState =
-        MutableStateFlow<UiState<List<MyGroupMeetUpModel.Promise>>>(UiState.Loading)
-    val homePromiseState get() = _homePromiseState.asStateFlow()
-
     private val _readyStatusState =
         MutableStateFlow<UiState<HomeReadyStatusModel?>>(UiState.Loading)
     val readyStatusState: StateFlow<UiState<HomeReadyStatusModel?>> =
         _readyStatusState.asStateFlow()
+
+    private val _membersReadyStatus =
+        MutableStateFlow<UiState<List<HomeMembersStatus.Participant?>>>(UiState.Loading)
+    val membersReadyStatus get() = _membersReadyStatus.asStateFlow()
+
+    fun getMembersReadyStatus(promiseId: Int) {
+        viewModelScope.launch {
+            homeRepository.getMembersReadyStatus(promiseId)
+                .onSuccess {
+                    if (it == null) {
+                        _membersReadyStatus.emit(UiState.Empty)
+                    } else {
+                        _membersReadyStatus.emit(UiState.Success(it))
+                    }
+                }.onFailure {
+                    _membersReadyStatus.emit(UiState.Failure(it.message.toString()))
+                }
+        }
+    }
 
     fun getReadyStatus(promiseId: Int) {
         viewModelScope.launch {
@@ -109,43 +123,4 @@ class ReadyStatusViewModel @Inject constructor(
     private fun isCompleteState(stateFlow: StateFlow<BtnState>): Boolean {
         return stateFlow.value is BtnState.Complete
     }
-
-    val mockMembers = listOf(
-        MeetUpDetailFriendModel.Participant(
-            id = 2,
-            name = "Eric",
-            profileImg = "https://example.com/alice.jpg",
-            state = "이동중",
-        ),
-        MeetUpDetailFriendModel.Participant(
-            id = 3,
-            name = "Bob",
-            profileImg = "https://example.com/alice.jpg",
-            state = "이동중",
-        ),
-        MeetUpDetailFriendModel.Participant(
-            id = 2,
-            name = "Alice",
-            profileImg = "https://example.com/alice.jpg",
-            state = "이동중",
-        ),
-        MeetUpDetailFriendModel.Participant(
-            id = 2,
-            name = "Eric",
-            profileImg = "https://example.com/alice.jpg",
-            state = "이동중",
-        ),
-        MeetUpDetailFriendModel.Participant(
-            id = 3,
-            name = "Bob",
-            profileImg = "https://example.com/alice.jpg",
-            state = "이동중",
-        ),
-        MeetUpDetailFriendModel.Participant(
-            id = 2,
-            name = "Alice",
-            profileImg = "https://example.com/alice.jpg",
-            state = "이동중",
-        ),
-    )
 }
