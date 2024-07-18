@@ -8,10 +8,10 @@ import com.teamkkumul.model.LatePersonModel
 class LatePersonViewHolder(
     private val binding: ItemMeetUpCreateFriendBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun onBind(latePerson: LatePersonModel?) {
+    fun onBind(latePerson: LatePersonModel.LateComers?) {
         with(binding) {
-            ivMeetUpCreateFriendProfileImage.load(latePerson.profileImg)
-            tvMyGroupCreateFrinedProfileName.text = latePerson.name
+            ivMeetUpCreateFriendProfileImage.load(latePerson?.profileImg)
+            tvMyGroupCreateFrinedProfileName.text = latePerson?.name
         }
     }
 }
