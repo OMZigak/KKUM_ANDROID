@@ -27,7 +27,6 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="17dp"
-                android:background="@drawable/ic_profile_empty"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@id/tv_my_group_create_frined_profile_name"
                 app:layout_constraintDimensionRatio="1"
