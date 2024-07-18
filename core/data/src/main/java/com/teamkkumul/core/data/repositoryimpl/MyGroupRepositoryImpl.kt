@@ -3,6 +3,7 @@ package com.teamkkumul.core.data.repositoryimpl
 import com.teamkkumul.core.data.mapper.toMyGroupInfoModel
 import com.teamkkumul.core.data.mapper.toMyGroupMeetUpModel
 import com.teamkkumul.core.data.mapper.toMyGroupMemberModel
+import com.teamkkumul.core.data.mapper.toMyGroupMemberToMeetUp
 import com.teamkkumul.core.data.mapper.toMyGroupModel
 import com.teamkkumul.core.data.mapper.toMyGroupSealedItem
 import com.teamkkumul.core.data.repository.MyGroupRepository
@@ -47,5 +48,11 @@ class MyGroupRepositoryImpl @Inject constructor(
         runCatching {
             val response = myGroupService.getMyGroupMember(meetingId)
             response.data?.toMyGroupMemberModel() ?: throw Exception("null")
+        }
+
+    override suspend fun getMyGroupMemberToMeetUp(meetingId: Int): Result<List<MyGroupMemberModel.Member>> =
+        runCatching {
+            val response = myGroupService.getMyGroupMember(meetingId)
+            response.data?.toMyGroupMemberToMeetUp() ?: throw Exception("null")
         }
 }
