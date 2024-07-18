@@ -48,15 +48,16 @@ internal fun ResponseMeetUpDetailDto.toMeetUpDetailModel(): MeetUpDetailModel =
         time = time,
     )
 
-internal fun ResponseLatePersonDto.toLatePersonModel(): LatePersonModel =
-    LatePersonModel(
-        penalty = penalty,
-        isPastDue = isPastDue,
-        lateComers = lateComers.map { lateComer ->
+internal fun ResponseLatePersonDto.toLatePersonModel(): LatePersonModel {
+    return LatePersonModel(
+        penalty = this.penalty,
+        isPastDue = this.isPastDue.toBoolean(),
+        lateComers = this.lateComers.map {
             LatePersonModel.LateComers(
-                participantId = lateComer.participantId,
-                name = lateComer.name,
-                profileImg = lateComer.profileImg,
+                participantId = it.participantId,
+                name = it.name,
+                profileImg = it.profileImg,
             )
         },
     )
+}
