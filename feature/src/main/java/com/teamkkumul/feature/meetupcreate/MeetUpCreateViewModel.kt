@@ -4,15 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.teamkkumul.core.data.repository.MeetUpCreateLocationRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.model.MeetUpCreateLocationModel
 import com.teamkkumul.model.MeetUpSealedItem
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-class MeetUpCreateViewModel @Inject constructor() : ViewModel() {
+@HiltViewModel
+class MeetUpCreateViewModel @Inject constructor(
+    private val meetUpCreateLocationRepository: MeetUpCreateLocationRepository,
+) : ViewModel() {
 
     private val _meetUpInputState = MutableStateFlow(false)
     val meetUpInputState: StateFlow<Boolean> get() = _meetUpInputState
@@ -26,9 +31,9 @@ class MeetUpCreateViewModel @Inject constructor() : ViewModel() {
     private val _meetUpTime = MutableStateFlow<String>("")
     val meetUpTime: StateFlow<String> get() = _meetUpTime
 
-    private val _location: MutableLiveData<UiState<List<MeetUpCreateLocationModel.Place>>> =
-        MutableLiveData(UiState.Loading)
-    val location: LiveData<UiState<List<MeetUpCreateLocationModel.Place>>> get() = _location
+    private val _meetUpCreateLocationState =
+        MutableStateFlow<UiState<List<MeetUpCreateLocationModel.Location>>>(UiState.Loading)
+    val meetUpCreateLocationState get() = _meetUpCreateLocationState.asStateFlow()
 
     private val _progressLiveData = MutableLiveData<Int>(0)
     val progressLiveData: LiveData<Int> get() = _progressLiveData
@@ -70,10 +75,13 @@ class MeetUpCreateViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun getLocation() {
-        viewModelScope.launch {
-            _location.value = UiState.Empty
-        }
+    fun getMeetUpCreateLocation(q: String) = viewModelScope.launch {
+        meetUpCreateLocationRepository.getMeetUpCreateLocation(q)
+            .onSuccess { meetUpCreateLocationRepository ->
+                _meetUpCreateLocationState.emit(UiState.Success(meetUpCreateLocationRepository))
+            }.onFailure { exception ->
+                _meetUpCreateLocationState.emit(UiState.Failure(exception.message.toString()))
+            }
     }
 
     private fun validateForm() {
@@ -89,45 +97,6 @@ class MeetUpCreateViewModel @Inject constructor() : ViewModel() {
     }
 
     init {
-        val mockLocation = listOf(
-            MeetUpCreateLocationModel.Place(
-                "서울 중구 필동3가 26-1",
-                "동국대학교 서울캠퍼스",
-                "서울 중구 필동로1길 30",
-            ),
-            MeetUpCreateLocationModel.Place(
-                "서울 중구 필동3가 26-1",
-                "숙명여대",
-                "서울 중구 필동로1길 30",
-            ),
-            MeetUpCreateLocationModel.Place(
-                "서울 중구 필동3가 26-1",
-                "동국대학교 서울캠퍼스",
-                "서울 중구 필동로1길 30",
-            ),
-            MeetUpCreateLocationModel.Place(
-                "서울 중구 필동3가 26-1",
-                "동국대학교 서울캠퍼스",
-                "서울 중구 필동로1길 30",
-            ),
-            MeetUpCreateLocationModel.Place(
-                "서울 중구 필동3가 26-1",
-                "동국대학교 서울캠퍼스",
-                "서울 중구 필동로1길 30",
-            ),
-            MeetUpCreateLocationModel.Place(
-                "서울 중구 필동3가 26-1",
-                "동국대학교 서울캠퍼스",
-                "서울 중구 필동로1길 30",
-            ),
-            MeetUpCreateLocationModel.Place(
-                "서울 중구 필동3가 26-1",
-                "동국대학교 서울캠퍼스",
-                "서울 중구 필동로1길 30",
-            ),
-
-        )
-        _location.value = UiState.Success(mockLocation)
     }
 
     init {
