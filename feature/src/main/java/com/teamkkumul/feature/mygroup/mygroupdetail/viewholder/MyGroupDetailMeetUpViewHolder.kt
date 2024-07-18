@@ -9,16 +9,19 @@ import com.teamkkumul.model.MyGroupMeetUpModel
 
 class MyGroupDetailMeetUpViewHolder(
     private val binding: ItemMyGroupRemainMeetUpBinding,
-    private val onMeetUpDetailBtnClicked: () -> Unit,
+    private val onMeetUpDetailBtnClicked: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    private lateinit var currentItem: MyGroupMeetUpModel.Promise
 
     init {
         binding.root.setOnClickListener {
-            onMeetUpDetailBtnClicked()
+            onMeetUpDetailBtnClicked(currentItem.promiseId)
         }
     }
 
     fun onBind(data: MyGroupMeetUpModel.Promise) = with(binding) {
+        currentItem = data
         setDdayTextColor(data)
         tvMeetUpGroupText.visibility = View.GONE
         tvMyGroupRemainMeetUpName.text = data.name
