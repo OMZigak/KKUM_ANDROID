@@ -1,11 +1,13 @@
 package com.teamkkumul.core.data.repositoryimpl
 
+import com.teamkkumul.core.data.mapper.toMembersStatus
 import com.teamkkumul.core.data.mapper.toPromiseModel
 import com.teamkkumul.core.data.mapper.toReadyStatusModel
 import com.teamkkumul.core.data.mapper.toTodayMeetingModel
 import com.teamkkumul.core.data.mapper.toUserModel
 import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.network.api.HomeService
+import com.teamkkumul.model.home.HomeMembersStatus
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import com.teamkkumul.model.home.HomeTodayMeetingModel
 import com.teamkkumul.model.home.UserModel
@@ -43,4 +45,10 @@ internal class HomeRepositoryImpl @Inject constructor(
     override suspend fun patchCompleted(promiseId: Int): Result<Unit> = runCatching {
         homeService.patchCompleted(promiseId)
     }
+
+    override suspend fun getMembersReadyStatus(promiseId: Int): Result<List<HomeMembersStatus.Participant?>> =
+        runCatching {
+            homeService.getMembersReadyStatus(promiseId).data?.participants?.map { it.toMembersStatus() }
+                ?: throw Exception("null")
+        }
 }

@@ -1,6 +1,7 @@
 package com.teamkkumul.core.network.api
 
 import com.teamkkumul.core.network.dto.response.BaseResponse
+import com.teamkkumul.core.network.dto.response.ResponseHomeMembersReadyStatus
 import com.teamkkumul.core.network.dto.response.ResponseHomeReadyStatusDto
 import com.teamkkumul.core.network.dto.response.ResponseHomeUpComingMeetingDto
 import com.teamkkumul.core.network.dto.response.ResponseTodayMeetingDto
@@ -38,4 +39,9 @@ interface HomeService {
     suspend fun patchCompleted(
         @Path("promiseId") promiseId: Int,
     ): BaseResponse<Unit>
+
+    @GET("api/v1/promises/{promiseId}/participants")
+    suspend fun getMembersReadyStatus(
+        @Path("promiseId") promiseId: Int,
+    ): BaseResponse<ResponseHomeMembersReadyStatus?>
 }
