@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.teamkkumul.core.ui.view.ItemDiffCallback
 import com.teamkkumul.feature.databinding.ItemMeetUpCreateFriendBinding
-import com.teamkkumul.model.LatePerson
+import com.teamkkumul.model.LatePersonModel
 
-class LatePersonAdapter() : ListAdapter<LatePerson, LatePersonViewHolder>(DiffUtil) {
+class LatePersonAdapter() : ListAdapter<LatePersonModel, LatePersonViewHolder>(DiffUtil) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,7 +26,7 @@ class LatePersonAdapter() : ListAdapter<LatePerson, LatePersonViewHolder>(DiffUt
     }
 
     companion object {
-        private val DiffUtil = ItemDiffCallback<LatePerson>(
+        private val DiffUtil = ItemDiffCallback<LatePersonModel>(
             onItemsTheSame = { old, new -> old.id == new.id },
             onContentsTheSame = { old, new -> old == new },
         )
