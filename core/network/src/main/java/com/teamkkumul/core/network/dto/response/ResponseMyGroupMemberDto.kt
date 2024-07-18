@@ -12,8 +12,8 @@ data class ResponseMyGroupMemberDto(
 ) {
     @Serializable
     data class Member(
-        @SerialName("id")
-        val id: Int,
+        @SerialName("memberId")
+        val memberId: Int,
         @SerialName("name")
         val name: String,
         @SerialName("profileImg")
