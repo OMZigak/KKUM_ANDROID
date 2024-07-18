@@ -2,7 +2,6 @@ package com.teamkkumul.feature.meetup.readystatus.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.feature.databinding.ItemReadyStatusBinding
-import com.teamkkumul.feature.utils.setEmptyImageUrl
 import com.teamkkumul.model.home.HomeMembersStatus
 
 class ReadyStatusViewHolder(
