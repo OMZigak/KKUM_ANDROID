@@ -1,9 +1,9 @@
 package com.teamkkumul.core.network.api
 
 import com.teamkkumul.core.network.dto.response.BaseResponse
+import com.teamkkumul.core.network.dto.response.ResponseHomeMembersReadyStatus
 import com.teamkkumul.core.network.dto.response.ResponseHomeReadyStatusDto
 import com.teamkkumul.core.network.dto.response.ResponseHomeUpComingMeetingDto
-import com.teamkkumul.core.network.dto.response.ResponseMembersReadyStatus
 import com.teamkkumul.core.network.dto.response.ResponseTodayMeetingDto
 import com.teamkkumul.core.network.dto.response.ResponseUserDto
 import retrofit2.http.GET
@@ -40,8 +40,8 @@ interface HomeService {
         @Path("promiseId") promiseId: Int,
     ): BaseResponse<Unit>
 
-    @PATCH("api/v1/promises/{promiseId}/participants")
+    @GET("api/v1/promises/{promiseId}/participants")
     suspend fun getMembersReadyStatus(
         @Path("promiseId") promiseId: Int,
-    ): BaseResponse<ResponseMembersReadyStatus?>
+    ): BaseResponse<ResponseHomeMembersReadyStatus?>
 }
