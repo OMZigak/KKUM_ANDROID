@@ -6,7 +6,7 @@ sealed class MyGroupDetailMemeberSealedItem {
     ) : MyGroupDetailMemeberSealedItem()
 
     data class Member(
-        val id: Int,
+        val memberId: Int,
         val name: String,
         val profileImg: String?,
     ) : MyGroupDetailMemeberSealedItem()

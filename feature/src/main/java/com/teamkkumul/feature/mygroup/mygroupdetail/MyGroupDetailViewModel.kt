@@ -34,8 +34,8 @@ class MyGroupDetailViewModel @Inject constructor(
         MutableStateFlow<UiState<List<MyGroupMeetUpModel.Promise>>>(UiState.Loading)
     val myGroupMeetUpState get() = _myGroupMeetUpState.asStateFlow()
 
-    fun getMyGroupInfo(memberId: Int) = viewModelScope.launch {
-        myGroupRepository.getMyGroupInfo(memberId)
+    fun getMyGroupInfo(meetingId: Int) = viewModelScope.launch {
+        myGroupRepository.getMyGroupInfo(meetingId)
             .onSuccess { myGroupInfoModel ->
                 _myGroupInfoState.emit(UiState.Success(myGroupInfoModel))
             }
@@ -44,8 +44,8 @@ class MyGroupDetailViewModel @Inject constructor(
             }
     }
 
-    fun getMyGroupMember(memberId: Int) = viewModelScope.launch {
-        myGroupRepository.getMyGroupMember(memberId)
+    fun getMyGroupMember(meetingId: Int) = viewModelScope.launch {
+        myGroupRepository.getMyGroupMember(meetingId)
             .onSuccess { myGroupMemberModel ->
                 _myGroupMemberState.emit(UiState.Success(myGroupMemberModel))
             }.onFailure { exception ->
@@ -53,8 +53,8 @@ class MyGroupDetailViewModel @Inject constructor(
             }
     }
 
-    fun getMyGroupMemberList(memberId: Int) = viewModelScope.launch {
-        myGroupRepository.getMyGroupMemberList(memberId)
+    fun getMyGroupMemberList(meetingId: Int) = viewModelScope.launch {
+        myGroupRepository.getMyGroupMemberList(meetingId)
             .onSuccess {
                 _myGroupMemberListState.emit(UiState.Success(it))
             }.onFailure { exception ->
@@ -62,10 +62,15 @@ class MyGroupDetailViewModel @Inject constructor(
             }
     }
 
-    fun getMyGroupMeetUp(memberId: Int, done: Boolean) = viewModelScope.launch {
-        myGroupRepository.getMyGroupMeetUp(memberId, done)
-            .onSuccess { myGroupMemeberModel ->
-                _myGroupMeetUpState.emit(UiState.Success(myGroupMemeberModel))
+    fun getMyGroupMeetUp(meetingId: Int, done: Boolean) = viewModelScope.launch {
+        myGroupRepository.getMyGroupMeetUp(meetingId, done)
+            .onSuccess { myGroupMemberModel ->
+                if (myGroupMemberModel.isEmpty()) {
+                    _myGroupMeetUpState.emit(UiState.Empty)
+                } else {
+                    _myGroupMeetUpState.emit(UiState.Success(myGroupMemberModel))
+                }
+                _myGroupMeetUpState.emit(UiState.Success(myGroupMemberModel))
             }.onFailure { exception ->
                 _myGroupMeetUpState.emit(UiState.Failure(exception.message.toString()))
             }
