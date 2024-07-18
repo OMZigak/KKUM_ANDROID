@@ -54,27 +54,30 @@ class LatePersonFragment :
         latePersonViewModel.latePersonState.flowWithLifecycle(viewLifeCycle)
             .onEach { latePersonState ->
                 when (latePersonState) {
-                    is UiState.Success -> {
-                        Timber.tag("aa").d(latePersonState.data.penalty.toString())
-                        initPenaltyState(latePersonState.data)
-                        val lateComers = latePersonState.data.lateComers
-                        if (lateComers.isEmpty()) {
-                            binding.viewLatePersonEmpty.visibility = View.VISIBLE
-                            binding.rvLatePerson.visibility = View.GONE
-                        } else {
-                            binding.rvLatePerson.visibility = View.VISIBLE
-                            binding.viewLatePersonEmpty.visibility = View.GONE
-                            latePersonAdapter.submitList(lateComers)
-                        }
-                    }
-
-                    is UiState.Failure -> Timber.tag("aa")
-                        .d(latePersonState.errorMessage)
-
-                    is UiState.Loading -> {}
+                    is UiState.Success -> handleSuccessState(latePersonState.data)
                     else -> Unit
                 }
             }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun handleSuccessState(data: LatePersonModel) {
+        initPenaltyState(data)
+        if (data.lateComers.isEmpty()) {
+            showEmptyState()
+        } else {
+            showLateComers(data.lateComers)
+        }
+    }
+
+    private fun showEmptyState() {
+        binding.viewLatePersonEmpty.visibility = View.VISIBLE
+        binding.rvLatePerson.visibility = View.GONE
+    }
+
+    private fun showLateComers(lateComers: List<LatePersonModel.LateComers>) {
+        binding.rvLatePerson.visibility = View.VISIBLE
+        binding.viewLatePersonEmpty.visibility = View.GONE
+        latePersonAdapter.submitList(lateComers)
     }
 
     private fun initObservePatchMeetUpState() {
