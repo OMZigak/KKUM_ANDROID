@@ -185,5 +185,8 @@
     <string name="my_page_log_out">로그아웃</string>
     <string name="my_page_quit">탈퇴하기</string>
 
+    <!--준비 정보 입력 후 화면-->
+    <string name="ready_status_moving_start">%1$s에 이동을 시작해야 해요</string>
+    <string name="ready_status_ready_start">%1$s에 준비하고,</string>
 
 </resources>

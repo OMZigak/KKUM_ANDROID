@@ -1,7 +1,12 @@
 package com.teamkkumul.feature.meetup.readystatus.readystatus
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.view.View
 import android.widget.ImageView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -18,8 +23,10 @@ import com.teamkkumul.feature.meetup.readystatus.viewholder.ReadyStatusFriendIte
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
+import com.teamkkumul.feature.utils.calculateReadyStartTime
 import com.teamkkumul.feature.utils.getCurrentTime
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.feature.utils.parseMinutesToHoursAndMinutes
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -76,9 +83,48 @@ class ReadyStatusFragment :
 
     private fun updateReadyStatusUI(data: HomeReadyStatusModel?) = with(binding) {
         data ?: return
-        tvHomeReadyTime.text = data.preparationStartAt
-        tvHomeMovingTime.text = data.departureAt
-        tvvHomeArriveTime.text = data.arrivalAt
+
+        // 기본 UI 업데이트
+        updateBasicUI(data)
+
+        if (data.preparationTime != null) {
+            updateReadyAndMovingTimes(data)
+            updateDescriptions(data)
+        } else {
+            binding.groupReadyInfoInput.visibility = View.GONE
+            binding.tvReadyInfoNext.visibility = View.VISIBLE
+        }
+
+        handleButtonClicks(data)
+    }
+
+    private fun updateBasicUI(data: HomeReadyStatusModel?) {
+        binding.tvHomeReadyTime.text = data?.preparationStartAt
+        binding.tvHomeMovingTime.text = data?.departureAt
+        binding.tvvHomeArriveTime.text = data?.arrivalAt
+    }
+
+    private fun updateReadyAndMovingTimes(data: HomeReadyStatusModel) {
+        binding.groupReadyInfoInput.visibility = View.VISIBLE
+        binding.tvReadyInfoNext.visibility = View.GONE
+
+        val newReadyTime =
+            calculateReadyStartTime(data.promiseTime, data.preparationTime, data.travelTime)
+        spannableReadyStartTimeString(newReadyTime)
+
+        val newMovingTime = calculateReadyStartTime(data.promiseTime, 0, data.travelTime)
+        spannableMovingStartTimeString(newMovingTime)
+    }
+
+    private fun updateDescriptions(data: HomeReadyStatusModel) {
+        val formatReadyTime = parseMinutesToHoursAndMinutes(data.preparationTime)
+        binding.tvReadyInfoInputReadyDescription.text = "준비 소요시간: $formatReadyTime"
+
+        val formatMovingTime = parseMinutesToHoursAndMinutes(data.travelTime)
+        binding.tvReadyInfoInputMovingDescription.text = "이동 소요시간: $formatMovingTime"
+    }
+
+    private fun handleButtonClicks(data: HomeReadyStatusModel) {
         when {
             data.preparationStartAt != null && data.departureAt != null && data.arrivalAt != null -> {
                 viewModel.clickCompletedBtn()
@@ -94,9 +140,53 @@ class ReadyStatusFragment :
         }
     }
 
+    private fun spannableReadyStartTimeString(text: String) {
+        val fullText = getString(R.string.ready_status_ready_start, text)
+        val spannable = SpannableString(fullText)
+
+        val start = fullText.indexOf(text)
+        val end = start + text.length
+
+        spannable.setSpan(
+            ForegroundColorSpan(colorOf(R.color.main_color)),
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
+        )
+
+        binding.tvReadyInfoInputReadyTime.text = spannable
+    }
+
+    private fun spannableMovingStartTimeString(text: String) {
+        val fullText = getString(R.string.ready_status_moving_start, text)
+        val spannable = SpannableString(fullText)
+
+        val start = fullText.indexOf(text)
+        val end = start + text.length
+
+        spannable.setSpan(
+            ForegroundColorSpan(colorOf(R.color.main_color)),
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
+        )
+
+        binding.tvReadyInfoInputMovingTime.text = spannable
+    }
+
     private fun initReadyInputBtnClick() {
         binding.tvReadyInfoNext.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_meet_up_container_to_readyInfoInputFragment)
+            findNavController().navigate(
+                R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
+                bundleOf(PROMISE_ID to promiseId),
+            )
+        }
+
+        binding.btnReadyInfoInputEdit.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
+                bundleOf(PROMISE_ID to promiseId),
+            )
         }
     }
 
@@ -204,11 +294,12 @@ class ReadyStatusFragment :
 
     companion object {
         @JvmStatic
-        fun newInstance(promiseId: Int) = ReadyStatusFragment().apply {
-            arguments = Bundle().apply {
-                putInt(PROMISE_ID, promiseId)
+        fun newInstance(promiseId: Int) =
+            ReadyStatusFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(PROMISE_ID, promiseId)
+                }
             }
-        }
     }
 
     override fun onDestroyView() {

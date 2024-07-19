@@ -8,6 +8,8 @@ object KeyStorage {
     const val DATA_NULL = "null"
     const val PROMISE_ID = "promiseId"
     const val MEETING_ID = "meetingId"
+    const val READY_TIME = "readyTime"
+    const val MOVING_TIME = "movingTime"
 }
 
 object PROGRESS {

@@ -19,4 +19,6 @@ data class ResponseMeetUpDetailDto(
     val roadAddress: String? = null,
     @SerialName("time")
     val time: String,
+    @SerialName("promiseName")
+    val promiseName: String,
 )
