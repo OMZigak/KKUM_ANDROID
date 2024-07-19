@@ -2,25 +2,38 @@ package com.teamkkumul.feature.meetupcreate.meetuplevel
 
 import android.view.View
 import android.widget.Button
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.colorOf
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpLevelBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
 import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.animateProgressBar
+import com.teamkkumul.model.MeetUpCreateModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @AndroidEntryPoint
 class MeetUpLevelFragment :
     BindingFragment<FragmentMeetUpLevelBinding>(R.layout.fragment_meet_up_level) {
 
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
+    private var id = -1
+
     override fun initView() {
         val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
         val selectedItems = arguments?.getIntArray("selectedItems")?.toList() ?: emptyList()
@@ -38,6 +51,23 @@ class MeetUpLevelFragment :
         val chipGroups = listOf(meetUpLevel, penalty)
         setupChipGroups(chipGroups, btnCreateMeetUp)
         setupCreateMeetUpButton(btnCreateMeetUp, id, selectedItems)
+        initObserveMeetUpCreate()
+    }
+
+    private fun initObserveMeetUpCreate() {
+        viewModel.meetUpCreateState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    findNavController().navigate(
+                        R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete,
+                        bundleOf(KeyStorage.PROMISE_ID to it.data),
+                    )
+                }
+
+                is UiState.Failure -> Timber.tag("meetupcreate").d(it.errorMessage)
+                else -> {}
+            }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun observeProgress() {
@@ -77,10 +107,58 @@ class MeetUpLevelFragment :
                 putString(KeyStorage.PENALTY, selectedPenalty)
             }
 
-            findNavController().navigate(
-                R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete,
-                bundle,
+            val dressUpLevel = preprocessDressUpLevel(selectedMeetUpLevel)
+            val time = convertToServerTimeFormat(
+                arguments?.getString(KeyStorage.MEET_UP_DATE) ?: "",
             )
+
+            val meetUpCreateModel = MeetUpCreateModel(
+                name = arguments?.getString(KeyStorage.MEET_UP_NAME) ?: "",
+                address = null,
+                dressUpLevel = dressUpLevel,
+                penalty = selectedPenalty,
+                placeName = arguments?.getString(KeyStorage.MEET_UP_LOCATION) ?: "",
+                roadAddress = null,
+                time = "2024-07-07 15:00:00",
+                participants = selectedItems,
+                x = 0.0,
+                y = 0.0,
+            )
+
+            viewModel.postMeetUpCreate(id, meetUpCreateModel)
+        }
+    }
+
+    private fun convertToServerTimeFormat(dateTime: String): String {
+        // Define the input date and time format
+        val inputFormat = SimpleDateFormat("yyyy.MM.dda hh:mm", Locale.getDefault())
+        // Define the output date and time format
+        val outputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+
+        return try {
+            // Parse the input date and time string
+            val date = inputFormat.parse(dateTime) ?: return "Invalid date"
+            // Format the parsed date into the desired output format
+            outputFormat.format(date)
+        } catch (e: ParseException) {
+            // Handle the case where the input format does not match
+            "Invalid date"
+        }
+    }
+
+    private fun preprocessDressUpLevel(dressUpLevel: String): String {
+        // Define a regular expression pattern to match "LV" followed by digits
+        val pattern = Regex("LV\\s*(\\d+)")
+
+        // Find the first match in the input string
+        val matchResult = pattern.find(dressUpLevel)
+
+        return if (matchResult != null) {
+            // Extract the digit part and concatenate with "LV"
+            "LV${matchResult.groupValues[1]}"
+        } else {
+            // Return a default value or an empty string if no match is found
+            "LV1" // or return "" if you prefer
         }
     }
 

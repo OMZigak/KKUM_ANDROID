@@ -8,6 +8,7 @@ import com.teamkkumul.core.data.repository.MeetUpCreateLocationRepository
 import com.teamkkumul.core.data.repository.MyGroupRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.model.MeetUpCreateLocationModel
+import com.teamkkumul.model.MeetUpCreateModel
 import com.teamkkumul.model.MyGroupMemberModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,6 +47,20 @@ class MeetUpCreateViewModel @Inject constructor(
     val meetUpCreateMemberState get() = _meetUpCreateMemberState.asStateFlow()
 
     private val _meetUpName = MutableStateFlow<Boolean>(false)
+
+    private val _meetUpCreateState = MutableStateFlow<UiState<Int>>(UiState.Loading)
+    val meetUpCreateState get() = _meetUpCreateState.asStateFlow()
+
+    fun postMeetUpCreate(meetingId: Int, meetUpCreateModel: MeetUpCreateModel) {
+        viewModelScope.launch {
+            meetUpCreateLocationRepository.postMeetUpCreate(meetingId, meetUpCreateModel)
+                .onSuccess {
+                    _meetUpCreateState.emit(UiState.Success(it))
+                }.onFailure {
+                    _meetUpCreateState.emit(UiState.Failure(it.message.toString()))
+                }
+        }
+    }
 
     fun setMeetUpDate(input: String) {
         viewModelScope.launch {

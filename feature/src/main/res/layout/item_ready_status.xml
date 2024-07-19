@@ -17,8 +17,9 @@
         android:paddingHorizontal="12dp"
         android:paddingVertical="14dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_ready_status_profile"
+            style="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
             setEmptyImageUrl="@{participant.profileImg}"
             android:layout_width="44dp"
             android:layout_height="0dp"

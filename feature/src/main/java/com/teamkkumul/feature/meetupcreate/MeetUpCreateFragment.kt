@@ -31,6 +31,7 @@ class MeetUpCreateFragment :
     BindingFragment<FragmentMeetUpCreateBinding>(R.layout.fragment_meet_up_create) {
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
     private val meetUpCreateDebouncer = Debouncer<String>()
+    private val locationDebouncer = Debouncer<String>()
     private var currentText: String = ""
 
     override fun initView() {
@@ -66,7 +67,7 @@ class MeetUpCreateFragment :
 
     private fun navigateToFriend(id: Int) {
         binding.btnMeetUpCreateNext.setOnClickListener {
-            val meetUpDate = viewModel.meetUpDate.value ?: ""
+            val meetUpDate = (viewModel.meetUpDate.value + viewModel.meetUpTime.value) ?: ""
             val meetUpTime = viewModel.meetUpTime.value ?: ""
             val meetUpLocation = viewModel.meetUpLocation.value ?: ""
             val meetUpName = currentText
@@ -100,11 +101,12 @@ class MeetUpCreateFragment :
 
     private fun setName() = with(binding.etMeetUpName) {
         doAfterTextChanged {
-            meetUpCreateDebouncer.setDelay(
+           /* meetUpCreateDebouncer.setDelay(
                 text.toString(),
                 SET_NAME_DEBOUNCE_DELAY,
                 ::validInput,
-            )
+            )*/
+            validInput(text.toString())
         }
         setOnEditorActionListener { _, actionId, event ->
             (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER))
