@@ -16,13 +16,16 @@
             layout="@layout/view_toolbar"
             app:title="@{@string/my_page_title}" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
             android:id="@+id/iv_my_page_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="136dp"
             android:layout_marginTop="28dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_my_page_profile"
+            app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_my_page" />
