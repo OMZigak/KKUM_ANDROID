@@ -43,6 +43,29 @@ internal fun ResponseMyGroupInfoDto.toMyGroupInfoModel(): MyGroupInfoModel =
         invitationCode = invitationCode,
     )
 
+internal fun ResponseMyGroupMemberDto.toMyGroupMemberToMeetUp(): List<MyGroupMemberModel.Member> =
+    members.map { member ->
+        MyGroupMemberModel.Member(
+            memberId = member.memberId,
+            profileImg = member.profileImg,
+            name = member.name,
+        )
+    }
+
+// my group 참여 인원
+internal fun ResponseMyGroupMemberDto.toMyGroupMemberModel(): MyGroupMemberModel =
+    MyGroupMemberModel(
+        memberCount = memberCount,
+        members = members.map { member ->
+            MyGroupMemberModel.Member(
+                memberId = member.memberId,
+                name = member.name,
+                profileImg = member.profileImg,
+            )
+        },
+    )
+
+// my group 참여 인원 리스트
 internal fun ResponseMyGroupMemberDto.toMyGroupSealedItem(): List<MyGroupDetailMemeberSealedItem> {
     val items = mutableListOf<MyGroupDetailMemeberSealedItem>()
 
@@ -58,24 +81,3 @@ internal fun ResponseMyGroupMemberDto.toMyGroupSealedItem(): List<MyGroupDetailM
     }
     return items
 }
-
-internal fun ResponseMyGroupMemberDto.toMyGroupMemberToMeetUp(): List<MyGroupMemberModel.Member> =
-    members.map { member ->
-        MyGroupMemberModel.Member(
-            memberId = member.memberId,
-            profileImg = member.profileImg,
-            name = member.name,
-        )
-    }
-
-internal fun ResponseMyGroupMemberDto.toMyGroupMemberModel(): MyGroupMemberModel =
-    MyGroupMemberModel(
-        memberCount = memberCount,
-        members = members.map { member ->
-            MyGroupMemberModel.Member(
-                memberId = member.memberId,
-                name = member.name,
-                profileImg = member.profileImg,
-            )
-        },
-    )
