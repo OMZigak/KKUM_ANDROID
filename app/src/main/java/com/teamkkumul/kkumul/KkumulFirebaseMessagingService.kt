@@ -74,7 +74,7 @@ class KkumulFirebaseMessagingService : FirebaseMessagingService() {
     ): Notification {
         val pendingIntent = createPendingIntent(contentId)
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(com.teamkkumul.feature.R.drawable.ic_kkumul)
+            .setSmallIcon(com.teamkkumul.feature.R.drawable.img_kum_logo)
             .setContentTitle(title)
             .setContentText(body)
             .setColor(ContextCompat.getColor(this, com.teamkkumul.feature.R.color.main_color))

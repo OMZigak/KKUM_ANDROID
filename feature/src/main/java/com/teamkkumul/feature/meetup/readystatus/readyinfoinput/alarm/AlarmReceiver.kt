@@ -36,7 +36,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val notificationContent = intent?.getStringExtra(KeyStorage.ALARM_CONTENT) ?: "알람 내용"
 
         val notification = NotificationCompat.Builder(context, KeyStorage.LOCAL_ALARM_CHANNEL)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.img_kum_logo)
             .setContentTitle(notificationTitle)
             .setContentText(notificationContent)
             .setContentIntent(pendingIntent)
