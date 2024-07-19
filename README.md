@@ -18,7 +18,8 @@
 + ***`Social Login`***
 
 <br>
-![image](https://github.com/user-attachments/assets/724214e4-0a81-4860-ad96-f37c2ab55e39)
+
+![image]((https://github.com/user-attachments/assets/724214e4-0a81-4860-ad96-f37c2ab55e39) 
 
 <br>
 
