@@ -18,12 +18,10 @@
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/pb_meet_up_create_complete"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:max="100"
             android:progress="0"
-            android:progressTint="@color/main_color"
             app:indicatorColor="@color/main_color"
             app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create"
             app:trackColor="@color/gray1"
