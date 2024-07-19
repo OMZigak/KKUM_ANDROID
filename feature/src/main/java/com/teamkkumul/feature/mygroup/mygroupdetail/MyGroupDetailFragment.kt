@@ -40,7 +40,6 @@ class MyGroupDetailFragment :
 
     override fun initView() {
         val id = arguments?.getInt(MEETING_ID) ?: -1
-        Timber.tag("invitedfasdf").d(id.toString())
 
         initMemberRecyclerView()
         initMeetUpRecyclerView()
