@@ -54,18 +54,30 @@ class LatePersonFragment :
             .onEach { latePersonState ->
                 when (latePersonState) {
                     is UiState.Success -> handleSuccessState(latePersonState.data)
+                    is UiState.Failure -> showFailureState()
                     else -> Unit
                 }
             }.launchIn(viewLifeCycleScope)
     }
 
     private fun handleSuccessState(data: LatePersonModel) {
+        if (!data.isPastDue) {
+            showFailureState()
+            return
+        }
+
         initPenaltyState(data)
         if (data.lateComers.isEmpty()) {
             showEmptyState()
         } else {
             showLateComers(data.lateComers)
         }
+    }
+
+    private fun showFailureState() {
+        binding.rvLatePerson.visibility = View.GONE
+        binding.viewLatePersonEmpty.visibility = View.GONE
+        binding.viewWaitingEmpty.visibility = View.VISIBLE
     }
 
     private fun showEmptyState() {
