@@ -31,12 +31,14 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
         initObserveMyGroupListState()
         initObserveMyGroupState()
         viewModel.getMyGroupList()
-        viewModel.getName()
         initGetName()
     }
 
     private fun initGetName() {
-        binding.tvMyGroupName.text = viewModel.userName
+        viewModel.getName()
+        viewModel.userName.flowWithLifecycle(viewLifeCycle).onEach {
+            binding.tvMyGroupName.text = it
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun initObserveMyGroupListState() {

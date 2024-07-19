@@ -1,11 +1,13 @@
 package com.teamkkumul.core.network.api
 
+import com.teamkkumul.core.network.dto.request.RequestReadyInfoInputDto
 import com.teamkkumul.core.network.dto.response.BaseResponse
 import com.teamkkumul.core.network.dto.response.ResponseHomeMembersReadyStatus
 import com.teamkkumul.core.network.dto.response.ResponseHomeReadyStatusDto
 import com.teamkkumul.core.network.dto.response.ResponseHomeUpComingMeetingDto
 import com.teamkkumul.core.network.dto.response.ResponseTodayMeetingDto
 import com.teamkkumul.core.network.dto.response.ResponseUserDto
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.Path
@@ -44,4 +46,10 @@ interface HomeService {
     suspend fun getMembersReadyStatus(
         @Path("promiseId") promiseId: Int,
     ): BaseResponse<ResponseHomeMembersReadyStatus?>
+
+    @PATCH("api/v1/promises/{promiseId}/times")
+    suspend fun patchReadyInfoInput(
+        @Path("promiseId") promiseId: Int,
+        @Body requestReadyInfo: RequestReadyInfoInputDto,
+    ): BaseResponse<Unit>
 }

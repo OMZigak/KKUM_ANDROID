@@ -172,4 +172,21 @@
     <string name="tv_late_person_waiting">꾸물이들이 도착하길\n기다리는 중이에요</string>
     <string name="tv_late_person_question">이번 약속의 지각 꾸물이는?</string>
 
+    <!-- 마이페이지 화면 -->
+    <string name="my_page_user_name">꾸물리안</string>
+    <string name="my_page_user_name_text">님</string>
+    <string name="my_page_user_state">Lv. 1 지각대장 꾸물이</string>
+    <string name="my_page_push_alarm">내 푸쉬 알람</string>
+    <string name="my_page_ready_time">준비, 이동을 시작해야 할 시간에</string>
+    <string name="my_page_push_alarm_get">푸쉬 알림을 받을 수 있습니다.</string>
+    <string name="my_page_version_info">버전정보</string>
+    <string name="my_page_version_number">0.1.0</string>
+    <string name="my_page_use_promise">이용약권</string>
+    <string name="my_page_log_out">로그아웃</string>
+    <string name="my_page_quit">탈퇴하기</string>
+
+    <!--준비 정보 입력 후 화면-->
+    <string name="ready_status_moving_start">%1$s에 이동을 시작해야 해요</string>
+    <string name="ready_status_ready_start">%1$s에 준비하고,</string>
+
 </resources>

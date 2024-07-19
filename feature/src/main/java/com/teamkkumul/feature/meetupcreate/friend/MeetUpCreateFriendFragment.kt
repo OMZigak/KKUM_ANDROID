@@ -76,7 +76,6 @@ class MeetUpCreateFriendFragment :
 
     private fun updateNextButton(isEnabled: Boolean) {
         val id = arguments?.getInt(MEETING_ID) ?: -1
-
         with(binding.tvMeetUpFriendPlusNext) {
             this.isEnabled = isEnabled
             if (isEnabled) {
@@ -105,7 +104,6 @@ class MeetUpCreateFriendFragment :
             when (uiState) {
                 is UiState.Success -> {
                     friendAdapter.submitList(uiState.data)
-                    Timber.tag("dfdf").d(uiState.data.toString())
                 }
 
                 is UiState.Failure -> Timber.tag("meet up create friend").d(uiState.errorMessage)

@@ -8,6 +8,7 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.model.MyGroupModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,13 +27,13 @@ class MyGroupViewModel @Inject constructor(
         MutableStateFlow<UiState<List<MyGroupModel.Meeting>>>(UiState.Loading)
     val myGroupListState get() = _myGroupListState.asStateFlow()
 
-    private var _userName: String = "꾸물꿈"
-    val userName get() = _userName
+    private val _userName = MutableStateFlow<String>("")
+    val userName: StateFlow<String> = _userName.asStateFlow()
 
     fun getName() {
         viewModelScope.launch {
             userInfoRepository.getMemberName().collectLatest {
-                _userName = it
+                _userName.value = it
             }
         }
     }

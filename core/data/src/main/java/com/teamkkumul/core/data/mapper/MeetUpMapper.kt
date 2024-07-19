@@ -46,6 +46,7 @@ internal fun ResponseMeetUpDetailDto.toMeetUpDetailModel(): MeetUpDetailModel =
         penalty = penalty,
         placeName = placeName,
         time = time,
+        promiseName = promiseName,
     )
 
 internal fun ResponseLatePersonDto.toLatePersonModel(): LatePersonModel {
