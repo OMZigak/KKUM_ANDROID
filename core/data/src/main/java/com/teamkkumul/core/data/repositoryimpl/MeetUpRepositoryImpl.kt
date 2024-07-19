@@ -41,4 +41,11 @@ class MeetUpRepositoryImpl @Inject constructor(
             )
         }
     }
+
+    override suspend fun patchMeetUpComplete(promiseId: Int): Result<Unit> {
+        return runCatching {
+            val response = meetUpService.patchMeetUpComplete(promiseId)
+            response.data ?: throw Exception("null")
+        }
+    }
 }

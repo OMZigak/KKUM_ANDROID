@@ -4,9 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseAddNewGroupDto(
+data class ResponseEnterInvitationCodeDto(
     @SerialName("meetingId")
     val meetingId: Int,
-    @SerialName("invitationCode")
-    val invitationCode: String,
 )

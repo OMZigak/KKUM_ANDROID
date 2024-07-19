@@ -19,6 +19,9 @@ class LatePersonViewModel @Inject constructor(
     private val _latePersonState = MutableStateFlow<UiState<LatePersonModel>>(UiState.Loading)
     val latePersonState get() = _latePersonState.asStateFlow()
 
+    private val _patchMeetUpState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
+    val patchMeetUpState get() = _patchMeetUpState.asStateFlow()
+
     fun getLateComersList(promiseId: Int) {
         viewModelScope.launch {
             meetUpRepository.getLateComersList(promiseId)
@@ -26,6 +29,18 @@ class LatePersonViewModel @Inject constructor(
                     _latePersonState.emit(UiState.Success(it))
                 }.onFailure { exception ->
                     _latePersonState.emit(UiState.Failure(exception.message.toString()))
+                }
+        }
+    }
+
+    fun patchMeetUpComplete(promiseId: Int) {
+        viewModelScope.launch {
+            _patchMeetUpState.emit(UiState.Loading)
+            meetUpRepository.patchMeetUpComplete(promiseId)
+                .onSuccess {
+                    _patchMeetUpState.emit(UiState.Success(Unit))
+                }.onFailure { exception ->
+                    _patchMeetUpState.emit(UiState.Failure(exception.message.toString()))
                 }
         }
     }

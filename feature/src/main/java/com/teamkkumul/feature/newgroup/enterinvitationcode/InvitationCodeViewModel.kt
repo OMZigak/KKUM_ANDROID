@@ -15,7 +15,7 @@ import javax.inject.Inject
 class InvitationCodeViewModel @Inject constructor(
     private val meetingsRepository: MeetingsRepository
 ) : ViewModel() {
-    private val _meetingsState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
+    private val _meetingsState = MutableStateFlow<UiState<Int>>(UiState.Loading)
     val meetingsState get() = _meetingsState.asStateFlow()
 
     private fun enterInvitationCode(request: String) {

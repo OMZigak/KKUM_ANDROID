@@ -7,6 +7,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.pxToDp
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
@@ -18,7 +19,6 @@ import com.teamkkumul.model.LatePersonModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class LatePersonFragment :
@@ -35,7 +35,9 @@ class LatePersonFragment :
     override fun initView() {
         initRecyclerView()
         initObserveLatePersonState()
+        initObservePatchMeetUpState()
         latePersonViewModel.getLateComersList(promiseId)
+        setupMeetUpCompleteBtn()
     }
 
     private fun initRecyclerView() {
@@ -51,24 +53,61 @@ class LatePersonFragment :
         latePersonViewModel.latePersonState.flowWithLifecycle(viewLifeCycle)
             .onEach { latePersonState ->
                 when (latePersonState) {
+                    is UiState.Success -> handleSuccessState(latePersonState.data)
+                    is UiState.Failure -> showFailureState()
+                    else -> Unit
+                }
+            }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun handleSuccessState(data: LatePersonModel) {
+        if (!data.isPastDue) {
+            showFailureState()
+            return
+        }
+
+        initPenaltyState(data)
+        if (data.lateComers.isEmpty()) {
+            showEmptyState()
+        } else {
+            showLateComers(data.lateComers)
+        }
+    }
+
+    private fun updateViewVisibility(view: View, isVisible: Boolean) {
+        view.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    private fun showFailureState() {
+        updateViewVisibility(binding.rvLatePerson, false)
+        updateViewVisibility(binding.viewLatePersonEmpty, false)
+        updateViewVisibility(binding.viewWaitingEmpty, true)
+    }
+
+    private fun showEmptyState() {
+        updateViewVisibility(binding.rvLatePerson, false)
+        updateViewVisibility(binding.viewLatePersonEmpty, true)
+    }
+
+    private fun showLateComers(lateComers: List<LatePersonModel.LateComers>) {
+        updateViewVisibility(binding.rvLatePerson, true)
+        updateViewVisibility(binding.viewLatePersonEmpty, false)
+        updateViewVisibility(binding.viewWaitingEmpty, false)
+        latePersonAdapter.submitList(lateComers)
+    }
+
+    private fun initObservePatchMeetUpState() {
+        latePersonViewModel.patchMeetUpState.flowWithLifecycle(viewLifeCycle)
+            .onEach { patchMeetUpState ->
+                when (patchMeetUpState) {
                     is UiState.Success -> {
-                        Timber.tag("aa").d(latePersonState.data.penalty.toString())
-                        initPenaltyState(latePersonState.data)
-                        val lateComers = latePersonState.data.lateComers
-                        if (lateComers.isEmpty()) {
-                            binding.viewLatePersonEmpty.visibility = View.VISIBLE
-                            binding.rvLatePerson.visibility = View.GONE
-                        } else {
-                            binding.rvLatePerson.visibility = View.VISIBLE
-                            binding.viewLatePersonEmpty.visibility = View.GONE
-                            latePersonAdapter.submitList(lateComers)
-                        }
+                        toast("약속 마치기 성공 !")
                     }
 
-                    is UiState.Failure -> Timber.tag("aa")
-                        .d(latePersonState.errorMessage)
+                    is UiState.Failure -> {
+                        toast("약속 마치기 실패 ${patchMeetUpState.errorMessage}")
+                    }
 
-                    is UiState.Loading -> {}
                     else -> Unit
                 }
             }.launchIn(viewLifeCycleScope)
@@ -76,6 +115,12 @@ class LatePersonFragment :
 
     private fun initPenaltyState(latePersonModel: LatePersonModel) {
         binding.tvPenaltyDescription.text = latePersonModel.penalty
+    }
+
+    private fun setupMeetUpCompleteBtn() {
+        binding.btnEndMeetUp.setOnClickListener {
+            latePersonViewModel.patchMeetUpComplete(promiseId)
+        }
     }
 
     companion object {
