@@ -102,5 +102,6 @@ class MeetUpCreateLocationFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         _locationAdapter = null
+        viewModel.getMeetUpCreateLocation("")
     }
 }
