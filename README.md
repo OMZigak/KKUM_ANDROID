@@ -7,6 +7,7 @@
 
 <br>
 ## 🛠 𝙏𝙚𝙘𝙝 𝙎𝙩𝙖𝙘𝙠
+
 + ***`Google Recommended Architecture`***
 + `𝙈𝙑𝙑𝙈`
 + `𝙆𝙤𝙩𝙡𝙞𝙣`
@@ -17,9 +18,15 @@
 + `𝙅𝙚𝙩𝙥𝙖𝙘𝙠𝙉𝙖𝙫𝙞𝙜𝙖𝙩𝙞𝙤𝙣`
 + `𝙈𝙪𝙡𝙩𝙞 𝙈𝙤𝙙𝙪𝙡𝙚`
 + `𝙑𝙚𝙧𝙨𝙞𝙤𝙣 𝘾𝙖𝙩𝙖𝙡𝙤𝙜`
++ ***`Repository Pattern`***
++ ***`ViewPager2`***
 + ***`Multi Part`***
 + ***`FCM`***
-+ ***`Social Login`***
++ ***`Social Login (Auto Login)`***
++ ***`KtLint Plugin`***
++ ***`Data Binding`***
++ ***`Timber`***
++ ***`Slack, Notion, Figma`***
 
 <br>
 
