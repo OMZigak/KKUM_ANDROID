@@ -16,4 +16,9 @@ interface HomeRepository {
     suspend fun patchMoving(promiseId: Int): Result<Unit>
     suspend fun patchCompleted(promiseId: Int): Result<Unit>
     suspend fun getMembersReadyStatus(promiseId: Int): Result<List<HomeMembersStatus.Participant?>>
+    suspend fun patchReadyInfoInput(
+        promiseId: Int,
+        preparationTime: Int,
+        travelTime: Int,
+    ): Result<Unit>
 }

@@ -2,14 +2,21 @@ package com.teamkkumul.feature.meetup.readystatus.readyinfoinput
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.teamkkumul.core.data.repository.HomeRepository
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.utils.TimeStorage.END_HOUR
 import com.teamkkumul.feature.utils.TimeStorage.END_MINUTE
 import com.teamkkumul.feature.utils.TimeStorage.START_TIME
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ReadyInfoInputViewModel : ViewModel() {
+@HiltViewModel
+class ReadyInfoInputViewModel @Inject constructor(
+    private val homeRepository: HomeRepository,
+) : ViewModel() {
 
     private val _readyInputState = MutableStateFlow(false)
     val readyInputState: StateFlow<Boolean> get() = _readyInputState
@@ -25,6 +32,23 @@ class ReadyInfoInputViewModel : ViewModel() {
 
     private val _movingMinute = MutableStateFlow(true)
     val movingMinute: StateFlow<Boolean> get() = _movingMinute
+
+    private val _patchReadyInfoInputState = MutableStateFlow<UiState<Boolean>>(UiState.Loading)
+    val patchReadyInfoInputState: StateFlow<UiState<Boolean>> get() = _patchReadyInfoInputState
+
+    fun patchReadyInfoInput(promiseId: Int, readyTime: Int, movingTime: Int) {
+        viewModelScope.launch {
+            homeRepository.patchReadyInfoInput(
+                promiseId = promiseId,
+                preparationTime = readyTime,
+                travelTime = movingTime,
+            ).onSuccess {
+                _patchReadyInfoInputState.emit(UiState.Success(true))
+            }.onFailure {
+                _patchReadyInfoInputState.emit(UiState.Failure(it.message.toString()))
+            }
+        }
+    }
 
     fun setReadyHour(input: String) {
         viewModelScope.launch {

@@ -7,6 +7,7 @@ import com.teamkkumul.core.data.mapper.toTodayMeetingModel
 import com.teamkkumul.core.data.mapper.toUserModel
 import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.network.api.HomeService
+import com.teamkkumul.core.network.dto.request.RequestReadyInfoInputDto
 import com.teamkkumul.model.home.HomeMembersStatus
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import com.teamkkumul.model.home.HomeTodayMeetingModel
@@ -51,4 +52,17 @@ internal class HomeRepositoryImpl @Inject constructor(
             homeService.getMembersReadyStatus(promiseId).data?.participants?.map { it.toMembersStatus() }
                 ?: throw Exception("null")
         }
+
+    override suspend fun patchReadyInfoInput(
+        promiseId: Int,
+        preparationTime: Int,
+        travelTime: Int,
+    ): Result<Unit> {
+        return runCatching {
+            homeService.patchReadyInfoInput(
+                promiseId,
+                RequestReadyInfoInputDto(preparationTime, travelTime),
+            )
+        }
+    }
 }
