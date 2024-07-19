@@ -18,23 +18,115 @@
             android:background="@color/gray0"
             android:paddingHorizontal="14dp">
 
-            <TextView
-                android:id="@+id/tv_ready_info_next"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_ready_info_input"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/shape_radius_8"
                 android:backgroundTint="@color/white0"
-                android:gravity="center_vertical"
-                android:paddingVertical="14dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="14dp"
-                android:text="준비 정보 입력하기"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-                app:drawableEndCompat="@drawable/ic_right_gray_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_ready_info_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:constraint_referenced_ids="btn_ready_info_input_edit,
+                    tv_ready_info_input_ready_time,tv_ready_info_input_moving_time,tv_ready_info_input_ready_description,tv_ready_info_input_moving_description" />
+
+                <TextView
+                    android:id="@+id/tv_ready_info_next"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white0"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="14dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="14dp"
+                    android:text="준비 정보 입력하기"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                    android:visibility="visible"
+                    app:drawableEndCompat="@drawable/ic_right_gray_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_ready_info_input_ready_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/ready_status_ready_start"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_ready_info_input_moving_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/ready_status_moving_start"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ready_info_input_ready_time" />
+
+                <TextView
+                    android:id="@+id/tv_ready_info_input_ready_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:text="준비 소요 시간: 30분"
+                    android:textAppearance="@style/TextAppearance.Kkumul.label_02"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ready_info_input_moving_time" />
+
+                <TextView
+                    android:id="@+id/tv_ready_info_input_moving_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center_vertical"
+                    android:text="이동 소요 시간: 1시간 30분"
+                    android:textAppearance="@style/TextAppearance.Kkumul.label_02"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ready_info_input_ready_description" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_ready_info_input_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/gray0"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="19dp"
+                    android:paddingVertical="4dp"
+                    android:text="수정"
+                    android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
+                    android:textColor="@color/gray6"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_ready_info_input_moving_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_ready_info_input_ready_description" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_ready_my_status_text"
@@ -44,7 +136,7 @@
                 android:text="나의 준비 현황"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_01"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_ready_info_next" />
+                app:layout_constraintTop_toBottomOf="@id/cl_ready_info_input" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_home_today_info_list"
@@ -184,6 +276,9 @@
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="72dp"
                     android:layout_marginEnd="22dp"
+                    android:ellipsize="none"
+                    android:padding="0dp"
+                    android:singleLine="true"
                     android:text="@string/home_btn_ready_text"
                     android:textAppearance="@style/TextAppearance.Kkumul.body_05"
                     android:textColor="@color/main_color"
@@ -199,6 +294,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="22dp"
+                    android:ellipsize="none"
+                    android:padding="0dp"
+                    android:singleLine="true"
                     android:text="@string/home_btn_moving_text"
                     android:textAppearance="@style/TextAppearance.Kkumul.body_05"
                     android:textColor="@color/gray3"
@@ -214,6 +312,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="18dp"
+                    android:ellipsize="none"
+                    android:padding="0dp"
+                    android:singleLine="true"
                     android:text="@string/home_btn_arrive_text"
                     android:textAppearance="@style/TextAppearance.Kkumul.body_05"
                     android:textColor="@color/gray3"
