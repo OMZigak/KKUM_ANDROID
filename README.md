@@ -2,6 +2,10 @@
 
 <br>
 
+![image](https://github.com/user-attachments/assets/4bd78378-3597-4f9b-9414-cff7db1e7b35)
+
+
+<br>
 ## 🛠 𝙏𝙚𝙘𝙝 𝙎𝙩𝙖𝙘𝙠
 + ***`Google Recommended Architecture`***
 + `𝙈𝙑𝙑𝙈`
@@ -19,9 +23,6 @@
 
 <br>
 
-![image](https://github.com/user-attachments/assets/4bd78378-3597-4f9b-9414-cff7db1e7b35)
-
-
 <br>
 
 ## 💚 𝘾𝙤𝙣𝙩𝙧𝙞𝙗𝙪𝙩𝙤𝙧𝙨
@@ -29,6 +30,13 @@
 |                                          SOPT 34th 안드로이드                                           |                             [Chanwoo Bae](https://github.com/chanubc)                              |                             [Yoonseo Kim](https://github.com/yskim6772)                             |                             [Hyoeun Joo](https://github.com/hyoeunjoo)                             |
 |:--------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------:|
 | ![image](https://github.com/OMZigak/ANDROID/assets/137873124/38a4a51d-20a4-44a8-bd99-1c83fa306b44) | ![image](https://github.com/OMZigak/ANDROID/assets/137873124/dec9de40-9db6-41cc-8079-04e2d149e203) | ![image](https://github.com/OMZigak/ANDROID/assets/137873124/7ef723fe-58c4-4923-afd8-a8567996be13) | ![image](https://github.com/OMZigak/ANDROID/assets/137873124/186b193b-d3bf-45c0-bac6-0ef8b2063d03) |
+
+
+|                                          SOPT 34th 안드로이드                                           |                             [Chanwoo Bae](https://github.com/chanubc)                              |                             [Yoonseo Kim](https://github.com/yskim6772)                             |                             [Hyoeun Joo](https://github.com/hyoeunjoo)                             |
+|:--------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------:|
+| ![image](https://github.com/OMZigak/ANDROID/assets/137873124/38a4a51d-20a4-44a8-bd99-1c83fa306b44) | ![image](https://github.com/OMZigak/ANDROID/assets/137873124/dec9de40-9db6-41cc-8079-04e2d149e203) | ![image](https://github.com/OMZigak/ANDROID/assets/137873124/7ef723fe-58c4-4923-afd8-a8567996be13) | ![image](https://github.com/OMZigak/ANDROID/assets/137873124/186b193b-d3bf-45c0-bac6-0ef8b2063d03) |
+|                                          FCM, 로컬 알람, 홈화면 구현                                          |                                            온보딩, 모임 추가화면                                            |                                            약속추가, 모임 상세 화면                                            |
+
 
 <br>
 
