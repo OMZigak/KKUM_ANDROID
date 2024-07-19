@@ -18,7 +18,9 @@
 + ***`Social Login`***
 
 <br>
+![표지](https://github.com/user-attachments/assets/724214e4-0a81-4860-ad96-f37c2ab55e39)
 
+<br>
 
 ## 💚 𝘾𝙤𝙣𝙩𝙧𝙞𝙗𝙪𝙩𝙤𝙧𝙨
 
