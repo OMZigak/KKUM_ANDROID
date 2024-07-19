@@ -18,6 +18,7 @@ import timber.log.Timber
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
         val tabIndex = intent?.getIntExtra(KeyStorage.TAB_INDEX, 0) ?: 0
+        val promiseId = intent?.getIntExtra(KeyStorage.PROMISE_ID, -1) ?: -1 // 추가된 부분
 
         val pendingIntent = NavDeepLinkBuilder(context)
             .setComponentName(MainActivity::class.java)
@@ -26,6 +27,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setArguments(
                 Bundle().apply {
                     putInt(KeyStorage.TAB_INDEX, tabIndex)
+                    putInt(KeyStorage.PROMISE_ID, promiseId) // 추가된 부분
                 },
             )
             .createPendingIntent()

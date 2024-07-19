@@ -176,6 +176,7 @@ class ReadyInfoInputFragment :
                 getString(R.string.ready_info_input_ready_title),
                 getString(R.string.ready_info_input_ready_content, "열기팟", "모각작"),
                 0,
+                promiseId,
             )
 
             val movingTime = calculateFutureTime(movingHour, movingMinute)
@@ -184,6 +185,7 @@ class ReadyInfoInputFragment :
                 getString(R.string.ready_info_input_ready_title),
                 getString(R.string.ready_info_input_ready_content, "열기팟", "모각작"),
                 1,
+                promiseId,
             )
 
             viewModel.patchReadyInfoInput(promiseId, readyTime, movingTime)
@@ -212,6 +214,7 @@ class ReadyInfoInputFragment :
         alarmTitle: String,
         alarmContent: String,
         requestCode: Int,
+        promiseId: Int, // 추가된 파라미터
     ) {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
@@ -224,6 +227,7 @@ class ReadyInfoInputFragment :
             putExtra(KeyStorage.ALARM_TITLE, alarmTitle)
             putExtra(KeyStorage.ALARM_CONTENT, alarmContent)
             putExtra(KeyStorage.TAB_INDEX, 1)
+            putExtra(KeyStorage.PROMISE_ID, promiseId) // 추가된 부분
         }
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext(),

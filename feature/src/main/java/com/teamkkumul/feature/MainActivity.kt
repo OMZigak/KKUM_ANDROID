@@ -24,7 +24,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         binding.bnvHome.setupWithNavController(navController)
         setBottomNaviVisible(navController)
         updateStatusBarColor(navController)
-        navigateToMeetUpContainer(navController)
+//        navigateToMeetUpContainer(navController)
     }
 
     private fun setBottomNaviVisible(navController: NavController) {
