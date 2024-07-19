@@ -21,6 +21,7 @@ interface MyGroupService {
     @GET("/api/v1/meetings/{meetingId}/members")
     suspend fun getMyGroupMember(
         @Path("meetingId") meetingId: Int,
+        @Query("exclude") exclude: String = "me",
     ): BaseResponse<ResponseMyGroupMemberDto>
 
     @GET("/api/v1/meetings/{meetingId}/promises")
