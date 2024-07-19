@@ -14,8 +14,8 @@ internal class MeetingsRepositoryImpl @Inject constructor(
             meetingsService.addNewGroup(RequestAddNewGroupDto(request)).data?.invitationCode ?: throw Exception("data is null")
         }
 
-    override suspend fun enterInvitationCode(request: String): Result<Unit> =
+    override suspend fun enterInvitationCode(request: String): Result<Int> =
         runCatching {
-            meetingsService.enterInvitationCode(RequestEnterInvitationCodeDto(request))
+            meetingsService.enterInvitationCode(RequestEnterInvitationCodeDto(request)).data?.meetingId ?: throw Exception("data is null")
         }
 }

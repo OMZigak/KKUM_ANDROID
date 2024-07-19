@@ -8,6 +8,12 @@ object KeyStorage {
     const val DATA_NULL = "null"
     const val PROMISE_ID = "promiseId"
     const val MEETING_ID = "meetingId"
+    const val MEET_UP_LEVEL = "meetUpLevel"
+    const val PENALTY = "penalty"
+    const val MEET_UP_TIME = "meetUpTime"
+    const val MEET_UP_DATE = "meetUpDate"
+    const val MEET_UP_LOCATION = "meetUpLocation"
+    const val MEET_UP_NAME = "meetUpName"
     const val READY_TIME = "readyTime"
     const val MOVING_TIME = "movingTime"
 }

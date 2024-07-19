@@ -1,8 +1,11 @@
 package com.teamkkumul.feature.newgroup.enterinvitationcode
 
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
@@ -11,9 +14,13 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentEnterInvitationCodeBinding
 import com.teamkkumul.feature.utils.Debouncer
+import com.teamkkumul.feature.utils.KeyStorage
+import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class EnterInvitationCodeFragment :
@@ -53,13 +60,20 @@ class EnterInvitationCodeFragment :
     }
 
     private fun observeViewModel() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.meetingsState.collect { state ->
+        val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
+        viewModel.meetingsState
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+            .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
                         binding.ivInvitationCodeCheck.visibility = View.VISIBLE
                         delay(500L)
-                        findNavController().navigate(R.id.action_fragment_enter_invitation_code_to_fragment_my_group_detail)
+                        val meetingId = state.data
+                        findNavController().navigate(
+                            R.id.action_fragment_enter_invitation_code_to_fragment_my_group_detail,
+                            bundleOf(MEETING_ID to meetingId),
+                        )
+                        Timber.tag("첫번째보냄").d(meetingId.toString())
                     }
                     is UiState.Failure -> {
                         setErrorState(getString(R.string.set_enter_invitation_code_error_message))
@@ -67,7 +81,7 @@ class EnterInvitationCodeFragment :
                     else -> Unit
                 }
             }
-        }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun initInvitationCode() {

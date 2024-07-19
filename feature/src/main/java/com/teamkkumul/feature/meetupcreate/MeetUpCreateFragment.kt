@@ -66,11 +66,20 @@ class MeetUpCreateFragment :
 
     private fun navigateToFriend(id: Int) {
         binding.btnMeetUpCreateNext.setOnClickListener {
+            val meetUpDate = viewModel.meetUpDate.value ?: ""
+            val meetUpTime = viewModel.meetUpTime.value ?: ""
+            val meetUpLocation = viewModel.meetUpLocation.value ?: ""
+            val meetUpName = currentText
+            val bundle = bundleOf(
+                KeyStorage.MEETING_ID to id,
+                KeyStorage.MEET_UP_TIME to meetUpTime,
+                KeyStorage.MEET_UP_DATE to meetUpDate,
+                KeyStorage.MEET_UP_LOCATION to meetUpLocation,
+                KeyStorage.MEET_UP_NAME to meetUpName,
+            )
             findNavController().navigate(
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
-                bundleOf(
-                    KeyStorage.MEETING_ID to id,
-                ),
+                bundle,
             )
         }
     }
