@@ -63,23 +63,6 @@ class EnterInvitationCodeFragment :
 
     private fun observeViewModel() {
         val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
-//            viewModel.meetingsState.collect { state ->
-//                when (state) {
-//                    is UiState.Success -> {
-//                        binding.ivInvitationCodeCheck.visibility = View.VISIBLE
-//                        delay(500L)
-//                        findNavController().navigate(
-//                            R.id.action_fragment_enter_invitation_code_to_fragment_my_group_detail,
-//                            bundleOf(MEETING_ID to id),
-//                        )
-//                        Timber.tag("첫번째보냄").d(id.toString())
-//                    }
-//                    is UiState.Failure -> {
-//                        setErrorState(getString(R.string.set_enter_invitation_code_error_message))
-//                    }
-//                    else -> Unit
-//                }
-//            }
         viewModel.meetingsState
             .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
             .onEach { state ->
