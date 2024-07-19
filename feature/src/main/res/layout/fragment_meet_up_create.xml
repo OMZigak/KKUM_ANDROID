@@ -16,16 +16,16 @@
             layout="@layout/view_toolbar"
             app:title="@{@string/set_profile_title}" />
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/pb_meet_up_create"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:max="100"
             android:progress="0"
-            android:progressDrawable="@drawable/pb_meet_up_create"
-            android:progressTint="@color/main_color"
-            app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create" />
+            app:indicatorColor="@color/main_color"
+            app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create"
+            app:trackColor="@color/gray1"
+            app:trackStopIndicatorSize="0dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

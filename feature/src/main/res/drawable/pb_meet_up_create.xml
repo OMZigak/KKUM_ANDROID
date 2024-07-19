@@ -2,23 +2,20 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="@color/gray1" />
+            <solid android:color="@color/white0" />
+            <corners android:radius="60dp" />
         </shape>
     </item>
-
-    <item android:id="@android:id/secondaryProgress">
-        <clip>
-            <shape>
-                <solid android:color="@color/main_color" />
-            </shape>
-        </clip>
-    </item>
-
     <item android:id="@android:id/progress">
-        <clip>
+        <scale
+            android:scaleWidth="100%"
+            android:scaleHeight="100%"
+            android:scaleGravity="left"
+            android:scaleType="fitXY">
             <shape>
+                <corners android:radius="60dp" />
                 <solid android:color="@color/main_color" />
             </shape>
-        </clip>
+        </scale>
     </item>
 </layer-list>

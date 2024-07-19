@@ -27,7 +27,15 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
     override fun initView() {
         viewModel.getMyPageUserInfo()
         initObserveMyPageState()
+        initGetName()
         setSpanText()
+    }
+
+    private fun initGetName() {
+        viewModel.getName()
+        viewModel.userName.flowWithLifecycle(viewLifeCycle).onEach {
+            binding.tvMyPageName.text = it
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun initObserveMyPageState() {
