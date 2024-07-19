@@ -1,7 +1,6 @@
 package com.teamkkumul.feature.meetupcreate.friend
 
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -9,14 +8,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.pxToDp
-import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpFriendPlusBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
-import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.itemdecorator.GridSpacingItemDecoration
@@ -33,6 +30,8 @@ class MeetUpCreateFriendFragment :
 
     private var _friendAdapter: MeetUpCreateFriendAdapter? = null
     private val friendAdapter get() = requireNotNull(_friendAdapter)
+
+    private var selectedItems: List<Int> = emptyList()
 
     override fun initView() {
         val id = arguments?.getInt(MEETING_ID) ?: -1
@@ -57,7 +56,8 @@ class MeetUpCreateFriendFragment :
     private fun initRecyclerView() {
         _friendAdapter = MeetUpCreateFriendAdapter(
             { selectedItem ->
-                checkSelectedItems(selectedItem)
+                selectedItems = selectedItem
+                Timber.tag("sss").d(selectedItem.toString())
             },
             { isSelected ->
                 updateNextButton(isSelected)
@@ -70,20 +70,17 @@ class MeetUpCreateFriendFragment :
         }
     }
 
-    private fun checkSelectedItems(selectedItems: List<Int>) {
-        toast("Selected items: $selectedItems")
-    }
-
     private fun updateNextButton(isEnabled: Boolean) {
-        val id = arguments?.getInt(MEETING_ID) ?: -1
-
         with(binding.tvMeetUpFriendPlusNext) {
             this.isEnabled = isEnabled
             if (isEnabled) {
                 setOnClickListener {
+                    val bundle = arguments?.apply {
+                        putIntArray("selectedItems", selectedItems.toIntArray())
+                    }
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_create_friend_to_fragment_meet_up_level,
-                        bundleOf(KeyStorage.MEETING_ID to id),
+                        bundle,
                     )
                 }
                 ViewCompat.setBackgroundTintList(

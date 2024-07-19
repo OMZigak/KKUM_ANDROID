@@ -13,13 +13,20 @@ import com.teamkkumul.feature.databinding.FragmentMeetUpLevelBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
 import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.animateProgressBar
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
+@AndroidEntryPoint
 class MeetUpLevelFragment :
     BindingFragment<FragmentMeetUpLevelBinding>(R.layout.fragment_meet_up_level) {
 
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
     override fun initView() {
         val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
+        val selectedItems = arguments?.getIntArray("selectedItems")?.toList() ?: emptyList()
+
+        Timber.d("Selected Items: $selectedItems")
+        Timber.d("Meeting ID: $id")
 
         viewModel.setProgressBar(75)
         observeProgress()
@@ -30,7 +37,7 @@ class MeetUpLevelFragment :
 
         val chipGroups = listOf(meetUpLevel, penalty)
         setupChipGroups(chipGroups, btnCreateMeetUp)
-        setupCreateMeetUpButton(btnCreateMeetUp)
+        setupCreateMeetUpButton(btnCreateMeetUp, id, selectedItems)
     }
 
     private fun observeProgress() {
@@ -57,9 +64,23 @@ class MeetUpLevelFragment :
         }
     }
 
-    private fun setupCreateMeetUpButton(button: Button) {
+    private fun setupCreateMeetUpButton(button: Button, id: Int, selectedItems: List<Int>) {
         button.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete)
+            val selectedMeetUpLevel = getSelectedChipText(binding.cgMeetUpLevel)
+            val selectedPenalty = getSelectedChipText(binding.cgSetPenalty)
+
+            Timber.d("Selected Meet Up Level~: $selectedMeetUpLevel")
+            Timber.d("Selected Penalty~: $selectedPenalty")
+
+            val bundle = arguments?.apply {
+                putString(KeyStorage.MEET_UP_LEVEL, selectedMeetUpLevel)
+                putString(KeyStorage.PENALTY, selectedPenalty)
+            }
+
+            findNavController().navigate(
+                R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete,
+                bundle,
+            )
         }
     }
 
@@ -92,5 +113,15 @@ class MeetUpLevelFragment :
             (0 until chipGroup.childCount).any { (chipGroup.getChildAt(it) as Chip).isChecked }
         }
         button.isEnabled = isAnyChipSelected
+    }
+
+    private fun getSelectedChipText(chipGroup: ChipGroup): String {
+        for (i in 0 until chipGroup.childCount) {
+            val chip = chipGroup.getChildAt(i) as Chip
+            if (chip.isChecked) {
+                return chip.text.toString()
+            }
+        }
+        return ""
     }
 }
