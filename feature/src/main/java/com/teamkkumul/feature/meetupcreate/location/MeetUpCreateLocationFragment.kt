@@ -28,6 +28,7 @@ class MeetUpCreateLocationFragment :
     private val locationAdapter get() = requireNotNull(_locationAdapter)
 
     override fun initView() {
+        viewModel.setEmptyLocationList()
         initRecyclerView()
         initObserveMeetUpLocationState()
         updateNextButton(false)
@@ -102,6 +103,5 @@ class MeetUpCreateLocationFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         _locationAdapter = null
-        viewModel.getMeetUpCreateLocation("")
     }
 }

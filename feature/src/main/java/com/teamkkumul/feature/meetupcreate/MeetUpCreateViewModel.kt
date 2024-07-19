@@ -97,6 +97,12 @@ class MeetUpCreateViewModel @Inject constructor(
             }
     }
 
+    fun setEmptyLocationList() {
+        viewModelScope.launch {
+            _meetUpCreateLocationState.emit(UiState.Loading)
+        }
+    }
+
     private fun validateForm() {
         viewModelScope.launch {
             val isFormValid =
