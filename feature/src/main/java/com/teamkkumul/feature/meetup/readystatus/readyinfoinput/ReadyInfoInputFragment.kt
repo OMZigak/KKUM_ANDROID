@@ -180,10 +180,10 @@ class ReadyInfoInputFragment :
 
     private fun initReadyInputBtnClick() {
         binding.btnReadyInfoNext.setOnClickListener {
-            val readyHour = binding.etReadyStatusReadHour.text.toString().toInt()
-            val readyMinute = binding.etReadyStatusReadyMinute.text.toString().toInt()
-            val movingHour = binding.etReadyStatusMovingHour.text.toString().toInt()
-            val movingMinute = binding.etReadyStatusMovingMinute.text.toString().toInt()
+            val readyHour = binding.etReadyStatusReadHour.text.toString().toIntOrNull() ?: 0
+            val readyMinute = binding.etReadyStatusReadyMinute.text.toString().toIntOrNull() ?: 0
+            val movingHour = binding.etReadyStatusMovingHour.text.toString().toIntOrNull() ?: 0
+            val movingMinute = binding.etReadyStatusMovingMinute.text.toString().toIntOrNull() ?: 0
 
             // 준비 시작 알람 설정
             val readyTime = calculateFutureTime(readyHour, readyMinute)
