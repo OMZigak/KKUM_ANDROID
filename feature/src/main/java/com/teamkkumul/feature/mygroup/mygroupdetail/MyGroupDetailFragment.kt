@@ -37,26 +37,32 @@ class MyGroupDetailFragment :
     private val meetUpAdapter get() = requireNotNull(_meetUpAdapter)
 
     private var code: String = ""
+    private var currentId: Int = -1
 
     override fun initView() {
         val id = arguments?.getInt(MEETING_ID) ?: -1
 
+        if (id != -1) {
+            currentId = id
+        }
+
         initMemberRecyclerView()
         initMeetUpRecyclerView()
-        viewModel.getMyGroupInfo(id)
-        viewModel.getMyGroupMember(id)
-        viewModel.getMyGroupMeetUp(id, false)
-        viewModel.getMyGroupMemberList(id)
+        viewModel.getMyGroupInfo(currentId)
+        viewModel.getMyGroupMember(currentId)
+        viewModel.getMyGroupMeetUp(currentId, false)
+        viewModel.getMyGroupMemberList(currentId)
 
         initObserveMyGroupInfoState()
         initObserveMemberState()
         initObserveMyGroupMeetUpState()
         initObserveMemberListState()
+        initObserveMyGroupInfoState()
 
         binding.extendedFab.setOnClickListener {
             findNavController().navigate(
                 R.id.action_myGroupDetailFragment_to_meetUpCreateFragment,
-                bundleOf(MEETING_ID to id),
+                bundleOf(MEETING_ID to currentId),
             )
         }
     }
@@ -85,6 +91,7 @@ class MyGroupDetailFragment :
                 is UiState.Success -> {
                     successMyGroupMemberState(uiState.data)
                 }
+
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
@@ -130,11 +137,14 @@ class MyGroupDetailFragment :
     private fun initMemberRecyclerView() {
         _memberAdapter = MyGroupDetailFriendAdapter(
             onPlusBtnClicked = {
-                initObserveMyGroupInfoState()
-                val dialog = DialogInvitationCodeFragment.newInstance(
+                findNavController().navigate(
+                    R.id.fragment_dialog_invitation_code,
+                    bundleOf("code" to code),
+                )
+               /* val dialog = DialogInvitationCodeFragment.newInstance(
                     code,
                 )
-                dialog.show(parentFragmentManager, "DialogInvitationCodeFragment")
+                dialog.show(parentFragmentManager, "DialogInvitationCodeFragment")*/
             },
         )
         binding.rvMyGroupFriendList.apply {
