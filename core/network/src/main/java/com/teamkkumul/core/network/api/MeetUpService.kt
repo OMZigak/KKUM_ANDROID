@@ -5,6 +5,7 @@ import com.teamkkumul.core.network.dto.response.ResponseLatePersonDto
 import com.teamkkumul.core.network.dto.response.ResponseMeetUpDetailDto
 import com.teamkkumul.core.network.dto.response.ResponseMeetUpParticipantDto
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.Path
 
 interface MeetUpService {
@@ -22,4 +23,9 @@ interface MeetUpService {
     suspend fun getLateComersList(
         @Path("promiseId") promiseId: Int,
     ): BaseResponse<ResponseLatePersonDto>
+
+    @PATCH("/api/v1/promises/{promiseId}/completion")
+    suspend fun patchMeetUpComplete(
+        @Path("promiseId") promiseId: Int,
+    ): BaseResponse<Unit>
 }
