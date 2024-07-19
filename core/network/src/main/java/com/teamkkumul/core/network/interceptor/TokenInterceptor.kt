@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
@@ -34,15 +35,13 @@ class TokenInterceptor @Inject constructor(
 
         if (response.code == CODE_TOKEN_EXPIRE) {
             response.close()
+            val refreshToken = runBlocking {
+                defaultKumulPreferenceDatasource.refreshToken.first()
+            }
             val refreshTokenRequest = originalRequest.newBuilder().get()
                 .url("${BuildConfig.KKUMUL_BASE_URL}/api/v1/auth/reissue")
-                .post("".toRequestBody(null))
-                .addHeader(
-                    AUTHORIZATION,
-                    runBlocking {
-                        defaultKumulPreferenceDatasource.refreshToken.first().trim()
-                    }, // trim() 사용
-                )
+                .post("".toRequestBody("application/json".toMediaType()))
+                .addHeader(AUTHORIZATION, refreshToken)
                 .build()
             val refreshTokenResponse = chain.proceed(refreshTokenRequest)
 
@@ -53,18 +52,17 @@ class TokenInterceptor @Inject constructor(
                             ?: throw IllegalStateException("refreshTokenResponse is null $refreshTokenResponse"),
                     )
 
+                refreshTokenResponse.close()
                 runBlocking {
                     responseRefresh.data?.let {
                         defaultKumulPreferenceDatasource.updateAccessToken(
-                            BEARER + it.accessToken.trim(), // trim() 사용
+                            it.accessToken,
                         )
                         defaultKumulPreferenceDatasource.updateRefreshToken(
-                            BEARER + it.refreshToken.trim(), // trim() 사용
+                            it.refreshToken,
                         )
                     }
                 }
-
-                refreshTokenResponse.close()
 
                 val newRequest = originalRequest.newAuthBuilder()
                 return chain.proceed(newRequest)
@@ -89,8 +87,8 @@ class TokenInterceptor @Inject constructor(
         this.newBuilder().addHeader(
             AUTHORIZATION,
             runBlocking {
-                BEARER + defaultKumulPreferenceDatasource.accessToken.first().trim()
-            }, // trim() 사용
+                BEARER + defaultKumulPreferenceDatasource.accessToken.first()
+            },
         ).build()
 
     companion object {
