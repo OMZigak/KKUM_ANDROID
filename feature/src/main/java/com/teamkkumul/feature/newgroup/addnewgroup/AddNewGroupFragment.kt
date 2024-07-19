@@ -1,8 +1,10 @@
 package com.teamkkumul.feature.newgroup.addnewgroup
 
+import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
@@ -34,6 +36,7 @@ class AddNewGroupFragment :
                 is UiState.Success -> {
                     showInvitationDialog(it.data)
                 }
+
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
@@ -87,8 +90,10 @@ class AddNewGroupFragment :
     }
 
     private fun showInvitationDialog(invitationCode: String) {
-        val dialog = DialogInvitationCodeFragment.newInstance(invitationCode)
-        dialog.show(parentFragmentManager, "DialogInvitationCodeFragment")
+        findNavController().navigate(
+            R.id.fragment_dialog_invitation_code,
+            bundleOf("code" to invitationCode),
+        )
     }
 
     companion object {

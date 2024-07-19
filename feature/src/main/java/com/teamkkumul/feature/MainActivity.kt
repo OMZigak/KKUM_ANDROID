@@ -1,14 +1,12 @@
 package com.teamkkumul.feature
 
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.core.ui.util.context.statusBarColorOf
 import com.teamkkumul.feature.databinding.ActivityMainBinding
-import com.teamkkumul.feature.utils.KeyStorage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +22,6 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         binding.bnvHome.setupWithNavController(navController)
         setBottomNaviVisible(navController)
         updateStatusBarColor(navController)
-        navigateToMeetUpContainer(navController)
     }
 
     private fun setBottomNaviVisible(navController: NavController) {
@@ -42,17 +39,6 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                 statusBarColorOf(R.color.main_color)
             } else {
                 statusBarColorOf(R.color.white0)
-            }
-        }
-    }
-
-    private fun navigateToMeetUpContainer(navController: NavController) {
-        intent?.action?.let { action ->
-            if (action == "android.intent.action.MAIN") {
-                navController.navigate(
-                    R.id.fragment_meet_up_container,
-                    bundleOf(KeyStorage.TAB_INDEX to 1),
-                )
             }
         }
     }

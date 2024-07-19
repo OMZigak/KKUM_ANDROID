@@ -39,12 +39,28 @@ class ReadyInfoInputFragment :
     private val promiseId: Int by lazy {
         requireArguments().getInt(KeyStorage.PROMISE_ID)
     }
+    private var promiseName: String? = null
 
     override fun initView() {
         initHideKeyBoard()
         initSetEditText()
         initObserveState()
         initReadyInputBtnClick()
+        initObserveMeetUpDetailState()
+    }
+
+    private fun initObserveMeetUpDetailState() {
+        viewModel.getMeetUpDetail(promiseId)
+        viewModel.meetUpDetailState.flowWithLifecycle(viewLifeCycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    promiseName = state.data.promiseName
+                }
+
+                is UiState.Failure -> Timber.tag("readyinput").d(state.toString())
+                else -> {}
+            }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun initHideKeyBoard() {
@@ -164,26 +180,28 @@ class ReadyInfoInputFragment :
 
     private fun initReadyInputBtnClick() {
         binding.btnReadyInfoNext.setOnClickListener {
-            val readyHour = binding.etReadyStatusReadHour.text.toString().toInt()
-            val readyMinute = binding.etReadyStatusReadyMinute.text.toString().toInt()
-            val movingHour = binding.etReadyStatusMovingHour.text.toString().toInt()
-            val movingMinute = binding.etReadyStatusMovingMinute.text.toString().toInt()
+            val readyHour = binding.etReadyStatusReadHour.text.toString().toIntOrNull() ?: 0
+            val readyMinute = binding.etReadyStatusReadyMinute.text.toString().toIntOrNull() ?: 0
+            val movingHour = binding.etReadyStatusMovingHour.text.toString().toIntOrNull() ?: 0
+            val movingMinute = binding.etReadyStatusMovingMinute.text.toString().toIntOrNull() ?: 0
 
             // 준비 시작 알람 설정
             val readyTime = calculateFutureTime(readyHour, readyMinute)
             setAlarm(
                 readyTime,
                 getString(R.string.ready_info_input_ready_title),
-                getString(R.string.ready_info_input_ready_content, "열기팟", "모각작"),
+                getString(R.string.ready_info_input_ready_content, promiseName),
                 0,
+                promiseId,
             )
 
             val movingTime = calculateFutureTime(movingHour, movingMinute)
             setAlarm(
                 movingTime,
-                getString(R.string.ready_info_input_ready_title),
-                getString(R.string.ready_info_input_ready_content, "열기팟", "모각작"),
+                getString(R.string.ready_info_input_moving_title),
+                getString(R.string.ready_info_input_moving_content, promiseName),
                 1,
+                promiseId,
             )
 
             viewModel.patchReadyInfoInput(promiseId, readyTime, movingTime)
@@ -212,6 +230,7 @@ class ReadyInfoInputFragment :
         alarmTitle: String,
         alarmContent: String,
         requestCode: Int,
+        promiseId: Int, // 추가된 파라미터
     ) {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
@@ -224,6 +243,7 @@ class ReadyInfoInputFragment :
             putExtra(KeyStorage.ALARM_TITLE, alarmTitle)
             putExtra(KeyStorage.ALARM_CONTENT, alarmContent)
             putExtra(KeyStorage.TAB_INDEX, 1)
+            putExtra(KeyStorage.PROMISE_ID, promiseId) // 추가된 부분
         }
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext(),

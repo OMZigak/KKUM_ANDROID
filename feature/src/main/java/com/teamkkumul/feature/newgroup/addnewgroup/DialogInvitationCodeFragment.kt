@@ -16,7 +16,7 @@ class DialogInvitationCodeFragment :
     BindingDialogFragment<FragmentDialogInvitationCodeBinding>(R.layout.fragment_dialog_invitation_code) {
 
     private val invitationCode: String by lazy {
-        requireArguments().getString(SOURCE_FRAGMENT) ?: ""
+        requireArguments().getString("code") ?: ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +42,12 @@ class DialogInvitationCodeFragment :
 
     private fun setupDialogBtn() {
         binding.ivBtnCopy.setOnClickListener {
-            copyToClipboard(binding.tvInvitationCode.text.toString())
-            findNavController().navigate(R.id.action_fragment_add_new_group_to_fragment_add_my_group_complete)
+            copyToClipboard(invitationCode)
+            if (invitationCode.isNotEmpty()) {
+                findNavController().navigate(R.id.action_dialog_to_completed)
+            } else {
+                findNavController().navigate(R.id.action_dialog_to_my_group_detail)
+            }
             dismiss()
         }
         binding.ivBtnInviteLater.setOnClickListener {

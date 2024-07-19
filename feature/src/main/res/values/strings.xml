@@ -136,7 +136,9 @@
     <string name="ready_info_input_minute_error">분은 59분까지만 입력할 수 있어요!</string>
     <string name="ready_info_input_hour_error">시간은 23시간 까지만 입력할 수 있어요!</string>
     <string name="ready_info_input_ready_title">⏰ 준비를 시작할 시간이에요 ⏰</string>
-    <string name="ready_info_input_ready_content">%1$s 모임의 %2$s 약속 준비를 출발해야 해요.\n꾸물거릴 시간이 없어요😵!!</string>
+    <string name="ready_info_input_moving_title">⏰ 출발할 시간이에요 ⏰</string>
+    <string name="ready_info_input_ready_content">%1$s 약속 준비를 시작해야 해요.\n꾸물거릴 시간이 없어요😵!!</string>
+    <string name="ready_info_input_moving_content">%1$s 약속을 위해 출발해야 해요.\n꾸물거릴 시간이 없어요😵!!</string>
     <string name="ready_info_input_title">준비 정보를 입력해보세요!</string>
     <string name="ready_info_input_ready_time">준비 시간</string>
     <string name="ready_info_input_time_hint">00</string>
