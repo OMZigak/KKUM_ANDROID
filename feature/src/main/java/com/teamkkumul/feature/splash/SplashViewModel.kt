@@ -39,7 +39,7 @@ class SplashViewModel @Inject constructor(
 
                     refreshToken.isNotEmpty() && userName.isEmpty() -> AutoLoginState.NavigateToOnBoarding
 
-                    refreshToken.isNotEmpty() && userName.isEmpty() -> AutoLoginState.NavigateToMain
+                    refreshToken.isNotEmpty() && userName.isNotEmpty() -> AutoLoginState.NavigateToMain
 
                     else -> AutoLoginState.Loading
                 }
