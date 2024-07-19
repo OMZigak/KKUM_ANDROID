@@ -32,27 +32,27 @@ class MyGroupRepositoryImpl @Inject constructor(
             response.data?.toMyGroupMeetUpModel() ?: throw Exception("null")
         }
 
-    override suspend fun getMyGroupMemberList(meetingId: Int): Result<List<MyGroupDetailMemeberSealedItem>> {
-        return runCatching {
-            val response = myGroupService.getMyGroupMember(meetingId)
-            response.data?.toMyGroupSealedItem() ?: throw Exception("null")
-        }
-    }
-
     override suspend fun getMyGroupInfo(meetingId: Int): Result<MyGroupInfoModel> = runCatching {
         val response = myGroupService.getMyGroupInfo(meetingId)
         response.data?.toMyGroupInfoModel() ?: throw Exception("null")
     }
 
-    override suspend fun getMyGroupMember(meetingId: Int): Result<MyGroupMemberModel> =
-        runCatching {
-            val response = myGroupService.getMyGroupMember(meetingId)
-            response.data?.toMyGroupMemberModel() ?: throw Exception("null")
-        }
-
     override suspend fun getMyGroupMemberToMeetUp(meetingId: Int): Result<List<MyGroupMemberModel.Member>> =
         runCatching {
             val response = myGroupService.getMyGroupMember(meetingId)
             response.data?.toMyGroupMemberToMeetUp() ?: throw Exception("null")
+        }
+
+    override suspend fun getMyGroupMemberList(meetingId: Int): Result<List<MyGroupDetailMemeberSealedItem>> {
+        return runCatching {
+            val response = myGroupService.getMyGroupMemberPlus(meetingId)
+            response.data?.toMyGroupSealedItem() ?: throw Exception("null")
+        }
+    }
+
+    override suspend fun getMyGroupMember(meetingId: Int): Result<MyGroupMemberModel> =
+        runCatching {
+            val response = myGroupService.getMyGroupMemberPlus(meetingId)
+            response.data?.toMyGroupMemberModel() ?: throw Exception("null")
         }
 }
