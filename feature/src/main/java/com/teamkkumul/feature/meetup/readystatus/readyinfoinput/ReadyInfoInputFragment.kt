@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -14,15 +15,18 @@ import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentReadyInfoInputBinding
 import com.teamkkumul.feature.meetup.readystatus.readyinfoinput.alarm.AlarmReceiver
 import com.teamkkumul.feature.utils.Debouncer
 import com.teamkkumul.feature.utils.KeyStorage
+import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.TimeStorage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 import java.util.Calendar
 
 @AndroidEntryPoint
@@ -31,6 +35,10 @@ class ReadyInfoInputFragment :
     private val viewModel: ReadyInfoInputViewModel by viewModels()
 
     private val setTimeDebouncer = Debouncer<String>()
+
+    private val promiseId: Int by lazy {
+        requireArguments().getInt(KeyStorage.PROMISE_ID)
+    }
 
     override fun initView() {
         initHideKeyBoard()
@@ -178,7 +186,20 @@ class ReadyInfoInputFragment :
                 1,
             )
 
-            findNavController().navigate(R.id.action_fragment_ready_info_input_to_readyInputCompletedFragment)
+            viewModel.patchReadyInfoInput(promiseId, readyTime, movingTime)
+
+            viewModel.patchReadyInfoInputState.flowWithLifecycle(viewLifeCycle)
+                .onEach { state ->
+                    when (state) {
+                        is UiState.Success -> findNavController().navigate(
+                            R.id.action_fragment_ready_info_input_to_readyInputCompletedFragment,
+                            bundleOf(PROMISE_ID to promiseId),
+                        )
+
+                        is UiState.Failure -> Timber.tag("readyinput").d(it.toString())
+                        else -> {}
+                    }
+                }.launchIn(viewLifeCycleScope)
         }
     }
 
