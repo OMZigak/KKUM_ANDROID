@@ -39,12 +39,28 @@ class ReadyInfoInputFragment :
     private val promiseId: Int by lazy {
         requireArguments().getInt(KeyStorage.PROMISE_ID)
     }
+    private var promiseName: String? = null
 
     override fun initView() {
         initHideKeyBoard()
         initSetEditText()
         initObserveState()
         initReadyInputBtnClick()
+        initObserveMeetUpDetailState()
+    }
+
+    private fun initObserveMeetUpDetailState() {
+        viewModel.getMeetUpDetail(promiseId)
+        viewModel.meetUpDetailState.flowWithLifecycle(viewLifeCycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    promiseName = state.data.promiseName
+                }
+
+                is UiState.Failure -> Timber.tag("readyinput").d(state.toString())
+                else -> {}
+            }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun initHideKeyBoard() {
@@ -174,7 +190,7 @@ class ReadyInfoInputFragment :
             setAlarm(
                 readyTime,
                 getString(R.string.ready_info_input_ready_title),
-                getString(R.string.ready_info_input_ready_content, "열기팟", "모각작"),
+                getString(R.string.ready_info_input_ready_content, promiseName),
                 0,
                 promiseId,
             )
@@ -182,8 +198,8 @@ class ReadyInfoInputFragment :
             val movingTime = calculateFutureTime(movingHour, movingMinute)
             setAlarm(
                 movingTime,
-                getString(R.string.ready_info_input_ready_title),
-                getString(R.string.ready_info_input_ready_content, "열기팟", "모각작"),
+                getString(R.string.ready_info_input_moving_title),
+                getString(R.string.ready_info_input_moving_content, promiseName),
                 1,
                 promiseId,
             )
