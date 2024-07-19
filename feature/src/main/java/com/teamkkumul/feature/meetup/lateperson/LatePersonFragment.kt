@@ -74,31 +74,43 @@ class LatePersonFragment :
         }
     }
 
+    private fun updateViewVisibility(view: View, isVisible: Boolean) {
+        view.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
     private fun showFailureState() {
-        binding.rvLatePerson.visibility = View.GONE
-        binding.viewLatePersonEmpty.visibility = View.GONE
-        binding.viewWaitingEmpty.visibility = View.VISIBLE
+        updateViewVisibility(binding.rvLatePerson, false)
+        updateViewVisibility(binding.viewLatePersonEmpty, false)
+        updateViewVisibility(binding.viewWaitingEmpty, true)
     }
 
     private fun showEmptyState() {
-        binding.viewLatePersonEmpty.visibility = View.VISIBLE
-        binding.rvLatePerson.visibility = View.GONE
+        updateViewVisibility(binding.rvLatePerson, false)
+        updateViewVisibility(binding.viewLatePersonEmpty, true)
     }
 
     private fun showLateComers(lateComers: List<LatePersonModel.LateComers>) {
-        binding.rvLatePerson.visibility = View.VISIBLE
-        binding.viewLatePersonEmpty.visibility = View.GONE
+        updateViewVisibility(binding.rvLatePerson, true)
+        updateViewVisibility(binding.viewLatePersonEmpty, false)
+        updateViewVisibility(binding.viewWaitingEmpty, false)
         latePersonAdapter.submitList(lateComers)
     }
 
     private fun initObservePatchMeetUpState() {
-        latePersonViewModel.patchMeetUpState.flowWithLifecycle(viewLifeCycle).onEach { patchMeetUpState ->
-            when (patchMeetUpState) {
-                is UiState.Success -> { toast("약속 마치기 성공 !") }
-                is UiState.Failure -> { toast("약속 마치기 실패 ${patchMeetUpState.errorMessage}") }
-                else -> Unit
-            }
-        }.launchIn(viewLifeCycleScope)
+        latePersonViewModel.patchMeetUpState.flowWithLifecycle(viewLifeCycle)
+            .onEach { patchMeetUpState ->
+                when (patchMeetUpState) {
+                    is UiState.Success -> {
+                        toast("약속 마치기 성공 !")
+                    }
+
+                    is UiState.Failure -> {
+                        toast("약속 마치기 실패 ${patchMeetUpState.errorMessage}")
+                    }
+
+                    else -> Unit
+                }
+            }.launchIn(viewLifeCycleScope)
     }
 
     private fun initPenaltyState(latePersonModel: LatePersonModel) {
