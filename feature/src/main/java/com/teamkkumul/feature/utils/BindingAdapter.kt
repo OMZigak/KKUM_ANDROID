@@ -34,7 +34,9 @@ fun ImageView.setEmptyImageUrl(img: String?) {
     if (img.isNullOrEmpty()) {
         load(R.drawable.ic_profile_basic_44)
     } else {
-        load(img)
+        load(img) {
+            transformations(RoundedCornersTransformation(1000f))
+        }
     }
 }
 
