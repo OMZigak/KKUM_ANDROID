@@ -1,7 +1,7 @@
 package com.teamkkumul.feature.meetupcreate
 
+import android.os.Bundle
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -16,22 +16,21 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpCreateBinding
-import com.teamkkumul.feature.utils.Debouncer
 import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.animateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 @AndroidEntryPoint
 class MeetUpCreateFragment :
     BindingFragment<FragmentMeetUpCreateBinding>(R.layout.fragment_meet_up_create) {
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
-    private val meetUpCreateDebouncer = Debouncer<String>()
-    private val locationDebouncer = Debouncer<String>()
     private var currentText: String = ""
 
     override fun initView() {
@@ -67,17 +66,19 @@ class MeetUpCreateFragment :
 
     private fun navigateToFriend(id: Int) {
         binding.btnMeetUpCreateNext.setOnClickListener {
-            val meetUpDate = (viewModel.meetUpDate.value + viewModel.meetUpTime.value) ?: ""
+            val meetUpDate = "${viewModel.meetUpDate.value} ${viewModel.meetUpTime.value}" ?: ""
             val meetUpTime = viewModel.meetUpTime.value ?: ""
             val meetUpLocation = viewModel.meetUpLocation.value ?: ""
             val meetUpName = currentText
-            val bundle = bundleOf(
-                KeyStorage.MEETING_ID to id,
-                KeyStorage.MEET_UP_TIME to meetUpTime,
-                KeyStorage.MEET_UP_DATE to meetUpDate,
-                KeyStorage.MEET_UP_LOCATION to meetUpLocation,
-                KeyStorage.MEET_UP_NAME to meetUpName,
-            )
+
+            val bundle = Bundle().apply {
+                putInt(KeyStorage.MEETING_ID, id)
+                putString(KeyStorage.MEET_UP_DATE, meetUpDate)
+                putString(KeyStorage.MEET_UP_TIME, meetUpTime)
+                putString(KeyStorage.MEET_UP_LOCATION, meetUpLocation)
+                putString(KeyStorage.MEET_UP_NAME, meetUpName)
+            }
+
             findNavController().navigate(
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
                 bundle,
@@ -101,11 +102,6 @@ class MeetUpCreateFragment :
 
     private fun setName() = with(binding.etMeetUpName) {
         doAfterTextChanged {
-           /* meetUpCreateDebouncer.setDelay(
-                text.toString(),
-                SET_NAME_DEBOUNCE_DELAY,
-                ::validInput,
-            )*/
             validInput(text.toString())
         }
         setOnEditorActionListener { _, actionId, event ->
@@ -160,6 +156,11 @@ class MeetUpCreateFragment :
         val picker = builder.build()
         picker.addOnPositiveButtonClickListener { selectedDate ->
             val formattedDate = SimpleDateFormat("yyyy.MM.dd").format(Date(selectedDate))
+            val formattedDateForm =
+                SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(selectedDate))
+
+            Timber.tag("day").d(formattedDateForm)
+
             binding.tvMeetUpCreateDateEnter.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
@@ -167,7 +168,7 @@ class MeetUpCreateFragment :
                 ),
             )
             binding.ivMeetUpDate.setImageResource(R.drawable.ic_date_fill_24)
-            viewModel.setMeetUpDate(formattedDate)
+            viewModel.setMeetUpDate(formattedDateForm)
         }
         picker.show(parentFragmentManager, picker.toString())
     }
@@ -202,6 +203,16 @@ class MeetUpCreateFragment :
                 timePicker.hour % 12,
                 timePicker.minute,
             )
+
+            val formattedTimeForm = String.format(
+                "%02d:%02d:%02d",
+                timePicker.hour,
+                timePicker.minute,
+                0,
+            )
+
+            Timber.tag("day").d(formattedTimeForm)
+
             binding.tvMeetUpCreateTimeEnter.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
@@ -209,7 +220,7 @@ class MeetUpCreateFragment :
                 ),
             )
             binding.ivMeetUpTime.setImageResource(R.drawable.ic_time_fill_24)
-            viewModel.setMeetUpTime(formattedTime)
+            viewModel.setMeetUpTime(formattedTimeForm)
         }
         timePicker.show(parentFragmentManager, timePicker.toString())
     }

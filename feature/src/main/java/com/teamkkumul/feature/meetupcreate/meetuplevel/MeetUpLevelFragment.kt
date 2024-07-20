@@ -23,23 +23,33 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 @AndroidEntryPoint
 class MeetUpLevelFragment :
     BindingFragment<FragmentMeetUpLevelBinding>(R.layout.fragment_meet_up_level) {
 
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
-    private var id = -1
+
+    private var meetingId: Int = -1
+    private var selectedItems: List<Int> = emptyList()
+    private lateinit var meetUpDate: String
+    private lateinit var meetUpTime: String
+    private lateinit var meetUpLocation: String
+    private lateinit var meetUpName: String
 
     override fun initView() {
-        val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
-        val selectedItems = arguments?.getIntArray("selectedItems")?.toList() ?: emptyList()
+        arguments?.let {
+            meetingId = it.getInt(KeyStorage.MEETING_ID, -1)
+            selectedItems = it.getIntArray("selectedItems")?.toList() ?: emptyList()
+            meetUpDate = it.getString(KeyStorage.MEET_UP_DATE, "")
+            meetUpTime = it.getString(KeyStorage.MEET_UP_TIME, "")
+            meetUpLocation = it.getString(KeyStorage.MEET_UP_LOCATION, "")
+            meetUpName = it.getString(KeyStorage.MEET_UP_NAME, "")
+        }
 
         Timber.d("Selected Items: $selectedItems")
-        Timber.d("Meeting ID: $id")
+        Timber.d("Meeting ID: $meetingId")
+        Timber.tag("day3").d(meetUpDate)
 
         viewModel.setProgressBar(75)
         observeProgress()
@@ -50,7 +60,7 @@ class MeetUpLevelFragment :
 
         val chipGroups = listOf(meetUpLevel, penalty)
         setupChipGroups(chipGroups, btnCreateMeetUp)
-        setupCreateMeetUpButton(btnCreateMeetUp, id, selectedItems)
+        setupCreateMeetUpButton(btnCreateMeetUp, meetingId, selectedItems)
         initObserveMeetUpCreate()
     }
 
@@ -108,41 +118,21 @@ class MeetUpLevelFragment :
             }
 
             val dressUpLevel = preprocessDressUpLevel(selectedMeetUpLevel)
-            val time = convertToServerTimeFormat(
-                arguments?.getString(KeyStorage.MEET_UP_DATE) ?: "",
-            )
 
             val meetUpCreateModel = MeetUpCreateModel(
-                name = arguments?.getString(KeyStorage.MEET_UP_NAME) ?: "",
+                name = meetUpName,
                 address = null,
                 dressUpLevel = dressUpLevel,
                 penalty = selectedPenalty,
-                placeName = arguments?.getString(KeyStorage.MEET_UP_LOCATION) ?: "",
+                placeName = meetUpLocation,
                 roadAddress = null,
-                time = "2024-07-07 15:00:00",
+                time = meetUpDate,
                 participants = selectedItems,
                 x = 0.0,
                 y = 0.0,
             )
 
             viewModel.postMeetUpCreate(id, meetUpCreateModel)
-        }
-    }
-
-    private fun convertToServerTimeFormat(dateTime: String): String {
-        // Define the input date and time format
-        val inputFormat = SimpleDateFormat("yyyy.MM.dda hh:mm", Locale.getDefault())
-        // Define the output date and time format
-        val outputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-
-        return try {
-            // Parse the input date and time string
-            val date = inputFormat.parse(dateTime) ?: return "Invalid date"
-            // Format the parsed date into the desired output format
-            outputFormat.format(date)
-        } catch (e: ParseException) {
-            // Handle the case where the input format does not match
-            "Invalid date"
         }
     }
 

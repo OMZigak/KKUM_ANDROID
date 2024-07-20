@@ -14,6 +14,7 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpFriendPlusBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
+import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.itemdecorator.GridSpacingItemDecoration
@@ -31,15 +32,29 @@ class MeetUpCreateFriendFragment :
     private var _friendAdapter: MeetUpCreateFriendAdapter? = null
     private val friendAdapter get() = requireNotNull(_friendAdapter)
 
-    private var selectedItems: List<Int> = emptyList()
+    private var selectedItems: MutableList<Int> = mutableListOf()
+
+    private var meetingId: Int = -1
+    private lateinit var meetUpDate: String
+    private lateinit var meetUpTime: String
+    private lateinit var meetUpLocation: String
+    private lateinit var meetUpName: String
 
     override fun initView() {
-        val id = arguments?.getInt(MEETING_ID) ?: -1
+        arguments?.let {
+            meetingId = it.getInt(MEETING_ID, -1)
+            meetUpDate = it.getString(KeyStorage.MEET_UP_DATE, "")
+            meetUpTime = it.getString(KeyStorage.MEET_UP_TIME, "")
+            meetUpLocation = it.getString(KeyStorage.MEET_UP_LOCATION, "")
+            meetUpName = it.getString(KeyStorage.MEET_UP_NAME, "")
+        }
+
+        Timber.tag("day2").d(meetUpDate)
 
         viewModel.setProgressBar(50)
 
         initRecyclerView()
-        viewModel.getMyGroupMemberToMeetUp(id)
+        viewModel.getMyGroupMemberToMeetUp(meetingId)
         initObserveMyGroupMemberToMeetUp()
         initNextButton()
         observeProgress()
@@ -56,7 +71,7 @@ class MeetUpCreateFriendFragment :
     private fun initRecyclerView() {
         _friendAdapter = MeetUpCreateFriendAdapter(
             { selectedItem ->
-                selectedItems = selectedItem
+                selectedItems = selectedItem.toMutableList()
                 Timber.tag("sss").d(selectedItem.toString())
             },
             { isSelected ->
@@ -71,13 +86,16 @@ class MeetUpCreateFriendFragment :
     }
 
     private fun updateNextButton(isEnabled: Boolean) {
-        val id = arguments?.getInt(MEETING_ID) ?: -1
         with(binding.tvMeetUpFriendPlusNext) {
             this.isEnabled = isEnabled
             if (isEnabled) {
                 setOnClickListener {
                     val bundle = arguments?.apply {
                         putIntArray("selectedItems", selectedItems.toIntArray())
+                        putString(KeyStorage.MEET_UP_DATE, meetUpDate)
+                        putString(KeyStorage.MEET_UP_TIME, meetUpTime)
+                        putString(KeyStorage.MEET_UP_LOCATION, meetUpLocation)
+                        putString(KeyStorage.MEET_UP_NAME, meetUpName)
                     }
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_create_friend_to_fragment_meet_up_level,

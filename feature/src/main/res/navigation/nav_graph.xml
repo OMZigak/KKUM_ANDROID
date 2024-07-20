@@ -28,7 +28,9 @@
             app:destination="@id/fragment_add_my_group" />
         <action
             android:id="@+id/action_myGroupFragment_to_myGroupDetailFragment"
-            app:destination="@id/fragment_my_group_detail" />
+            app:destination="@id/fragment_my_group_detail"
+            app:popUpTo="@id/fragment_my_group"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -67,9 +69,7 @@
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_fragment_meet_up_create_to_fragment_meet_up_create_friend"
-            app:destination="@id/fragment_meet_up_create_friend"
-            app:popUpTo="@id/fragment_meet_up_create"
-            app:popUpToInclusive="true" />
+            app:destination="@id/fragment_meet_up_create_friend" />
     </fragment>
 
     <fragment
@@ -79,9 +79,7 @@
         tools:layout="@layout/fragment_meet_up_friend_plus">
         <action
             android:id="@+id/action_fragment_meet_up_create_friend_to_fragment_meet_up_level"
-            app:destination="@id/fragment_meet_up_level"
-            app:popUpTo="@id/fragment_meet_up_create_friend"
-            app:popUpToInclusive="true" />
+            app:destination="@id/fragment_meet_up_level" />
     </fragment>
 
     <fragment
@@ -99,7 +97,6 @@
             app:destination="@id/fragment_meet_up_create"
             app:popUpTo="@id/fragment_meet_up_create_location"
             app:popUpToInclusive="true" />
-
     </fragment>
 
     <fragment
@@ -128,7 +125,9 @@
         android:label="EnterInvitationCodeFragment">
         <action
             android:id="@+id/action_fragment_enter_invitation_code_to_fragment_my_group_detail"
-            app:destination="@id/fragment_my_group_detail" />
+            app:destination="@id/fragment_my_group_detail"
+            app:popUpTo="@id/fragment_enter_invitation_code"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/fragment_add_new_group"
@@ -225,6 +224,11 @@
             app:destination="@id/fragment_meet_up_detail"
             app:popUpTo="@id/fragment_meet_up_create_complete"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragment_meet_up_create_complete_to_fragment_meet_up_container"
+            app:destination="@id/fragment_meet_up_container"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="false" />
     </fragment>
 
 </navigation>

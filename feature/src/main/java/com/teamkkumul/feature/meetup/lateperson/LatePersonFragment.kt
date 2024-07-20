@@ -105,7 +105,7 @@ class LatePersonFragment :
                     }
 
                     is UiState.Failure -> {
-                        toast("약속 마치기 실패 ${patchMeetUpState.errorMessage}")
+                        toast("약속 시간이 아직 안됬어요")
                     }
 
                     else -> Unit
