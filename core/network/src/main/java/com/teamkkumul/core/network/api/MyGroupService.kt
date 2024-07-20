@@ -24,6 +24,11 @@ interface MyGroupService {
         @Query("exclude") exclude: String = "me",
     ): BaseResponse<ResponseMyGroupMemberDto>
 
+    @GET("/api/v1/meetings/{meetingId}/members")
+    suspend fun getMyGroupMemberPlus(
+        @Path("meetingId") meetingId: Int,
+    ): BaseResponse<ResponseMyGroupMemberDto>
+
     @GET("/api/v1/meetings/{meetingId}/promises")
     suspend fun getMyGroupMeetUp(
         @Path("meetingId") meetingId: Int,
