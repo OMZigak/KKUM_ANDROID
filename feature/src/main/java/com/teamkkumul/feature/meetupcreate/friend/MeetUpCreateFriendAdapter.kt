@@ -10,10 +10,10 @@ import com.teamkkumul.model.MyGroupMemberModel
 class MeetUpCreateFriendAdapter(
     private val onMeetUpCreateFriendClicked: (List<Int>) -> Unit,
     private val onMeetUpCreateFriendSelected: (Boolean) -> Unit,
-) :
-    ListAdapter<MyGroupMemberModel.Member, MeetUpCreateFriendViewHolder>(DiffUtil) {
+) : ListAdapter<MyGroupMemberModel.Member, MeetUpCreateFriendViewHolder>(DiffUtil) {
 
     private val selectedItem = mutableSetOf<Int>()
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -28,14 +28,14 @@ class MeetUpCreateFriendAdapter(
 
     override fun onBindViewHolder(holder: MeetUpCreateFriendViewHolder, position: Int) {
         val item = getItem(position)
-        val isSelected = selectedItem.contains(position)
+        val isSelected = selectedItem.contains(item.memberId)
         holder.onBind(item, isSelected)
 
         holder.itemView.setOnClickListener {
             if (isSelected) {
-                selectedItem.remove(position)
+                selectedItem.remove(item.memberId)
             } else {
-                selectedItem.add(position)
+                selectedItem.add(item.memberId)
             }
             notifyItemChanged(position)
             onMeetUpCreateFriendClicked(selectedItem.toList())

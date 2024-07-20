@@ -19,7 +19,7 @@ class MeetUpCreateCompleteFragment :
 
         binding.btnCreateMeetUpComplete.setOnClickListener {
             findNavController().navigate(
-                R.id.action_fragment_meet_up_create_complete_to_fragment_meet_up_detail,
+                R.id.action_fragment_meet_up_create_complete_to_fragment_meet_up_container,
                 bundleOf(KeyStorage.PROMISE_ID to promiseId),
             )
         }
