@@ -2,7 +2,7 @@ package com.teamkkumul.core.data.repositoryimpl
 
 import com.teamkkumul.core.data.mapper.toLoginModel
 import com.teamkkumul.core.data.repository.LoginRepository
-import com.teamkkumul.core.data.utils.toApiResult
+import com.teamkkumul.core.data.utils.handleThrowable
 import com.teamkkumul.core.network.api.LoginService
 import com.teamkkumul.core.network.dto.request.RequestLoginDto
 import com.teamkkumul.model.login.LoginModel
@@ -23,6 +23,6 @@ internal class LoginRepositoryImpl @Inject constructor(
     }.mapCatching {
         requireNotNull(it)
     }.recoverCatching {
-        return it.toApiResult()
+        return it.handleThrowable()
     }
 }

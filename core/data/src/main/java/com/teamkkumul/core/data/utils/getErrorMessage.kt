@@ -24,12 +24,14 @@ private fun parseErrorMessage(errorBody: String): String {
     }
 }
 
-fun <T> Throwable.toApiResult(): Result<T> {
-    return when (this) {
-        is HttpException -> Result.failure(ApiError(this.getErrorMessage()))
-        is UnknownHostException -> Result.failure(NetWorkConnectError("인터넷에 연결해 주세요"))
-        else -> Result.failure(this)
-    }
+fun <T> Throwable.handleThrowable(): Result<T> {
+    return Result.failure(
+        when (this) {
+            is HttpException -> ApiError(this.getErrorMessage())
+            is UnknownHostException -> NetWorkConnectError("인터넷에 연결해 주세요")
+            else -> this
+        },
+    )
 }
 
 fun Response<*>?.getResponseErrorMessage(): String {

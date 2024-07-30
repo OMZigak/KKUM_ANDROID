@@ -6,7 +6,7 @@ import com.teamkkumul.core.data.mapper.toReadyStatusModel
 import com.teamkkumul.core.data.mapper.toTodayMeetingModel
 import com.teamkkumul.core.data.mapper.toUserModel
 import com.teamkkumul.core.data.repository.HomeRepository
-import com.teamkkumul.core.data.utils.toApiResult
+import com.teamkkumul.core.data.utils.handleThrowable
 import com.teamkkumul.core.network.api.HomeService
 import com.teamkkumul.core.network.dto.request.RequestReadyInfoInputDto
 import com.teamkkumul.model.home.HomeMembersStatus
@@ -23,13 +23,13 @@ internal class HomeRepositoryImpl @Inject constructor(
     }.mapCatching {
         requireNotNull(it)
     }.recoverCatching {
-        return it.toApiResult()
+        return it.handleThrowable()
     }
 
     override suspend fun getTodayMeeting(): Result<HomeTodayMeetingModel?> = runCatching {
         homeService.getTodayMeeting().data?.toTodayMeetingModel()
     }.recoverCatching {
-        return it.toApiResult()
+        return it.handleThrowable()
     }
 
     override suspend fun getUpComingMeeting(): Result<List<HomeTodayMeetingModel>> = runCatching {
@@ -37,14 +37,14 @@ internal class HomeRepositoryImpl @Inject constructor(
     }.mapCatching {
         requireNotNull(it)
     }.recoverCatching {
-        return it.toApiResult()
+        return it.handleThrowable()
     }
 
     override suspend fun getReadyStatus(promiseId: Int): Result<HomeReadyStatusModel?> =
         runCatching {
             homeService.getReadyStatus(promiseId).data?.toReadyStatusModel()
         }.recoverCatching {
-            return it.toApiResult()
+            return it.handleThrowable()
         }
 
     override suspend fun patchReady(promiseId: Int): Result<Unit> = runCatching {
@@ -52,7 +52,7 @@ internal class HomeRepositoryImpl @Inject constructor(
     }.mapCatching {
         requireNotNull(it)
     }.recoverCatching {
-        return it.toApiResult()
+        return it.handleThrowable()
     }
 
     override suspend fun patchMoving(promiseId: Int): Result<Unit> = runCatching {
@@ -60,7 +60,7 @@ internal class HomeRepositoryImpl @Inject constructor(
     }.mapCatching {
         requireNotNull(it)
     }.recoverCatching {
-        return it.toApiResult()
+        return it.handleThrowable()
     }
 
     override suspend fun patchCompleted(promiseId: Int): Result<Unit> = runCatching {
@@ -68,7 +68,7 @@ internal class HomeRepositoryImpl @Inject constructor(
     }.mapCatching {
         requireNotNull(it)
     }.recoverCatching {
-        return it.toApiResult()
+        return it.handleThrowable()
     }
 
     override suspend fun getMembersReadyStatus(promiseId: Int): Result<List<HomeMembersStatus.Participant?>> =
@@ -77,7 +77,7 @@ internal class HomeRepositoryImpl @Inject constructor(
         }.mapCatching {
             requireNotNull(it)
         }.recoverCatching {
-            return it.toApiResult()
+            return it.handleThrowable()
         }
 
     override suspend fun patchReadyInfoInput(
@@ -93,7 +93,7 @@ internal class HomeRepositoryImpl @Inject constructor(
         }.mapCatching {
             requireNotNull(it)
         }.recoverCatching {
-            return it.toApiResult()
+            return it.handleThrowable()
         }
     }
 }
