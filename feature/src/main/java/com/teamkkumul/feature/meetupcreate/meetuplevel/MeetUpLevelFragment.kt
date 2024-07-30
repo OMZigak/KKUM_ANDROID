@@ -10,6 +10,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.colorOf
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
@@ -74,8 +75,8 @@ class MeetUpLevelFragment :
                     )
                 }
 
-                is UiState.Failure -> Timber.tag("meetupcreate").d(it.errorMessage)
-                else -> {}
+                is UiState.Failure -> toast(it.errorMessage)
+                else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
