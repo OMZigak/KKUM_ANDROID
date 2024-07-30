@@ -6,7 +6,7 @@ import com.teamkkumul.model.network.NetWorkConnectError
 import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 import retrofit2.Response
-import java.io.IOException
+import java.net.UnknownHostException
 
 private const val UNKNOWN_ERROR_MESSAGE = "Unknown error"
 
@@ -27,7 +27,7 @@ private fun parseErrorMessage(errorBody: String): String {
 fun <T> Throwable.toApiResult(): Result<T> {
     return when (this) {
         is HttpException -> Result.failure(ApiError(this.getErrorMessage()))
-        is IOException -> Result.failure(NetWorkConnectError("인터넷에 연결해 주세요"))
+        is UnknownHostException -> Result.failure(NetWorkConnectError("인터넷에 연결해 주세요"))
         else -> Result.failure(this)
     }
 }
