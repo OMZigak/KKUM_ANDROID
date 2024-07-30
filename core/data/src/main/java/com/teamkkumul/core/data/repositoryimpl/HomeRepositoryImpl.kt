@@ -48,15 +48,27 @@ internal class HomeRepositoryImpl @Inject constructor(
         }
 
     override suspend fun patchReady(promiseId: Int): Result<Unit> = runCatching {
-        homeService.patchReady(promiseId)
+        homeService.patchReady(promiseId).data
+    }.mapCatching {
+        requireNotNull(it)
+    }.recoverCatching {
+        return it.toApiResult()
     }
 
     override suspend fun patchMoving(promiseId: Int): Result<Unit> = runCatching {
-        homeService.patchMoving(promiseId)
+        homeService.patchMoving(promiseId).data
+    }.mapCatching {
+        requireNotNull(it)
+    }.recoverCatching {
+        return it.toApiResult()
     }
 
     override suspend fun patchCompleted(promiseId: Int): Result<Unit> = runCatching {
-        homeService.patchCompleted(promiseId)
+        homeService.patchCompleted(promiseId).data
+    }.mapCatching {
+        requireNotNull(it)
+    }.recoverCatching {
+        return it.toApiResult()
     }
 
     override suspend fun getMembersReadyStatus(promiseId: Int): Result<List<HomeMembersStatus.Participant?>> =
@@ -81,7 +93,7 @@ internal class HomeRepositoryImpl @Inject constructor(
         }.mapCatching {
             requireNotNull(it)
         }.recoverCatching {
-            it.toApiResult<Unit>()
+            return it.toApiResult()
         }
     }
 }
