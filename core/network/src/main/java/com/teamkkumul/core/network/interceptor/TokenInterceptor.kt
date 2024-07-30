@@ -26,12 +26,8 @@ class TokenInterceptor @Inject constructor(
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
-        val authRequest = if (runBlocking { defaultKumulPreferenceDatasource.autoLogin.first() }) {
-            originalRequest.newAuthBuilder()
-        } else {
-            originalRequest
-        }
-        val response = chain.proceed(authRequest)
+        val request = originalRequest.newAuthBuilder()
+        val response = chain.proceed(request)
 
         if (response.code == CODE_TOKEN_EXPIRE) {
             response.close()
@@ -52,7 +48,6 @@ class TokenInterceptor @Inject constructor(
                             ?: throw IllegalStateException("refreshTokenResponse is null $refreshTokenResponse"),
                     )
 
-                refreshTokenResponse.close()
                 runBlocking {
                     responseRefresh.data?.let {
                         defaultKumulPreferenceDatasource.updateAccessToken(
@@ -63,11 +58,11 @@ class TokenInterceptor @Inject constructor(
                         )
                     }
                 }
+                refreshTokenResponse.close()
 
                 val newRequest = originalRequest.newAuthBuilder()
                 return chain.proceed(newRequest)
             } else {
-                refreshTokenResponse.close()
                 with(context) {
                     CoroutineScope(Dispatchers.Main).launch {
                         startActivity(
