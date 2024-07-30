@@ -48,25 +48,22 @@ internal class HomeRepositoryImpl @Inject constructor(
         }
 
     override suspend fun patchReady(promiseId: Int): Result<Unit> = runCatching {
-        homeService.patchReady(promiseId).data
-    }.mapCatching {
-        requireNotNull(it)
+        homeService.patchReady(promiseId)
+        Unit
     }.recoverCatching {
         return it.handleThrowable()
     }
 
     override suspend fun patchMoving(promiseId: Int): Result<Unit> = runCatching {
-        homeService.patchMoving(promiseId).data
-    }.mapCatching {
-        requireNotNull(it)
+        homeService.patchMoving(promiseId)
+        Unit
     }.recoverCatching {
         return it.handleThrowable()
     }
 
     override suspend fun patchCompleted(promiseId: Int): Result<Unit> = runCatching {
-        homeService.patchCompleted(promiseId).data
-    }.mapCatching {
-        requireNotNull(it)
+        homeService.patchCompleted(promiseId)
+        Unit
     }.recoverCatching {
         return it.handleThrowable()
     }
@@ -89,9 +86,8 @@ internal class HomeRepositoryImpl @Inject constructor(
             homeService.patchReadyInfoInput(
                 promiseId,
                 RequestReadyInfoInputDto(preparationTime, travelTime),
-            ).data
-        }.mapCatching {
-            requireNotNull(it)
+            )
+            Unit
         }.recoverCatching {
             return it.handleThrowable()
         }
