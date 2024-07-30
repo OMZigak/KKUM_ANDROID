@@ -10,7 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,8 +22,6 @@ class MyPageViewModel @Inject constructor(
     private val _myPageState = MutableStateFlow<UiState<UserModel>>(UiState.Loading)
     val myPageState: StateFlow<UiState<UserModel>> = _myPageState.asStateFlow()
 
-    private val _userName = MutableStateFlow<String>("")
-    val userName: StateFlow<String> = _userName.asStateFlow()
     fun getMyPageUserInfo() {
         viewModelScope.launch {
             homeRepository.getUserInfo()
@@ -39,11 +37,5 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun getName() {
-        viewModelScope.launch {
-            userInfoRepository.getMemberName().collectLatest {
-                _userName.value = it
-            }
-        }
-    }
+    suspend fun getUserName(): String = userInfoRepository.getMemberName().first()
 }

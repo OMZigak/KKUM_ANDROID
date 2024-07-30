@@ -17,6 +17,7 @@ import com.teamkkumul.feature.utils.setEmptyImageUrl
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -27,15 +28,14 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
     override fun initView() {
         viewModel.getMyPageUserInfo()
         initObserveMyPageState()
-        initGetName()
+        initUserName()
         setSpanText()
     }
 
-    private fun initGetName() {
-        viewModel.getName()
-        viewModel.userName.flowWithLifecycle(viewLifeCycle).onEach {
-            binding.tvMyPageName.text = it
-        }.launchIn(viewLifeCycleScope)
+    private fun initUserName() {
+        viewLifeCycleScope.launch {
+            binding.tvMyPageName.text = viewModel.getUserName()
+        }
     }
 
     private fun initObserveMyPageState() {
