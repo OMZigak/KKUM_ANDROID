@@ -8,38 +8,31 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-fun Throwable.getErrorMessage(): String {
-    return when (this) {
-        is HttpException -> {
-            val errorBody = response()?.errorBody()?.string() ?: return "Unknown error"
-            try {
-                val errorResponse = Json.decodeFromString<BaseResponse.BaseError>(errorBody)
-                errorResponse.message
-            } catch (e: Exception) {
-                "Unknown error"
-            }
-        }
+private const val UNKNOWN_ERROR_MESSAGE = "Unknown error"
 
-        else -> "An unknown error occurred."
+private fun HttpException.getErrorMessage(): String {
+    val errorBody = response()?.errorBody()?.string() ?: return UNKNOWN_ERROR_MESSAGE
+    return parseErrorMessage(errorBody)
+}
+
+private fun parseErrorMessage(errorBody: String): String {
+    return try {
+        val errorResponse = Json.decodeFromString<BaseResponse<BaseResponse.BaseError>>(errorBody)
+        errorResponse.error?.message ?: "error message is null"
+    } catch (e: Exception) {
+        UNKNOWN_ERROR_MESSAGE
     }
 }
 
-fun <T> Throwable.handleThrowable(): Result<T> {
-    return Result.failure(
-        when (this) {
-            is HttpException -> ApiError(this.getErrorMessage())
-            is IOException -> NetWorkConnectError("인터넷에 연결해 주세요")
-            else -> this
-        },
-    )
+fun <T> Throwable.toApiResult(): Result<T> {
+    return when (this) {
+        is HttpException -> Result.failure(ApiError(this.getErrorMessage()))
+        is IOException -> Result.failure(NetWorkConnectError("인터넷에 연결해 주세요"))
+        else -> Result.failure(this)
+    }
 }
 
 fun Response<*>?.getResponseErrorMessage(): String {
-    val errorBody = this?.errorBody()?.string() ?: return "Unknown error"
-    return try {
-        val errorResponse = Json.decodeFromString<BaseResponse.BaseError>(errorBody)
-        errorResponse.message
-    } catch (e: Exception) {
-        "Unknown error"
-    }
+    val errorBody = this?.errorBody()?.string() ?: return UNKNOWN_ERROR_MESSAGE
+    return parseErrorMessage(errorBody)
 }
