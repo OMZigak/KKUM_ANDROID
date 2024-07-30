@@ -2,6 +2,7 @@ package com.teamkkumul.core.data.repositoryimpl
 
 import com.teamkkumul.core.data.mapper.toLoginModel
 import com.teamkkumul.core.data.repository.LoginRepository
+import com.teamkkumul.core.data.utils.toApiResult
 import com.teamkkumul.core.network.api.LoginService
 import com.teamkkumul.core.network.dto.request.RequestLoginDto
 import com.teamkkumul.model.login.LoginModel
@@ -14,13 +15,14 @@ internal class LoginRepositoryImpl @Inject constructor(
         socialType: String,
         fcmToken: String,
         header: String,
-    ): Result<LoginModel> =
-        runCatching {
-            loginService.postLogin(
-                RequestLoginDto(socialType, fcmToken),
-                header,
-            ).data?.toLoginModel() ?: throw Exception("null")
-        }.onFailure { throwable ->
-            return Result.failure(Exception(throwable.message))
-        }
+    ): Result<LoginModel> = runCatching {
+        loginService.postLogin(
+            RequestLoginDto(socialType, fcmToken),
+            header,
+        ).data?.toLoginModel()
+    }.mapCatching {
+        requireNotNull(it)
+    }.recoverCatching {
+        return it.toApiResult()
+    }
 }

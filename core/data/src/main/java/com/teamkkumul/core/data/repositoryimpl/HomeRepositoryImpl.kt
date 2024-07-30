@@ -6,6 +6,7 @@ import com.teamkkumul.core.data.mapper.toReadyStatusModel
 import com.teamkkumul.core.data.mapper.toTodayMeetingModel
 import com.teamkkumul.core.data.mapper.toUserModel
 import com.teamkkumul.core.data.repository.HomeRepository
+import com.teamkkumul.core.data.utils.toApiResult
 import com.teamkkumul.core.network.api.HomeService
 import com.teamkkumul.core.network.dto.request.RequestReadyInfoInputDto
 import com.teamkkumul.model.home.HomeMembersStatus
@@ -18,21 +19,32 @@ internal class HomeRepositoryImpl @Inject constructor(
     private val homeService: HomeService,
 ) : HomeRepository {
     override suspend fun getUserInfo(): Result<UserModel> = runCatching {
-        homeService.getUserInfo().data?.toUserModel() ?: throw Exception("null")
+        homeService.getUserInfo().data?.toUserModel()
+    }.mapCatching {
+        requireNotNull(it)
+    }.recoverCatching {
+        return it.toApiResult()
     }
 
     override suspend fun getTodayMeeting(): Result<HomeTodayMeetingModel?> = runCatching {
         homeService.getTodayMeeting().data?.toTodayMeetingModel()
+    }.recoverCatching {
+        return it.toApiResult()
     }
 
     override suspend fun getUpComingMeeting(): Result<List<HomeTodayMeetingModel>> = runCatching {
         homeService.getUpComingMeeting().data?.promises?.map { it.toPromiseModel() }
-            ?: throw Exception("null")
+    }.mapCatching {
+        requireNotNull(it)
+    }.recoverCatching {
+        return it.toApiResult()
     }
 
     override suspend fun getReadyStatus(promiseId: Int): Result<HomeReadyStatusModel?> =
         runCatching {
             homeService.getReadyStatus(promiseId).data?.toReadyStatusModel()
+        }.recoverCatching {
+            return it.toApiResult()
         }
 
     override suspend fun patchReady(promiseId: Int): Result<Unit> = runCatching {
@@ -50,7 +62,10 @@ internal class HomeRepositoryImpl @Inject constructor(
     override suspend fun getMembersReadyStatus(promiseId: Int): Result<List<HomeMembersStatus.Participant?>> =
         runCatching {
             homeService.getMembersReadyStatus(promiseId).data?.participants?.map { it.toMembersStatus() }
-                ?: throw Exception("null")
+        }.mapCatching {
+            requireNotNull(it)
+        }.recoverCatching {
+            return it.toApiResult()
         }
 
     override suspend fun patchReadyInfoInput(
@@ -62,7 +77,11 @@ internal class HomeRepositoryImpl @Inject constructor(
             homeService.patchReadyInfoInput(
                 promiseId,
                 RequestReadyInfoInputDto(preparationTime, travelTime),
-            )
+            ).data
+        }.mapCatching {
+            requireNotNull(it)
+        }.recoverCatching {
+            it.toApiResult<Unit>()
         }
     }
 }
