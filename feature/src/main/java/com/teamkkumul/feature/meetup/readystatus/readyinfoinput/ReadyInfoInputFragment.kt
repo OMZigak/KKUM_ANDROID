@@ -185,40 +185,59 @@ class ReadyInfoInputFragment :
             val movingHour = binding.etReadyStatusMovingHour.text.toString().toIntOrNull() ?: 0
             val movingMinute = binding.etReadyStatusMovingMinute.text.toString().toIntOrNull() ?: 0
 
-            // 준비 시작 알람 설정
             val readyTime = calculateFutureTime(readyHour, readyMinute)
-            setAlarm(
-                readyTime,
-                getString(R.string.ready_info_input_ready_title),
-                getString(R.string.ready_info_input_ready_content, promiseName),
-                0,
-                promiseId,
-            )
-
             val movingTime = calculateFutureTime(movingHour, movingMinute)
-            setAlarm(
-                movingTime,
-                getString(R.string.ready_info_input_moving_title),
-                getString(R.string.ready_info_input_moving_content, promiseName),
-                1,
-                promiseId,
-            )
 
             viewModel.patchReadyInfoInput(promiseId, readyTime, movingTime)
-
-            viewModel.patchReadyInfoInputState.flowWithLifecycle(viewLifeCycle)
-                .onEach { state ->
-                    when (state) {
-                        is UiState.Success -> findNavController().navigate(
-                            R.id.action_fragment_ready_info_input_to_readyInputCompletedFragment,
-                            bundleOf(PROMISE_ID to promiseId),
-                        )
-
-                        is UiState.Failure -> Timber.tag("readyinput").d(it.toString())
-                        else -> {}
-                    }
-                }.launchIn(viewLifeCycleScope)
+            observePatchReadyInfoInputState(readyTime, movingTime)
         }
+    }
+
+    private fun observePatchReadyInfoInputState(readyTime: Int, movingTime: Int) {
+        viewModel.patchReadyInfoInputState.flowWithLifecycle(viewLifeCycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    findNavController().navigate(
+                        R.id.action_fragment_ready_info_input_to_readyInputCompletedFragment,
+                        bundleOf(PROMISE_ID to promiseId),
+                    )
+                    setReadyAndMovingAlarms(
+                        promiseId,
+                        promiseName,
+                        readyTime,
+                        movingTime,
+                    )
+                }
+
+                is UiState.Failure -> toast(state.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun setReadyAndMovingAlarms(
+        promiseId: Int,
+        promiseName: String?,
+        readyTime: Int,
+        movingTime: Int,
+    ) {
+        // 준비 시작 알람 설정
+        setAlarm(
+            readyTime,
+            getString(R.string.ready_info_input_ready_title),
+            getString(R.string.ready_info_input_ready_content, promiseName),
+            0,
+            promiseId,
+        )
+
+        // 이동 시작 알람 설정
+        setAlarm(
+            movingTime,
+            getString(R.string.ready_info_input_moving_title),
+            getString(R.string.ready_info_input_moving_content, promiseName),
+            1,
+            promiseId,
+        )
     }
 
     private fun calculateFutureTime(hour: Int, minute: Int): Int {
@@ -230,7 +249,7 @@ class ReadyInfoInputFragment :
         alarmTitle: String,
         alarmContent: String,
         requestCode: Int,
-        promiseId: Int, // 추가된 파라미터
+        promiseId: Int,
     ) {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
