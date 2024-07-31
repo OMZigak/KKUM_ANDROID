@@ -3,6 +3,7 @@ package com.teamkkumul.core.data.repositoryimpl
 import com.teamkkumul.core.data.mapper.toMeetUpCreateLocationModel
 import com.teamkkumul.core.data.mapper.toRequestMeetUpCreateDto
 import com.teamkkumul.core.data.repository.MeetUpCreateLocationRepository
+import com.teamkkumul.core.data.utils.handleThrowable
 import com.teamkkumul.core.network.api.MeetUpCreateService
 import com.teamkkumul.model.MeetUpCreateLocationModel
 import com.teamkkumul.model.MeetUpCreateModel
@@ -27,7 +28,11 @@ class MeetUpCreateLocationRepositoryImpl @Inject constructor(
             meetUpCreateLocationService.postNewMeetUp(
                 meetingId,
                 requestDto,
-            ).data?.promiseId ?: throw Exception("null")
+            ).data?.promiseId
+        }.mapCatching {
+            requireNotNull(it)
+        }.recoverCatching {
+            return it.handleThrowable()
         }
     }
 }

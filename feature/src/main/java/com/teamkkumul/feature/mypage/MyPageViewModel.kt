@@ -39,7 +39,7 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun getName() {
+    fun getLocalUserName() {
         viewModelScope.launch {
             userInfoRepository.getMemberName().collectLatest {
                 _userName.value = it
