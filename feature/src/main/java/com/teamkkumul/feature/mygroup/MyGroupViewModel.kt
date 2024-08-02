@@ -41,12 +41,11 @@ class MyGroupViewModel @Inject constructor(
     fun getMyGroupList() = viewModelScope.launch {
         myGroupRepository.getMyGroup()
             .onSuccess { myGroupModel ->
-                if (myGroupModel.meetings.isEmpty()) {
+                if (myGroupModel == null) {
                     _myGroupListState.emit(UiState.Empty)
                 } else {
                     _myGroupListState.emit(UiState.Success(myGroupModel.meetings))
                 }
-                _myGroupState.emit(UiState.Success(myGroupModel))
             }
             .onFailure { exception ->
                 _myGroupState.emit(UiState.Failure(exception.message.toString()))
