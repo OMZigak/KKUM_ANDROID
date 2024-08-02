@@ -23,6 +23,8 @@ class TokenInterceptor @Inject constructor(
     private val context: Application,
     private val loginService: LoginService,
 ) : Interceptor {
+    private val mutex = Mutex()
+
     override fun intercept(chain: Interceptor.Chain): Response {
         return runBlocking {
             val originalRequest = chain.request()
@@ -42,7 +44,7 @@ class TokenInterceptor @Inject constructor(
     }
 
     private suspend fun refreshTokenIfNeeded(): Boolean {
-        Mutex().withLock {
+        mutex.withLock {
             val refreshToken = defaultKumulPreferenceDatasource.refreshToken.first()
             val tokenResult = runBlocking(Dispatchers.IO) {
                 loginService.postReissueToken(refreshToken)
