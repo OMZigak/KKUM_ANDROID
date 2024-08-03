@@ -3,83 +3,81 @@ package com.teamkkumul.core.network.interceptor
 import android.app.Application
 import android.content.Intent
 import com.teamkkumul.core.datastore.datasource.DefaultKumulPreferenceDatasource
-import com.teamkkumul.core.network.BuildConfig
-import com.teamkkumul.core.network.dto.response.BaseResponse
-import com.teamkkumul.core.network.dto.response.ResponseReissueTokenDto
+import com.teamkkumul.core.network.api.LoginService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.json.Json
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class TokenInterceptor @Inject constructor(
-    private val json: Json,
     private val defaultKumulPreferenceDatasource: DefaultKumulPreferenceDatasource,
     private val context: Application,
+    private val loginService: LoginService,
 ) : Interceptor {
+    private val mutex = Mutex()
+
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
-        val request = originalRequest.newAuthBuilder()
-        val response = chain.proceed(request)
+        var response = chain.proceed(originalRequest.newAuthBuilder())
 
         if (response.code == CODE_TOKEN_EXPIRE) {
             response.close()
-            val refreshToken = runBlocking {
-                defaultKumulPreferenceDatasource.refreshToken.first()
+            val tokenRefreshed = runBlocking {
+                refreshTokenIfNeeded()
             }
-            val refreshTokenRequest = originalRequest.newBuilder().get()
-                .url("${BuildConfig.KKUMUL_BASE_URL}/api/v1/auth/reissue")
-                .post("".toRequestBody("application/json".toMediaType()))
-                .addHeader(AUTHORIZATION, refreshToken)
-                .build()
-            val refreshTokenResponse = chain.proceed(refreshTokenRequest)
-
-            if (refreshTokenResponse.isSuccessful) {
-                val responseRefresh =
-                    json.decodeFromString<BaseResponse<ResponseReissueTokenDto>>(
-                        refreshTokenResponse.body?.string()
-                            ?: throw IllegalStateException("refreshTokenResponse is null $refreshTokenResponse"),
-                    )
-
-                runBlocking {
-                    responseRefresh.data?.let {
-                        defaultKumulPreferenceDatasource.updateAccessToken(
-                            it.accessToken,
-                        )
-                        defaultKumulPreferenceDatasource.updateRefreshToken(
-                            it.refreshToken,
-                        )
-                    }
-                }
-                refreshTokenResponse.close()
-
-                val newRequest = originalRequest.newAuthBuilder()
-                return chain.proceed(newRequest)
+            if (tokenRefreshed) {
+                // 새로운 토큰으로 요청을 다시 시도
+                response = chain.proceed(originalRequest.newAuthBuilder())
             } else {
-                with(context) {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        startActivity(
-                            Intent.makeRestartActivityTask(
-                                packageManager.getLaunchIntentForPackage(packageName)?.component,
-                            ),
-                        )
-                        defaultKumulPreferenceDatasource.clear()
-                    }
-                }
+                handleFailedTokenReissue()
             }
         }
         return response
     }
 
-    private fun Request.newAuthBuilder() =
-        this.newBuilder().addHeader(
+    private suspend fun refreshTokenIfNeeded(): Boolean {
+        mutex.withLock {
+            val refreshToken = defaultKumulPreferenceDatasource.refreshToken.first()
+            val tokenResult = runBlocking(Dispatchers.IO) {
+                loginService.postReissueToken(refreshToken)
+            }
+
+            return when {
+                tokenResult.success -> {
+                    tokenResult.data?.let {
+                        defaultKumulPreferenceDatasource.updateAccessToken(it.accessToken)
+                        defaultKumulPreferenceDatasource.updateRefreshToken(it.refreshToken)
+                    }
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
+    private fun handleFailedTokenReissue() = with(context) {
+        CoroutineScope(Dispatchers.Main).launch {
+            defaultKumulPreferenceDatasource.clear()
+            startActivity(
+                Intent.makeRestartActivityTask(
+                    packageManager.getLaunchIntentForPackage(packageName)?.component,
+                ),
+            )
+        }
+    }
+
+    private fun Request.newAuthBuilder() = newBuilder()
+        .addHeader(
             AUTHORIZATION,
             runBlocking {
                 BEARER + defaultKumulPreferenceDatasource.accessToken.first()
