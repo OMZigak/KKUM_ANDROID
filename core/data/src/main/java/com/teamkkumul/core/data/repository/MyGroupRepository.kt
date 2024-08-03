@@ -7,7 +7,7 @@ import com.teamkkumul.model.MyGroupMemberModel
 import com.teamkkumul.model.MyGroupModel
 
 interface MyGroupRepository {
-    suspend fun getMyGroup(): Result<MyGroupModel?>
+    suspend fun getMyGroup(): Result<MyGroupModel>
     suspend fun getMyGroupMeetUp(
         meetingId: Int,
         done: Boolean,

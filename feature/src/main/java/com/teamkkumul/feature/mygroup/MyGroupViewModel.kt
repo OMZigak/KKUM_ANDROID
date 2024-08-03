@@ -41,7 +41,7 @@ class MyGroupViewModel @Inject constructor(
     fun getMyGroupList() = viewModelScope.launch {
         myGroupRepository.getMyGroup()
             .onSuccess { myGroupModel ->
-                if (myGroupModel == null) {
+                if (myGroupModel.meetings.isEmpty()) {
                     _myGroupListState.emit(UiState.Empty)
                 } else {
                     _myGroupListState.emit(UiState.Success(myGroupModel.meetings))
