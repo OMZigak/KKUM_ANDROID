@@ -26,21 +26,22 @@ class TokenInterceptor @Inject constructor(
     private val mutex = Mutex()
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        return runBlocking {
-            val originalRequest = chain.request()
-            var response = chain.proceed(originalRequest.newAuthBuilder())
+        val originalRequest = chain.request()
+        var response = chain.proceed(originalRequest.newAuthBuilder())
 
-            if (response.code == CODE_TOKEN_EXPIRE) {
-                response.close()
-                if (refreshTokenIfNeeded()) {
-                    // 새로운 토큰으로 요청을 다시 시도
-                    response = chain.proceed(originalRequest.newAuthBuilder())
-                } else {
-                    handleFailedTokenReissue()
-                }
+        if (response.code == CODE_TOKEN_EXPIRE) {
+            response.close()
+            val tokenRefreshed = runBlocking {
+                refreshTokenIfNeeded()
             }
-            response
+            if (tokenRefreshed) {
+                // 새로운 토큰으로 요청을 다시 시도
+                response = chain.proceed(originalRequest.newAuthBuilder())
+            } else {
+                handleFailedTokenReissue()
+            }
         }
+        return response
     }
 
     private suspend fun refreshTokenIfNeeded(): Boolean {
