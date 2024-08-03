@@ -41,12 +41,12 @@ object RetrofitModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor,
         @AccessToken tokenInterceptor: Interceptor,
+        loggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
             .addInterceptor(tokenInterceptor)
+            .addInterceptor(loggingInterceptor)
             .build()
 
     @Provides
