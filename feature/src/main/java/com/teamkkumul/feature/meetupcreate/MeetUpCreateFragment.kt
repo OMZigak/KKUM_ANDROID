@@ -196,22 +196,12 @@ class MeetUpCreateFragment :
             .build()
 
         timePicker.addOnPositiveButtonClickListener {
-            val isPM = timePicker.hour >= 12
-            val formattedTime = String.format(
-                "%s %02d:%02d",
-                if (isPM) "PM" else "AM",
-                timePicker.hour % 12,
-                timePicker.minute,
-            )
-
             val formattedTimeForm = String.format(
                 "%02d:%02d:%02d",
                 timePicker.hour,
                 timePicker.minute,
                 0,
             )
-
-            Timber.tag("day").d(formattedTimeForm)
 
             binding.tvMeetUpCreateTimeEnter.setTextColor(
                 ContextCompat.getColor(
@@ -228,7 +218,19 @@ class MeetUpCreateFragment :
     private fun observeMeetUpTime() {
         viewModel.meetUpTime.flowWithLifecycle(viewLifeCycle).onEach {
             if (it.isNotEmpty()) {
-                binding.tvMeetUpCreateTimeEnter.text = it
+                val timeParts = it.split(":")
+                val hour = timeParts[0].toInt()
+                val minute = timeParts[1].toInt()
+                val isPM = hour >= 12
+
+                val formattedTime = String.format(
+                    "%s %02d:%02d",
+                    if (isPM) "PM" else "AM",
+                    hour % 12,
+                    minute,
+                )
+
+                binding.tvMeetUpCreateTimeEnter.text = formattedTime
                 binding.tvMeetUpCreateTimeEnter.setTextColor(colorOf(R.color.gray8))
                 binding.ivMeetUpTime.setImageResource(R.drawable.ic_time_fill_24)
             }
