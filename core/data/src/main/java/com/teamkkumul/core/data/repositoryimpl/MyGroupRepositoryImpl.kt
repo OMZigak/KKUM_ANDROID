@@ -7,6 +7,7 @@ import com.teamkkumul.core.data.mapper.toMyGroupMemberToMeetUp
 import com.teamkkumul.core.data.mapper.toMyGroupModel
 import com.teamkkumul.core.data.mapper.toMyGroupSealedItem
 import com.teamkkumul.core.data.repository.MyGroupRepository
+import com.teamkkumul.core.data.utils.handleThrowable
 import com.teamkkumul.core.network.api.MyGroupService
 import com.teamkkumul.model.MyGroupDetailMemeberSealedItem
 import com.teamkkumul.model.MyGroupInfoModel
@@ -19,8 +20,11 @@ class MyGroupRepositoryImpl @Inject constructor(
     private val myGroupService: MyGroupService,
 ) : MyGroupRepository {
     override suspend fun getMyGroup(): Result<MyGroupModel> = runCatching {
-        val response = myGroupService.getMyGroupList()
-        response.data?.toMyGroupModel() ?: throw Exception("null")
+        myGroupService.getMyGroupList().data?.toMyGroupModel()
+    }.mapCatching { myGroupModel ->
+        requireNotNull(myGroupModel)
+    }.recoverCatching {
+        return it.handleThrowable()
     }
 
     override suspend fun getMyGroupMeetUp(
