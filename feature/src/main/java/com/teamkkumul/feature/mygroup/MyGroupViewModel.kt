@@ -46,7 +46,6 @@ class MyGroupViewModel @Inject constructor(
                 } else {
                     _myGroupListState.emit(UiState.Success(myGroupModel.meetings))
                 }
-                _myGroupState.emit(UiState.Success(myGroupModel))
             }
             .onFailure { exception ->
                 _myGroupState.emit(UiState.Failure(exception.message.toString()))
