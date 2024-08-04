@@ -31,6 +31,7 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
         initObserveMyGroupListState()
         initObserveMyGroupState()
         viewModel.getMyGroupList()
+        viewModel.getMyGroupCount()
         initGetName()
     }
 
@@ -49,7 +50,7 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
                 }
 
                 is UiState.Failure -> Timber.tag("my group list").d(uiState.errorMessage)
-                else -> {}
+                else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
