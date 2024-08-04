@@ -51,4 +51,13 @@ class MyGroupViewModel @Inject constructor(
                 _myGroupState.emit(UiState.Failure(exception.message.toString()))
             }
     }
+
+    fun getMyGroupCount() = viewModelScope.launch {
+        myGroupRepository.getMyGroup()
+            .onSuccess { myGroupModel ->
+                _myGroupState.emit(UiState.Success(myGroupModel))
+            }.onFailure { exception ->
+                _myGroupState.emit(UiState.Failure(exception.message.toString()))
+            }
+    }
 }

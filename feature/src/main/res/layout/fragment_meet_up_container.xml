@@ -12,8 +12,7 @@
 
         <include
             android:id="@+id/toolbar_meet_up_container"
-            layout="@layout/view_toolbar"
-            app:title="@{@string/my_group_title}" />
+            layout="@layout/view_toolbar" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_meet_up_container"
