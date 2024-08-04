@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/toolbar_my_group"
+            android:id="@+id/toolbar_my_group_detail"
             layout="@layout/view_toolbar"
             app:title="@{@string/my_group_title}" />
 
@@ -24,7 +24,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_my_group">
+            app:layout_constraintTop_toBottomOf="@id/toolbar_my_group_detail">
 
             <TextView
                 android:id="@+id/tv_my_group_name"
@@ -63,10 +63,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                tools:text="3"
                 android:textAppearance="@style/TextAppearance.Kkumul.head_01"
                 app:layout_constraintStart_toEndOf="@id/tv_my_group_total"
-                app:layout_constraintTop_toBottomOf="@id/tv_my_group_name" />
+                app:layout_constraintTop_toBottomOf="@id/tv_my_group_name"
+                tools:text="3" />
 
             <TextView
                 android:layout_width="wrap_content"

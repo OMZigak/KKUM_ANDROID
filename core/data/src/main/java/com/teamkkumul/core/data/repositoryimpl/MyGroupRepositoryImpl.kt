@@ -32,13 +32,19 @@ class MyGroupRepositoryImpl @Inject constructor(
         done: Boolean,
     ): Result<List<MyGroupMeetUpModel.Promise>> =
         runCatching {
-            val response = myGroupService.getMyGroupMeetUp(meetingId, done)
-            response.data?.toMyGroupMeetUpModel() ?: throw Exception("null")
+            myGroupService.getMyGroupMeetUp(meetingId, done).data?.toMyGroupMeetUpModel()
+        }.mapCatching {
+            requireNotNull(it)
+        }.recoverCatching {
+            return it.handleThrowable()
         }
 
     override suspend fun getMyGroupInfo(meetingId: Int): Result<MyGroupInfoModel> = runCatching {
-        val response = myGroupService.getMyGroupInfo(meetingId)
-        response.data?.toMyGroupInfoModel() ?: throw Exception("null")
+        myGroupService.getMyGroupInfo(meetingId).data?.toMyGroupInfoModel()
+    }.mapCatching {
+        requireNotNull(it)
+    }.recoverCatching {
+        return it.handleThrowable()
     }
 
     override suspend fun getMyGroupMemberToMeetUp(meetingId: Int): Result<List<MyGroupMemberModel.Member>> =
@@ -47,16 +53,21 @@ class MyGroupRepositoryImpl @Inject constructor(
             response.data?.toMyGroupMemberToMeetUp() ?: throw Exception("null")
         }
 
-    override suspend fun getMyGroupMemberList(meetingId: Int): Result<List<MyGroupDetailMemeberSealedItem>> {
-        return runCatching {
-            val response = myGroupService.getMyGroupMemberPlus(meetingId)
-            response.data?.toMyGroupSealedItem() ?: throw Exception("null")
+    override suspend fun getMyGroupMemberList(meetingId: Int): Result<List<MyGroupDetailMemeberSealedItem>> =
+        runCatching {
+            myGroupService.getMyGroupMemberPlus(meetingId).data?.toMyGroupSealedItem()
+        }.mapCatching {
+            requireNotNull(it)
+        }.recoverCatching {
+            return it.handleThrowable()
         }
-    }
 
     override suspend fun getMyGroupMember(meetingId: Int): Result<MyGroupMemberModel> =
         runCatching {
-            val response = myGroupService.getMyGroupMemberPlus(meetingId)
-            response.data?.toMyGroupMemberModel() ?: throw Exception("null")
+            myGroupService.getMyGroupMemberPlus(meetingId).data?.toMyGroupMemberModel()
+        }.mapCatching {
+            requireNotNull(it)
+        }.recoverCatching {
+            return it.handleThrowable()
         }
 }

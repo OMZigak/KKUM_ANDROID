@@ -82,6 +82,7 @@ class MyGroupDetailFragment :
     private fun successMyGroupInfoState(myGroupInfoModel: MyGroupInfoModel) {
         binding.tvMyGroupCreateDate.text = myGroupInfoModel.createdAt
         binding.tvMyGroupMeetUpCount.text = myGroupInfoModel.metCount.toString()
+        binding.toolbarMyGroupDetail.title = myGroupInfoModel.name
     }
 
     private fun initObserveMemberState() {
