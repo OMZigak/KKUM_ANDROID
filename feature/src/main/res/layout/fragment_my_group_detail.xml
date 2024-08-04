@@ -12,9 +12,8 @@
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/toolbar_my_group"
-            layout="@layout/view_toolbar"
-            app:title="@{@string/my_group_title}" />
+            android:id="@+id/toolbar_my_group_detail"
+            layout="@layout/view_toolbar" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_my_group_detail"
@@ -27,7 +26,7 @@
             app:layout_constraintDimensionRatio="332:84"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_my_group">
+            app:layout_constraintTop_toBottomOf="@id/toolbar_my_group_detail">
 
             <TextView
                 android:id="@+id/tv_my_group_create"

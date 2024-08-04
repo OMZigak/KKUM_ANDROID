@@ -1,7 +1,7 @@
 package com.teamkkumul.feature.meetup.meetupdetail
 
 import android.os.Bundle
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
@@ -22,7 +22,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MeetUpDetailFragment :
     BindingFragment<FragmentMeetUpDetailBinding>(R.layout.fragment_meet_up_detail) {
-    private val viewModel: MeetUpDetailFriendViewModel by viewModels()
+    private val viewModel: MeetUpDetailFriendViewModel by activityViewModels<MeetUpDetailFriendViewModel>()
 
     private var _meetUpDetailAdapter: MeetUpDetailListAdapter? = null
     private val meetUpDetailAdapter get() = requireNotNull(_meetUpDetailAdapter)
