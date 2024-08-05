@@ -104,7 +104,11 @@ class LatePersonFragment :
                     }
 
                     is UiState.Failure -> {
-                        toast("도착하지 않은 참여자가 있습니다.")
+                        if (latePersonViewModel.isPastDue) {
+                            toast("도착하지 않은 참여자가 있습니다.")
+                        } else {
+                            toast("약속 시간이 지나지 않았습니다.")
+                        }
                     }
 
                     else -> Unit
