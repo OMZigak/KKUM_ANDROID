@@ -14,8 +14,11 @@ class MeetUpCreateLocationRepositoryImpl @Inject constructor(
 ) : MeetUpCreateLocationRepository {
     override suspend fun getMeetUpCreateLocation(q: String): Result<List<MeetUpCreateLocationModel.Location>> =
         runCatching {
-            val response = meetUpCreateLocationService.getMeetUpCreateLocation(q)
-            response.data?.toMeetUpCreateLocationModel() ?: throw Exception("null")
+            meetUpCreateLocationService.getMeetUpCreateLocation(q).data?.toMeetUpCreateLocationModel()
+        }.mapCatching {
+            requireNotNull(it)
+        }.recoverCatching {
+            return it.handleThrowable()
         }
 
     override suspend fun postMeetUpCreate(
