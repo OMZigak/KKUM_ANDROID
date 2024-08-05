@@ -43,10 +43,10 @@ class MeetUpRepositoryImpl @Inject constructor(
         return it.handleThrowable()
     }
 
-    override suspend fun patchMeetUpComplete(promiseId: Int): Result<Unit> {
-        return runCatching {
-            val response = meetUpService.patchMeetUpComplete(promiseId)
-            response.data ?: throw Exception("null")
-        }
+    override suspend fun patchMeetUpComplete(promiseId: Int): Result<Unit> = runCatching {
+        meetUpService.patchMeetUpComplete(promiseId)
+        Unit
+    }.recoverCatching {
+        return it.handleThrowable()
     }
 }
