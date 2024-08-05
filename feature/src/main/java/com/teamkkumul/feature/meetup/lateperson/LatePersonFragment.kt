@@ -54,7 +54,10 @@ class LatePersonFragment :
             .onEach { latePersonState ->
                 when (latePersonState) {
                     is UiState.Success -> handleSuccessState(latePersonState.data)
-                    is UiState.Failure -> showFailureState()
+                    is UiState.Failure -> {
+                        showFailureState()
+                        updateButtonState(false)
+                    }
                     else -> Unit
                 }
             }.launchIn(viewLifeCycleScope)
@@ -62,6 +65,7 @@ class LatePersonFragment :
 
     private fun handleSuccessState(data: LatePersonModel) {
         initPenaltyState(data)
+        updateButtonState(data.isPastDue)
         if (!data.isPastDue) {
             showFailureState()
             return
@@ -124,6 +128,10 @@ class LatePersonFragment :
         binding.btnEndMeetUp.setOnClickListener {
             latePersonViewModel.patchMeetUpComplete(promiseId)
         }
+    }
+
+    private fun updateButtonState(isPastDue: Boolean) {
+        binding.btnEndMeetUp.isEnabled = isPastDue
     }
 
     companion object {
