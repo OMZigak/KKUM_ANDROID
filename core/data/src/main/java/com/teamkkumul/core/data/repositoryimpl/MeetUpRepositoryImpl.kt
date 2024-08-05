@@ -5,6 +5,7 @@ import com.teamkkumul.core.data.mapper.toMeetUpDetailModel
 import com.teamkkumul.core.data.mapper.toMeetUpParticipantModel
 import com.teamkkumul.core.data.mapper.toMeetUpSealedItem
 import com.teamkkumul.core.data.repository.MeetUpRepository
+import com.teamkkumul.core.data.utils.handleThrowable
 import com.teamkkumul.core.network.api.MeetUpService
 import com.teamkkumul.model.LatePersonModel
 import com.teamkkumul.model.MeetUpDetailModel
@@ -34,12 +35,12 @@ class MeetUpRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getLateComersList(promiseId: Int): Result<LatePersonModel> {
-        return runCatching {
-            meetUpService.getLateComersList(promiseId).data?.toLatePersonModel() ?: throw Exception(
-                "null",
-            )
-        }
+    override suspend fun getLateComersList(promiseId: Int): Result<LatePersonModel> = runCatching {
+        meetUpService.getLateComersList(promiseId).data?.toLatePersonModel()
+    }.mapCatching { latePersonModel ->
+        requireNotNull(latePersonModel)
+    }.recoverCatching {
+        return it.handleThrowable()
     }
 
     override suspend fun patchMeetUpComplete(promiseId: Int): Result<Unit> {
