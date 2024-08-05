@@ -39,6 +39,8 @@ class MeetUpCreateFriendFragment :
     private lateinit var meetUpTime: String
     private lateinit var meetUpLocation: String
     private lateinit var meetUpName: String
+    private lateinit var meetUpLocationX: String
+    private lateinit var meetUpLocationY: String
 
     override fun initView() {
         arguments?.let {
@@ -47,9 +49,9 @@ class MeetUpCreateFriendFragment :
             meetUpTime = it.getString(KeyStorage.MEET_UP_TIME, "")
             meetUpLocation = it.getString(KeyStorage.MEET_UP_LOCATION, "")
             meetUpName = it.getString(KeyStorage.MEET_UP_NAME, "")
+            meetUpLocationX = it.getString(KeyStorage.MEET_UP_LOCATION_X, "")
+            meetUpLocationY = it.getString(KeyStorage.MEET_UP_LOCATION_Y, "")
         }
-
-        Timber.tag("day2").d(meetUpDate)
 
         viewModel.setProgressBar(50)
 

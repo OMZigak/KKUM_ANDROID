@@ -70,6 +70,8 @@ class MeetUpCreateFragment :
             val meetUpTime = viewModel.meetUpTime.value ?: ""
             val meetUpLocation = viewModel.meetUpLocation.value ?: ""
             val meetUpName = currentText
+            val meetUpLocationX = viewModel.meetUpLocationX.value
+            val meetUpLocationY = viewModel.meetUpLocationY.value
 
             val bundle = Bundle().apply {
                 putInt(KeyStorage.MEETING_ID, id)
@@ -77,6 +79,8 @@ class MeetUpCreateFragment :
                 putString(KeyStorage.MEET_UP_TIME, meetUpTime)
                 putString(KeyStorage.MEET_UP_LOCATION, meetUpLocation)
                 putString(KeyStorage.MEET_UP_NAME, meetUpName)
+                putString(KeyStorage.MEET_UP_LOCATION_X, meetUpLocationX)
+                putString(KeyStorage.MEET_UP_LOCATION_Y, meetUpLocationY)
             }
 
             findNavController().navigate(
