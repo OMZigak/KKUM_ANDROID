@@ -21,7 +21,6 @@ import com.teamkkumul.feature.utils.animateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -159,11 +158,8 @@ class MeetUpCreateFragment :
         val builder = MaterialDatePicker.Builder.datePicker()
         val picker = builder.build()
         picker.addOnPositiveButtonClickListener { selectedDate ->
-            val formattedDate = SimpleDateFormat("yyyy.MM.dd").format(Date(selectedDate))
             val formattedDateForm =
                 SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(selectedDate))
-
-            Timber.tag("day").d(formattedDateForm)
 
             binding.tvMeetUpCreateDateEnter.setTextColor(
                 ContextCompat.getColor(
@@ -180,7 +176,10 @@ class MeetUpCreateFragment :
     private fun observeMeetUpDate() {
         viewModel.meetUpDate.flowWithLifecycle(viewLifeCycle).onEach {
             if (it.isNotEmpty()) {
-                binding.tvMeetUpCreateDateEnter.text = it
+                val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it)
+                val formattedDate = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).format(date)
+
+                binding.tvMeetUpCreateDateEnter.text = formattedDate
                 binding.tvMeetUpCreateDateEnter.setTextColor(colorOf(R.color.gray8))
                 binding.ivMeetUpDate.setImageResource(R.drawable.ic_date_fill_24)
             }
