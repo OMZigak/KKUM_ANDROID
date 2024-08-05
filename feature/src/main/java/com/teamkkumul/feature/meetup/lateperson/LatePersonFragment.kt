@@ -61,12 +61,11 @@ class LatePersonFragment :
     }
 
     private fun handleSuccessState(data: LatePersonModel) {
+        initPenaltyState(data)
         if (!data.isPastDue) {
             showFailureState()
             return
         }
-
-        initPenaltyState(data)
         if (data.lateComers.isEmpty()) {
             showEmptyState()
         } else {
@@ -105,7 +104,7 @@ class LatePersonFragment :
                     }
 
                     is UiState.Failure -> {
-                        toast("약속 시간이 아직 안됬어요")
+                        toast("도착하지 않은 참여자가 있습니다.")
                     }
 
                     else -> Unit
