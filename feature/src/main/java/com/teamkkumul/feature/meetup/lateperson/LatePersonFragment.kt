@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.pxToDp
@@ -104,7 +105,10 @@ class LatePersonFragment :
             .onEach { patchMeetUpState ->
                 when (patchMeetUpState) {
                     is UiState.Success -> {
-                        toast("약속 마치기 성공 !")
+                        if (latePersonViewModel.isPastDue) {
+                            toast("약속 마치기 성공 !")
+                            findNavController().popBackStack()
+                        }
                     }
 
                     is UiState.Failure -> {
