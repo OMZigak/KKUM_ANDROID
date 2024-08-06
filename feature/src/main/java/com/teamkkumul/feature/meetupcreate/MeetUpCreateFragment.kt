@@ -190,11 +190,11 @@ class MeetUpCreateFragment :
         }.launchIn(viewLifeCycleScope)
     }
 
-    fun formatDate(date: Date, format: String = "yyyy-MM-dd"): String {
+    private fun formatDate(date: Date, format: String = "yyyy-MM-dd"): String {
         return SimpleDateFormat(format, Locale.getDefault()).format(date)
     }
 
-    fun parseDate(dateString: String, format: String = "yyyy-MM-dd"): Date? {
+    private fun parseDate(dateString: String, format: String = "yyyy-MM-dd"): Date? {
         return SimpleDateFormat(format, Locale.getDefault()).parse(dateString)
     }
 
