@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.view.View
 import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -17,6 +16,7 @@ import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentReadyStatusBinding
 import com.teamkkumul.feature.meetup.readystatus.viewholder.ReadyStatusFriendItemDecoration
@@ -83,19 +83,15 @@ class ReadyStatusFragment :
 
     private fun updateReadyStatusUI(data: HomeReadyStatusModel?) = with(binding) {
         data ?: return
-
-        // 기본 UI 업데이트
         updateBasicUI(data)
-
-        if (data.preparationTime != null) {
-            updateReadyAndMovingTimes(data)
-            updateDescriptions(data)
-        } else {
-            binding.groupReadyInfoInput.visibility = View.GONE
-            binding.tvReadyInfoNext.visibility = View.VISIBLE
-        }
-
         handleButtonClicks(data)
+
+        val preparationAvailable = data.preparationTime != null
+        updateReadyStatusInfoVisibility(preparationAvailable)
+
+        if (!preparationAvailable) return
+        updateReadyAndMovingTimes(data)
+        updateDescriptions(data)
     }
 
     private fun updateBasicUI(data: HomeReadyStatusModel?) {
@@ -104,10 +100,12 @@ class ReadyStatusFragment :
         binding.tvvHomeArriveTime.text = data?.arrivalAt
     }
 
-    private fun updateReadyAndMovingTimes(data: HomeReadyStatusModel) {
-        binding.groupReadyInfoInput.visibility = View.VISIBLE
-        binding.tvReadyInfoNext.visibility = View.GONE
+    private fun updateReadyStatusInfoVisibility(preparationAvailable: Boolean) = with(binding) {
+        groupReadyInfoInput.setVisible(preparationAvailable)
+        tvReadyInfoNext.setVisible(!preparationAvailable)
+    }
 
+    private fun updateReadyAndMovingTimes(data: HomeReadyStatusModel) {
         val newReadyTime =
             calculateReadyStartTime(data.promiseTime, data.preparationTime, data.travelTime)
         spannableReadyStartTimeString(newReadyTime)
