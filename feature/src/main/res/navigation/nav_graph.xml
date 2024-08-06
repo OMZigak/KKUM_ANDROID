@@ -191,7 +191,7 @@
         <action
             android:id="@+id/action_readyInputCompletedFragment_to_fragment_meet_up_container"
             app:destination="@id/fragment_meet_up_container"
-            app:popUpTo="@id/fragment_ready_info_input"
+            app:popUpTo="@id/fragment_meet_up_container"
             app:popUpToInclusive="true" />
     </fragment>
 
