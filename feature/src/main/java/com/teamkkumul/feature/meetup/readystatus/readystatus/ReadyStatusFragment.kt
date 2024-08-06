@@ -55,6 +55,13 @@ class ReadyStatusFragment :
         initReadyInputBtnClick()
         initObserveReadyStatusState()
         initObserveMembersReadyStatus()
+        initObservePopUpVisible()
+    }
+
+    private fun initObservePopUpVisible() {
+        viewModel.popUpVisible.flowWithLifecycle(viewLifeCycle).onEach {
+            binding.groupReadyLatePopUp.setVisible(it)
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun initObserveMembersReadyStatus() {
@@ -94,10 +101,12 @@ class ReadyStatusFragment :
         updateDescriptions(data)
     }
 
-    private fun updateBasicUI(data: HomeReadyStatusModel?) {
-        binding.tvHomeReadyTime.text = data?.preparationStartAt
-        binding.tvHomeMovingTime.text = data?.departureAt
-        binding.tvvHomeArriveTime.text = data?.arrivalAt
+    private fun updateBasicUI(data: HomeReadyStatusModel?) = with(binding) {
+        data ?: return
+        tvHomeReadyTime.text = data.preparationStartAt
+        tvHomeMovingTime.text = data.departureAt
+        tvHomeArriveTime.text = data.arrivalAt
+        viewModel.setPopUpVisible(data.preparationTime == null)
     }
 
     private fun updateReadyStatusInfoVisibility(preparationAvailable: Boolean) = with(binding) {
@@ -225,7 +234,7 @@ class ReadyStatusFragment :
     private fun initArriveBtnClick() = with(binding) {
         btnHomeArrive.setOnClickListener {
             viewModel.patchCompleted(promiseId)
-            tvvHomeArriveTime.text = getCurrentTime()
+            tvHomeArriveTime.text = getCurrentTime()
             viewLifeCycleScope.launch {
                 animateProgressBar(pgHomeArrive, 0, PROGRESS_NUM_100)
                 delay(300L)

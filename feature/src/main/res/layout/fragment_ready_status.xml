@@ -220,7 +220,7 @@
                     app:trackStopIndicatorSize="0dp" />
 
                 <TextView
-                    android:id="@+id/tvv_home_arrive_time"
+                    android:id="@+id/tv_home_arrive_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -338,7 +338,15 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_ready_late_pop_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="tv_ready_kkum_late_pop_up,iv_ready_status_polygon" />
+
             <ImageView
+                android:id="@+id/iv_ready_status_polygon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_polygon"

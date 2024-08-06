@@ -39,6 +39,13 @@ class ReadyStatusViewModel @Inject constructor(
         MutableStateFlow<UiState<List<HomeMembersStatus.Participant?>>>(UiState.Loading)
     val membersReadyStatus get() = _membersReadyStatus.asStateFlow()
 
+    private val _popUpVisible = MutableStateFlow(true)
+    val popUpVisible get() = _popUpVisible.asStateFlow()
+
+    fun setPopUpVisible(isVisible: Boolean) {
+        _popUpVisible.value = isVisible
+    }
+
     fun getMembersReadyStatus(promiseId: Int) {
         viewModelScope.launch {
             homeRepository.getMembersReadyStatus(promiseId)
@@ -101,6 +108,7 @@ class ReadyStatusViewModel @Inject constructor(
 
     fun clickReadyBtn() {
         viewModelScope.launch {
+            _popUpVisible.emit(false)
             if (isCompleteState(_readyBtnState)) return@launch
             _readyBtnState.emit(BtnState.InProgress(isEnabled = false))
             _movingStartBtnState.emit(BtnState.Default(isEnabled = true))
