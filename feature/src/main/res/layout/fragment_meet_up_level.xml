@@ -15,17 +15,17 @@
             layout="@layout/view_toolbar"
             app:title="@{@string/add_meet_up_title}" />
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
+        <ProgressBar
             android:id="@+id/pb_meet_up_level"
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:max="100"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:progress="0"
-            android:progressTint="@color/main_color"
-            app:indicatorColor="@color/main_color"
+            android:progressDrawable="@drawable/pg_meet_up_green"
             app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create"
-            app:trackColor="@color/gray1"
-            app:trackStopIndicatorSize="0dp" />
+
+            />
 
         <TextView
             android:id="@+id/tv_add_meet_up_step"
