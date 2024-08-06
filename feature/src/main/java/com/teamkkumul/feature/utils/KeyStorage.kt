@@ -13,6 +13,8 @@ object KeyStorage {
     const val MEET_UP_TIME = "meetUpTime"
     const val MEET_UP_DATE = "meetUpDate"
     const val MEET_UP_LOCATION = "meetUpLocation"
+    const val MEET_UP_LOCATION_X = "meetUpLocationX"
+    const val MEET_UP_LOCATION_Y = "meetUpLocationY"
     const val MEET_UP_NAME = "meetUpName"
     const val READY_TIME = "readyTime"
     const val MOVING_TIME = "movingTime"

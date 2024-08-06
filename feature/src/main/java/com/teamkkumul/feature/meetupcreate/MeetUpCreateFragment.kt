@@ -1,6 +1,7 @@
 package com.teamkkumul.feature.meetupcreate
 
 import android.os.Bundle
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
@@ -21,7 +22,6 @@ import com.teamkkumul.feature.utils.animateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -49,6 +49,9 @@ class MeetUpCreateFragment :
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_location,
             )
         }
+
+        binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
+
         observeMeetUpDate()
         observeMeetUpTime()
         observeProgress()
@@ -70,6 +73,8 @@ class MeetUpCreateFragment :
             val meetUpTime = viewModel.meetUpTime.value ?: ""
             val meetUpLocation = viewModel.meetUpLocation.value ?: ""
             val meetUpName = currentText
+            val meetUpLocationX = viewModel.meetUpLocationX.value
+            val meetUpLocationY = viewModel.meetUpLocationY.value
 
             val bundle = Bundle().apply {
                 putInt(KeyStorage.MEETING_ID, id)
@@ -77,6 +82,8 @@ class MeetUpCreateFragment :
                 putString(KeyStorage.MEET_UP_TIME, meetUpTime)
                 putString(KeyStorage.MEET_UP_LOCATION, meetUpLocation)
                 putString(KeyStorage.MEET_UP_NAME, meetUpName)
+                putString(KeyStorage.MEET_UP_LOCATION_X, meetUpLocationX)
+                putString(KeyStorage.MEET_UP_LOCATION_Y, meetUpLocationY)
             }
 
             findNavController().navigate(
@@ -155,11 +162,8 @@ class MeetUpCreateFragment :
         val builder = MaterialDatePicker.Builder.datePicker()
         val picker = builder.build()
         picker.addOnPositiveButtonClickListener { selectedDate ->
-            val formattedDate = SimpleDateFormat("yyyy.MM.dd").format(Date(selectedDate))
             val formattedDateForm =
-                SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(selectedDate))
-
-            Timber.tag("day").d(formattedDateForm)
+                formatDate(Date(selectedDate), "yyyy-MM-dd")
 
             binding.tvMeetUpCreateDateEnter.setTextColor(
                 ContextCompat.getColor(
@@ -176,11 +180,22 @@ class MeetUpCreateFragment :
     private fun observeMeetUpDate() {
         viewModel.meetUpDate.flowWithLifecycle(viewLifeCycle).onEach {
             if (it.isNotEmpty()) {
-                binding.tvMeetUpCreateDateEnter.text = it
+                val date = parseDate(it, "yyyy-MM-dd")
+                val formattedDate = date?.let { date -> formatDate(date, "yyyy.MM.dd") }
+
+                binding.tvMeetUpCreateDateEnter.text = formattedDate
                 binding.tvMeetUpCreateDateEnter.setTextColor(colorOf(R.color.gray8))
                 binding.ivMeetUpDate.setImageResource(R.drawable.ic_date_fill_24)
             }
         }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun formatDate(date: Date, format: String = "yyyy-MM-dd"): String {
+        return SimpleDateFormat(format, Locale.getDefault()).format(date)
+    }
+
+    private fun parseDate(dateString: String, format: String = "yyyy-MM-dd"): Date? {
+        return SimpleDateFormat(format, Locale.getDefault()).parse(dateString)
     }
 
     private fun showTimePickerDialog() {
@@ -196,22 +211,12 @@ class MeetUpCreateFragment :
             .build()
 
         timePicker.addOnPositiveButtonClickListener {
-            val isPM = timePicker.hour >= 12
-            val formattedTime = String.format(
-                "%s %02d:%02d",
-                if (isPM) "PM" else "AM",
-                timePicker.hour % 12,
-                timePicker.minute,
-            )
-
             val formattedTimeForm = String.format(
                 "%02d:%02d:%02d",
                 timePicker.hour,
                 timePicker.minute,
                 0,
             )
-
-            Timber.tag("day").d(formattedTimeForm)
 
             binding.tvMeetUpCreateTimeEnter.setTextColor(
                 ContextCompat.getColor(
@@ -228,11 +233,28 @@ class MeetUpCreateFragment :
     private fun observeMeetUpTime() {
         viewModel.meetUpTime.flowWithLifecycle(viewLifeCycle).onEach {
             if (it.isNotEmpty()) {
-                binding.tvMeetUpCreateTimeEnter.text = it
+                val formattedTime = formatTime(it)
+                binding.tvMeetUpCreateTimeEnter.text = formattedTime
                 binding.tvMeetUpCreateTimeEnter.setTextColor(colorOf(R.color.gray8))
                 binding.ivMeetUpTime.setImageResource(R.drawable.ic_time_fill_24)
             }
         }.launchIn(viewLifeCycleScope)
+    }
+
+    fun formatTime(timeString: String): String {
+        val timeParts = timeString.split(":")
+        val hour = timeParts[0].toInt()
+        val minute = timeParts[1].toInt()
+        val isPM = hour >= 12
+
+        val formattedHour = if (hour % 12 == 0) 12 else hour % 12
+
+        return String.format(
+            "%s %02d:%02d",
+            if (isPM) "PM" else "AM",
+            formattedHour,
+            minute,
+        )
     }
 
     companion object {
