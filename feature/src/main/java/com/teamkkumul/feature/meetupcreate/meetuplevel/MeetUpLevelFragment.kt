@@ -134,18 +134,12 @@ class MeetUpLevelFragment :
     }
 
     private fun preprocessDressUpLevel(dressUpLevel: String): String {
-        // Define a regular expression pattern to match "LV" followed by digits
-        val pattern = Regex("LV\\s*(\\d+)")
-
-        // Find the first match in the input string
-        val matchResult = pattern.find(dressUpLevel)
+        val matchResult = DRESS_UP_LEVEL_PATTERN.find(dressUpLevel)
 
         return if (matchResult != null) {
-            // Extract the digit part and concatenate with "LV"
             "LV${matchResult.groupValues[1]}"
         } else {
-            // Return a default value or an empty string if no match is found
-            "LV1" // or return "" if you prefer
+            "FREE"
         }
     }
 
@@ -188,5 +182,9 @@ class MeetUpLevelFragment :
             }
         }
         return ""
+    }
+
+    companion object {
+        private val DRESS_UP_LEVEL_PATTERN = Regex("LV\\s*(\\d+)")
     }
 }
