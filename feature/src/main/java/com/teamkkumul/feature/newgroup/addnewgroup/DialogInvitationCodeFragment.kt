@@ -19,6 +19,10 @@ class DialogInvitationCodeFragment :
         requireArguments().getString("code") ?: ""
     }
 
+    private val sourceFragment: String by lazy {
+        requireArguments().getString(SOURCE_FRAGMENT, "")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.DialogTheme)
@@ -43,12 +47,19 @@ class DialogInvitationCodeFragment :
     private fun setupDialogBtn() {
         binding.ivBtnCopy.setOnClickListener {
             copyToClipboard(invitationCode)
-            if (invitationCode.isNotEmpty()) {
-                findNavController().navigate(R.id.action_dialog_to_completed)
-            } else {
-                findNavController().navigate(R.id.action_dialog_to_my_group_detail)
+            when (sourceFragment) {
+                "addNewGroup" -> {
+                    if (invitationCode.isNotEmpty()) {
+                        findNavController().navigate(R.id.action_dialog_to_completed)
+                    } else {
+                        findNavController().navigate(R.id.action_dialog_to_my_group_detail)
+                    }
+                    dismiss()
+                }
+                "myGroupDetail" -> {
+                    dismiss()
+                }
             }
-            dismiss()
         }
         binding.ivBtnInviteLater.setOnClickListener {
             dismiss()
@@ -66,10 +77,11 @@ class DialogInvitationCodeFragment :
         private const val SOURCE_FRAGMENT = "sourceFragment"
 
         @JvmStatic
-        fun newInstance(invitationCode: String) =
+        fun newInstance(invitationCode: String, source: String) =
             DialogInvitationCodeFragment().apply {
                 arguments = Bundle().apply {
-                    putString(SOURCE_FRAGMENT, invitationCode)
+                    putString(SOURCE_FRAGMENT, source)
+                    putString("code", invitationCode)
                 }
             }
     }

@@ -92,7 +92,7 @@ class AddNewGroupFragment :
     private fun showInvitationDialog(invitationCode: String) {
         findNavController().navigate(
             R.id.fragment_dialog_invitation_code,
-            bundleOf("code" to invitationCode),
+            bundleOf("code" to invitationCode, "sourceFragment" to "addNewGroup"),
         )
     }
 

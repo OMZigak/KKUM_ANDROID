@@ -139,7 +139,7 @@ class MyGroupDetailFragment :
             onPlusBtnClicked = {
                 findNavController().navigate(
                     R.id.fragment_dialog_invitation_code,
-                    bundleOf("code" to code),
+                    bundleOf("code" to code, "sourceFragment" to "myGroupDetail"),
                 )
                 /* val dialog = DialogInvitationCodeFragment.newInstance(
                      code,
