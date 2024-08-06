@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.pxToDp
@@ -54,19 +55,23 @@ class LatePersonFragment :
             .onEach { latePersonState ->
                 when (latePersonState) {
                     is UiState.Success -> handleSuccessState(latePersonState.data)
-                    is UiState.Failure -> showFailureState()
+                    is UiState.Failure -> {
+                        showFailureState()
+                        updateButtonState(false)
+                    }
+
                     else -> Unit
                 }
             }.launchIn(viewLifeCycleScope)
     }
 
     private fun handleSuccessState(data: LatePersonModel) {
+        initPenaltyState(data)
+        updateButtonState(data.isPastDue)
         if (!data.isPastDue) {
             showFailureState()
             return
         }
-
-        initPenaltyState(data)
         if (data.lateComers.isEmpty()) {
             showEmptyState()
         } else {
@@ -87,6 +92,11 @@ class LatePersonFragment :
     private fun showEmptyState() {
         updateViewVisibility(binding.rvLatePerson, false)
         updateViewVisibility(binding.viewLatePersonEmpty, true)
+        updateViewVisibility(binding.ivBoxPenalty, false)
+        updateViewVisibility(binding.ivPenaltyIcon, false)
+        updateViewVisibility(binding.tvPenalty, false)
+        updateViewVisibility(binding.tvPenaltyDescription, false)
+        updateViewVisibility(binding.tvLatePersonQuestion, false)
     }
 
     private fun showLateComers(lateComers: List<LatePersonModel.LateComers>) {
@@ -102,10 +112,11 @@ class LatePersonFragment :
                 when (patchMeetUpState) {
                     is UiState.Success -> {
                         toast("약속 마치기 성공 !")
+                        findNavController().popBackStack()
                     }
 
                     is UiState.Failure -> {
-                        toast("약속 시간이 아직 안됬어요")
+                        toast(patchMeetUpState.errorMessage)
                     }
 
                     else -> Unit
@@ -121,6 +132,10 @@ class LatePersonFragment :
         binding.btnEndMeetUp.setOnClickListener {
             latePersonViewModel.patchMeetUpComplete(promiseId)
         }
+    }
+
+    private fun updateButtonState(isPastDue: Boolean) {
+        binding.btnEndMeetUp.isEnabled = isPastDue
     }
 
     companion object {
