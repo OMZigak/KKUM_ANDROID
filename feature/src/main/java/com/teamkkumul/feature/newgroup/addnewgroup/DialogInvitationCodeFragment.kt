@@ -16,11 +16,11 @@ class DialogInvitationCodeFragment :
     BindingDialogFragment<FragmentDialogInvitationCodeBinding>(R.layout.fragment_dialog_invitation_code) {
 
     private val invitationCode: String by lazy {
-        requireArguments().getString("code") ?: ""
+        arguments?.getString(CODE) ?: ""
     }
 
     private val sourceFragment: String by lazy {
-        requireArguments().getString(SOURCE_FRAGMENT, "")
+        arguments?.getString(SOURCE_FRAGMENT) ?: ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +48,7 @@ class DialogInvitationCodeFragment :
         binding.ivBtnCopy.setOnClickListener {
             copyToClipboard(invitationCode)
             when (sourceFragment) {
-                "addNewGroup" -> {
+                ADD_NEW_GROUP_FRAGMENT -> {
                     if (invitationCode.isNotEmpty()) {
                         findNavController().navigate(R.id.action_dialog_to_completed)
                     } else {
@@ -56,7 +56,7 @@ class DialogInvitationCodeFragment :
                     }
                     dismiss()
                 }
-                "myGroupDetail" -> {
+                MY_GROUP_DETAIL_FRAGMENT -> {
                     dismiss()
                 }
             }
@@ -74,15 +74,9 @@ class DialogInvitationCodeFragment :
     }
 
     companion object {
+        private const val CODE = "code"
         private const val SOURCE_FRAGMENT = "sourceFragment"
-
-        @JvmStatic
-        fun newInstance(invitationCode: String, source: String) =
-            DialogInvitationCodeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(SOURCE_FRAGMENT, source)
-                    putString("code", invitationCode)
-                }
-            }
+        private const val ADD_NEW_GROUP_FRAGMENT = "addNewGroup"
+        private const val MY_GROUP_DETAIL_FRAGMENT = "myGroupDetail"
     }
 }
