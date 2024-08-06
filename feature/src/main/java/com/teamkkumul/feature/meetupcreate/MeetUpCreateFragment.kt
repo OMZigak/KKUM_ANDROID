@@ -163,7 +163,7 @@ class MeetUpCreateFragment :
         val picker = builder.build()
         picker.addOnPositiveButtonClickListener { selectedDate ->
             val formattedDateForm =
-                SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(selectedDate))
+                formatDate(Date(selectedDate), "yyyy-MM-dd")
 
             binding.tvMeetUpCreateDateEnter.setTextColor(
                 ContextCompat.getColor(
@@ -180,14 +180,22 @@ class MeetUpCreateFragment :
     private fun observeMeetUpDate() {
         viewModel.meetUpDate.flowWithLifecycle(viewLifeCycle).onEach {
             if (it.isNotEmpty()) {
-                val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it)
-                val formattedDate = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).format(date)
+                val date = parseDate(it, "yyyy-MM-dd")
+                val formattedDate = date?.let { date -> formatDate(date, "yyyy.MM.dd") }
 
                 binding.tvMeetUpCreateDateEnter.text = formattedDate
                 binding.tvMeetUpCreateDateEnter.setTextColor(colorOf(R.color.gray8))
                 binding.ivMeetUpDate.setImageResource(R.drawable.ic_date_fill_24)
             }
         }.launchIn(viewLifeCycleScope)
+    }
+
+    fun formatDate(date: Date, format: String = "yyyy-MM-dd"): String {
+        return SimpleDateFormat(format, Locale.getDefault()).format(date)
+    }
+
+    fun parseDate(dateString: String, format: String = "yyyy-MM-dd"): Date? {
+        return SimpleDateFormat(format, Locale.getDefault()).parse(dateString)
     }
 
     private fun showTimePickerDialog() {
@@ -225,23 +233,28 @@ class MeetUpCreateFragment :
     private fun observeMeetUpTime() {
         viewModel.meetUpTime.flowWithLifecycle(viewLifeCycle).onEach {
             if (it.isNotEmpty()) {
-                val timeParts = it.split(":")
-                val hour = timeParts[0].toInt()
-                val minute = timeParts[1].toInt()
-                val isPM = hour >= 12
-
-                val formattedTime = String.format(
-                    "%s %02d:%02d",
-                    if (isPM) "PM" else "AM",
-                    hour % 12,
-                    minute,
-                )
-
+                val formattedTime = formatTime(it)
                 binding.tvMeetUpCreateTimeEnter.text = formattedTime
                 binding.tvMeetUpCreateTimeEnter.setTextColor(colorOf(R.color.gray8))
                 binding.ivMeetUpTime.setImageResource(R.drawable.ic_time_fill_24)
             }
         }.launchIn(viewLifeCycleScope)
+    }
+
+    fun formatTime(timeString: String): String {
+        val timeParts = timeString.split(":")
+        val hour = timeParts[0].toInt()
+        val minute = timeParts[1].toInt()
+        val isPM = hour >= 12
+
+        val formattedHour = if (hour % 12 == 0) 12 else hour % 12
+
+        return String.format(
+            "%s %02d:%02d",
+            if (isPM) "PM" else "AM",
+            formattedHour,
+            minute,
+        )
     }
 
     companion object {
