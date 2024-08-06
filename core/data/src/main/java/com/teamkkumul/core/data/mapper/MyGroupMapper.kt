@@ -69,7 +69,7 @@ internal fun ResponseMyGroupMemberDto.toMyGroupMemberModel(): MyGroupMemberModel
 internal fun ResponseMyGroupMemberDto.toMyGroupSealedItem(): List<MyGroupDetailMemeberSealedItem> {
     val items = mutableListOf<MyGroupDetailMemeberSealedItem>()
 
-    items.add(MyGroupDetailMemeberSealedItem.MyGroupDetailMemeberPlus(1))
+    items.add(MyGroupDetailMemeberSealedItem.MyGroupDetailMemeberPlus)
     members.forEach {
         items.add(
             MyGroupDetailMemeberSealedItem.Member(
