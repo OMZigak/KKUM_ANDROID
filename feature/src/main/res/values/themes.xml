@@ -83,8 +83,13 @@
 
     <style name="ThemeOverlay.App.TimePicker" parent="@style/ThemeOverlay.Material3.MaterialTimePicker">
         <item name="android:backgroundTint">@color/white0</item>
+        <item name="materialButtonOutlinedStyle">@style/ThemeOverlay.App.TimePicker.AmPmButton</item>
     </style>
 
+    <style name="ThemeOverlay.App.TimePicker.AmPmButton" parent="Widget.MaterialComponents.TimePicker.Button">
+        <item name="backgroundTint"> @color/main_color</item>
+
+    </style>
     <style name="CustomExtendedFabShape" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">28dp</item>

@@ -29,6 +29,12 @@ class MeetUpCreateViewModel @Inject constructor(
     private val _meetUpLocation = MutableStateFlow<String>("")
     val meetUpLocation: StateFlow<String> get() = _meetUpLocation
 
+    private val _meetUpLocationX = MutableStateFlow<String>("")
+    val meetUpLocationX: StateFlow<String> get() = _meetUpLocationX
+
+    private val _meetUpLocationY = MutableStateFlow<String>("")
+    val meetUpLocationY: StateFlow<String> get() = _meetUpLocationY
+
     private val _meetUpDate = MutableStateFlow<String>("")
     val meetUpDate: StateFlow<String> get() = _meetUpDate
 
@@ -84,6 +90,18 @@ class MeetUpCreateViewModel @Inject constructor(
         viewModelScope.launch {
             _meetUpLocation.emit(location)
             validateForm()
+        }
+    }
+
+    fun setMeetUpLocationX(x: String) {
+        viewModelScope.launch {
+            _meetUpLocationX.emit(x)
+        }
+    }
+
+    fun setMeetUpLocationY(y: String) {
+        viewModelScope.launch {
+            _meetUpLocationY.emit(y)
         }
     }
 

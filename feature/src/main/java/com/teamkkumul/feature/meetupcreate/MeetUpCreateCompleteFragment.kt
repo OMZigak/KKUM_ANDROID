@@ -1,5 +1,6 @@
 package com.teamkkumul.feature.meetupcreate
 
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
@@ -23,6 +24,8 @@ class MeetUpCreateCompleteFragment :
                 bundleOf(KeyStorage.PROMISE_ID to promiseId),
             )
         }
+        binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
+
     }
 
     private fun setProgressBar(progress: Int) {
