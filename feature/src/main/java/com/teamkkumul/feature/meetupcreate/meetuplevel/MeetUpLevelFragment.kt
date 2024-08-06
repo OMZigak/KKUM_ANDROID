@@ -129,8 +129,7 @@ class MeetUpLevelFragment :
     }
 
     private fun preprocessDressUpLevel(dressUpLevel: String): String {
-        val pattern = Regex("LV\\s*(\\d+)")
-        val matchResult = pattern.find(dressUpLevel)
+        val matchResult = DRESS_UP_LEVEL_PATTERN.find(dressUpLevel)
 
         return if (matchResult != null) {
             "LV${matchResult.groupValues[1]}"
@@ -178,5 +177,9 @@ class MeetUpLevelFragment :
             }
         }
         return ""
+    }
+
+    companion object {
+        private val DRESS_UP_LEVEL_PATTERN = Regex("LV\\s*(\\d+)")
     }
 }
