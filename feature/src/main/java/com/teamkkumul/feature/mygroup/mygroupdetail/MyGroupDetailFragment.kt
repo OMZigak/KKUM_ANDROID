@@ -139,7 +139,7 @@ class MyGroupDetailFragment :
             onPlusBtnClicked = {
                 findNavController().navigate(
                     R.id.fragment_dialog_invitation_code,
-                    bundleOf("code" to code, "sourceFragment" to "myGroupDetail"),
+                    bundleOf(CODE to code, SOURCE_FRAGMENT to MY_GROUP_DETAIL_FRAGMENT),
                 )
                 /* val dialog = DialogInvitationCodeFragment.newInstance(
                      code,
@@ -181,5 +181,11 @@ class MyGroupDetailFragment :
         super.onDestroyView()
         _memberAdapter = null
         _meetUpAdapter = null
+    }
+
+    companion object {
+        private const val CODE = "code"
+        private const val SOURCE_FRAGMENT = "sourceFragment"
+        private const val MY_GROUP_DETAIL_FRAGMENT = "myGroupDetail"
     }
 }
