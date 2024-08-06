@@ -37,6 +37,8 @@ class MeetUpLevelFragment :
     private lateinit var meetUpTime: String
     private lateinit var meetUpLocation: String
     private lateinit var meetUpName: String
+    private lateinit var meetUpLocationX: String
+    private lateinit var meetUpLocationY: String
 
     override fun initView() {
         arguments?.let {
@@ -46,11 +48,11 @@ class MeetUpLevelFragment :
             meetUpTime = it.getString(KeyStorage.MEET_UP_TIME, "")
             meetUpLocation = it.getString(KeyStorage.MEET_UP_LOCATION, "")
             meetUpName = it.getString(KeyStorage.MEET_UP_NAME, "")
+            meetUpLocationX = it.getString(KeyStorage.MEET_UP_LOCATION_X, "")
+            meetUpLocationY = it.getString(KeyStorage.MEET_UP_LOCATION_Y, "")
         }
 
-        Timber.d("Selected Items: $selectedItems")
-        Timber.d("Meeting ID: $meetingId")
-        Timber.tag("day3").d(meetUpDate)
+        binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
 
         viewModel.setProgressBar(75)
         observeProgress()
@@ -109,6 +111,10 @@ class MeetUpLevelFragment :
         button.setOnClickListener {
             val selectedMeetUpLevel = getSelectedChipText(binding.cgMeetUpLevel)
             val selectedPenalty = getSelectedChipText(binding.cgSetPenalty)
+
+            Timber.d("Selected Meet Up Level~: $selectedMeetUpLevel")
+            Timber.d("Selected Penalty~: $selectedPenalty")
+
             val dressUpLevel = preprocessDressUpLevel(selectedMeetUpLevel)
 
             val meetUpCreateModel = MeetUpCreateModel(
@@ -120,10 +126,9 @@ class MeetUpLevelFragment :
                 roadAddress = null,
                 time = meetUpDate,
                 participants = selectedItems,
-                x = 0.0,
-                y = 0.0,
+                x = meetUpLocationX.toDouble(),
+                y = meetUpLocationY.toDouble(),
             )
-
             viewModel.postMeetUpCreate(id, meetUpCreateModel)
         }
     }

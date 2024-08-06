@@ -43,5 +43,6 @@ dependencies {
     implementation(libs.bundles.retrofit)
     implementation(libs.kotlin.serialization.json)
     implementation(libs.dagger.hilt)
+    implementation(libs.androidx.exifinterface)
     ksp(libs.dagger.hilt.compiler)
 }

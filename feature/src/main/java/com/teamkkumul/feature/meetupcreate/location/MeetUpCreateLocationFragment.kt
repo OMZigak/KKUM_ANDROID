@@ -51,6 +51,8 @@ class MeetUpCreateLocationFragment :
         _locationAdapter = MeetUpCreateLocationAdapter(
             onMeetUpCreateLocationSelected = { selectedItem ->
                 viewModel.setMeetUpLocation(selectedItem.location)
+                viewModel.setMeetUpLocationX(selectedItem.x.toString())
+                viewModel.setMeetUpLocationY(selectedItem.y.toString())
                 updateNextButton(true)
             },
         )
