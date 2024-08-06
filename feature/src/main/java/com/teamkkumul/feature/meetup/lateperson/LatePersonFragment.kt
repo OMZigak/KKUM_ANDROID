@@ -59,6 +59,7 @@ class LatePersonFragment :
                         showFailureState()
                         updateButtonState(false)
                     }
+
                     else -> Unit
                 }
             }.launchIn(viewLifeCycleScope)
@@ -91,6 +92,11 @@ class LatePersonFragment :
     private fun showEmptyState() {
         updateViewVisibility(binding.rvLatePerson, false)
         updateViewVisibility(binding.viewLatePersonEmpty, true)
+        updateViewVisibility(binding.ivBoxPenalty, false)
+        updateViewVisibility(binding.ivPenaltyIcon, false)
+        updateViewVisibility(binding.tvPenalty, false)
+        updateViewVisibility(binding.tvPenaltyDescription, false)
+        updateViewVisibility(binding.tvLatePersonQuestion, false)
     }
 
     private fun showLateComers(lateComers: List<LatePersonModel.LateComers>) {
@@ -105,10 +111,8 @@ class LatePersonFragment :
             .onEach { patchMeetUpState ->
                 when (patchMeetUpState) {
                     is UiState.Success -> {
-                        if (latePersonViewModel.isPastDue) {
-                            toast("약속 마치기 성공 !")
-                            findNavController().popBackStack()
-                        }
+                        toast("약속 마치기 성공 !")
+                        findNavController().popBackStack()
                     }
 
                     is UiState.Failure -> {
