@@ -1,5 +1,6 @@
 package com.teamkkumul.feature.meetupcreate.friend
 
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
@@ -54,6 +55,7 @@ class MeetUpCreateFriendFragment :
         }
 
         viewModel.setProgressBar(50)
+        binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
 
         initRecyclerView()
         viewModel.getMyGroupMemberToMeetUp(meetingId)

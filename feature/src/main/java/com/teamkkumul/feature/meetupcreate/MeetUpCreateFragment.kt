@@ -1,6 +1,7 @@
 package com.teamkkumul.feature.meetupcreate
 
 import android.os.Bundle
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
@@ -48,6 +49,9 @@ class MeetUpCreateFragment :
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_location,
             )
         }
+
+        binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
+
         observeMeetUpDate()
         observeMeetUpTime()
         observeProgress()

@@ -52,6 +52,8 @@ class MeetUpLevelFragment :
             meetUpLocationY = it.getString(KeyStorage.MEET_UP_LOCATION_Y, "")
         }
 
+        binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
+
         viewModel.setProgressBar(75)
         observeProgress()
 
