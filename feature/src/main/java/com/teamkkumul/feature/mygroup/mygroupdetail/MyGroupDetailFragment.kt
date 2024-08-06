@@ -14,8 +14,11 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
+import com.teamkkumul.feature.utils.KeyStorage.CODE
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
+import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
+import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.model.MyGroupInfoModel
 import com.teamkkumul.model.MyGroupMemberModel
@@ -181,11 +184,5 @@ class MyGroupDetailFragment :
         super.onDestroyView()
         _memberAdapter = null
         _meetUpAdapter = null
-    }
-
-    companion object {
-        private const val CODE = "code"
-        private const val SOURCE_FRAGMENT = "sourceFragment"
-        private const val MY_GROUP_DETAIL_FRAGMENT = "myGroupDetail"
     }
 }

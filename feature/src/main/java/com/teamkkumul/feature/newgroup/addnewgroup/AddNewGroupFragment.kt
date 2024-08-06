@@ -13,6 +13,9 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentAddNewGroupBinding
 import com.teamkkumul.feature.utils.Debouncer
+import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_FRAGMENT
+import com.teamkkumul.feature.utils.KeyStorage.CODE
+import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -92,7 +95,7 @@ class AddNewGroupFragment :
     private fun showInvitationDialog(invitationCode: String) {
         findNavController().navigate(
             R.id.fragment_dialog_invitation_code,
-            bundleOf("code" to invitationCode, "sourceFragment" to "addNewGroup"),
+            bundleOf(CODE to invitationCode, SOURCE_FRAGMENT to ADD_NEW_GROUP_FRAGMENT),
         )
     }
 

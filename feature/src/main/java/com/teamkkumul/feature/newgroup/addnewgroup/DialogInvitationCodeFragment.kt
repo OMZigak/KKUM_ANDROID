@@ -9,6 +9,10 @@ import com.teamkkumul.core.ui.base.BindingDialogFragment
 import com.teamkkumul.core.ui.util.context.dialogFragmentResize
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogInvitationCodeBinding
+import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_FRAGMENT
+import com.teamkkumul.feature.utils.KeyStorage.CODE
+import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
+import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -71,12 +75,5 @@ class DialogInvitationCodeFragment :
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("invitation_code", text)
         clipboard.setPrimaryClip(clip)
-    }
-
-    companion object {
-        private const val CODE = "code"
-        private const val SOURCE_FRAGMENT = "sourceFragment"
-        private const val ADD_NEW_GROUP_FRAGMENT = "addNewGroup"
-        private const val MY_GROUP_DETAIL_FRAGMENT = "myGroupDetail"
     }
 }
