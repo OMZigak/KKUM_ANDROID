@@ -1,7 +1,6 @@
 package com.teamkkumul.feature.meetup.lateperson
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -12,6 +11,7 @@ import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentLatePersonBinding
 import com.teamkkumul.feature.utils.KeyStorage
@@ -79,30 +79,28 @@ class LatePersonFragment :
         }
     }
 
-    private fun updateViewVisibility(view: View, isVisible: Boolean) {
-        view.visibility = if (isVisible) View.VISIBLE else View.GONE
-    }
-
     private fun showFailureState() {
-        updateViewVisibility(binding.rvLatePerson, false)
-        updateViewVisibility(binding.viewLatePersonEmpty, false)
-        updateViewVisibility(binding.viewWaitingEmpty, true)
+        with(binding) {
+            rvLatePerson.setVisible(false)
+            viewLatePersonEmpty.setVisible(false)
+            viewWaitingEmpty.setVisible(true)
+        }
     }
 
     private fun showEmptyState() {
-        updateViewVisibility(binding.rvLatePerson, false)
-        updateViewVisibility(binding.viewLatePersonEmpty, true)
-        updateViewVisibility(binding.ivBoxPenalty, false)
-        updateViewVisibility(binding.ivPenaltyIcon, false)
-        updateViewVisibility(binding.tvPenalty, false)
-        updateViewVisibility(binding.tvPenaltyDescription, false)
-        updateViewVisibility(binding.tvLatePersonQuestion, false)
+        with(binding) {
+            rvLatePerson.setVisible(false)
+            viewLatePersonEmpty.setVisible(true)
+            groupPenaltyLatePerson.setVisible(false)
+        }
     }
 
     private fun showLateComers(lateComers: List<LatePersonModel.LateComers>) {
-        updateViewVisibility(binding.rvLatePerson, true)
-        updateViewVisibility(binding.viewLatePersonEmpty, false)
-        updateViewVisibility(binding.viewWaitingEmpty, false)
+        with(binding) {
+            rvLatePerson.setVisible(true)
+            viewLatePersonEmpty.setVisible(false)
+            viewWaitingEmpty.setVisible(false)
+        }
         latePersonAdapter.submitList(lateComers)
     }
 

@@ -14,8 +14,11 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
+import com.teamkkumul.feature.utils.KeyStorage.CODE
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
+import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
+import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.model.MyGroupInfoModel
 import com.teamkkumul.model.MyGroupMemberModel
@@ -139,7 +142,7 @@ class MyGroupDetailFragment :
             onPlusBtnClicked = {
                 findNavController().navigate(
                     R.id.fragment_dialog_invitation_code,
-                    bundleOf("code" to code),
+                    bundleOf(CODE to code, SOURCE_FRAGMENT to MY_GROUP_DETAIL_FRAGMENT),
                 )
                 /* val dialog = DialogInvitationCodeFragment.newInstance(
                      code,
