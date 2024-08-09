@@ -79,6 +79,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_box_penalty" />
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_penalty_late_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="iv_box_penalty,iv_penalty_icon,tv_penalty,tv_penalty_description,tv_late_person_question" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_late_person"
             android:layout_width="0dp"
