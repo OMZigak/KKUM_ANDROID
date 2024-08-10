@@ -3,7 +3,6 @@ package com.teamkkumul.feature.home
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.view.View
 import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -17,6 +16,7 @@ import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentHomeBinding
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
@@ -121,9 +121,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun updateMeetingVisibility(isVisible: Boolean) {
-        binding.groupHomeMeeting.visibility = if (isVisible) View.VISIBLE else View.GONE
-        binding.groupHomeMeetingEmpty.visibility = if (isVisible) View.GONE else View.VISIBLE
-        binding.ivHomeMeetingNext.visibility = if (isVisible) View.VISIBLE else View.GONE
+        binding.groupHomeMeeting.setVisible(isVisible)
+        binding.groupHomeMeetingEmpty.setVisible(!isVisible)
+        binding.ivHomeMeetingNext.setVisible(isVisible)
     }
 
     private fun initObsereveHomeTopbannerState() {
@@ -204,8 +204,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun updateUpComingMeetingVisibility(isVisible: Boolean) {
-        binding.rvMyGroupMeetUp.visibility = if (isVisible) View.VISIBLE else View.GONE
-        binding.viewHomePromiseEmpty.visibility = if (isVisible) View.GONE else View.VISIBLE
+        binding.rvMyGroupMeetUp.setVisible(isVisible)
+        binding.viewHomePromiseEmpty.setVisible(!isVisible)
     }
 
     private fun initReadyBtnClick() = with(binding) {

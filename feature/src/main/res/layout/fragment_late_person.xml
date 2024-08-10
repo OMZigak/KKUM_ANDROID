@@ -12,6 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/view_late_person_empty"
+            layout="@layout/view_late_person_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/iv_box_penalty"
             android:layout_width="match_parent"
@@ -63,12 +72,18 @@
             android:id="@+id/tv_late_person_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_late_person_question"
             android:layout_marginTop="24dp"
+            android:text="@string/tv_late_person_question"
             android:textAppearance="@style/TextAppearance.Kkumul.head_01"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_box_penalty" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_penalty_late_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="iv_box_penalty,iv_penalty_icon,tv_penalty,tv_penalty_description,tv_late_person_question" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_late_person"
@@ -99,15 +114,6 @@
             app:layout_constraintDimensionRatio="332:50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <include
-            android:id="@+id/view_late_person_empty"
-            layout="@layout/view_late_person_empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/view_waiting_empty"

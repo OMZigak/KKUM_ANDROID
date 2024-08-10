@@ -37,6 +37,8 @@ class MeetUpLevelFragment :
     private lateinit var meetUpTime: String
     private lateinit var meetUpLocation: String
     private lateinit var meetUpName: String
+    private lateinit var meetUpLocationX: String
+    private lateinit var meetUpLocationY: String
 
     override fun initView() {
         arguments?.let {
@@ -46,11 +48,11 @@ class MeetUpLevelFragment :
             meetUpTime = it.getString(KeyStorage.MEET_UP_TIME, "")
             meetUpLocation = it.getString(KeyStorage.MEET_UP_LOCATION, "")
             meetUpName = it.getString(KeyStorage.MEET_UP_NAME, "")
+            meetUpLocationX = it.getString(KeyStorage.MEET_UP_LOCATION_X, "")
+            meetUpLocationY = it.getString(KeyStorage.MEET_UP_LOCATION_Y, "")
         }
 
-        Timber.d("Selected Items: $selectedItems")
-        Timber.d("Meeting ID: $meetingId")
-        Timber.tag("day3").d(meetUpDate)
+        binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
 
         viewModel.setProgressBar(75)
         observeProgress()
@@ -113,11 +115,6 @@ class MeetUpLevelFragment :
             Timber.d("Selected Meet Up Level~: $selectedMeetUpLevel")
             Timber.d("Selected Penalty~: $selectedPenalty")
 
-            val bundle = arguments?.apply {
-                putString(KeyStorage.MEET_UP_LEVEL, selectedMeetUpLevel)
-                putString(KeyStorage.PENALTY, selectedPenalty)
-            }
-
             val dressUpLevel = preprocessDressUpLevel(selectedMeetUpLevel)
 
             val meetUpCreateModel = MeetUpCreateModel(
@@ -129,27 +126,20 @@ class MeetUpLevelFragment :
                 roadAddress = null,
                 time = meetUpDate,
                 participants = selectedItems,
-                x = 0.0,
-                y = 0.0,
+                x = meetUpLocationX.toDouble(),
+                y = meetUpLocationY.toDouble(),
             )
-
             viewModel.postMeetUpCreate(id, meetUpCreateModel)
         }
     }
 
     private fun preprocessDressUpLevel(dressUpLevel: String): String {
-        // Define a regular expression pattern to match "LV" followed by digits
-        val pattern = Regex("LV\\s*(\\d+)")
-
-        // Find the first match in the input string
-        val matchResult = pattern.find(dressUpLevel)
+        val matchResult = DRESS_UP_LEVEL_PATTERN.find(dressUpLevel)
 
         return if (matchResult != null) {
-            // Extract the digit part and concatenate with "LV"
             "LV${matchResult.groupValues[1]}"
         } else {
-            // Return a default value or an empty string if no match is found
-            "LV1" // or return "" if you prefer
+            "FREE"
         }
     }
 
@@ -192,5 +182,9 @@ class MeetUpLevelFragment :
             }
         }
         return ""
+    }
+
+    companion object {
+        private val DRESS_UP_LEVEL_PATTERN = Regex("LV\\s*(\\d+)")
     }
 }

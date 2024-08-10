@@ -1,9 +1,9 @@
 package com.teamkkumul.feature.meetup.lateperson
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.pxToDp
@@ -11,6 +11,7 @@ import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentLatePersonBinding
 import com.teamkkumul.feature.utils.KeyStorage
@@ -54,19 +55,23 @@ class LatePersonFragment :
             .onEach { latePersonState ->
                 when (latePersonState) {
                     is UiState.Success -> handleSuccessState(latePersonState.data)
-                    is UiState.Failure -> showFailureState()
+                    is UiState.Failure -> {
+                        showFailureState()
+                        updateButtonState(false)
+                    }
+
                     else -> Unit
                 }
             }.launchIn(viewLifeCycleScope)
     }
 
     private fun handleSuccessState(data: LatePersonModel) {
+        initPenaltyState(data)
+        updateButtonState(data.isPastDue)
         if (!data.isPastDue) {
             showFailureState()
             return
         }
-
-        initPenaltyState(data)
         if (data.lateComers.isEmpty()) {
             showEmptyState()
         } else {
@@ -74,25 +79,28 @@ class LatePersonFragment :
         }
     }
 
-    private fun updateViewVisibility(view: View, isVisible: Boolean) {
-        view.visibility = if (isVisible) View.VISIBLE else View.GONE
-    }
-
     private fun showFailureState() {
-        updateViewVisibility(binding.rvLatePerson, false)
-        updateViewVisibility(binding.viewLatePersonEmpty, false)
-        updateViewVisibility(binding.viewWaitingEmpty, true)
+        with(binding) {
+            rvLatePerson.setVisible(false)
+            viewLatePersonEmpty.setVisible(false)
+            viewWaitingEmpty.setVisible(true)
+        }
     }
 
     private fun showEmptyState() {
-        updateViewVisibility(binding.rvLatePerson, false)
-        updateViewVisibility(binding.viewLatePersonEmpty, true)
+        with(binding) {
+            rvLatePerson.setVisible(false)
+            viewLatePersonEmpty.setVisible(true)
+            groupPenaltyLatePerson.setVisible(false)
+        }
     }
 
     private fun showLateComers(lateComers: List<LatePersonModel.LateComers>) {
-        updateViewVisibility(binding.rvLatePerson, true)
-        updateViewVisibility(binding.viewLatePersonEmpty, false)
-        updateViewVisibility(binding.viewWaitingEmpty, false)
+        with(binding) {
+            rvLatePerson.setVisible(true)
+            viewLatePersonEmpty.setVisible(false)
+            viewWaitingEmpty.setVisible(false)
+        }
         latePersonAdapter.submitList(lateComers)
     }
 
@@ -102,10 +110,11 @@ class LatePersonFragment :
                 when (patchMeetUpState) {
                     is UiState.Success -> {
                         toast("약속 마치기 성공 !")
+                        findNavController().popBackStack()
                     }
 
                     is UiState.Failure -> {
-                        toast("약속 시간이 아직 안됬어요")
+                        toast(patchMeetUpState.errorMessage)
                     }
 
                     else -> Unit
@@ -121,6 +130,10 @@ class LatePersonFragment :
         binding.btnEndMeetUp.setOnClickListener {
             latePersonViewModel.patchMeetUpComplete(promiseId)
         }
+    }
+
+    private fun updateButtonState(isPastDue: Boolean) {
+        binding.btnEndMeetUp.isEnabled = isPastDue
     }
 
     companion object {
