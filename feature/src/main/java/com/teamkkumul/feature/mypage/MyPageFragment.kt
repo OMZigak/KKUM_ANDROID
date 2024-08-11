@@ -1,8 +1,11 @@
 package com.teamkkumul.feature.mypage
 
+import android.app.Activity
+import android.content.Intent
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -13,6 +16,7 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyPageBinding
+import com.teamkkumul.feature.signup.SetProfileActivity
 import com.teamkkumul.feature.utils.setEmptyImageUrl
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -24,11 +28,22 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
 
     private val viewModel by viewModels<MyPageViewModel>()
 
+    private val setProfileLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val updatedPhotoUri = result.data?.getStringExtra("updated_photo_uri")
+                updatedPhotoUri?.let {
+                    binding.ivMyPageProfile.load(it)
+                }
+            }
+        }
+
     override fun initView() {
         viewModel.getMyPageUserInfo()
         initObserveMyPageState()
         initUserName()
         setSpanText()
+        navigateToSetProfile()
     }
 
     private fun initUserName() {
@@ -64,5 +79,12 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
         }
 
         textView.text = spannableString
+    }
+
+    private fun navigateToSetProfile() {
+        binding.ivMyPageProfile.setOnClickListener {
+            val intent = Intent(requireContext(), SetProfileActivity::class.java)
+            setProfileLauncher.launch(intent)
+        }
     }
 }

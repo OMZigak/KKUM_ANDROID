@@ -52,6 +52,11 @@ class SetProfileActivity :
             when (it) {
                 is UiState.Success -> {
                     inputName?.let { navigateToWelcome(it) }
+                    val resultIntent = Intent().apply {
+                        putExtra("updated_photo_uri", setProfileViewModel.photoUri)
+                    }
+                    setResult(Activity.RESULT_OK, resultIntent)
+                    finish() // set profile activity 종료
                 }
 
                 is UiState.Failure -> {}
@@ -77,6 +82,7 @@ class SetProfileActivity :
     private fun initNotNowBtnClick() {
         binding.tvBtnNotNow.setOnClickListener {
             inputName?.let { navigateToWelcome(it) }
+            finish()
         }
     }
 
