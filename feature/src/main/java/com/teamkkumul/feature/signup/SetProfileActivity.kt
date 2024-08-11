@@ -13,6 +13,7 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
 import com.teamkkumul.feature.signup.SetNameActivity.Companion.INPUT_NAME
+import com.teamkkumul.feature.utils.KeyStorage.UPDATED_PHOTO_URI
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -53,10 +54,10 @@ class SetProfileActivity :
                 is UiState.Success -> {
                     inputName?.let { navigateToWelcome(it) }
                     val resultIntent = Intent().apply {
-                        putExtra("updated_photo_uri", setProfileViewModel.photoUri)
+                        putExtra(UPDATED_PHOTO_URI, setProfileViewModel.photoUri)
                     }
                     setResult(Activity.RESULT_OK, resultIntent)
-                    finish() // set profile activity 종료
+                    finish()
                 }
 
                 is UiState.Failure -> {}

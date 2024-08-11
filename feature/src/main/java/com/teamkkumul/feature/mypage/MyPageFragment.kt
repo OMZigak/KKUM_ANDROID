@@ -17,6 +17,7 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyPageBinding
 import com.teamkkumul.feature.signup.SetProfileActivity
+import com.teamkkumul.feature.utils.KeyStorage.UPDATED_PHOTO_URI
 import com.teamkkumul.feature.utils.setEmptyImageUrl
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -31,7 +32,7 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
     private val setProfileLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val updatedPhotoUri = result.data?.getStringExtra("updated_photo_uri")
+                val updatedPhotoUri = result.data?.getStringExtra(UPDATED_PHOTO_URI)
                 updatedPhotoUri?.let {
                     binding.ivMyPageProfile.load(it)
                 }
