@@ -71,9 +71,11 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
         if (isValid) {
             currentText = input
             setColor(R.color.main_color)
+            setInputTextColor(R.color.black0)
             setErrorState(null)
         } else {
             setColor(R.color.red)
+            setInputTextColor(R.color.red)
             setErrorState(getString(R.string.set_name_error_message))
         }
         updateCounter(input.length)
@@ -91,13 +93,16 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
         val color = colorOf(colorResId)
         with(binding) {
             tvCounter.setTextColor(color)
-            etSetName.setTextColor(color)
             tilSetName.boxStrokeColor = color
         }
     }
 
+    private fun setInputTextColor(colorResId: Int) {
+        binding.etSetName.setTextColor(colorOf(colorResId))
+    }
+
     private fun updateCounter(length: Int) {
-        binding.tvCounter.text = "${length.coerceAtMost(5)}/5"
+        binding.tvCounter.text = "$length/5"
     }
 
     private fun updateButtonState(isValid: Boolean) {

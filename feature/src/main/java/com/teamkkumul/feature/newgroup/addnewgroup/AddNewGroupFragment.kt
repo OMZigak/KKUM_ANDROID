@@ -86,8 +86,7 @@ class AddNewGroupFragment :
     }
 
     private fun setInputTextColor(colorResId: Int) {
-        val color = colorOf(colorResId)
-        binding.etSetGroupName.setTextColor(color)
+        binding.etSetGroupName.setTextColor(colorOf(colorResId))
     }
 
     private fun updateCounter(length: Int) {
