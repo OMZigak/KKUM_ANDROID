@@ -24,253 +24,259 @@
             android:max="100"
             android:progress="50"
             android:progressDrawable="@drawable/pg_meet_up_green"
-            app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create"
-            />
+            app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!-- ScrollView를 적용하여 콘텐츠 감싸기 -->
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="14dp"
-            android:paddingBottom="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btn_meet_up_create_next"
             app:layout_constraintTop_toBottomOf="@id/pb_meet_up_create">
 
-            <TextView
-                android:id="@+id/tv_one_of_three"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="@string/meet_up_create"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_05"
-                android:textColor="@color/gray6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_meet_up"
-                style="@style/TextAppearance.Kkumul.head_01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="@string/meet_up_create_meet_up"
-                android:textColor="@color/gray8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_one_of_three" />
-
-            <TextView
-                android:id="@+id/tv_meet_up_do_plus"
-                style="@style/TextAppearance.Kkumul.head_01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/meet_up_create_do_plus"
-                android:textColor="@color/gray8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up" />
-
-            <TextView
-                android:id="@+id/tv_meet_up_name"
-                style="@style/TextAppearance.Kkumul.body_03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="@string/meet_up_create_name"
-                android:textColor="@color/gray8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_do_plus" />
-
-            <FrameLayout
-                android:id="@+id/fl_et_enter_meet_up_name"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_name">
+                android:layout_marginHorizontal="14dp"
+                android:paddingBottom="50dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_meet_up_name"
-                    style="@style/TextInputLayoutStyle"
+                <TextView
+                    android:id="@+id/tv_one_of_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/meet_up_create"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+                    android:textColor="@color/gray6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_meet_up"
+                    style="@style/TextAppearance.Kkumul.head_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/meet_up_create_meet_up"
+                    android:textColor="@color/gray8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_one_of_three" />
+
+                <TextView
+                    android:id="@+id/tv_meet_up_do_plus"
+                    style="@style/TextAppearance.Kkumul.head_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/meet_up_create_do_plus"
+                    android:textColor="@color/gray8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_meet_up" />
+
+                <TextView
+                    android:id="@+id/tv_meet_up_name"
+                    style="@style/TextAppearance.Kkumul.body_03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/meet_up_create_name"
+                    android:textColor="@color/gray8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_meet_up_do_plus" />
+
+                <FrameLayout
+                    android:id="@+id/fl_et_enter_meet_up_name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_meet_up_name">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_meet_up_name"
-                        style="@style/TextInputEditTextStyle"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_meet_up_name"
+                        style="@style/TextInputLayoutStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="약속을 추가해보세요"
-                        android:textColorHint="@color/gray3" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_meet_up_name"
+                            style="@style/TextInputEditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="약속을 추가해보세요"
+                            android:textColorHint="@color/gray3" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_counter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="12dp"
+                        android:text="@string/counter_10"
+                        android:textAppearance="@style/TextAppearance.Kkumul.body_06"
+                        android:textColor="@color/gray3" />
+                </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_counter"
+                    android:id="@+id/tv_meet_up_location"
+                    style="@style/TextAppearance.Kkumul.body_03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="12dp"
-                    android:text="@string/counter_10"
-                    android:textAppearance="@style/TextAppearance.Kkumul.body_06"
-                    android:textColor="@color/gray3" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/tv_meet_up_location"
-                style="@style/TextAppearance.Kkumul.body_03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="84dp"
-                android:text="@string/meet_up_create_location"
-                android:textColor="@color/gray8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_name" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_my_group_enter_location"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/shape_white0_radius_8"
-                android:paddingVertical="15dp"
-                android:paddingStart="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_location">
-
-                <TextView
-                    android:id="@+id/tv_meet_up_create_location_enter"
-                    style="@style/TextAppearance.Kkumul.body_04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="약속 장소를 검색해 주세요"
-                    android:textColorHint="@color/gray3"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/meet_up_create_location"
+                    android:textColor="@color/gray8"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/fl_et_enter_meet_up_name" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_my_group_enter_location"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_search_gray_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shape_white0_radius_8"
+                    android:paddingVertical="15dp"
+                    android:paddingStart="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_meet_up_location">
 
-            <TextView
-                android:id="@+id/tv_meet_up_time"
-                style="@style/TextAppearance.Kkumul.body_03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="@string/meet_up_create_time"
-                android:textColor="@color/gray8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_my_group_enter_location" />
+                    <TextView
+                        android:id="@+id/tv_meet_up_create_location_enter"
+                        style="@style/TextAppearance.Kkumul.body_04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="약속 장소를 검색해 주세요"
+                        android:textColorHint="@color/gray3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_meet_up_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/shape_white0_radius_8"
-                android:paddingVertical="11dp"
-                android:paddingStart="11dp"
-                android:paddingEnd="43dp"
-                app:layout_constraintEnd_toStartOf="@+id/cl_meet_up_time"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_time">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_search_gray_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/iv_meet_up_date"
+                <TextView
+                    android:id="@+id/tv_meet_up_time"
+                    style="@style/TextAppearance.Kkumul.body_03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_date_gray_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_meet_up_create_date_enter"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/meet_up_create_time"
+                    android:textColor="@color/gray8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_my_group_enter_location" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_meet_up_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shape_white0_radius_8"
+                    android:paddingVertical="11dp"
+                    android:paddingStart="11dp"
+                    android:paddingEnd="43dp"
+                    app:layout_constraintEnd_toStartOf="@+id/cl_meet_up_time"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_meet_up_time">
 
-                <TextView
-                    android:id="@+id/tv_meet_up_create_date_enter"
-                    style="@style/TextAppearance.Kkumul.body_04"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/iv_meet_up_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_date_gray_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_meet_up_create_date_enter"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tv_meet_up_create_date_enter"
+                        style="@style/TextAppearance.Kkumul.body_04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="2024.00.00"
+                        android:textColor="@color/gray3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_meet_up_date"
+                        app:layout_constraintTop_toTopOf="@id/iv_meet_up_date" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_meet_up_time"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="2024.00.00"
-                    android:textColor="@color/gray3"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shape_white0_radius_8"
+                    android:paddingVertical="11dp"
+                    android:paddingStart="11dp"
+                    android:paddingEnd="43dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_meet_up_date"
-                    app:layout_constraintTop_toTopOf="@id/iv_meet_up_date" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_meet_up_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/shape_white0_radius_8"
-                android:paddingVertical="11dp"
-                android:paddingStart="11dp"
-                android:paddingEnd="43dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/cl_meet_up_date"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_time">
-
-                <ImageView
-                    android:id="@+id/iv_meet_up_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_time_gray_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_meet_up_create_time_enter"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/cl_meet_up_date"
+                    app:layout_constraintTop_toBottomOf="@id/tv_meet_up_time">
 
-                <TextView
-                    android:id="@+id/tv_meet_up_create_time_enter"
-                    style="@style/TextAppearance.Kkumul.body_04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="AM 00:00"
-                    android:textColor="@color/gray3"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_meet_up_time"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/iv_meet_up_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_time_gray_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_meet_up_create_time_enter"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_meet_up_create_time_enter"
+                        style="@style/TextAppearance.Kkumul.body_04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="AM 00:00"
+                        android:textColor="@color/gray3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_meet_up_time"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/btn_meet_up_create_next"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/sel_btn"
-                android:enabled="false"
-                android:text="@string/next"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-                android:textColor="@color/white0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="332:50"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+        </ScrollView>
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <Button
+            android:id="@+id/btn_meet_up_create_next"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/sel_btn"
+            android:enabled="false"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="50dp"
+            android:text="@string/next"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            android:textColor="@color/white0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="332:50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
