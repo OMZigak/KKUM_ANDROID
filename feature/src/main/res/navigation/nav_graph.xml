@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_myGroupDetailFragment_to_dialogInvitationCodeFragment"
             app:destination="@id/fragment_dialog_invitation_code" />
+        <action
+            android:id="@+id/action_myGroupDetailFragment_to_exitBottomSheetFragment"
+            app:destination="@id/fragment_exit_bottom_sheet" />
     </fragment>
 
     <fragment
@@ -157,6 +160,14 @@
             app:destination="@id/fragment_my_group_detail"
             app:popUpTo="@id/fragment_my_group_detail"
             app:popUpToInclusive="true" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/fragment_exit_bottom_sheet"
+        android:name="com.teamkkumul.feature.utils.BottomSheetExitFragment"
+        tools:layout="@layout/fragment_exit_bottom_sheet">
+
+
     </dialog>
     <fragment
         android:id="@+id/fragment_meet_up_container"
