@@ -43,6 +43,7 @@
                 tools:text="홈" />
 
             <ImageView
+                android:id="@+id/iv_btn_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

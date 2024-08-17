@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/toolbar_my_group_detail"
+            android:id="@+id/toolbar_my_group"
             layout="@layout/view_toolbar"
             app:title="@{@string/my_group_title}" />
 

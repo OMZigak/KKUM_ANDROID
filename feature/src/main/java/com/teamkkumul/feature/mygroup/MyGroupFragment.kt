@@ -33,6 +33,8 @@ class MyGroupFragment : BindingFragment<FragmentMyGroupBinding>(R.layout.fragmen
         viewModel.getMyGroupList()
         viewModel.getMyGroupCount()
         initGetName()
+
+        binding.toolbarMyGroup.ivBtnMore.visibility = View.GONE
     }
 
     private fun initGetName() {
