@@ -67,6 +67,13 @@ class MyGroupDetailFragment :
                 bundleOf(MEETING_ID to currentId),
             )
         }
+
+        binding.toolbarMyGroupDetail.ivBtnMore.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_myGroupDetailFragment_to_exitBottomSheetFragment,
+                bundleOf(MEETING_ID to currentId),
+            )
+        }
     }
 
     private fun initObserveMyGroupInfoState() {
