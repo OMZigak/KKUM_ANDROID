@@ -83,13 +83,15 @@
 
     <style name="ThemeOverlay.App.TimePicker" parent="@style/ThemeOverlay.Material3.MaterialTimePicker">
         <item name="android:backgroundTint">@color/white0</item>
-        <item name="materialButtonOutlinedStyle">@style/ThemeOverlay.App.TimePicker.AmPmButton</item>
+        <item name="materialButtonOutlinedStyle">@style/ThemeOverlay.App.TimePicker.AmPmButton
+        </item>
     </style>
 
     <style name="ThemeOverlay.App.TimePicker.AmPmButton" parent="Widget.MaterialComponents.TimePicker.Button">
-        <item name="backgroundTint"> @color/main_color</item>
+        <item name="backgroundTint">@color/main_color</item>
 
     </style>
+
     <style name="CustomExtendedFabShape" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">28dp</item>
@@ -111,6 +113,12 @@
         <item name="chipMinTouchTargetSize">44dp</item>
         <item name="chipSpacingHorizontal">4dp</item>
         <item name="chipSpacingVertical">8dp</item>
+    </style>
+
+    <style name="TransparentBottomSheetStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
     </style>
 
 </resources>
