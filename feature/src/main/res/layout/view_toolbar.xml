@@ -41,6 +41,14 @@
                 android:text="@{title}"
                 android:textColor="@android:color/black"
                 tools:text="홈" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginVertical="7dp"
+                android:layout_marginEnd="14dp"
+                android:src="@drawable/ic_btn_more_36" />
         </androidx.appcompat.widget.Toolbar>
 
         <View
