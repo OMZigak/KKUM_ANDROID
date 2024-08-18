@@ -199,6 +199,49 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/tv_meet_up_include_me"
+                style="@style/TextAppearance.Kkumul.body_05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="16dp"
+                android:text="내가 속한 약속"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up" />
+
+            <View
+                android:id="@+id/v_meet_up_include_me"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/main_color"
+                app:layout_constraintEnd_toEndOf="@id/tv_meet_up_include_me"
+                app:layout_constraintStart_toStartOf="@id/tv_meet_up_include_me"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_include_me" />
+
+            <TextView
+                android:id="@+id/tv_all_meet_up"
+                style="@style/TextAppearance.Kkumul.body_05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:text="모든 약속"
+                app:layout_constraintStart_toEndOf="@id/tv_meet_up_include_me"
+                app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up" />
+
+            <View
+                android:id="@+id/v_all_meet_up"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/main_color"
+                app:layout_constraintEnd_toEndOf="@id/tv_all_meet_up"
+                app:layout_constraintStart_toStartOf="@id/tv_all_meet_up"
+                app:layout_constraintTop_toBottomOf="@id/tv_all_meet_up" />
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_my_group_meet_up"
                 android:layout_width="0dp"
@@ -210,7 +253,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_include_me"
                 app:layout_constraintVertical_bias="0.022"
                 tools:listitem="@layout/item_my_group_remain_meet_up" />
 
