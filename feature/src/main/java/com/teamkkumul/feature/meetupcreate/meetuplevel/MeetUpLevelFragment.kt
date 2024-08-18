@@ -53,7 +53,6 @@ class MeetUpLevelFragment :
         }
 
         binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
-        binding.tbMeetUpCreate.ivBtnMore.visibility = View.GONE
 
         viewModel.setProgressBar(75)
         observeProgress()

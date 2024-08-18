@@ -66,6 +66,8 @@ class MyGroupDetailFragment :
         navigationClickListeners()
         textInitialState()
         textClickListeners()
+
+        binding.toolbarMyGroupDetail.ivBtnMore.visibility = View.VISIBLE
     }
 
     private fun textClickListeners() {

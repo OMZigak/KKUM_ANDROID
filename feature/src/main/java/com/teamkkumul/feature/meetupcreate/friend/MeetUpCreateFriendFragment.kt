@@ -56,7 +56,6 @@ class MeetUpCreateFriendFragment :
 
         viewModel.setProgressBar(50)
         binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
-        binding.tbMeetUpCreate.ivBtnMore.visibility = View.GONE
 
         initRecyclerView()
         viewModel.getMyGroupMemberToMeetUp(meetingId)

@@ -34,8 +34,6 @@ class MeetUpCreateLocationFragment :
         initObserveMeetUpLocationState()
         updateNextButton(false)
         setupLocationNameEditorAction()
-
-        binding.tbMeetUpCreate.ivBtnMore.visibility = View.GONE
     }
 
     private fun setupLocationNameEditorAction() {
