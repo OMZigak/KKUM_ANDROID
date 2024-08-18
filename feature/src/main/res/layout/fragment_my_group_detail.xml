@@ -206,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="16dp"
-                android:text="내가 속한 약속"
+                android:text="@string/my_group_meet_up_include_me"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up" />
 
@@ -215,8 +215,8 @@
                 android:layout_width="0dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="5dp"
-                android:visibility="visible"
                 android:background="@color/main_color"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@id/tv_meet_up_include_me"
                 app:layout_constraintStart_toStartOf="@id/tv_meet_up_include_me"
                 app:layout_constraintTop_toBottomOf="@id/tv_meet_up_include_me" />
@@ -228,7 +228,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
-                android:text="모든 약속"
+                android:text="@string/my_group_all_meet_up"
                 app:layout_constraintStart_toEndOf="@id/tv_meet_up_include_me"
                 app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up" />
 
@@ -237,8 +237,8 @@
                 android:layout_width="0dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="5dp"
-                android:visibility="gone"
                 android:background="@color/main_color"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@id/tv_all_meet_up"
                 app:layout_constraintStart_toStartOf="@id/tv_all_meet_up"
                 app:layout_constraintTop_toBottomOf="@id/tv_all_meet_up" />

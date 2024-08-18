@@ -76,7 +76,8 @@
     <string name="my_group_do_plus">모임을 추가해 보세요.</string>
     <string name="my_group_participate_in">명 참여중</string>
     <string name="my_group_meet_up_count">번</string>
-
+    <string name="my_group_meet_up_include_me">내가 속한 약속</string>
+    <string name="my_group_all_meet_up">모든 약속</string>
 
     <!--    약속 상세 화면-->
     <string name="meet_up_participate_people">약속 참여 인원</string>
