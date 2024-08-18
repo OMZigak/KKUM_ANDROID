@@ -18,15 +18,14 @@
 
         <ProgressBar
             android:id="@+id/pb_meet_up_create"
-            android:layout_width="match_parent"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
             android:layout_height="4dp"
             android:max="100"
             android:progress="50"
             android:progressDrawable="@drawable/pg_meet_up_green"
             app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create" />
 
-        <!-- ScrollView를 적용하여 콘텐츠 감싸기 -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -96,14 +95,18 @@
                         android:id="@+id/til_meet_up_name"
                         style="@style/TextInputLayoutStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_meet_up_name"
                             style="@style/TextInputEditTextStyle"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:hint="약속을 추가해보세요"
+                            android:maxLength="18"
+                            android:maxLines="1"
+                            android:paddingEnd="40dp"
+                            android:singleLine="true"
                             android:textColorHint="@color/gray3" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -216,7 +219,6 @@
                         app:layout_constraintTop_toTopOf="@id/iv_meet_up_date" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_meet_up_time"
                     android:layout_width="0dp"
@@ -266,10 +268,10 @@
             android:id="@+id/btn_meet_up_create_next"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/sel_btn"
-            android:enabled="false"
             android:layout_marginHorizontal="14dp"
             android:layout_marginBottom="50dp"
+            android:background="@drawable/sel_btn"
+            android:enabled="false"
             android:text="@string/next"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
             android:textColor="@color/white0"

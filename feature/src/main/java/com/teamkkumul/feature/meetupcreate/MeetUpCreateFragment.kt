@@ -110,7 +110,7 @@ class MeetUpCreateFragment :
     private fun setName() = with(binding.etMeetUpName) {
         setSingleLine(true)
         doAfterTextChanged {
-            validInput(text.toString())
+             validInput(text.toString())
         }
         setOnEditorActionListener { _, actionId, event ->
             if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER)) {
@@ -129,13 +129,19 @@ class MeetUpCreateFragment :
         if (isValid) {
             currentText = input
             setColor(R.color.main_color)
+            setInputTextColor(R.color.black0)
             setErrorState(null)
         } else {
             setColor(R.color.red)
+            setInputTextColor(R.color.red)
             setErrorState(getString(R.string.meet_up_name_error_message))
         }
         updateCounter(input.length)
         viewModel.setMeetUpName(isValid)
+    }
+
+    private fun setInputTextColor(colorResId: Int) {
+        binding.etMeetUpName.setTextColor(colorOf(colorResId))
     }
 
     private fun initHideKeyBoard() {
@@ -155,13 +161,12 @@ class MeetUpCreateFragment :
         val color = colorOf(colorResId)
         with(binding) {
             tvCounter.setTextColor(color)
-            etMeetUpName.setTextColor(color)
             tilMeetUpName.boxStrokeColor = color
         }
     }
 
     private fun updateCounter(length: Int) {
-        binding.tvCounter.text = "${length.coerceAtMost(10)}/10"
+        binding.tvCounter.text = "$length/10"
     }
 
     private fun showDatePickerDialog() {
