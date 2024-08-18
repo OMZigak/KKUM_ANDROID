@@ -51,6 +51,7 @@ class MeetUpCreateFragment :
         }
 
         binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
+        binding.tbMeetUpCreate.ivBtnMore.visibility = View.GONE
 
         observeMeetUpDate()
         observeMeetUpTime()
