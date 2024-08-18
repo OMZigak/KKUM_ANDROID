@@ -12,7 +12,7 @@
     <string name="my_page_title">마이페이지</string>
     <string name="set_profile_title">프로필 설정</string>
     <string name="add_my_group_title">내 모임 추가하기</string>
-    <string name="meet_up_create_title">약속 추가</string>
+    <string name="meet_up_create_title">약속 추가하기</string>
     <string name="meet_up_create_loation_title">약속 장소</string>
 
     <string name="add_meet_up_title">약속 추가하기</string>

@@ -15,7 +15,7 @@
         <include
             android:id="@+id/tb_meet_up_create"
             layout="@layout/view_toolbar"
-            app:title="@{@string/set_profile_title}" />
+            app:title="@{@string/meet_up_create_title}" />
 
         <ProgressBar
             android:id="@+id/pb_meet_up_create_friend"

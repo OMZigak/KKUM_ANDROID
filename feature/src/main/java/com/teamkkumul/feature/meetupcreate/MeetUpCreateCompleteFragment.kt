@@ -25,7 +25,7 @@ class MeetUpCreateCompleteFragment :
             )
         }
         binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
-
+        binding.tbMeetUpCreate.ivBtnMore.visibility = View.GONE
     }
 
     private fun setProgressBar(progress: Int) {
