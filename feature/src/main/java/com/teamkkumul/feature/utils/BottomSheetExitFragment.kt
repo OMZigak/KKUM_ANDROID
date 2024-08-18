@@ -21,10 +21,6 @@ class BottomSheetExitFragment :
     BindingBottomSheetFragment<FragmentExitBottomSheetBinding>(R.layout.fragment_exit_bottom_sheet) {
     private val viewModel: MyGroupDetailViewModel by viewModels()
     private var currentId: Int = -1
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.TransparentBottomSheetStyle)
-    }
 
     override fun initView() {
         val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
