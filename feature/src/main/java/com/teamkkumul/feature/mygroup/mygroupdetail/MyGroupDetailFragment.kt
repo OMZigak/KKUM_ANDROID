@@ -1,6 +1,7 @@
 package com.teamkkumul.feature.mygroup.mygroupdetail
 
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -73,6 +74,16 @@ class MyGroupDetailFragment :
                 R.id.action_myGroupDetailFragment_to_exitBottomSheetFragment,
                 bundleOf(MEETING_ID to currentId),
             )
+        }
+
+        textInitialState()
+
+        binding.tvAllMeetUp.setOnClickListener {
+            switchToAllMeetUpState()
+        }
+
+        binding.tvMeetUpIncludeMe.setOnClickListener {
+            switchToMeetUpIncludeMeState()
         }
     }
 
@@ -185,6 +196,44 @@ class MyGroupDetailFragment :
     private fun updateMeetingVisibility(isVisible: Boolean) {
         binding.rvMyGroupMeetUp.visibility = if (isVisible) View.VISIBLE else View.GONE
         binding.viewMyGroupMeetUpEmpty.visibility = if (isVisible) View.GONE else View.VISIBLE
+    }
+
+    private fun textInitialState() {
+        updateTextAppearance(true)
+        updateTextVisibility(true)
+        binding.tvAllMeetUp.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray6))
+    }
+
+    private fun switchToAllMeetUpState() {
+        updateTextAppearance(false)
+        updateTextVisibility(false)
+        binding.tvMeetUpIncludeMe.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.gray6,
+            ),
+        )
+    }
+
+    private fun switchToMeetUpIncludeMeState() {
+        updateTextAppearance(true)
+        updateTextVisibility(true)
+        binding.tvAllMeetUp.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray6))
+    }
+
+    private fun updateTextVisibility(isVisible: Boolean) {
+        binding.vMeetUpIncludeMe.visibility = if (isVisible) View.VISIBLE else View.GONE
+        binding.vAllMeetUp.visibility = if (isVisible) View.GONE else View.VISIBLE
+    }
+
+    private fun updateTextAppearance(isSelected: Boolean) {
+        val selectIncludeMe =
+            if (isSelected) R.style.TextAppearance_Kkumul_body_05 else R.style.TextAppearance_Kkumul_body_06
+        val selectAllMeetUp =
+            if (isSelected) R.style.TextAppearance_Kkumul_body_06 else R.style.TextAppearance_Kkumul_body_05
+
+        binding.tvMeetUpIncludeMe.setTextAppearance(selectIncludeMe)
+        binding.tvAllMeetUp.setTextAppearance(selectAllMeetUp)
     }
 
     override fun onDestroyView() {
