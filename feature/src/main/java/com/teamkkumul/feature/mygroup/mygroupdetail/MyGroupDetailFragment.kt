@@ -17,6 +17,7 @@ import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
 import com.teamkkumul.feature.utils.KeyStorage.CODE
+import com.teamkkumul.feature.utils.KeyStorage.GROUP_NAME
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
@@ -41,15 +42,8 @@ class MyGroupDetailFragment :
     private val meetUpAdapter get() = requireNotNull(_meetUpAdapter)
 
     private var code: String = ""
-    private var currentId: Int = -1
-
+    private val currentId: Int by lazy { arguments?.getInt(MEETING_ID, -1) ?: -1 }
     override fun initView() {
-        val id = arguments?.getInt(MEETING_ID) ?: -1
-
-        if (id != -1) {
-            currentId = id
-        }
-
         initMemberRecyclerView()
         initMeetUpRecyclerView()
         viewModel.getMyGroupInfo(currentId)
@@ -89,9 +83,10 @@ class MyGroupDetailFragment :
         }
 
         binding.toolbarMyGroupDetail.ivBtnMore.setOnClickListener {
+            val groupName = binding.toolbarMyGroupDetail.title.toString()
             findNavController().navigate(
                 R.id.action_myGroupDetailFragment_to_exitBottomSheetFragment,
-                bundleOf(MEETING_ID to currentId),
+                bundleOf(MEETING_ID to currentId, GROUP_NAME to groupName),
             )
         }
     }
