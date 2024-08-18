@@ -12,14 +12,13 @@
         android:theme="@style/TransparentBottomSheetStyle">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/siv_dialog_invitation_code"
+            android:id="@+id/iv_dialog_invitation_code"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/shape_rect_white_fill_8"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="359:222"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
@@ -30,33 +29,19 @@
             android:src="@drawable/ic_bottom_sheet_divide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/siv_dialog_invitation_code" />
+            app:layout_constraintTop_toTopOf="@id/iv_dialog_invitation_code" />
 
         <TextView
             android:id="@+id/tv_group_name"
-            style="@style/TextAppearance.Kkumul.body_03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="20dp"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
             android:textColor="@color/gray8"
             app:layout_constraintBottom_toTopOf="@id/iv_exit"
-            app:layout_constraintEnd_toEndOf="@id/siv_dialog_invitation_code"
-            app:layout_constraintStart_toStartOf="@id/siv_dialog_invitation_code"
-            app:layout_constraintTop_toBottomOf="@id/iv_devide" />
-
-        <TextView
-            android:id="@+id/tv_meet_up_name"
-            style="@style/TextAppearance.Kkumul.body_03"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/gray8"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/iv_exit"
-            app:layout_constraintEnd_toEndOf="@id/siv_dialog_invitation_code"
-            app:layout_constraintStart_toStartOf="@id/siv_dialog_invitation_code"
+            app:layout_constraintEnd_toEndOf="@id/iv_dialog_invitation_code"
+            app:layout_constraintStart_toStartOf="@id/iv_dialog_invitation_code"
             app:layout_constraintTop_toBottomOf="@id/iv_devide" />
 
         <ImageView
@@ -73,10 +58,10 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            style="@style/TextAppearance.Kkumul.body_05"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="모임 나가기"
+            android:text="@string/exit_group"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_05"
             android:textColor="@color/gray8"
             app:layout_constraintBottom_toBottomOf="@id/iv_exit"
             app:layout_constraintEnd_toEndOf="@id/iv_exit"
@@ -98,16 +83,14 @@
 
         <TextView
             android:id="@+id/tv_cancle"
-            style="@style/TextAppearance.Kkumul.body_05"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="취소"
+            android:text="@string/exit_group_cancle"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_05"
             android:textColor="@color/white0"
             app:layout_constraintBottom_toBottomOf="@id/iv_cancle"
             app:layout_constraintEnd_toEndOf="@id/iv_cancle"
             app:layout_constraintStart_toStartOf="@id/iv_cancle"
             app:layout_constraintTop_toTopOf="@id/iv_cancle" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
