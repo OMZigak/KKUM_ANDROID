@@ -1,16 +1,17 @@
 package com.teamkkumul.feature.mygroup.mygroupdetail
 
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
@@ -62,6 +63,22 @@ class MyGroupDetailFragment :
         initObserveMemberListState()
         initObserveMyGroupInfoState()
 
+        navigationClickListeners()
+        textInitialState()
+        textClickListeners()
+    }
+
+    private fun textClickListeners() {
+        binding.tvAllMeetUp.setOnClickListener {
+            switchToAllMeetUpState()
+        }
+
+        binding.tvMeetUpIncludeMe.setOnClickListener {
+            switchToMeetUpIncludeMeState()
+        }
+    }
+
+    private fun navigationClickListeners() {
         binding.extendedFab.setOnClickListener {
             findNavController().navigate(
                 R.id.action_myGroupDetailFragment_to_meetUpCreateFragment,
@@ -74,16 +91,6 @@ class MyGroupDetailFragment :
                 R.id.action_myGroupDetailFragment_to_exitBottomSheetFragment,
                 bundleOf(MEETING_ID to currentId),
             )
-        }
-
-        textInitialState()
-
-        binding.tvAllMeetUp.setOnClickListener {
-            switchToAllMeetUpState()
-        }
-
-        binding.tvMeetUpIncludeMe.setOnClickListener {
-            switchToMeetUpIncludeMeState()
         }
     }
 
@@ -201,29 +208,24 @@ class MyGroupDetailFragment :
     private fun textInitialState() {
         updateTextAppearance(true)
         updateTextVisibility(true)
-        binding.tvAllMeetUp.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray6))
+        binding.tvAllMeetUp.setTextColor(colorOf(R.color.gray6))
     }
 
     private fun switchToAllMeetUpState() {
         updateTextAppearance(false)
         updateTextVisibility(false)
-        binding.tvMeetUpIncludeMe.setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.gray6,
-            ),
-        )
+        binding.tvMeetUpIncludeMe.setTextColor(colorOf(R.color.gray6))
     }
 
     private fun switchToMeetUpIncludeMeState() {
         updateTextAppearance(true)
         updateTextVisibility(true)
-        binding.tvAllMeetUp.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray6))
+        binding.tvAllMeetUp.setTextColor((colorOf(R.color.gray6)))
     }
 
     private fun updateTextVisibility(isVisible: Boolean) {
-        binding.vMeetUpIncludeMe.visibility = if (isVisible) View.VISIBLE else View.GONE
-        binding.vAllMeetUp.visibility = if (isVisible) View.GONE else View.VISIBLE
+        binding.vMeetUpIncludeMe.setVisible(isVisible)
+        binding.vAllMeetUp.setVisible(!isVisible)
     }
 
     private fun updateTextAppearance(isSelected: Boolean) {
