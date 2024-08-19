@@ -18,7 +18,7 @@ class BottomSheetExitFragment :
 
     private fun myGroupPlusButton() {
         binding.tvGroupName.text = groupName
-        binding.ivCancle.setOnClickListener {
+        binding.tvCancleBackground.setOnClickListener {
             dismiss()
         }
     }
