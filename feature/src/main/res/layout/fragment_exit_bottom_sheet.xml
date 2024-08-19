@@ -39,20 +39,20 @@
             android:layout_marginBottom="20dp"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
             android:textColor="@color/gray8"
-            app:layout_constraintBottom_toTopOf="@id/iv_exit"
+            app:layout_constraintBottom_toTopOf="@id/tv_exit_background"
             app:layout_constraintEnd_toEndOf="@id/iv_dialog_invitation_code"
             app:layout_constraintStart_toStartOf="@id/iv_dialog_invitation_code"
             app:layout_constraintTop_toBottomOf="@id/iv_devide" />
 
-        <ImageView
-            android:id="@+id/iv_exit"
+        <TextView
+            android:id="@+id/tv_exit_background"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="14dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/shape_radius_8"
             android:backgroundTint="@color/gray1"
-            app:layout_constraintBottom_toTopOf="@id/iv_cancle"
+            app:layout_constraintBottom_toTopOf="@id/tv_cancle_background"
             app:layout_constraintDimensionRatio="332:50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -63,13 +63,13 @@
             android:text="@string/exit_group"
             android:textAppearance="@style/TextAppearance.Kkumul.body_05"
             android:textColor="@color/gray8"
-            app:layout_constraintBottom_toBottomOf="@id/iv_exit"
-            app:layout_constraintEnd_toEndOf="@id/iv_exit"
-            app:layout_constraintStart_toStartOf="@id/iv_exit"
-            app:layout_constraintTop_toTopOf="@id/iv_exit" />
+            app:layout_constraintBottom_toBottomOf="@id/tv_exit_background"
+            app:layout_constraintEnd_toEndOf="@id/tv_exit_background"
+            app:layout_constraintStart_toStartOf="@id/tv_exit_background"
+            app:layout_constraintTop_toTopOf="@id/tv_exit_background" />
 
-        <ImageView
-            android:id="@+id/iv_cancle"
+        <TextView
+            android:id="@+id/tv_cancle_background"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="14dp"
@@ -88,9 +88,9 @@
             android:text="@string/exit_group_cancle"
             android:textAppearance="@style/TextAppearance.Kkumul.body_05"
             android:textColor="@color/white0"
-            app:layout_constraintBottom_toBottomOf="@id/iv_cancle"
-            app:layout_constraintEnd_toEndOf="@id/iv_cancle"
-            app:layout_constraintStart_toStartOf="@id/iv_cancle"
-            app:layout_constraintTop_toTopOf="@id/iv_cancle" />
+            app:layout_constraintBottom_toBottomOf="@id/tv_cancle_background"
+            app:layout_constraintEnd_toEndOf="@id/tv_cancle_background"
+            app:layout_constraintStart_toStartOf="@id/tv_cancle_background"
+            app:layout_constraintTop_toTopOf="@id/tv_cancle_background" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
