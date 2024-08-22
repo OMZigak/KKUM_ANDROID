@@ -9,6 +9,7 @@ object TimeUtils {
     private val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
     private val outputPmAmFormat = SimpleDateFormat("a h:mm", Locale.US)
     private val outputDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+    private val outputDateFormatText = SimpleDateFormat("MM월 dd일", Locale.getDefault())
 
     fun String.formatTimeToPmAm(): String {
         val date = inputFormat.parse(this)
@@ -17,6 +18,6 @@ object TimeUtils {
 
     fun String.parseDateToYearMonthDay(): String {
         val date = inputFormat.parse(this)
-        return outputDateFormat.format(date)
+        return outputDateFormatText.format(date)
     }
 }
