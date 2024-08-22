@@ -22,6 +22,7 @@ object KeyStorage {
     const val SOURCE_FRAGMENT = "sourceFragment"
     const val ADD_NEW_GROUP_FRAGMENT = "addNewGroup"
     const val MY_GROUP_DETAIL_FRAGMENT = "myGroupDetail"
+    const val GROUP_NAME = "groupName"
 }
 
 object PROGRESS {

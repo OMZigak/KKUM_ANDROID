@@ -7,14 +7,17 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
 import com.teamkkumul.feature.utils.KeyStorage.CODE
+import com.teamkkumul.feature.utils.KeyStorage.GROUP_NAME
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
@@ -39,15 +42,8 @@ class MyGroupDetailFragment :
     private val meetUpAdapter get() = requireNotNull(_meetUpAdapter)
 
     private var code: String = ""
-    private var currentId: Int = -1
-
+    private val currentId: Int by lazy { arguments?.getInt(MEETING_ID, -1) ?: -1 }
     override fun initView() {
-        val id = arguments?.getInt(MEETING_ID) ?: -1
-
-        if (id != -1) {
-            currentId = id
-        }
-
         initMemberRecyclerView()
         initMeetUpRecyclerView()
         viewModel.getMyGroupInfo(currentId)
@@ -61,10 +57,36 @@ class MyGroupDetailFragment :
         initObserveMemberListState()
         initObserveMyGroupInfoState()
 
+        navigationClickListeners()
+        textInitialState()
+        textClickListeners()
+
+        binding.toolbarMyGroupDetail.ivBtnMore.visibility = View.VISIBLE
+    }
+
+    private fun textClickListeners() {
+        binding.tvAllMeetUp.setOnClickListener {
+            switchToAllMeetUpState()
+        }
+
+        binding.tvMeetUpIncludeMe.setOnClickListener {
+            switchToMeetUpIncludeMeState()
+        }
+    }
+
+    private fun navigationClickListeners() {
         binding.extendedFab.setOnClickListener {
             findNavController().navigate(
                 R.id.action_myGroupDetailFragment_to_meetUpCreateFragment,
                 bundleOf(MEETING_ID to currentId),
+            )
+        }
+
+        binding.toolbarMyGroupDetail.ivBtnMore.setOnClickListener {
+            val groupName = binding.toolbarMyGroupDetail.title.toString()
+            findNavController().navigate(
+                R.id.action_myGroupDetailFragment_to_exitBottomSheetFragment,
+                bundleOf(MEETING_ID to currentId, GROUP_NAME to groupName),
             )
         }
     }
@@ -178,6 +200,39 @@ class MyGroupDetailFragment :
     private fun updateMeetingVisibility(isVisible: Boolean) {
         binding.rvMyGroupMeetUp.visibility = if (isVisible) View.VISIBLE else View.GONE
         binding.viewMyGroupMeetUpEmpty.visibility = if (isVisible) View.GONE else View.VISIBLE
+    }
+
+    private fun textInitialState() {
+        updateTextAppearance(true)
+        updateTextVisibility(true)
+        binding.tvAllMeetUp.setTextColor(colorOf(R.color.gray6))
+    }
+
+    private fun switchToAllMeetUpState() {
+        updateTextAppearance(false)
+        updateTextVisibility(false)
+        binding.tvMeetUpIncludeMe.setTextColor(colorOf(R.color.gray6))
+    }
+
+    private fun switchToMeetUpIncludeMeState() {
+        updateTextAppearance(true)
+        updateTextVisibility(true)
+        binding.tvAllMeetUp.setTextColor((colorOf(R.color.gray6)))
+    }
+
+    private fun updateTextVisibility(isVisible: Boolean) {
+        binding.vMeetUpIncludeMe.setVisible(isVisible)
+        binding.vAllMeetUp.setVisible(!isVisible)
+    }
+
+    private fun updateTextAppearance(isSelected: Boolean) {
+        val selectIncludeMe =
+            if (isSelected) R.style.TextAppearance_Kkumul_body_05 else R.style.TextAppearance_Kkumul_body_06
+        val selectAllMeetUp =
+            if (isSelected) R.style.TextAppearance_Kkumul_body_06 else R.style.TextAppearance_Kkumul_body_05
+
+        binding.tvMeetUpIncludeMe.setTextAppearance(selectIncludeMe)
+        binding.tvAllMeetUp.setTextAppearance(selectAllMeetUp)
     }
 
     override fun onDestroyView() {

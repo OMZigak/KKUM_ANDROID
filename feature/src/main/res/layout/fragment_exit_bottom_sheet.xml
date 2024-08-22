@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/TransparentBottomSheetStyle">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_dialog_invitation_code"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_rect_white_fill_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="359:222"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_devide"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/ic_bottom_sheet_divide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_dialog_invitation_code" />
+
+        <TextView
+            android:id="@+id/tv_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="20dp"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            android:textColor="@color/gray8"
+            app:layout_constraintBottom_toTopOf="@id/tv_exit_background"
+            app:layout_constraintEnd_toEndOf="@id/iv_dialog_invitation_code"
+            app:layout_constraintStart_toStartOf="@id/iv_dialog_invitation_code"
+            app:layout_constraintTop_toBottomOf="@id/iv_devide" />
+
+        <TextView
+            android:id="@+id/tv_exit_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/shape_radius_8"
+            android:backgroundTint="@color/gray1"
+            app:layout_constraintBottom_toTopOf="@id/tv_cancle_background"
+            app:layout_constraintDimensionRatio="332:50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exit_group"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+            android:textColor="@color/gray8"
+            app:layout_constraintBottom_toBottomOf="@id/tv_exit_background"
+            app:layout_constraintEnd_toEndOf="@id/tv_exit_background"
+            app:layout_constraintStart_toStartOf="@id/tv_exit_background"
+            app:layout_constraintTop_toTopOf="@id/tv_exit_background" />
+
+        <TextView
+            android:id="@+id/tv_cancle_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="48dp"
+            android:background="@drawable/shape_radius_8"
+            android:backgroundTint="@color/gray7"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="332:50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exit_group_cancle"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+            android:textColor="@color/white0"
+            app:layout_constraintBottom_toBottomOf="@id/tv_cancle_background"
+            app:layout_constraintEnd_toEndOf="@id/tv_cancle_background"
+            app:layout_constraintStart_toStartOf="@id/tv_cancle_background"
+            app:layout_constraintTop_toTopOf="@id/tv_cancle_background" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

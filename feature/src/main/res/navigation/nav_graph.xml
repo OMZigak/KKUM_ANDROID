@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_myGroupDetailFragment_to_dialogInvitationCodeFragment"
             app:destination="@id/fragment_dialog_invitation_code" />
+        <action
+            android:id="@+id/action_myGroupDetailFragment_to_exitBottomSheetFragment"
+            app:destination="@id/fragment_exit_bottom_sheet" />
     </fragment>
 
     <fragment
@@ -119,6 +122,7 @@
             android:id="@+id/action_fragment_add_my_group_to_fragment_add_new_group"
             app:destination="@id/fragment_add_new_group" />
     </fragment>
+
     <fragment
         android:id="@+id/fragment_enter_invitation_code"
         android:name="com.teamkkumul.feature.newgroup.enterinvitationcode.EnterInvitationCodeFragment"
@@ -129,6 +133,7 @@
             app:popUpTo="@id/fragment_enter_invitation_code"
             app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/fragment_add_new_group"
         android:name="com.teamkkumul.feature.newgroup.addnewgroup.AddNewGroupFragment"
@@ -142,6 +147,7 @@
             app:popUpTo="@id/fragment_add_new_group"
             app:popUpToInclusive="true" />
     </fragment>
+
     <dialog
         android:id="@+id/fragment_dialog_invitation_code"
         android:name="com.teamkkumul.feature.newgroup.addnewgroup.DialogInvitationCodeFragment"
@@ -158,6 +164,12 @@
             app:popUpTo="@id/fragment_my_group_detail"
             app:popUpToInclusive="true" />
     </dialog>
+
+    <dialog
+        android:id="@+id/fragment_exit_bottom_sheet"
+        android:name="com.teamkkumul.feature.utils.BottomSheetExitFragment"
+        tools:layout="@layout/fragment_exit_bottom_sheet" />
+
     <fragment
         android:id="@+id/fragment_meet_up_container"
         android:name="com.teamkkumul.feature.meetup.MeetUpContainerFragment"
@@ -167,6 +179,7 @@
             android:id="@+id/action_fragment_meet_up_container_to_readyInfoInputFragment"
             app:destination="@id/fragment_ready_info_input" />
     </fragment>
+
     <fragment
         android:id="@+id/fragment_ready_info_input"
         android:name="com.teamkkumul.feature.meetup.readystatus.readyinfoinput.ReadyInfoInputFragment"
@@ -210,6 +223,7 @@
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="false" />
     </fragment>
+
     <fragment
         android:id="@+id/fragment_meet_up_level"
         android:name="com.teamkkumul.feature.meetupcreate.meetuplevel.MeetUpLevelFragment"
@@ -220,6 +234,7 @@
             app:popUpTo="@id/fragment_meet_up_level"
             app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/fragment_meet_up_create_complete"
         android:name="com.teamkkumul.feature.meetupcreate.MeetUpCreateCompleteFragment"
@@ -235,5 +250,4 @@
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="false" />
     </fragment>
-
 </navigation>
