@@ -11,6 +11,7 @@ interface MyGroupRepository {
     suspend fun getMyGroupMeetUp(
         meetingId: Int,
         done: Boolean,
+        isParticipant: Boolean,
     ): Result<List<MyGroupMeetUpModel.Promise>>
 
     suspend fun getMyGroupInfo(meetingId: Int): Result<MyGroupInfoModel>

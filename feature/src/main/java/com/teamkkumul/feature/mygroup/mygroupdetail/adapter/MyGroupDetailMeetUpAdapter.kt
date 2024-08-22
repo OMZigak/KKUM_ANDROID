@@ -29,7 +29,7 @@ class MyGroupDetailMeetUpAdapter(
 
     companion object {
         private val DiffUtil = ItemDiffCallback<MyGroupMeetUpModel.Promise>(
-            onItemsTheSame = { old, new -> old.date == new.date },
+            onItemsTheSame = { old, new -> old.promiseId == new.promiseId },
             onContentsTheSame = { old, new -> old == new },
         )
     }
