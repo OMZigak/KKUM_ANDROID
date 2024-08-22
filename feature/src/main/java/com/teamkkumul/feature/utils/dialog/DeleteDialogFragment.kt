@@ -1,6 +1,7 @@
-package com.teamkkumul.feature.meetup.dialog
+package com.teamkkumul.feature.utils.dialog
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.teamkkumul.core.ui.base.BindingDialogFragment
@@ -29,7 +30,7 @@ class DeleteDialogFragment :
             ivDialogLeave.load(dialogType.imageResId)
             tvLeaveQuestion.text = getString(dialogType.question)
             tvLeaveQuestionDescription.text = getString(dialogType.questionDescription)
-            tvBtnLeave.text = getString(dialogType.btnText)
+            tvBtnCancel.text = getString(dialogType.btnText)
         }
     }
 
@@ -48,6 +49,7 @@ class DeleteDialogFragment :
             DeleteDialogType.MY_GROUP_LEAVE_DIALOG -> {
                 // viewModel.deleteGroup(args.meetingId)
                 // findNavController().navigate() 및 stack 제거 처리
+                findNavController().popBackStack()
             }
 
             DeleteDialogType.PROMISE_LEAVE_DIALOG -> {

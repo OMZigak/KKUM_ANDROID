@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetup.dialog
+package com.teamkkumul.feature.utils.dialog
 
 import androidx.lifecycle.ViewModel
 import com.teamkkumul.core.data.repository.MeetUpRepository
