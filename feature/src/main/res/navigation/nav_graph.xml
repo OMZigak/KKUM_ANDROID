@@ -258,17 +258,28 @@
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="false" />
     </fragment>
+
     <dialog
         android:id="@+id/deleteDialogFragment"
         android:name="com.teamkkumul.feature.meetup.dialog.DeleteDialogFragment"
-        android:label="DeleteDialogFragment">
+        android:label="DeleteDialogFragment"
+        tools:layout="@layout/fragment_dialog_delete">
         <argument
             android:name="dialogType"
             app:argType="com.teamkkumul.feature.utils.DeleteDialogType" />
+        <argument
+            android:name="promiseId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <argument
+            android:name="meetingId"
+            android:defaultValue="-1"
+            app:argType="integer" />
     </dialog>
     <dialog
         android:id="@+id/fragment_exit_meet_up_bottom_sheet"
         android:name="com.teamkkumul.feature.utils.BottomSheetMeetUpExitFragment"
         tools:layout="@layout/fragment_exit_meet_up_bottom_sheet" />
+
 
 </navigation>
