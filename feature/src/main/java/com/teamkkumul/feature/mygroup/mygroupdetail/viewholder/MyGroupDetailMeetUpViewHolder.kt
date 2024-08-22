@@ -25,7 +25,6 @@ class MyGroupDetailMeetUpViewHolder(
         setDdayTextColor(data)
         tvMeetUpGroupText.visibility = View.GONE
         tvMyGroupRemainMeetUpName.text = data.name
-        tvMyGroupRemainMeetUpDate.text = data.date
         tvMyGroupRemainMeetUpLocation.text = data.placeName
         tvMyGroupRemainMeetUpTime.text = data.time
     }
