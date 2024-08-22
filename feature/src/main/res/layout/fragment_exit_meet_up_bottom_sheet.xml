@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/TransparentBottomSheetStyle">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_bottom_sheet_exit_meet_up"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_rect_white_fill_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="359:222"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_devide"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/ic_bottom_sheet_divide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_bottom_sheet_exit_meet_up" />
+
+        <TextView
+            android:id="@+id/tv_meet_up_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="20dp"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            android:textColor="@color/gray8"
+            app:layout_constraintBottom_toTopOf="@id/tv_exit_meet_up_background"
+            app:layout_constraintEnd_toEndOf="@id/iv_bottom_sheet_exit_meet_up"
+            app:layout_constraintStart_toStartOf="@id/iv_bottom_sheet_exit_meet_up"
+            app:layout_constraintTop_toBottomOf="@id/iv_devide"
+            tools:text="꾸물꿈 뒷풀이" />
+
+        <TextView
+            android:id="@+id/tv_exit_meet_up_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/shape_radius_8"
+            android:backgroundTint="@color/gray7"
+            android:gravity="center"
+            android:text="@string/tv_exit_meet_up"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+            android:textColor="@color/white0"
+            app:layout_constraintBottom_toTopOf="@id/tv_delete_meet_up_background"
+            app:layout_constraintDimensionRatio="332:50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_delete_meet_up_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="48dp"
+            android:background="@drawable/shape_radius_8"
+            android:backgroundTint="@color/gray1"
+            android:gravity="center"
+            android:text="@string/tv_delete_meet_up"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_06"
+            android:textColor="@color/red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="332:50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
