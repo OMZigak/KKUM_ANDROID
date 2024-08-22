@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:paddingEnd="68dp"
+            android:layout_marginEnd="84dp"
             app:layout_constraintBottom_toBottomOf="@id/iv_my_group_remain_meet_up_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_my_group_remain_meet_up_date"
@@ -114,10 +114,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:maxWidth="150dp"
+            android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="@id/iv_my_group_remain_meet_up_location"
             app:layout_constraintStart_toEndOf="@id/iv_my_group_remain_meet_up_location"
             app:layout_constraintTop_toTopOf="@id/iv_my_group_remain_meet_up_location"
-            tools:text="용산역" />
+            tools:text="열두글자까지보입니다열두글" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
