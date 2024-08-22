@@ -22,7 +22,11 @@ object KeyStorage {
     const val SOURCE_FRAGMENT = "sourceFragment"
     const val ADD_NEW_GROUP_FRAGMENT = "addNewGroup"
     const val MY_GROUP_DETAIL_FRAGMENT = "myGroupDetail"
+    const val MEET_UP_LEAVE_DIALOG = "meetUpLeaveDialog"
+    const val MY_GROUP_LEAVE_DIALOG = "myGroupLeaveDialog"
+    const val MEET_UP_DELETE_DIALOG = "meetUpDeleteDialog"
     const val GROUP_NAME = "groupName"
+    const val DIALOG_TYPE = "dialogType"
 }
 
 object PROGRESS {
