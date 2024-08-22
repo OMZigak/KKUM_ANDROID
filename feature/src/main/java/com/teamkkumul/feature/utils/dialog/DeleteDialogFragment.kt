@@ -39,7 +39,7 @@ class DeleteDialogFragment :
         promiseId: Int,
         meetingId: Int,
     ) {
-        binding.ivBtnLeave.setOnClickListener {
+        binding.tvBtnLeave.setOnClickListener {
             handleDeleteAction(dialogType, promiseId, meetingId)
         }
     }
@@ -66,7 +66,7 @@ class DeleteDialogFragment :
     }
 
     private fun initCancelBtnClickListener() {
-        binding.ivBtnCancel.setOnClickListener {
+        binding.tvBtnCancel.setOnClickListener {
             dismiss()
         }
     }

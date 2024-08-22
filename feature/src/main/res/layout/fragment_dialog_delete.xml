@@ -57,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_leave_question" />
 
         <TextView
-            android:id="@+id/iv_btn_leave"
+            android:id="@+id/tv_btn_leave"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="12dp"
@@ -73,13 +73,13 @@
             android:textColor="@color/gray8"
             app:layout_constraintBottom_toBottomOf="@id/iv_dialog_invitation_code"
             app:layout_constraintDimensionRatio="155:52"
-            app:layout_constraintEnd_toStartOf="@id/iv_btn_cancel"
+            app:layout_constraintEnd_toStartOf="@id/tv_btn_cancel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_leave_question_description"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/iv_btn_cancel"
+            android:id="@+id/tv_btn_cancel"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="3dp"
@@ -93,11 +93,11 @@
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
             android:textColor="@color/white0"
-            app:layout_constraintBottom_toBottomOf="@id/iv_btn_leave"
+            app:layout_constraintBottom_toBottomOf="@id/tv_btn_leave"
             app:layout_constraintDimensionRatio="155:52"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_btn_leave"
-            app:layout_constraintTop_toTopOf="@id/iv_btn_leave" />
+            app:layout_constraintStart_toEndOf="@id/tv_btn_leave"
+            app:layout_constraintTop_toTopOf="@id/tv_btn_leave" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
