@@ -14,7 +14,6 @@ abstract class BindingBottomSheetFragment<T : ViewDataBinding>(
 ) : BottomSheetDialogFragment() {
     private var _binding: T? = null
     protected val binding get() = requireNotNull(_binding)
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

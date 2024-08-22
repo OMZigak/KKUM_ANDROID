@@ -25,6 +25,7 @@ object KeyStorage {
     const val MEET_UP_LEAVE_DIALOG = "meetUpLeaveDialog"
     const val MY_GROUP_LEAVE_DIALOG = "myGroupLeaveDialog"
     const val MEET_UP_DELETE_DIALOG = "meetUpDeleteDialog"
+    const val GROUP_NAME = "groupName"
 }
 
 object PROGRESS {
