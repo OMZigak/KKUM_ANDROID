@@ -85,6 +85,8 @@
     <string name="meet_up_detail_information_time">약속시간</string>
     <string name="meet_up_detail_information_ready_level">준비레벨</string>
     <string name="meet_up_detail_information_penalty">벌칙</string>
+    <string name="tv_meet_up_detail_edit">수정하기</string>
+    <string name="tv_meet_up_detail_dday">D-</string>
 
     <!--    홈 화면-->
     <string name="home_fence_text">꾸물꿈에 오신 것을 환영해요!\n정시 도착으로 캐릭터를 성장시켜 보세요.</string>
