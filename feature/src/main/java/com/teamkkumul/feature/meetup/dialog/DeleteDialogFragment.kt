@@ -1,44 +1,76 @@
 package com.teamkkumul.feature.meetup.dialog
 
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.teamkkumul.core.ui.base.BindingDialogFragment
+import com.teamkkumul.core.ui.util.context.dialogFragmentResize
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogDeleteBinding
 import com.teamkkumul.feature.utils.DeleteDialogType
-import com.teamkkumul.feature.utils.KeyStorage.DIALOG_TYPE
 
 class DeleteDialogFragment :
     BindingDialogFragment<FragmentDialogDeleteBinding>(R.layout.fragment_dialog_delete) {
+    private val viewModel by viewModels<DeleteDialogViewModel>()
 
-    private var _binding: FragmentDialogDeleteBinding? = null
-
-    private lateinit var dialogType: DeleteDialogType
     override fun initView() {
-//        val args: DeleteDialogFragmentArgs by navArgs()
-//        val typeString = args.dialogType
-//        binding.ivDialogLeave.load(typeString.imageResId)
+        val args: DeleteDialogFragmentArgs by navArgs()
+        val dialogType = args.dialogType
+        val promiseId = args.promiseId
+        val meetingId = args.meetingId
 
-//        val dialogType2 = DeleteDialogType.valueOf(typeString)
-
-        val dialogTypeString = requireArguments().getString(DIALOG_TYPE)
-        if (dialogTypeString != null) {
-            dialogType = DeleteDialogType.valueOf(dialogTypeString)
-        }
-        setUpDialog()
+        setUpDialog(dialogType)
+        initDeleteBtnClickListener(dialogType, promiseId, meetingId)
+        initCancelBtnClickListener()
     }
 
-    private fun setUpDialog() {
+    private fun setUpDialog(dialogType: DeleteDialogType) {
         with(binding) {
             ivDialogLeave.load(dialogType.imageResId)
-            tvLeaveQuestion.text = dialogType.question
-            tvLeaveQuestionDescription.text = dialogType.questionDescription
-            tvBtnLeave.text = dialogType.btnText
+            tvLeaveQuestion.text = getString(dialogType.question)
+            tvLeaveQuestionDescription.text = getString(dialogType.questionDescription)
+            tvBtnLeave.text = getString(dialogType.btnText)
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun initDeleteBtnClickListener(
+        dialogType: DeleteDialogType,
+        promiseId: Int,
+        meetingId: Int,
+    ) {
+        binding.ivBtnLeave.setOnClickListener {
+            handleDeleteAction(dialogType, promiseId, meetingId)
+        }
+    }
+
+    private fun handleDeleteAction(dialogType: DeleteDialogType, promiseId: Int, meetingId: Int) {
+        when (dialogType) {
+            DeleteDialogType.MY_GROUP_LEAVE_DIALOG -> {
+                // viewModel.deleteGroup(args.meetingId)
+                // findNavController().navigate() 및 stack 제거 처리
+            }
+
+            DeleteDialogType.PROMISE_LEAVE_DIALOG -> {
+                // viewModel.deleteMeetUp(args.promiseId)
+                // findNavController().navigate("key" to meetingId) 및 stack 제거 처리
+            }
+
+            DeleteDialogType.PROMISE_DELETE_DIALOG -> {
+                // viewModel.deleteMeetUp(args.promiseId)
+                // findNavController().navigate("key" to meetingId) 및 stack 제거 처리
+            }
+        }
+        dismiss()
+    }
+
+    private fun initCancelBtnClickListener() {
+        binding.ivBtnCancel.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        context?.dialogFragmentResize(this, 34.0f)
     }
 }
