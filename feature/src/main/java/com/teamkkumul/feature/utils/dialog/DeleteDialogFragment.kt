@@ -1,5 +1,6 @@
 package com.teamkkumul.feature.utils.dialog
 
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -60,6 +61,7 @@ class DeleteDialogFragment :
             DeleteDialogType.PROMISE_DELETE_DIALOG -> {
                 // viewModel.deleteMeetUp(args.promiseId)
                 // findNavController().navigate("key" to meetingId) 및 stack 제거 처리
+                binding.tvLeaveQuestionDescription.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
         }
         dismiss()
