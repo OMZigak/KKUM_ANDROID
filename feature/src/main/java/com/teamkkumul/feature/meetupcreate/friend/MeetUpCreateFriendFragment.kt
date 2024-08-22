@@ -132,11 +132,10 @@ class MeetUpCreateFriendFragment :
                         friendAdapter.submitList(uiState.data)
                     }
                 }
-
                 is UiState.Failure -> Timber.tag("meet up create friend").d(uiState.errorMessage)
-//                is UiState.Empty -> {
-//                    updateMeetUpCreateFriendVisibility(false)
-//                }
+                is UiState.Empty -> {
+                    updateMeetUpCreateFriendVisibility(false)
+                }
 
                 else -> Unit
             }
