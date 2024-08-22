@@ -152,17 +152,20 @@
                 android:background="@drawable/shape_gray_fill_8_rect"
                 android:backgroundTint="@color/gray0"
                 android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_location" />
 
             <TextView
                 android:id="@+id/tv_meet_up_detail_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_04"
                 android:textColor="@color/gray7"
+                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="@id/tv_meet_up_detail_information_location"
                 app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_location"
+                app:layout_constraintTop_toTopOf="@id/iv_meet_up_detail_location"
+                app:layout_constraintBottom_toBottomOf="@id/iv_meet_up_detail_location"
                 tools:text="홍대입구역 2번 출구" />
 
             <TextView
@@ -174,18 +177,29 @@
                 android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
                 android:textColor="@color/main_color"
                 app:layout_constraintStart_toStartOf="@id/tv_meet_up_detail_information_location"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_location" />
+                app:layout_constraintTop_toBottomOf="@id/iv_meet_up_detail_location" />
+
+            <ImageView
+                android:id="@+id/iv_meet_up_detail_time"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/shape_gray_fill_8_rect"
+                android:backgroundTint="@color/gray0"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_time" />
 
             <TextView
                 android:id="@+id/tv_meet_up_detail_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_04"
                 android:textColor="@color/gray7"
+                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="@id/tv_meet_up_detail_information_location"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_time"
-                tools:text="6월 9일 20:00" />
+                app:layout_constraintTop_toTopOf="@id/iv_meet_up_detail_time"
+                app:layout_constraintBottom_toBottomOf="@id/iv_meet_up_detail_time"
+                tools:text="6월 9일 PM 2:00" />
 
             <TextView
                 android:id="@+id/tv_meet_up_detail_information_ready_level"
@@ -196,17 +210,28 @@
                 android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
                 android:textColor="@color/main_color"
                 app:layout_constraintStart_toStartOf="@id/tv_meet_up_detail_information_location"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_time" />
+                app:layout_constraintTop_toBottomOf="@id/iv_meet_up_detail_time" />
+
+            <ImageView
+                android:id="@+id/iv_meet_up_detail_ready_level"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/shape_gray_fill_8_rect"
+                android:backgroundTint="@color/gray0"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_ready_level" />
 
             <TextView
                 android:id="@+id/tv_meet_up_detail_ready_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_04"
                 android:textColor="@color/gray7"
+                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="@id/tv_meet_up_detail_information_location"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_ready_level"
+                app:layout_constraintTop_toTopOf="@id/iv_meet_up_detail_ready_level"
+                app:layout_constraintBottom_toBottomOf="@id/iv_meet_up_detail_ready_level"
                 tools:text="LV 2. 꾸안꾸" />
 
             <TextView
@@ -218,18 +243,28 @@
                 android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
                 android:textColor="@color/main_color"
                 app:layout_constraintStart_toStartOf="@id/tv_meet_up_detail_information_location"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_ready_level" />
+                app:layout_constraintTop_toBottomOf="@id/iv_meet_up_detail_ready_level" />
+
+            <ImageView
+                android:id="@+id/iv_meet_up_detail_penalty"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/shape_gray_fill_8_rect"
+                android:backgroundTint="@color/gray0"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_penalty" />
 
             <TextView
                 android:id="@+id/tv_meet_up_detail_penalty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="15dp"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_04"
                 android:textColor="@color/gray7"
+                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="@id/tv_meet_up_detail_information_location"
-                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_information_penalty"
+                app:layout_constraintTop_toTopOf="@id/iv_meet_up_detail_penalty"
+                app:layout_constraintBottom_toBottomOf="@id/iv_meet_up_detail_penalty"
                 tools:text="꾸물 릴스 찍기" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
