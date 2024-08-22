@@ -24,7 +24,6 @@ internal fun ResponseUserDto.toUserModel(): UserModel =
 internal fun ResponseTodayMeetingDto.toTodayMeetingModel(): HomeTodayMeetingModel =
     HomeTodayMeetingModel(
         dDay = dDay,
-        date = date,
         name = name,
         promiseId = promiseId,
         meetingName = meetingName,
@@ -36,7 +35,6 @@ internal fun ResponseTodayMeetingDto.toTodayMeetingModel(): HomeTodayMeetingMode
 internal fun ResponseHomeUpComingMeetingDto.Promise.toPromiseModel(): HomeTodayMeetingModel =
     HomeTodayMeetingModel(
         dDay = dDay,
-        date = date,
         name = name,
         promiseId = promiseId,
         meetingName = meetingName,
