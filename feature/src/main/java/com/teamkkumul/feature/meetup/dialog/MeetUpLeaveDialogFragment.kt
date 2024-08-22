@@ -10,7 +10,6 @@ class MeetUpLeaveDialogFragment :
 
     private var _binding: FragmentDialogDeleteBinding? = null
 
-//    private lateinit var type: DeleteDialogType
     override fun initView() {
         setUpDialog(DeleteDialogType.MEET_UP_LEAVE_DIALOG)
     }

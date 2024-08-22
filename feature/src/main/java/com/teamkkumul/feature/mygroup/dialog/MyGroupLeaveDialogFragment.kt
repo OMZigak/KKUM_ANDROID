@@ -10,7 +10,6 @@ class MyGroupLeaveDialogFragment :
 
     private var _binding: FragmentDialogDeleteBinding? = null
 
-    //    private lateinit var type: DeleteDialogType
     override fun initView() {
         setUpDialog(DeleteDialogType.MY_GROUP_LEAVE_DIALOG)
     }

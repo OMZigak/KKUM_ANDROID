@@ -7,9 +7,9 @@ import com.teamkkumul.feature.utils.DeleteDialogType
 
 class MeetUpDeleteDialogFragment :
     BindingDialogFragment<FragmentDialogDeleteBinding>(R.layout.fragment_dialog_delete) {
+
     private var _binding: FragmentDialogDeleteBinding? = null
 
-    //    private lateinit var type: DeleteDialogType
     override fun initView() {
         setUpDialog(DeleteDialogType.MEET_UP_DELETE_DIALOG)
     }
