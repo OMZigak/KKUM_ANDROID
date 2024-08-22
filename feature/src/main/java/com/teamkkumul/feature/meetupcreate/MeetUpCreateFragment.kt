@@ -110,11 +110,11 @@ class MeetUpCreateFragment :
     private fun setName() = with(binding.etMeetUpName) {
         setSingleLine(true)
         doAfterTextChanged {
-             validInput(text.toString())
+            validInput(text.toString())
         }
         setOnEditorActionListener { _, actionId, event ->
             if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER)) {
-                context.hideKeyboard(this)
+                requireContext().hideKeyboard(this)
                 true
             } else {
                 false
