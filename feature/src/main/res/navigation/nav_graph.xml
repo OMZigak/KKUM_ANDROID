@@ -253,6 +253,7 @@
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="false" />
     </fragment>
+
     <dialog
         android:id="@+id/deleteDialogFragment"
         android:name="com.teamkkumul.feature.meetup.dialog.DeleteDialogFragment"
@@ -270,6 +271,5 @@
             android:defaultValue="-1"
             app:argType="integer" />
     </dialog>
-
 
 </navigation>
