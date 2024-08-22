@@ -7,8 +7,6 @@ import kotlinx.serialization.Serializable
 data class ResponseTodayMeetingDto(
     @SerialName("dDay")
     val dDay: Int,
-    @SerialName("date")
-    val date: String,
     @SerialName("dressUpLevel")
     val dressUpLevel: String,
     @SerialName("meetingName")
