@@ -18,7 +18,7 @@
             android:layout_height="0dp"
             android:background="@drawable/shape_rect_white_fill_8"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="359:222"
+            app:layout_constraintDimensionRatio="375:232"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
