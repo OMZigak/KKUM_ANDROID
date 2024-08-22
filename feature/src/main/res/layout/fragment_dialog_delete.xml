@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_dialog_invitation_code"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_gray_fill_8_rect"
+            android:backgroundTint="@color/white0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="306:343"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_dialog_leave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_dialog_invitation_code"
+            android:src="@drawable/ic_dialog_leave_meet_up"
+            android:layout_marginTop="42dp" />
+
+        <TextView
+            android:id="@+id/tv_leave_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:text="약속에서 나가시겠어요?"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_01"
+            app:layout_constraintEnd_toEndOf="@id/iv_dialog_invitation_code"
+            app:layout_constraintStart_toStartOf="@id/iv_dialog_invitation_code"
+            app:layout_constraintTop_toBottomOf="@id/iv_dialog_leave" />
+
+        <TextView
+            android:id="@+id/tv_leave_question_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="약속에서 나가도\n참여 인원 추가를 통해 다시 참여 가능해요."
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_06"
+            android:textColor="@color/gray6"
+            app:layout_constraintEnd_toEndOf="@id/iv_dialog_invitation_code"
+            app:layout_constraintStart_toStartOf="@id/iv_dialog_invitation_code"
+            app:layout_constraintTop_toBottomOf="@id/tv_leave_question" />
+
+        <ImageView
+            android:id="@+id/iv_btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/shape_gray_fill_8_rect"
+            android:backgroundTint="@color/gray1"
+            app:layout_constraintBottom_toBottomOf="@id/iv_dialog_invitation_code"
+            app:layout_constraintDimensionRatio="155:52"
+            app:layout_constraintEnd_toStartOf="@id/iv_btn_leave"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_leave_question_description"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/tv_btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="취소"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+            android:textColor="@color/gray8"
+            app:layout_constraintBottom_toBottomOf="@id/iv_btn_cancel"
+            app:layout_constraintEnd_toEndOf="@id/iv_btn_cancel"
+            app:layout_constraintStart_toStartOf="@id/iv_btn_cancel"
+            app:layout_constraintTop_toTopOf="@id/iv_btn_cancel" />
+
+        <ImageView
+            android:id="@+id/iv_btn_leave"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/shape_gray_fill_8_rect"
+            android:backgroundTint="@color/gray7"
+            app:layout_constraintBottom_toBottomOf="@id/iv_btn_cancel"
+            app:layout_constraintDimensionRatio="155:52"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_btn_cancel"
+            app:layout_constraintStart_toEndOf="@id/iv_btn_cancel" />
+
+        <TextView
+            android:id="@+id/tv_btn_leave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="나가기"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            android:textColor="@color/white0"
+            app:layout_constraintBottom_toBottomOf="@id/iv_btn_leave"
+            app:layout_constraintEnd_toEndOf="@id/iv_btn_leave"
+            app:layout_constraintStart_toStartOf="@id/iv_btn_leave"
+            app:layout_constraintTop_toTopOf="@id/iv_btn_leave" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
