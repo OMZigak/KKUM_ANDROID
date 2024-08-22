@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_myGroupDetailFragment_to_exitBottomSheetFragment"
             app:destination="@id/fragment_exit_bottom_sheet" />
+        <action
+            android:id="@+id/action_myGroupDetailFragment_to_deleteDialogFragment"
+            app:destination="@id/deleteDialogFragment" />
     </fragment>
 
     <fragment
@@ -250,4 +253,14 @@
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="false" />
     </fragment>
+    <dialog
+        android:id="@+id/deleteDialogFragment"
+        android:name="com.teamkkumul.feature.meetup.dialog.DeleteDialogFragment"
+        android:label="DeleteDialogFragment">
+        <argument
+            android:name="dialogType"
+            app:argType="com.teamkkumul.feature.utils.DeleteDialogType" />
+    </dialog>
+
+
 </navigation>
