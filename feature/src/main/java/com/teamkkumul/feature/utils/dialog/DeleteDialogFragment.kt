@@ -2,15 +2,22 @@ package com.teamkkumul.feature.utils.dialog
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.teamkkumul.core.ui.base.BindingDialogFragment
 import com.teamkkumul.core.ui.util.context.dialogFragmentResize
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
+import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogDeleteBinding
 import com.teamkkumul.feature.utils.DeleteDialogType
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DeleteDialogFragment :
@@ -26,6 +33,7 @@ class DeleteDialogFragment :
         setUpDialog(dialogType)
         initDeleteBtnClickListener(dialogType, promiseId, meetingId)
         initCancelBtnClickListener()
+        observeDeleteMyGroupState()
     }
 
     private fun setUpDialog(dialogType: DeleteDialogType) {
@@ -51,9 +59,6 @@ class DeleteDialogFragment :
         when (dialogType) {
             DeleteDialogType.MY_GROUP_LEAVE_DIALOG -> {
                 viewModel.deleteMyGroup(meetingId)
-                findNavController().popBackStack(R.id.fragment_my_group, false)
-                // viewModel.deleteGroup(args.meetingId)
-                // findNavController().navigate() 및 stack 제거 처리
             }
 
             DeleteDialogType.PROMISE_LEAVE_DIALOG -> {
@@ -72,7 +77,19 @@ class DeleteDialogFragment :
                 )
             }
         }
-        dismiss()
+    }
+
+    private fun observeDeleteMyGroupState() {
+        viewModel.deleteMyGroupState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> {
+                    findNavController().popBackStack(R.id.fragment_my_group, false)
+                    dismiss()
+                }
+                is UiState.Failure -> Timber.tag("delete my group").d(uiState.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun initCancelBtnClickListener() {
