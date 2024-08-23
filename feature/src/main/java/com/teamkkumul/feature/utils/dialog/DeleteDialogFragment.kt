@@ -10,7 +10,9 @@ import com.teamkkumul.core.ui.util.context.dialogFragmentResize
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogDeleteBinding
 import com.teamkkumul.feature.utils.DeleteDialogType
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DeleteDialogFragment :
     BindingDialogFragment<FragmentDialogDeleteBinding>(R.layout.fragment_dialog_delete) {
     private val viewModel by viewModels<DeleteDialogViewModel>()
@@ -48,9 +50,10 @@ class DeleteDialogFragment :
     private fun handleDeleteAction(dialogType: DeleteDialogType, promiseId: Int, meetingId: Int) {
         when (dialogType) {
             DeleteDialogType.MY_GROUP_LEAVE_DIALOG -> {
+                viewModel.deleteMyGroup(meetingId)
+                findNavController().popBackStack(R.id.fragment_my_group, false)
                 // viewModel.deleteGroup(args.meetingId)
                 // findNavController().navigate() 및 stack 제거 처리
-                findNavController().popBackStack()
             }
 
             DeleteDialogType.PROMISE_LEAVE_DIALOG -> {
@@ -61,7 +64,12 @@ class DeleteDialogFragment :
             DeleteDialogType.PROMISE_DELETE_DIALOG -> {
                 // viewModel.deleteMeetUp(args.promiseId)
                 // findNavController().navigate("key" to meetingId) 및 stack 제거 처리
-                binding.tvLeaveQuestionDescription.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                binding.tvLeaveQuestionDescription.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.red,
+                    ),
+                )
             }
         }
         dismiss()
