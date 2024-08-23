@@ -31,7 +31,7 @@ class DeleteDialogFragment :
             ivDialogLeave.load(dialogType.imageResId)
             tvLeaveQuestion.text = getString(dialogType.question)
             tvLeaveQuestionDescription.text = getString(dialogType.questionDescription)
-            tvBtnCancel.text = getString(dialogType.btnText)
+            tvBtnLeave.text = getString(dialogType.btnText)
         }
     }
 

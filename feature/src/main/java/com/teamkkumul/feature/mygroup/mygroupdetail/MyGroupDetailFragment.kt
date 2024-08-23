@@ -48,7 +48,7 @@ class MyGroupDetailFragment :
         initMeetUpRecyclerView()
         viewModel.getMyGroupInfo(currentId)
         viewModel.getMyGroupMember(currentId)
-        viewModel.getMyGroupMeetUp(currentId, false)
+        viewModel.getMyGroupMeetUp(currentId, false, true)
         viewModel.getMyGroupMemberList(currentId)
 
         initObserveMyGroupInfoState()

@@ -26,7 +26,6 @@ internal fun ResponseMyGroupMeetUpDto.toMyGroupMeetUpModel(): List<MyGroupMeetUp
     promises.map { promise ->
         MyGroupMeetUpModel.Promise(
             dDay = promise.dDay,
-            date = promise.date,
             name = promise.name,
             placeName = promise.placeName,
             time = promise.time,

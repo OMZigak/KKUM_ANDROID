@@ -33,5 +33,6 @@ interface MyGroupService {
     suspend fun getMyGroupMeetUp(
         @Path("meetingId") meetingId: Int,
         @Query("done") done: Boolean,
+        @Query("isParticipant") isParticipant: Boolean,
     ): BaseResponse<ResponseMyGroupMeetUpDto>
 }

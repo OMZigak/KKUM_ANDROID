@@ -5,7 +5,6 @@ data class MyGroupMeetUpModel(
 ) {
     data class Promise(
         val dDay: Int,
-        val date: String,
         val name: String,
         val placeName: String,
         val time: String,

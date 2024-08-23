@@ -5,6 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseMeetUpDetailDto(
+    @SerialName("isParticipant")
+    val isParticipant: Boolean? = null,
     @SerialName("address")
     val address: String? = null,
     @SerialName("dressUpLevel")

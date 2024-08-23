@@ -1,6 +1,7 @@
 package com.teamkkumul.model
 
 data class MeetUpDetailModel(
+    val isParticipant: Boolean?,
     val address: String?,
     val dressUpLevel: String,
     val penalty: String,

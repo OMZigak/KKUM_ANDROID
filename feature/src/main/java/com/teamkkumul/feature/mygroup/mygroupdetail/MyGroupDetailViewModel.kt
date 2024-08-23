@@ -62,17 +62,17 @@ class MyGroupDetailViewModel @Inject constructor(
             }
     }
 
-    fun getMyGroupMeetUp(meetingId: Int, done: Boolean) = viewModelScope.launch {
-        myGroupRepository.getMyGroupMeetUp(meetingId, done)
-            .onSuccess { myGroupMemberModel ->
-                if (myGroupMemberModel.isEmpty()) {
-                    _myGroupMeetUpState.emit(UiState.Empty)
-                } else {
-                    _myGroupMeetUpState.emit(UiState.Success(myGroupMemberModel))
+    fun getMyGroupMeetUp(meetingId: Int, done: Boolean, isParticipant: Boolean) =
+        viewModelScope.launch {
+            myGroupRepository.getMyGroupMeetUp(meetingId, done, isParticipant)
+                .onSuccess { myGroupMemberModel ->
+                    if (myGroupMemberModel.isEmpty()) {
+                        _myGroupMeetUpState.emit(UiState.Empty)
+                    } else {
+                        _myGroupMeetUpState.emit(UiState.Success(myGroupMemberModel))
+                    }
+                }.onFailure { exception ->
+                    _myGroupMeetUpState.emit(UiState.Failure(exception.message.toString()))
                 }
-                _myGroupMeetUpState.emit(UiState.Success(myGroupMemberModel))
-            }.onFailure { exception ->
-                _myGroupMeetUpState.emit(UiState.Failure(exception.message.toString()))
-            }
-    }
+        }
 }

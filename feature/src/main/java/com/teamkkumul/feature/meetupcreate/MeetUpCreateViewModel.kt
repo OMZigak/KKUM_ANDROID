@@ -123,8 +123,12 @@ class MeetUpCreateViewModel @Inject constructor(
 
     fun getMyGroupMemberToMeetUp(memberId: Int) = viewModelScope.launch {
         myGroupRepository.getMyGroupMemberToMeetUp(memberId)
-            .onSuccess { myGroupRepository ->
-                _meetUpCreateMemberState.emit(UiState.Success(myGroupRepository))
+            .onSuccess { meetUpCreateMemberModel ->
+                if (meetUpCreateMemberModel.isEmpty()) {
+                    _meetUpCreateMemberState.emit(UiState.Empty)
+                } else {
+                    _meetUpCreateMemberState.emit(UiState.Success(meetUpCreateMemberModel))
+                }
             }.onFailure { exception ->
                 _meetUpCreateMemberState.emit(UiState.Failure(exception.message.toString()))
             }

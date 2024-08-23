@@ -173,6 +173,8 @@
     <string name="meet_up_create_friend_do_plus">선택해 보세요</string>
     <string name="meet_up_name_error_message">공백 포함 한글, 영문, 숫자만을 사용해 총 10자 이내로 입력해주세요.</string>
 
+    <string name="meet_up_create_friend_empty">약속에 함께할 꾸물이들이 없어요!</string>
+    <string name="meet_up_create_friend_invite">모임에 친구들을 초대해보세요.</string>
 
     <!-- 지각 꾸물이 화면 -->
     <string name="end_meet_up">약속 마치기</string>

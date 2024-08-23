@@ -12,6 +12,7 @@ import com.teamkkumul.core.ui.util.context.pxToDp
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpFriendPlusBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
@@ -79,7 +80,7 @@ class MeetUpCreateFriendFragment :
                 Timber.tag("sss").d(selectedItem.toString())
             },
             { isSelected ->
-                updateNextButton(isSelected)
+                updateNextButton(true)
             },
         )
         binding.rvMeetUpCreateFreindPlus.apply {
@@ -124,17 +125,32 @@ class MeetUpCreateFriendFragment :
         viewModel.meetUpCreateMemberState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
-                    friendAdapter.submitList(uiState.data)
+                    if (uiState.data.isEmpty()) {
+                        updateMeetUpCreateFriendVisibility(false)
+                    } else {
+                        updateMeetUpCreateFriendVisibility(true)
+                        friendAdapter.submitList(uiState.data)
+                    }
+                }
+                is UiState.Failure -> Timber.tag("meet up create friend").d(uiState.errorMessage)
+                is UiState.Empty -> {
+                    updateMeetUpCreateFriendVisibility(false)
                 }
 
-                is UiState.Failure -> Timber.tag("meet up create friend").d(uiState.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
 
+    private fun updateMeetUpCreateFriendVisibility(isVisible: Boolean) {
+        with(binding) {
+            rvMeetUpCreateFreindPlus.setVisible(isVisible)
+            viewMeetUpCreateFriendEmpty.setVisible(!isVisible)
+        }
+    }
+
     private fun initNextButton() {
-        updateNextButton(false)
+        updateNextButton(true)
     }
 
     override fun onDestroyView() {

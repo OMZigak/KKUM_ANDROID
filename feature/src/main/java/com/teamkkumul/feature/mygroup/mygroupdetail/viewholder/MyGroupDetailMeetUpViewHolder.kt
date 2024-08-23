@@ -5,6 +5,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ItemMyGroupRemainMeetUpBinding
+import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
+import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToYearMonthDay
 import com.teamkkumul.model.MyGroupMeetUpModel
 
 class MyGroupDetailMeetUpViewHolder(
@@ -25,9 +27,9 @@ class MyGroupDetailMeetUpViewHolder(
         setDdayTextColor(data)
         tvMeetUpGroupText.visibility = View.GONE
         tvMyGroupRemainMeetUpName.text = data.name
-        tvMyGroupRemainMeetUpDate.text = data.date
         tvMyGroupRemainMeetUpLocation.text = data.placeName
-        tvMyGroupRemainMeetUpTime.text = data.time
+        tvMyGroupRemainMeetUpTime.text = data.time.formatTimeToPmAm()
+        tvMyGroupRemainMeetUpDate.text = data.time.parseDateToYearMonthDay()
     }
 
     private fun setDdayTextColor(data: MyGroupMeetUpModel.Promise) = with(binding) {
