@@ -84,7 +84,7 @@ class DeleteDialogFragment :
                     dismiss()
                 }
 
-                is UiState.Failure -> context?.toast(uiState.errorMessage)
+                is UiState.Failure -> requireContext().toast(uiState.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
