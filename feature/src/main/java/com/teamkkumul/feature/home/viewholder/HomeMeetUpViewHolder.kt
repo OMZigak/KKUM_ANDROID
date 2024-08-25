@@ -1,13 +1,13 @@
 package com.teamkkumul.feature.home.viewholder
 
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.teamkkumul.feature.R
+import com.teamkkumul.core.ui.util.view.colorOf
 import com.teamkkumul.feature.databinding.ItemMyGroupRemainMeetUpBinding
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToYearMonthDay
 import com.teamkkumul.feature.utils.time.setDday
+import com.teamkkumul.feature.utils.time.setDdayTextColor
 import com.teamkkumul.model.home.HomeTodayMeetingModel
 
 class HomeMeetUpViewHolder(
@@ -24,20 +24,13 @@ class HomeMeetUpViewHolder(
 
     fun onBind(data: HomeTodayMeetingModel) = with(binding) {
         item = data
-        setDdayTextColor(data)
+        tvMyGroupRemainMeetUpDueDateDay.setTextColor(colorOf(setDdayTextColor(data.dDay)))
+        tvMyGroupRemainMeetUpDueDateDay.text = setDday(data.dDay)
         tvMeetUpGroupText.visibility = View.VISIBLE
         tvMeetUpGroupText.text = data.meetingName
         tvMyGroupRemainMeetUpName.text = data.name
         tvMyGroupRemainMeetUpDate.text = data.time.parseDateToYearMonthDay()
         tvMyGroupRemainMeetUpLocation.text = data.placeName
         tvMyGroupRemainMeetUpTime.text = data.time.formatTimeToPmAm()
-    }
-
-    private fun setDdayTextColor(data: HomeTodayMeetingModel) = with(binding) {
-        val colorResId = if (data.dDay == 0) R.color.orange else R.color.gray5
-        val color = ContextCompat.getColor(binding.root.context, colorResId)
-
-        tvMyGroupRemainMeetUpDueDateDay.setTextColor(color)
-        tvMyGroupRemainMeetUpDueDateDay.text = setDday(data.dDay)
     }
 }
