@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetup.readystatus.viewholder
+package com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.feature.databinding.ItemReadyStatusBinding

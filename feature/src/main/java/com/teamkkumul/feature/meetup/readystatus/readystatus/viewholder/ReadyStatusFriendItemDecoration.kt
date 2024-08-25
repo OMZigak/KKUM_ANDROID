@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.meetup.readystatus.viewholder
+package com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder
 
 import android.content.Context
 import android.graphics.Rect
