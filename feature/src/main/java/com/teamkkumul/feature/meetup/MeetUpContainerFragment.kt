@@ -72,11 +72,15 @@ class MeetUpContainerFragment :
 
     private fun navigationClickListener() {
         binding.toolbarMeetUpContainer.ivBtnMore.setOnClickListener {
-            val meetUpName = binding.toolbarMeetUpContainer.title.toString()
-            findNavController().navigate(
-                R.id.action_meetUpDetailFragment_to_exitMeetUpBottomSheetFragment,
-                bundleOf(PROMISE_ID to currentId, MEET_UP_NAME to meetUpName),
-            )
+            val meetUpName = binding.toolbarMeetUpContainer.toolbarTitle.text.toString() // 제목 가져오기 수정
+            if (meetUpName.isNotBlank()) {
+                findNavController().navigate(
+                    R.id.action_meetUpContainerFragment_to_exitMeetUpBottomSheetFragment,
+                    bundleOf(PROMISE_ID to currentId, MEET_UP_NAME to meetUpName),
+                )
+            } else {
+                Timber.e("MeetUp 이름이 설정되지 않았거나 비어 있습니다")
+            }
         }
     }
 
