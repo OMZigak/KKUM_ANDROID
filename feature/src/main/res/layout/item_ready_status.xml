@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_radius_8"
-        android:backgroundTint="@color/white0"
+        android:backgroundTint="@color/gray0"
         android:paddingHorizontal="12dp"
         android:paddingVertical="14dp">
 
