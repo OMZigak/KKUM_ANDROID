@@ -7,7 +7,8 @@ import com.teamkkumul.model.home.HomeMembersStatus
 class ReadyStatusViewHolder(
     private val binding: ItemReadyStatusBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
-    private var item: HomeMembersStatus.Participant? = null
+    private lateinit var item: HomeMembersStatus.Participant
+
     fun onBind(data: HomeMembersStatus.Participant) = with(binding) {
         item = data
         participant = data
