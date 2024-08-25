@@ -5,6 +5,7 @@ import com.teamkkumul.core.network.dto.response.ResponseMyGroupDto
 import com.teamkkumul.core.network.dto.response.ResponseMyGroupInfoDto
 import com.teamkkumul.core.network.dto.response.ResponseMyGroupMeetUpDto
 import com.teamkkumul.core.network.dto.response.ResponseMyGroupMemberDto
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -33,6 +34,11 @@ interface MyGroupService {
     suspend fun getMyGroupMeetUp(
         @Path("meetingId") meetingId: Int,
         @Query("done") done: Boolean,
-        @Query("isParticipant") isParticipant: Boolean,
+        @Query("isParticipant") isParticipant: Boolean?,
     ): BaseResponse<ResponseMyGroupMeetUpDto>
+
+    @DELETE("/api/v1/meetings/{meetingId}")
+    suspend fun deleteMyGroup(
+        @Path("meetingId") meetingId: Int,
+    ): BaseResponse<Unit>
 }

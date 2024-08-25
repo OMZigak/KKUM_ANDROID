@@ -212,12 +212,14 @@ class MyGroupDetailFragment :
         updateTextAppearance(false)
         updateTextVisibility(false)
         binding.tvMeetUpIncludeMe.setTextColor(colorOf(R.color.gray6))
+        viewModel.getMyGroupMeetUp(currentId, false)
     }
 
     private fun switchToMeetUpIncludeMeState() {
         updateTextAppearance(true)
         updateTextVisibility(true)
         binding.tvAllMeetUp.setTextColor((colorOf(R.color.gray6)))
+        viewModel.getMyGroupMeetUp(currentId, false, true)
     }
 
     private fun updateTextVisibility(isVisible: Boolean) {
