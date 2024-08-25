@@ -1,6 +1,5 @@
 package com.teamkkumul.feature.utils.dialog
 
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -8,6 +7,8 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.teamkkumul.core.ui.base.BindingDialogFragment
 import com.teamkkumul.core.ui.util.context.dialogFragmentResize
+import com.teamkkumul.core.ui.util.context.toast
+import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
@@ -17,7 +18,6 @@ import com.teamkkumul.feature.utils.DeleteDialogType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class DeleteDialogFragment :
@@ -70,10 +70,7 @@ class DeleteDialogFragment :
                 // viewModel.deleteMeetUp(args.promiseId)
                 // findNavController().navigate("key" to meetingId) 및 stack 제거 처리
                 binding.tvLeaveQuestionDescription.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.red,
-                    ),
+                    colorOf(R.color.red),
                 )
             }
         }
@@ -86,7 +83,8 @@ class DeleteDialogFragment :
                     findNavController().popBackStack(R.id.fragment_my_group, false)
                     dismiss()
                 }
-                is UiState.Failure -> Timber.tag("delete my group").d(uiState.errorMessage)
+
+                is UiState.Failure -> context?.toast(uiState.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)

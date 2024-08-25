@@ -6,7 +6,7 @@ import com.teamkkumul.core.data.repository.MeetUpRepository
 import com.teamkkumul.core.data.repository.MyGroupRepository
 import com.teamkkumul.core.ui.view.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,19 +16,8 @@ class DeleteDialogViewModel @Inject constructor(
     private val meetUpRepository: MeetUpRepository,
     private val myGroupRepository: MyGroupRepository,
 ) : ViewModel() {
-    private val _deleteMyGroupState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
+    private val _deleteMyGroupState = MutableSharedFlow<UiState<Unit>>()
     val deleteMyGroupState get() = _deleteMyGroupState.asSharedFlow()
-
-    /*  fun deleteMeetUp(meetUpId: Int) {
-          viewModelScope.launch {
-              meetUpRepository.deleteMeetUp(meetUpId)
-                  .onSuccess {
-
-                  }
-                  .onFailure {
-                  }
-          }
-      }*/
 
     fun deleteMyGroup(meetingId: Int) {
         viewModelScope.launch {
