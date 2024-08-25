@@ -13,7 +13,7 @@ import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
-import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToYearMonthDay
+import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToMonthDay
 import com.teamkkumul.model.MeetUpDetailModel
 import com.teamkkumul.model.MeetUpParticipantModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,7 +57,7 @@ class MeetUpDetailFragment :
         with(binding) {
             tvMeetUpDetailLocation.text = meetUpDetailModel.placeName
             tvMeetUpDetailTime.text =
-                "${meetUpDetailModel.time.parseDateToYearMonthDay()} ${meetUpDetailModel.time.formatTimeToPmAm()}"
+                "${meetUpDetailModel.time.parseDateToMonthDay()} ${meetUpDetailModel.time.formatTimeToPmAm()}"
             tvMeetUpDetailReadyLevel.text = meetUpDetailModel.dressUpLevel
             tvMeetUpDetailPenalty.text = meetUpDetailModel.penalty
         }
