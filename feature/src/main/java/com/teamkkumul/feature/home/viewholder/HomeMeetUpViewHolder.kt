@@ -14,11 +14,11 @@ class HomeMeetUpViewHolder(
     private val binding: ItemMyGroupRemainMeetUpBinding,
     private val onItemClicked: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
-    private var item: HomeTodayMeetingModel? = null
+    private lateinit var item: HomeTodayMeetingModel
 
     init {
         binding.root.setOnClickListener {
-            item?.let { onItemClicked(it.promiseId) }
+            onItemClicked(item.promiseId)
         }
     }
 
