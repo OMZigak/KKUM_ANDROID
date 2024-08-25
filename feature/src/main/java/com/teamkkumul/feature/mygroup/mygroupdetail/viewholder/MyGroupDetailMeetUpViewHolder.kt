@@ -7,13 +7,13 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ItemMyGroupRemainMeetUpBinding
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToYearMonthDay
+import com.teamkkumul.feature.utils.time.setDday
 import com.teamkkumul.model.MyGroupMeetUpModel
 
 class MyGroupDetailMeetUpViewHolder(
     private val binding: ItemMyGroupRemainMeetUpBinding,
     private val onMeetUpDetailBtnClicked: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
-
     private lateinit var currentItem: MyGroupMeetUpModel.Promise
 
     init {
@@ -37,6 +37,6 @@ class MyGroupDetailMeetUpViewHolder(
         val color = ContextCompat.getColor(binding.root.context, colorResId)
 
         tvMyGroupRemainMeetUpDueDateDay.setTextColor(color)
-        tvMyGroupRemainMeetUpDueDateDay.text = if (data.dDay == 0) "D-DAY" else "D-${data.dDay}"
+        tvMyGroupRemainMeetUpDueDateDay.text = setDday(data.dDay)
     }
 }
