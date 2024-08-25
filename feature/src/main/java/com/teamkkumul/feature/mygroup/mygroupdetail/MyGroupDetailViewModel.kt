@@ -62,7 +62,7 @@ class MyGroupDetailViewModel @Inject constructor(
             }
     }
 
-    fun getMyGroupMeetUp(meetingId: Int, done: Boolean, isParticipant: Boolean) =
+    fun getMyGroupMeetUp(meetingId: Int, done: Boolean, isParticipant: Boolean? = null) =
         viewModelScope.launch {
             myGroupRepository.getMyGroupMeetUp(meetingId, done, isParticipant)
                 .onSuccess { myGroupMemberModel ->
