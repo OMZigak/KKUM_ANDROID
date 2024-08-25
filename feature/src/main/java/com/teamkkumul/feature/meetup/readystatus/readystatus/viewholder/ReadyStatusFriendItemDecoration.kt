@@ -18,7 +18,7 @@ class ReadyStatusFriendItemDecoration(val context: Context) : RecyclerView.ItemD
         val itemCount = state.itemCount
 
         outRect.bottom = when (position) {
-            itemCount - 1 -> context.pxToDp(50)
+            itemCount - 1 -> context.pxToDp(38)
             else -> context.pxToDp(8)
         }
     }
