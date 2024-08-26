@@ -14,7 +14,7 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogDeleteBinding
-import com.teamkkumul.feature.utils.DeleteDialogType
+import com.teamkkumul.feature.utils.type.DeleteDialogType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

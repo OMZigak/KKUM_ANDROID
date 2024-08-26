@@ -261,7 +261,7 @@
         tools:layout="@layout/fragment_dialog_delete">
         <argument
             android:name="dialogType"
-            app:argType="com.teamkkumul.feature.utils.DeleteDialogType" />
+            app:argType="com.teamkkumul.feature.utils.type.DeleteDialogType" />
         <argument
             android:name="promiseId"
             android:defaultValue="-1"

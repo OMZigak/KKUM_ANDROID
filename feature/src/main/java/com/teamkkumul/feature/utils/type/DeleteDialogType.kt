@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.utils
+package com.teamkkumul.feature.utils.type
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
