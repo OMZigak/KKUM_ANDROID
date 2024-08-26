@@ -33,21 +33,21 @@ class SetProfileActivity :
     private val setProfileViewModel: SetProfileViewModel by viewModels()
     private var inputName: String? = null
 
-    private val requestPermissions =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                lifecycleScope.launch {
-                    try {
-                        selectImage()
-                    } catch (e: Exception) {
-                        toast("error")
-                    }
-                }
-            } else {
-                Timber.tag("permission").d("권한 거부")
-                showPermissionAppSettingsDialog()
-            }
-        }
+//    private val requestPermissions =
+//        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+//            if (isGranted) {
+//                lifecycleScope.launch {
+//                    try {
+//                        selectImage()
+//                    } catch (e: Exception) {
+//                        toast("error")
+//                    }
+//                }
+//            } else {
+//                Timber.tag("permission").d("권한 거부")
+//                showPermissionAppSettingsDialog()
+//            }
+//        }
 
     private val selectImageLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -64,23 +64,23 @@ class SetProfileActivity :
             }
         }
 
-    private val getPhotoPickerLauncher =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { selectedImageUri: Uri? ->
-            selectedImageUri?.let {
-                binding.ivBtnSetProfile.load(it)
-            }
-        }
-
-    private fun selectImage() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) { // tiramisu 미만은 갤러리에서 이미지 선택
-            val getPictureIntent = Intent(Intent.ACTION_GET_CONTENT).apply { type = "image/*" }
-            selectImageLauncher.launch(getPictureIntent)
-        } else { // tiramisu 이상은 포토피커 사용
-            getPhotoPickerLauncher.launch(
-                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
-            )
-        }
-    }
+//    private val getPhotoPickerLauncher =
+//        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { selectedImageUri: Uri? ->
+//            selectedImageUri?.let {
+//                binding.ivBtnSetProfile.load(it)
+//            }
+//        }
+//
+//    private fun selectImage() {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) { // tiramisu 미만은 갤러리에서 이미지 선택
+//            val getPictureIntent = Intent(Intent.ACTION_GET_CONTENT).apply { type = "image/*" }
+//            selectImageLauncher.launch(getPictureIntent)
+//        } else { // tiramisu 이상은 포토피커 사용
+//            getPhotoPickerLauncher.launch(
+//                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
+//            )
+//        }
+//    }
 
     override fun initView() {
         inputName = intent.getStringExtra(INPUT_NAME)
@@ -108,19 +108,19 @@ class SetProfileActivity :
         }.launchIn(lifecycleScope)
     }
 
-    private fun getGalleryPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            selectImage()
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermissions.launch(READ_MEDIA_IMAGES)
-        } else {
-            requestPermissions.launch(READ_EXTERNAL_STORAGE)
-        }
-    }
+//    private fun getGalleryPermission() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+//            selectImage()
+//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//            requestPermissions.launch(READ_MEDIA_IMAGES)
+//        } else {
+//            requestPermissions.launch(READ_EXTERNAL_STORAGE)
+//        }
+//    }
 
     private fun initSetProfileBtnClick() {
         binding.ivBtnSetProfile.setOnClickListener {
-            getGalleryPermission()
+            openGallery()
         }
     }
 
@@ -137,6 +137,13 @@ class SetProfileActivity :
             inputName?.let { navigateToWelcome(it) }
             finish()
         }
+    }
+
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK).apply {
+            type = "image/*"
+        }
+        selectImageLauncher.launch(intent)
     }
 
     private fun navigateToWelcome(inputName: String) {
