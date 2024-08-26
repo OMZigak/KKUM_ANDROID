@@ -11,6 +11,8 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyPageBinding
 import com.teamkkumul.feature.signup.SetProfileActivity
+import com.teamkkumul.feature.utils.KeyStorage.MY_PAGE_FRAGMENT
+import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import com.teamkkumul.feature.utils.extension.updateLevelText
 import com.teamkkumul.feature.utils.setEmptyImageUrl
 import com.teamkkumul.feature.utils.type.DeleteDialogType
@@ -74,6 +76,7 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
         binding.ivMyPageProfile.setOnClickListener {
             val intent = Intent(requireContext(), SetProfileActivity::class.java).apply {
                 putExtra(SetProfileActivity.PROFILE_IMAGE_URL, profileImageUrl)
+                putExtra(SOURCE_FRAGMENT, MY_PAGE_FRAGMENT)
             }
             startActivity(intent)
         }

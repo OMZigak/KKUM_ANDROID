@@ -72,7 +72,6 @@ class SetProfileActivity :
                     if (sourceFragment == SET_NAME_ACTIVITY) {
                         inputName?.let { navigateToWelcome(it) }
                     } else if (sourceFragment == MY_PAGE_FRAGMENT) {
-                        setResult(RESULT_OK)
                         finish()
                     }
                 }

@@ -14,6 +14,9 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetNameBinding
 import com.teamkkumul.feature.utils.Debouncer
+import com.teamkkumul.feature.utils.KeyStorage
+import com.teamkkumul.feature.utils.KeyStorage.SET_NAME_ACTIVITY
+import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -112,6 +115,7 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
     private fun navigateToSetProfile(inputName: String) {
         val intent = Intent(this, SetProfileActivity::class.java).apply {
             putExtra(INPUT_NAME, inputName)
+            putExtra(SOURCE_FRAGMENT, SET_NAME_ACTIVITY)
         }
         startActivity(intent)
     }
