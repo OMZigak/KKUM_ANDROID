@@ -52,6 +52,7 @@ class SetProfileActivity :
             when (it) {
                 is UiState.Success -> {
                     inputName?.let { navigateToWelcome(it) }
+                    finish()
                 }
 
                 is UiState.Failure -> {}
