@@ -91,7 +91,7 @@
     <string name="meet_up_detail_information_ready_level">준비레벨</string>
     <string name="meet_up_detail_information_penalty">벌칙</string>
     <string name="tv_meet_up_detail_edit">수정하기</string>
-    <string name="tv_meet_up_detail_dday">D-</string>
+    <string name="tv_meet_up_detail_dday">D-3</string>
     <string name="tv_exit_meet_up">약속 나가기</string>
     <string name="tv_delete_meet_up">약속 삭제하기</string>
 

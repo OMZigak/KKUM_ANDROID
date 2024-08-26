@@ -5,15 +5,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setTextColor
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
+import com.teamkkumul.feature.utils.time.TimeUtils.calculateDday
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToMonthDay
+import com.teamkkumul.feature.utils.time.setDdayTextColor
 import com.teamkkumul.model.MeetUpDetailModel
 import com.teamkkumul.model.MeetUpParticipantModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,12 +58,24 @@ class MeetUpDetailFragment :
     }
 
     private fun successMeetUpDetailState(meetUpDetailModel: MeetUpDetailModel) {
+        val (dDayString, dDayInt) = meetUpDetailModel.time.calculateDday()
         with(binding) {
+            tvMeetUpName.text = meetUpDetailModel.promiseName
             tvMeetUpDetailLocation.text = meetUpDetailModel.placeName
             tvMeetUpDetailTime.text =
                 "${meetUpDetailModel.time.parseDateToMonthDay()} ${meetUpDetailModel.time.formatTimeToPmAm()}"
             tvMeetUpDetailReadyLevel.text = meetUpDetailModel.dressUpLevel
             tvMeetUpDetailPenalty.text = meetUpDetailModel.penalty
+            tvMeetUpDetailDday.text = dDayString
+            tvMeetUpDetailDday.setTextColor(context?.getColor(setDdayTextColor(dDayInt)) ?: R.color.gray3)
+
+            if (dDayInt > 0) {
+                ivMeetUpDday.setImageResource(R.drawable.ic_meet_up_detail_receipt_gray)
+                groupMeetUpDetail.setTextColor(colorOf(R.color.gray4))
+            } else {
+                ivMeetUpDday.setImageResource(R.drawable.ic_meet_up_detail_receipt)
+                groupMeetUpDetail.setTextColor(colorOf(R.color.main_color))
+            }
         }
     }
 

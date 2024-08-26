@@ -181,7 +181,7 @@
             android:id="@+id/action_fragment_meet_up_container_to_readyInfoInputFragment"
             app:destination="@id/fragment_ready_info_input" />
         <action
-            android:id="@+id/action_meetUpContainer_to_exitMeetUpBottomSheetFragment"
+            android:id="@+id/action_meetUpContainerFragment_to_exitMeetUpBottomSheetFragment"
             app:destination="@id/fragment_exit_meet_up_bottom_sheet" />
     </fragment>
 
@@ -276,7 +276,11 @@
     <dialog
         android:id="@+id/fragment_exit_meet_up_bottom_sheet"
         android:name="com.teamkkumul.feature.utils.bottomsheet.BottomSheetMeetUpExitFragment"
-        tools:layout="@layout/fragment_exit_meet_up_bottom_sheet" />
+        tools:layout="@layout/fragment_exit_meet_up_bottom_sheet">
+        <action
+            android:id="@+id/action_bottomSheetMeetUpExitFragment_to_deleteDialogFragment"
+            app:destination="@id/deleteDialogFragment" />
+    </dialog>
 
     <dialog
         android:id="@+id/fragment_exit_bottom_sheet"
