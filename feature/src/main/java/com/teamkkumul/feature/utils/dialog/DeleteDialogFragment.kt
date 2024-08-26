@@ -35,13 +35,18 @@ class DeleteDialogFragment :
         observeDeleteMyGroupState()
     }
 
-    private fun setUpDialog(dialogType: DeleteDialogType) {
-        with(binding) {
-            ivDialogLeave.load(dialogType.imageResId)
-            tvLeaveQuestion.text = getString(dialogType.question)
-            tvLeaveQuestionDescription.text = getString(dialogType.questionDescription)
-            tvBtnLeave.text = getString(dialogType.btnText)
-        }
+    private fun setUpDialog(dialogType: DeleteDialogType) = with(binding) {
+        val isImageVisible = checkImageVisibility(dialogType)
+        tvBtnCancel.setVisible(isImageVisible)
+        if (isImageVisible) ivDialogLeave.load(dialogType.imageResId)
+        tvLeaveQuestion.text = getString(dialogType.question)
+        tvLeaveQuestionDescription.text = getString(dialogType.questionDescription)
+        tvBtnLeave.text = getString(dialogType.btnLeaveText)
+    }
+
+    private fun checkImageVisibility(dialogType: DeleteDialogType) = when (dialogType) {
+        DeleteDialogType.Logout, DeleteDialogType.Withdrawal -> false
+        else -> true
     }
 
     // 여기에서 람다를 파라미터로 받음
@@ -87,9 +92,7 @@ class DeleteDialogFragment :
     }
 
     private fun initCancelBtnClickListener() {
-        binding.tvBtnCancel.setOnClickListener {
-            dismiss()
-        }
+        binding.tvBtnCancel.setOnClickListener { dismiss() }
     }
 
     override fun onResume() {
