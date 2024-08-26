@@ -41,8 +41,7 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
     private fun initObserveMyPageState() {
         viewModel.myPageState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
-                is UiState.Success -> binding.ivMyPageProfile.load(it.data.profileImg)
-                is UiState.Empty -> binding.ivMyPageProfile.setEmptyImageUrl("")
+                is UiState.Success -> binding.ivMyPageProfile.setEmptyImageUrl(it.data.profileImg)
                 is UiState.Failure -> Timber.tag("my page").d(it.errorMessage)
                 else -> Unit
             }
