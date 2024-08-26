@@ -40,3 +40,11 @@ fun Context.createSpannableLevelText(
 
     return spannable
 }
+
+fun getLevelImageResId(level: Int): Int = when (level) {
+    1 -> R.drawable.ic_home_lv_1
+    2 -> R.drawable.ic_home_lv_2
+    3 -> R.drawable.ic_home_lv_3
+    4 -> R.drawable.ic_home_lv_4
+    else -> R.drawable.ic_home_lv_1
+}

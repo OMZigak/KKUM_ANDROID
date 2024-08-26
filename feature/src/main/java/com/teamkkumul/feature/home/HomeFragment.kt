@@ -1,14 +1,12 @@
 package com.teamkkumul.feature.home
 
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.teamkkumul.core.ui.base.BindingFragment
@@ -22,10 +20,13 @@ import com.teamkkumul.feature.databinding.FragmentHomeBinding
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
+import com.teamkkumul.feature.utils.extension.getLevelImageResId
+import com.teamkkumul.feature.utils.extension.updateLevelText
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.model.BtnState
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
 import com.teamkkumul.feature.utils.time.getCurrentTime
+import com.teamkkumul.feature.utils.type.LevelColorType
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import com.teamkkumul.model.home.HomeTodayMeetingModel
 import com.teamkkumul.model.home.UserModel
@@ -142,44 +143,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         tvHomeMeetingCount.text =
             getString(R.string.home_meeting_count_text, data.promiseCount)
         tvHomeLateCount.text = getString(R.string.home_late_count_text, data.tardyCount)
-        updateLevelImage(data.level)
-    }
-
-    private fun updateLevelImage(level: Int) = with(binding) {
-        when (level) {
-            1 -> {
-                ivHomeLevel.setImageResource(R.drawable.ic_home_lv_1)
-                spannableLevelString(level, getString(R.string.home_lv1))
-            }
-
-            2 -> {
-                ivHomeLevel.setImageResource(R.drawable.ic_home_lv_2)
-                spannableLevelString(level, getString(R.string.home_lv2))
-            }
-
-            3 -> {
-                ivHomeLevel.setImageResource(R.drawable.ic_home_lv_3)
-                spannableLevelString(level, getString(R.string.home_lv3))
-            }
-
-            4 -> {
-                ivHomeLevel.setImageResource(R.drawable.ic_home_lv_4)
-                spannableLevelString(level, getString(R.string.home_lv4))
-            }
-        }
-    }
-
-    private fun spannableLevelString(level: Int, text: String) {
-        val fullText = getString(R.string.home_level_text, level, text)
-        val spannable = SpannableString(fullText)
-
-        spannable.setSpan(
-            ForegroundColorSpan(colorOf(R.color.main_color)),
-            0,
-            4,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
-        )
-        binding.tvHomeLevel.text = spannable
+        ivHomeLevel.load(getLevelImageResId(data.level))
+        tvHomeLevel.text =
+            requireContext().updateLevelText(data.level, LevelColorType.HOME)
     }
 
     private fun initHomeBtnClick() {
