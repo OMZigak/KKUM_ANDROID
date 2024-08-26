@@ -255,6 +255,13 @@
                 app:layout_constraintStart_toStartOf="@id/tv_meet_up_detail_information_location"
                 app:layout_constraintTop_toTopOf="@id/iv_meet_up_detail_penalty"
                 tools:text="꾸물 릴스 찍기" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_meet_up_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tv_meet_up_participate_people, tv_meet_up_detail_information_location, tv_meet_up_detail_information_time, tv_meet_up_detail_information_ready_level, tv_meet_up_detail_information_penalty" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

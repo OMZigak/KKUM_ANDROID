@@ -5,6 +5,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
@@ -66,6 +67,21 @@ class MeetUpDetailFragment :
             tvMeetUpDetailPenalty.text = meetUpDetailModel.penalty
             tvMeetUpDetailDday.text = dDayString
             tvMeetUpDetailDday.setTextColor(context?.getColor(setDdayTextColor(dDayInt)) ?: R.color.gray3)
+
+            if (dDayInt > 0) {
+                ivMeetUpDday.setImageResource(R.drawable.ic_meet_up_detail_receipt_gray)
+                tvMeetUpParticipatePeople.setTextColor(colorOf(R.color.gray4))
+                tvMeetUpDetailInformationLocation.setTextColor(colorOf(R.color.gray4))
+                tvMeetUpDetailInformationTime.setTextColor(colorOf(R.color.gray4))
+                tvMeetUpDetailInformationReadyLevel.setTextColor(colorOf(R.color.gray4))
+                tvMeetUpDetailInformationPenalty.setTextColor(colorOf(R.color.gray4))
+            } else {
+                tvMeetUpParticipatePeople.setTextColor(colorOf(R.color.main_color))
+                tvMeetUpDetailInformationLocation.setTextColor(colorOf(R.color.main_color))
+                tvMeetUpDetailInformationTime.setTextColor(colorOf(R.color.main_color))
+                tvMeetUpDetailInformationReadyLevel.setTextColor(colorOf(R.color.main_color))
+                tvMeetUpDetailInformationPenalty.setTextColor(colorOf(R.color.main_color))
+            }
         }
     }
 
