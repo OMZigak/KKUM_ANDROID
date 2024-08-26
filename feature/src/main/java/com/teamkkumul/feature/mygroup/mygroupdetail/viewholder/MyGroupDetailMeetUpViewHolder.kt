@@ -1,17 +1,20 @@
 package com.teamkkumul.feature.mygroup.mygroupdetail.viewholder
 
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.teamkkumul.feature.R
+import com.teamkkumul.core.ui.util.view.colorOf
 import com.teamkkumul.feature.databinding.ItemMyGroupRemainMeetUpBinding
+import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
+import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToYearMonthDay
+import com.teamkkumul.feature.utils.time.setDday
+import com.teamkkumul.feature.utils.time.setDdayTextColor
+import com.teamkkumul.feature.utils.time.setPromiseTextColor
 import com.teamkkumul.model.MyGroupMeetUpModel
 
 class MyGroupDetailMeetUpViewHolder(
     private val binding: ItemMyGroupRemainMeetUpBinding,
     private val onMeetUpDetailBtnClicked: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
-
     private lateinit var currentItem: MyGroupMeetUpModel.Promise
 
     init {
@@ -22,19 +25,21 @@ class MyGroupDetailMeetUpViewHolder(
 
     fun onBind(data: MyGroupMeetUpModel.Promise) = with(binding) {
         currentItem = data
-        setDdayTextColor(data)
+        setTextColor(data.dDay)
         tvMeetUpGroupText.visibility = View.GONE
+        tvMyGroupRemainMeetUpDueDateDay.text = setDday(data.dDay)
         tvMyGroupRemainMeetUpName.text = data.name
-        tvMyGroupRemainMeetUpDate.text = data.date
         tvMyGroupRemainMeetUpLocation.text = data.placeName
-        tvMyGroupRemainMeetUpTime.text = data.time
+        tvMyGroupRemainMeetUpTime.text = data.time.formatTimeToPmAm()
+        tvMyGroupRemainMeetUpDate.text = data.time.parseDateToYearMonthDay()
     }
 
-    private fun setDdayTextColor(data: MyGroupMeetUpModel.Promise) = with(binding) {
-        val colorResId = if (data.dDay == 0) R.color.orange else R.color.gray5
-        val color = ContextCompat.getColor(binding.root.context, colorResId)
-
-        tvMyGroupRemainMeetUpDueDateDay.setTextColor(color)
-        tvMyGroupRemainMeetUpDueDateDay.text = if (data.dDay == 0) "D-DAY" else "D-${data.dDay}"
+    private fun setTextColor(dDay: Int) = with(binding) {
+        val promiseColor = colorOf(setPromiseTextColor(dDay))
+        tvMyGroupRemainMeetUpDueDateDay.setTextColor(colorOf(setDdayTextColor(dDay)))
+        tvMyGroupRemainMeetUpName.setTextColor(promiseColor)
+        tvMyGroupRemainMeetUpLocation.setTextColor(promiseColor)
+        tvMyGroupRemainMeetUpTime.setTextColor(promiseColor)
+        tvMyGroupRemainMeetUpDate.setTextColor(promiseColor)
     }
 }

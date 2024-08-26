@@ -12,7 +12,7 @@
     <string name="my_page_title">마이페이지</string>
     <string name="set_profile_title">프로필 설정</string>
     <string name="add_my_group_title">내 모임 추가하기</string>
-    <string name="meet_up_create_title">약속 추가</string>
+    <string name="meet_up_create_title">약속 추가하기</string>
     <string name="meet_up_create_loation_title">약속 장소</string>
 
     <string name="add_meet_up_title">약속 추가하기</string>
@@ -76,6 +76,11 @@
     <string name="my_group_do_plus">모임을 추가해 보세요.</string>
     <string name="my_group_participate_in">명 참여중</string>
     <string name="my_group_meet_up_count">번</string>
+    <string name="my_group_meet_up_include_me">내가 속한 약속</string>
+    <string name="my_group_all_meet_up">모든 약속</string>
+
+    <string name="exit_group">모임 나가기</string>
+    <string name="exit_group_cancle">취소</string>
 
 
     <!--    약속 상세 화면-->
@@ -85,6 +90,10 @@
     <string name="meet_up_detail_information_time">약속시간</string>
     <string name="meet_up_detail_information_ready_level">준비레벨</string>
     <string name="meet_up_detail_information_penalty">벌칙</string>
+    <string name="tv_meet_up_detail_edit">수정하기</string>
+    <string name="tv_meet_up_detail_dday">D-</string>
+    <string name="tv_exit_meet_up">약속 나가기</string>
+    <string name="tv_delete_meet_up">약속 삭제하기</string>
 
     <!--    홈 화면-->
     <string name="home_fence_text">꾸물꿈에 오신 것을 환영해요!\n정시 도착으로 캐릭터를 성장시켜 보세요.</string>
@@ -164,6 +173,8 @@
     <string name="meet_up_create_friend_do_plus">선택해 보세요</string>
     <string name="meet_up_name_error_message">공백 포함 한글, 영문, 숫자만을 사용해 총 10자 이내로 입력해주세요.</string>
 
+    <string name="meet_up_create_friend_empty">약속에 함께할 꾸물이들이 없어요!</string>
+    <string name="meet_up_create_friend_invite">모임에 친구들을 초대해보세요.</string>
 
     <!-- 지각 꾸물이 화면 -->
     <string name="end_meet_up">약속 마치기</string>
@@ -190,5 +201,16 @@
     <!--준비 정보 입력 후 화면-->
     <string name="ready_status_moving_start">%1$s에 이동을 시작해야 해요</string>
     <string name="ready_status_ready_start">%1$s에 준비하고,</string>
+
+    <!-- 모임, 약속 나가기, 약속 삭제 다이얼로그-->
+    <string name="tv_leave_question">약속에서 나가시겠어요?</string>
+    <string name="tv_leave_question_description">약속에서 나가도\n참여 인원 추가를 통해 다시 참여 가능해요.</string>
+    <string name="tv_leave_my_group_question">모임에서 나가시겠어요?</string>
+    <string name="tv_leave_my_group_question_description">모임에서 나가도\n초대 코드를 통해 다시 들어올 수 있어요.</string>
+    <string name="tv_delete_meet_up_question">정말 약속을 삭제하시겠어요?</string>
+    <string name="tv_delete_meet_up_question_description">약속을 삭제하면\n모든 참여 인원의 약속 목록에서 사라져요.</string>
+    <string name="tv_btn_cancel">취소</string>
+    <string name="tv_btn_leave">나가기</string>
+    <string name="tv_btn_delete">삭제하기</string>
 
 </resources>

@@ -1,7 +1,10 @@
 package com.teamkkumul.feature.meetup
 
+import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
@@ -10,6 +13,7 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpContainerBinding
 import com.teamkkumul.feature.meetup.meetupdetail.MeetUpDetailFriendViewModel
+import com.teamkkumul.feature.utils.KeyStorage.MEET_UP_NAME
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.KeyStorage.TAB_INDEX
 import com.teamkkumul.model.MeetUpDetailModel
@@ -21,11 +25,15 @@ class MeetUpContainerFragment :
     BindingFragment<FragmentMeetUpContainerBinding>(R.layout.fragment_meet_up_container) {
     private val viewModel: MeetUpDetailFriendViewModel by activityViewModels<MeetUpDetailFriendViewModel>()
 
+    private val currentId: Int by lazy { arguments?.getInt(PROMISE_ID, -1) ?: -1 }
     override fun initView() {
         val promiseId = arguments?.getInt(PROMISE_ID) ?: -1
         viewModel.getMeetUpDetail(promiseId)
         initMyPageTabLayout(promiseId)
         initObservePromiseNameState()
+        navigationClickListener()
+
+        binding.toolbarMeetUpContainer.ivBtnMore.visibility = View.VISIBLE
     }
 
     private fun initMyPageTabLayout(promiseId: Int) = with(binding) {
@@ -60,6 +68,16 @@ class MeetUpContainerFragment :
 
     private fun successPromiseNameState(meetUpDetailModel: MeetUpDetailModel) {
         binding.toolbarMeetUpContainer.toolbarTitle.text = meetUpDetailModel.promiseName
+    }
+
+    private fun navigationClickListener() {
+        binding.toolbarMeetUpContainer.ivBtnMore.setOnClickListener {
+            val meetUpName = binding.toolbarMeetUpContainer.title.toString()
+            findNavController().navigate(
+                R.id.action_meetUpDetailFragment_to_exitMeetUpBottomSheetFragment,
+                bundleOf(PROMISE_ID to currentId, MEET_UP_NAME to meetUpName),
+            )
+        }
     }
 
     companion object {

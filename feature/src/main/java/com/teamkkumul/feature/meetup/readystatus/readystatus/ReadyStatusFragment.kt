@@ -19,7 +19,7 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentReadyStatusBinding
-import com.teamkkumul.feature.meetup.readystatus.viewholder.ReadyStatusFriendItemDecoration
+import com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder.ReadyStatusFriendItemDecoration
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar

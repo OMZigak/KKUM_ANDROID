@@ -12,8 +12,6 @@ data class ResponseHomeUpComingMeetingDto(
     data class Promise(
         @SerialName("dDay")
         val dDay: Int,
-        @SerialName("date")
-        val date: String,
         @SerialName("dressUpLevel")
         val dressUpLevel: String,
         @SerialName("meetingName")

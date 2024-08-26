@@ -40,6 +40,7 @@ internal fun ResponseMeetUpParticipantDto.toMeetUpSealedItem(): List<MeetUpSeale
 
 internal fun ResponseMeetUpDetailDto.toMeetUpDetailModel(): MeetUpDetailModel =
     MeetUpDetailModel(
+        isParticipant = isParticipant,
         address = address,
         dressUpLevel = dressUpLevel,
         roadAddress = roadAddress,

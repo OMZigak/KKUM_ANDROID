@@ -11,10 +11,12 @@ interface MyGroupRepository {
     suspend fun getMyGroupMeetUp(
         meetingId: Int,
         done: Boolean,
+        isParticipant: Boolean?,
     ): Result<List<MyGroupMeetUpModel.Promise>>
 
     suspend fun getMyGroupInfo(meetingId: Int): Result<MyGroupInfoModel>
     suspend fun getMyGroupMemberToMeetUp(meetingId: Int): Result<List<MyGroupMemberModel.Member>>
     suspend fun getMyGroupMember(meetingId: Int): Result<MyGroupMemberModel>
     suspend fun getMyGroupMemberList(meetingId: Int): Result<List<MyGroupDetailMemeberSealedItem>>
+    suspend fun deleteMyGroup(meetingId: Int): Result<Unit>
 }

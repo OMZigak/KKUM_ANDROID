@@ -30,9 +30,14 @@ class MyGroupRepositoryImpl @Inject constructor(
     override suspend fun getMyGroupMeetUp(
         meetingId: Int,
         done: Boolean,
+        isParticipant: Boolean?,
     ): Result<List<MyGroupMeetUpModel.Promise>> =
         runCatching {
-            myGroupService.getMyGroupMeetUp(meetingId, done).data?.toMyGroupMeetUpModel()
+            myGroupService.getMyGroupMeetUp(
+                meetingId,
+                done,
+                isParticipant,
+            ).data?.toMyGroupMeetUpModel()
         }.mapCatching {
             requireNotNull(it)
         }.recoverCatching {
@@ -70,4 +75,11 @@ class MyGroupRepositoryImpl @Inject constructor(
         }.recoverCatching {
             return it.handleThrowable()
         }
+
+    override suspend fun deleteMyGroup(meetingId: Int): Result<Unit> = runCatching {
+        myGroupService.deleteMyGroup(meetingId)
+        Unit
+    }.recoverCatching {
+        return it.handleThrowable()
+    }
 }

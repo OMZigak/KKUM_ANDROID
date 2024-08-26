@@ -108,11 +108,17 @@ class MeetUpCreateFragment :
     }
 
     private fun setName() = with(binding.etMeetUpName) {
+        setSingleLine(true)
         doAfterTextChanged {
             validInput(text.toString())
         }
         setOnEditorActionListener { _, actionId, event ->
-            (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER))
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER)) {
+                requireContext().hideKeyboard(this)
+                true
+            } else {
+                false
+            }
         }
     }
 
@@ -132,6 +138,10 @@ class MeetUpCreateFragment :
         }
         updateCounter(input.length)
         viewModel.setMeetUpName(isValid)
+    }
+
+    private fun setInputTextColor(colorResId: Int) {
+        binding.etMeetUpName.setTextColor(colorOf(colorResId))
     }
 
     private fun initHideKeyBoard() {
