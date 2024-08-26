@@ -23,4 +23,8 @@ data class ResponseMeetUpDetailDto(
     val time: String,
     @SerialName("promiseName")
     val promiseName: String,
+    @SerialName("x")
+    val x: Double,
+    @SerialName("y")
+    val y: Double,
 )
