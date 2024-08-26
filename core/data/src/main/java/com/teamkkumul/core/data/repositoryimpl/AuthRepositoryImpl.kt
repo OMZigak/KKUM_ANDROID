@@ -1,7 +1,7 @@
 package com.teamkkumul.core.data.repositoryimpl
 
 import com.teamkkumul.core.data.mapper.toLoginModel
-import com.teamkkumul.core.data.repository.LoginRepository
+import com.teamkkumul.core.data.repository.AuthRepository
 import com.teamkkumul.core.data.utils.handleThrowable
 import com.teamkkumul.core.network.api.LoginService
 import com.teamkkumul.core.network.api.LogoutService
@@ -9,10 +9,10 @@ import com.teamkkumul.core.network.dto.request.RequestLoginDto
 import com.teamkkumul.model.login.LoginModel
 import javax.inject.Inject
 
-internal class LoginRepositoryImpl @Inject constructor(
+internal class AuthRepositoryImpl @Inject constructor(
     private val loginService: LoginService,
     private val logoutService: LogoutService,
-) : LoginRepository {
+) : AuthRepository {
     override suspend fun postLogin(
         socialType: String,
         fcmToken: String,

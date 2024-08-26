@@ -2,7 +2,7 @@ package com.teamkkumul.feature.utils.dialog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.teamkkumul.core.data.repository.LoginRepository
+import com.teamkkumul.core.data.repository.AuthRepository
 import com.teamkkumul.core.data.repository.MeetUpRepository
 import com.teamkkumul.core.data.repository.MyGroupRepository
 import com.teamkkumul.core.data.repository.UserInfoRepository
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class DeleteDialogViewModel @Inject constructor(
     private val meetUpRepository: MeetUpRepository,
     private val myGroupRepository: MyGroupRepository,
-    private val loginRepository: LoginRepository,
+    private val authRepository: AuthRepository,
     private val userInfoRepository: UserInfoRepository,
 ) : ViewModel() {
     private val _deleteMyGroupState = MutableSharedFlow<UiState<Unit>>()
@@ -43,7 +43,7 @@ class DeleteDialogViewModel @Inject constructor(
 
     fun postLogout() {
         viewModelScope.launch {
-            loginRepository.postLogout()
+            authRepository.postLogout()
                 .onSuccess {
                     _logoutState.emit(UiState.Success(Unit))
                     userInfoRepository.clearAll()
@@ -55,7 +55,7 @@ class DeleteDialogViewModel @Inject constructor(
 
     fun deleteWithdrawal() {
         viewModelScope.launch {
-            loginRepository.deleteWithdrawal()
+            authRepository.deleteWithdrawal()
                 .onSuccess {
                     _withdrawState.emit(UiState.Success(Unit))
                     userInfoRepository.clearAll()

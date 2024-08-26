@@ -7,7 +7,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
-import com.teamkkumul.core.data.repository.LoginRepository
+import com.teamkkumul.core.data.repository.AuthRepository
 import com.teamkkumul.core.data.repository.UserInfoRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.auth.model.KakaoLoginState
@@ -27,7 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val userInfoRepository: UserInfoRepository,
-    private val loginRepository: LoginRepository,
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
     private val _kakaoLoginState: MutableStateFlow<KakaoLoginState> =
         MutableStateFlow(KakaoLoginState())
@@ -115,7 +115,7 @@ class LoginViewModel @Inject constructor(
 
     private fun postLogin() {
         viewModelScope.launch {
-            loginRepository.postLogin("KAKAO", _fcmToken.value, _kakaoToken.value)
+            authRepository.postLogin("KAKAO", _fcmToken.value, _kakaoToken.value)
                 .onSuccess { response ->
                     saveAccessToken(response.accessToken)
                     saveRefreshToken(response.refreshToken)
