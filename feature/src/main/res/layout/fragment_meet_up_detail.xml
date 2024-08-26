@@ -34,25 +34,15 @@
             app:layout_constraintTop_toTopOf="@id/iv_meet_up_dday" />
 
         <TextView
-            android:id="@+id/tv_meet_up_detail_dday_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Kkumul.body_05"
-            android:textColor="@color/gray5"
-            app:layout_constraintStart_toEndOf="@id/tv_meet_up_detail_dday"
-            app:layout_constraintTop_toTopOf="@id/iv_meet_up_dday"
-            tools:text="3" />
-
-        <TextView
             android:id="@+id/tv_meet_up_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="꾸물꿈 뒷풀이"
             android:textAppearance="@style/TextAppearance.Kkumul.body_01"
             android:textColor="@color/gray7"
             app:layout_constraintStart_toStartOf="@id/tv_meet_up_detail_dday"
-            app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_dday" />
+            app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_dday"
+            tools:text="꾸물꿈 뒷풀이" />
 
         <ImageButton
             android:id="@+id/btn_meet_up_detail_edit"
@@ -125,7 +115,6 @@
                 android:id="@+id/rv_meet_up_friend_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
