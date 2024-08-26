@@ -1,20 +1,14 @@
 package com.teamkkumul.feature.signup
 
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.Manifest.permission.READ_MEDIA_IMAGES
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.teamkkumul.core.ui.base.BindingActivity
-import com.teamkkumul.core.ui.util.context.showPermissionAppSettingsDialog
-import com.teamkkumul.core.ui.util.context.toast
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
@@ -23,8 +17,6 @@ import com.teamkkumul.feature.utils.KeyStorage.UPDATED_PHOTO_URI
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SetProfileActivity :
