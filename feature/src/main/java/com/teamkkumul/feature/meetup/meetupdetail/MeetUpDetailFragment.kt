@@ -12,6 +12,7 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
+import com.teamkkumul.feature.utils.time.TimeUtils.calculateDday
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToMonthDay
 import com.teamkkumul.model.MeetUpDetailModel
@@ -54,6 +55,7 @@ class MeetUpDetailFragment :
     }
 
     private fun successMeetUpDetailState(meetUpDetailModel: MeetUpDetailModel) {
+        val dDay = meetUpDetailModel.time.calculateDday()
         with(binding) {
             tvMeetUpName.text = meetUpDetailModel.promiseName
             tvMeetUpDetailLocation.text = meetUpDetailModel.placeName
@@ -61,6 +63,7 @@ class MeetUpDetailFragment :
                 "${meetUpDetailModel.time.parseDateToMonthDay()} ${meetUpDetailModel.time.formatTimeToPmAm()}"
             tvMeetUpDetailReadyLevel.text = meetUpDetailModel.dressUpLevel
             tvMeetUpDetailPenalty.text = meetUpDetailModel.penalty
+            tvMeetUpDetailDday.text = dDay
         }
     }
 
