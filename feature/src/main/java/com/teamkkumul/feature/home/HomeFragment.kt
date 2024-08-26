@@ -22,10 +22,10 @@ import com.teamkkumul.feature.databinding.FragmentHomeBinding
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
-import com.teamkkumul.feature.utils.getCurrentTime
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.model.BtnState
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
+import com.teamkkumul.feature.utils.time.getCurrentTime
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import com.teamkkumul.model.home.HomeTodayMeetingModel
 import com.teamkkumul.model.home.UserModel

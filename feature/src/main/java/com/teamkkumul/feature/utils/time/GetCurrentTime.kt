@@ -1,4 +1,4 @@
-package com.teamkkumul.feature.utils
+package com.teamkkumul.feature.utils.time
 
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
