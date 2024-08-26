@@ -9,6 +9,7 @@ import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setTextColor
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
@@ -70,17 +71,10 @@ class MeetUpDetailFragment :
 
             if (dDayInt > 0) {
                 ivMeetUpDday.setImageResource(R.drawable.ic_meet_up_detail_receipt_gray)
-                tvMeetUpParticipatePeople.setTextColor(colorOf(R.color.gray4))
-                tvMeetUpDetailInformationLocation.setTextColor(colorOf(R.color.gray4))
-                tvMeetUpDetailInformationTime.setTextColor(colorOf(R.color.gray4))
-                tvMeetUpDetailInformationReadyLevel.setTextColor(colorOf(R.color.gray4))
-                tvMeetUpDetailInformationPenalty.setTextColor(colorOf(R.color.gray4))
+                groupMeetUpDetail.setTextColor(colorOf(R.color.gray4))
             } else {
-                tvMeetUpParticipatePeople.setTextColor(colorOf(R.color.main_color))
-                tvMeetUpDetailInformationLocation.setTextColor(colorOf(R.color.main_color))
-                tvMeetUpDetailInformationTime.setTextColor(colorOf(R.color.main_color))
-                tvMeetUpDetailInformationReadyLevel.setTextColor(colorOf(R.color.main_color))
-                tvMeetUpDetailInformationPenalty.setTextColor(colorOf(R.color.main_color))
+                ivMeetUpDday.setImageResource(R.drawable.ic_meet_up_detail_receipt)
+                groupMeetUpDetail.setTextColor(colorOf(R.color.main_color))
             }
         }
     }
