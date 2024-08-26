@@ -71,9 +71,6 @@ class DeleteDialogFragment :
             }
 
             DeleteDialogType.PROMISE_DELETE_DIALOG -> {
-//                binding.tvLeaveQuestionDescription.setTextColor(
-//                    colorOf(R.color.red),
-//                )
                 viewModel.deleteMeetUp(promiseId)
             }
         }
