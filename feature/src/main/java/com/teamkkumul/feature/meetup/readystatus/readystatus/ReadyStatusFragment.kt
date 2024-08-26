@@ -23,10 +23,10 @@ import com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder.ReadySta
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
-import com.teamkkumul.feature.utils.calculateReadyStartTime
-import com.teamkkumul.feature.utils.getCurrentTime
 import com.teamkkumul.feature.utils.model.BtnState
-import com.teamkkumul.feature.utils.parseMinutesToHoursAndMinutes
+import com.teamkkumul.feature.utils.time.calculateReadyStartTime
+import com.teamkkumul.feature.utils.time.getCurrentTime
+import com.teamkkumul.feature.utils.time.parseMinutesToHoursAndMinutes
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay

@@ -98,9 +98,11 @@ class DefaultKumulPreferenceDatasource @Inject constructor(
         }
     }
 
-    override suspend fun clearForRefreshToken() {
+    override suspend fun clearForLogout() {
         dataStore.edit { preferences ->
+            preferences.remove(PreferencesKeys.AccessToken)
             preferences.remove(PreferencesKeys.RefreshToken)
+            preferences.remove(PreferencesKeys.AutoLogin)
         }
     }
 }

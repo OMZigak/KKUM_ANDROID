@@ -2,7 +2,7 @@ package com.teamkkumul.feature.mygroup.mygroupdetail.viewholder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.teamkkumul.core.ui.util.view.colorOf
+import com.teamkkumul.core.ui.view.colorOf
 import com.teamkkumul.feature.databinding.ItemMyGroupRemainMeetUpBinding
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToYearMonthDay

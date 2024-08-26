@@ -4,8 +4,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserInfoRepository {
     fun getAccessToken(): Flow<String>
+
     fun getRefreshToken(): Flow<String>
+
     fun getAutoLogin(): Flow<Boolean>
+
     fun getMemberName(): Flow<String>
 
     suspend fun saveAccessToken(accessToken: String)
@@ -18,5 +21,5 @@ interface UserInfoRepository {
 
     suspend fun clearAll()
 
-    suspend fun clearForRefreshToken()
+    suspend fun clearForLogout()
 }

@@ -1,21 +1,19 @@
 package com.teamkkumul.feature.mypage
 
-import android.content.Intent
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
-import coil.load
+import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyPageBinding
-import com.teamkkumul.feature.signup.SetProfileActivity
+import com.teamkkumul.feature.utils.extension.updateLevelText
 import com.teamkkumul.feature.utils.setEmptyImageUrl
+import com.teamkkumul.feature.utils.type.DeleteDialogType
+import com.teamkkumul.feature.utils.type.LevelColorType
+import com.teamkkumul.model.home.UserModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -23,61 +21,47 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
-
     private val viewModel by viewModels<MyPageViewModel>()
 
     override fun initView() {
         viewModel.getMyPageUserInfo()
         initObserveMyPageState()
-        initUserName()
-        setSpanText()
-        navigateToSetProfile()
-    }
-
-    private fun initUserName() {
-        viewModel.getLocalUserName()
-        viewModel.userName.flowWithLifecycle(viewLifeCycle).onEach {
-            binding.tvMyPageName.text = it
-        }.launchIn(viewLifeCycleScope)
+        initLogoutClickListener()
+        initWithdrawalClickListener()
     }
 
     private fun initObserveMyPageState() {
         viewModel.myPageState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
-                is UiState.Success -> binding.ivMyPageProfile.load(it.data.profileImg)
-                is UiState.Empty -> binding.ivMyPageProfile.setEmptyImageUrl("")
+                is UiState.Success -> handleSuccess(it.data)
                 is UiState.Failure -> Timber.tag("my page").d(it.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
 
-    private fun setSpanText() {
-        val textView = binding.tvMyPageUserState
-        val fullText = getString(R.string.my_page_user_state)
-        val spannableString = SpannableString(fullText)
+    private fun handleSuccess(data: UserModel) {
+        binding.tvMyPageName.text = data.name
+        binding.ivMyPageProfile.setEmptyImageUrl(data.profileImg)
+        binding.tvMyPageUserState.text =
+            requireContext().updateLevelText(data.level, LevelColorType.MY_PAGE)
+    }
 
-        if (fullText.length >= 5) {
-            spannableString.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.light_green)),
-                0,
-                5,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
+    private fun initWithdrawalClickListener() {
+        binding.tvMyPageWithdrawal.setOnClickListener {
+            val action = MyPageFragmentDirections.actionFragmentMyPageToFragmentDeleteDialog(
+                dialogType = DeleteDialogType.Withdrawal,
             )
-        }
-
-        textView.text = spannableString
-    }
-
-    private fun navigateToSetProfile() {
-        binding.ivMyPageProfile.setOnClickListener {
-            val intent = Intent(requireContext(), SetProfileActivity::class.java)
-            startActivity(intent)
+            findNavController().navigate(action)
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getMyPageUserInfo()
+    private fun initLogoutClickListener() {
+        binding.tvMyPageLogOut.setOnClickListener {
+            val action = MyPageFragmentDirections.actionFragmentMyPageToFragmentDeleteDialog(
+                dialogType = DeleteDialogType.Logout,
+            )
+            findNavController().navigate(action)
+        }
     }
 }

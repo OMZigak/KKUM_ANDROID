@@ -1,4 +1,4 @@
-package com.teamkkumul.core.ui.util.view
+package com.teamkkumul.core.ui.view
 
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
