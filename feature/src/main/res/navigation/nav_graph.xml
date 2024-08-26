@@ -67,6 +67,7 @@
         <action
             android:id="@+id/action_meetUpDetailFragment_to_exitMeetUpBottomSheetFragment"
             app:destination="@id/fragment_exit_meet_up_bottom_sheet" />
+
     </fragment>
 
     <fragment
@@ -181,6 +182,9 @@
         <action
             android:id="@+id/action_fragment_meet_up_container_to_readyInfoInputFragment"
             app:destination="@id/fragment_ready_info_input" />
+        <action
+            android:id="@+id/action_fragment_meet_up_container_to_meetUpCreateFragment"
+            app:destination="@id/fragment_meet_up_create" />
     </fragment>
 
     <fragment
