@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.teamkkumul.core.ui.view.ItemDiffCallback
 import com.teamkkumul.feature.databinding.ItemReadyStatusBinding
-import com.teamkkumul.feature.meetup.readystatus.viewholder.ReadyStatusViewHolder
+import com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder.ReadyStatusViewHolder
 import com.teamkkumul.model.home.HomeMembersStatus
 
 class ReadyStatusAdapter :

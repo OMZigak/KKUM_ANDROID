@@ -9,12 +9,18 @@ import com.teamkkumul.core.ui.base.BindingDialogFragment
 import com.teamkkumul.core.ui.util.context.dialogFragmentResize
 import com.teamkkumul.core.ui.util.context.toast
 import com.teamkkumul.core.ui.util.fragment.colorOf
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
+import com.teamkkumul.core.ui.util.intent.navigateTo
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
+import com.teamkkumul.feature.auth.LoginActivity
 import com.teamkkumul.feature.databinding.FragmentDialogDeleteBinding
-import com.teamkkumul.feature.utils.DeleteDialogType
+import com.teamkkumul.feature.utils.extension.isImageVisible
+import com.teamkkumul.feature.utils.extension.shouldChangeDescriptionColor
+import com.teamkkumul.feature.utils.type.DeleteDialogType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -27,52 +33,51 @@ class DeleteDialogFragment :
     override fun initView() {
         val args: DeleteDialogFragmentArgs by navArgs()
         val dialogType = args.dialogType
-        val promiseId = args.promiseId
-        val meetingId = args.meetingId
 
         setUpDialog(dialogType)
-        initDeleteBtnClickListener(dialogType, promiseId, meetingId)
+        initDeleteBtnClickListener { handleDeleteAction(args) }
         initCancelBtnClickListener()
         observeDeleteMyGroupState()
+        observeLeaveMeetUpState()
+        observeDeleteMeetUpState()
+        observeWithdrawState()
+        observeLogoutState()
     }
 
-    private fun setUpDialog(dialogType: DeleteDialogType) {
-        with(binding) {
-            ivDialogLeave.load(dialogType.imageResId)
-            tvLeaveQuestion.text = getString(dialogType.question)
-            tvLeaveQuestionDescription.text = getString(dialogType.questionDescription)
-            tvBtnLeave.text = getString(dialogType.btnText)
+    private fun setUpDialog(dialogType: DeleteDialogType) = with(binding) {
+        // 이미지 visibilty 및 로드
+        val imgVisibility = dialogType.isImageVisible()
+        ivDialogLeave.setVisible(imgVisibility)
+        if (imgVisibility) ivDialogLeave.load(dialogType.imageResId)
+
+        // 텍스트 설정
+        tvLeaveQuestion.text = getString(dialogType.question)
+        tvLeaveQuestionDescription.text = getString(dialogType.questionDescription)
+        tvBtnLeave.text = getString(dialogType.btnLeaveText)
+
+        // 설명 텍스트 색상 변경
+        if (dialogType.shouldChangeDescriptionColor()) {
+            tvLeaveQuestionDescription.setTextColor(colorOf(R.color.red))
         }
     }
 
-    private fun initDeleteBtnClickListener(
-        dialogType: DeleteDialogType,
-        promiseId: Int,
-        meetingId: Int,
-    ) {
+    private fun initDeleteBtnClickListener(onDeleteAction: () -> Unit) {
         binding.tvBtnLeave.setOnClickListener {
-            handleDeleteAction(dialogType, promiseId, meetingId)
+            onDeleteAction()
         }
     }
 
-    private fun handleDeleteAction(dialogType: DeleteDialogType, promiseId: Int, meetingId: Int) {
-        when (dialogType) {
-            DeleteDialogType.MY_GROUP_LEAVE_DIALOG -> {
-                viewModel.deleteMyGroup(meetingId)
-            }
+    private fun handleDeleteAction(args: DeleteDialogFragmentArgs) {
+        when (args.dialogType) {
+            DeleteDialogType.MY_GROUP_LEAVE_DIALOG -> viewModel.deleteMyGroup(args.meetingId)
 
-            DeleteDialogType.PROMISE_LEAVE_DIALOG -> {
-                // viewModel.deleteMeetUp(args.promiseId)
-                // findNavController().navigate("key" to meetingId) 및 stack 제거 처리
-            }
+            DeleteDialogType.PROMISE_LEAVE_DIALOG -> viewModel.leaveMeetUp(args.promiseId)
 
-            DeleteDialogType.PROMISE_DELETE_DIALOG -> {
-                // viewModel.deleteMeetUp(args.promiseId)
-                // findNavController().navigate("key" to meetingId) 및 stack 제거 처리
-                binding.tvLeaveQuestionDescription.setTextColor(
-                    colorOf(R.color.red),
-                )
-            }
+            DeleteDialogType.PROMISE_DELETE_DIALOG -> viewModel.deleteMeetUp(args.promiseId)
+
+            DeleteDialogType.Logout -> viewModel.postLogout()
+
+            DeleteDialogType.Withdrawal -> viewModel.deleteWithdrawal()
         }
     }
 
@@ -90,14 +95,60 @@ class DeleteDialogFragment :
         }.launchIn(viewLifeCycleScope)
     }
 
+    private fun observeLeaveMeetUpState() {
+        viewModel.leaveMeetUpState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    findNavController().popBackStack(R.id.fragment_my_group_detail, false)
+                    dismiss()
+                }
+
+                is UiState.Failure -> requireContext().toast(it.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun observeDeleteMeetUpState() {
+        viewModel.deleteMeetUpState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    findNavController().popBackStack(R.id.fragment_my_group_detail, false)
+                    dismiss()
+                }
+
+                is UiState.Failure -> requireContext().toast(it.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun observeLogoutState() {
+        viewModel.logoutState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> navigateTo<LoginActivity>(requireContext())
+                is UiState.Failure -> toast(it.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun observeWithdrawState() {
+        viewModel.withdrawState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> navigateTo<LoginActivity>(requireContext())
+                is UiState.Failure -> toast(it.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
     private fun initCancelBtnClickListener() {
-        binding.tvBtnCancel.setOnClickListener {
-            dismiss()
-        }
+        binding.tvBtnCancel.setOnClickListener { dismiss() }
     }
 
     override fun onResume() {
         super.onResume()
-        context?.dialogFragmentResize(this, 34.0f)
+        requireContext().dialogFragmentResize(this, 27f)
     }
 }

@@ -41,7 +41,7 @@ class SplashViewModel @Inject constructor(
 
                     refreshToken.isNotEmpty() && userName.isNotEmpty() -> AutoLoginState.NavigateToMain
 
-                    else -> AutoLoginState.Loading
+                    else -> AutoLoginState.NavigateToLogin
                 }
             }.collectLatest { state ->
                 _loginState.emit(state)

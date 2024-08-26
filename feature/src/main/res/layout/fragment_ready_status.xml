@@ -15,18 +15,32 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray0"
-            android:paddingHorizontal="14dp">
+            android:background="@color/gray0">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="14dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="14dp" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_ready_info_input"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/shape_radius_8"
                 android:backgroundTint="@color/white0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.Group
@@ -135,7 +149,7 @@
                 android:layout_marginTop="20dp"
                 android:text="나의 준비 현황"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_01"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
                 app:layout_constraintTop_toBottomOf="@id/cl_ready_info_input" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -145,8 +159,8 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/shape_white0_radius_8"
                 android:paddingBottom="14dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
                 app:layout_constraintTop_toBottomOf="@id/tv_ready_my_status_text">
 
                 <TextView
@@ -367,9 +381,19 @@
                 android:text="꾸물거릴 시간이 없어요!"
                 android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
                 android:textColor="@color/white0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
                 app:layout_constraintTop_toBottomOf="@id/cl_home_today_info_list" />
+
+            <View
+                android:id="@+id/view_ready_status_background_card"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_rect_top_20"
+                android:backgroundTint="@color/white0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ready_kkum_late_pop_up" />
 
             <TextView
                 android:id="@+id/tv_ready_our_status_text"
@@ -378,18 +402,21 @@
                 android:layout_marginTop="24dp"
                 android:text="우리들의 준비 현황"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_01"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_ready_kkum_late_pop_up" />
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="@id/view_ready_status_background_card" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_ready_status_friend_list"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
                 app:layout_constraintTop_toBottomOf="@id/tv_ready_our_status_text"
                 tools:listitem="@layout/item_ready_status" />
         </androidx.constraintlayout.widget.ConstraintLayout>

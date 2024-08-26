@@ -10,6 +10,7 @@ import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpContainerBinding
 import com.teamkkumul.feature.meetup.meetupdetail.MeetUpDetailFriendViewModel
@@ -32,8 +33,6 @@ class MeetUpContainerFragment :
         initMyPageTabLayout(promiseId)
         initObservePromiseNameState()
         navigationClickListener()
-
-        binding.toolbarMeetUpContainer.ivBtnMore.visibility = View.VISIBLE
     }
 
     private fun initMyPageTabLayout(promiseId: Int) = with(binding) {
@@ -59,24 +58,29 @@ class MeetUpContainerFragment :
     private fun initObservePromiseNameState() {
         viewModel.meetupDetailState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Success -> successPromiseNameState(uiState.data)
+                is UiState.Success -> successMeetupDetailAppbarState(uiState.data)
                 is UiState.Failure -> Timber.tag("promise name").d(uiState.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
 
-    private fun successPromiseNameState(meetUpDetailModel: MeetUpDetailModel) {
-        binding.toolbarMeetUpContainer.toolbarTitle.text = meetUpDetailModel.promiseName
+    private fun successMeetupDetailAppbarState(meetUpDetailModel: MeetUpDetailModel) {
+        with(binding) {
+            toolbarMeetUpContainer.toolbarTitle.text = meetUpDetailModel.promiseName
+            toolbarMeetUpContainer.ivBtnMore.setVisible(meetUpDetailModel.isParticipant == true)
+        }
     }
 
     private fun navigationClickListener() {
         binding.toolbarMeetUpContainer.ivBtnMore.setOnClickListener {
-            val meetUpName = binding.toolbarMeetUpContainer.title.toString()
-            findNavController().navigate(
-                R.id.action_meetUpDetailFragment_to_exitMeetUpBottomSheetFragment,
-                bundleOf(PROMISE_ID to currentId, MEET_UP_NAME to meetUpName),
-            )
+            val meetUpName = binding.toolbarMeetUpContainer.toolbarTitle.text.toString()
+            if (meetUpName.isNotBlank()) {
+                findNavController().navigate(
+                    R.id.action_meetUpContainerFragment_to_exitMeetUpBottomSheetFragment,
+                    bundleOf(PROMISE_ID to currentId, MEET_UP_NAME to meetUpName),
+                )
+            }
         }
     }
 

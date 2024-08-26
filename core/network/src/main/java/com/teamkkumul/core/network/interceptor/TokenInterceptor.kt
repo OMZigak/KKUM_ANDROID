@@ -6,11 +6,13 @@ import com.teamkkumul.core.datastore.datasource.DefaultKumulPreferenceDatasource
 import com.teamkkumul.core.network.api.LoginService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withTimeout
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -32,7 +34,15 @@ class TokenInterceptor @Inject constructor(
         if (response.code == CODE_TOKEN_EXPIRE) {
             response.close()
             val tokenRefreshed = runBlocking {
-                refreshTokenIfNeeded()
+                try {
+                    // 5초 내에 refreshTokenIfNeeded() 실행
+                    withTimeout(5000L) {
+                        refreshTokenIfNeeded()
+                    }
+                } catch (e: TimeoutCancellationException) {
+                    // 타임아웃 발생 시 처리 로직
+                    false
+                }
             }
             if (tokenRefreshed) {
                 // 새로운 토큰으로 요청을 다시 시도
@@ -51,8 +61,8 @@ class TokenInterceptor @Inject constructor(
                 loginService.postReissueToken(refreshToken)
             }
 
-            return when {
-                tokenResult.success -> {
+            return when (tokenResult.success) {
+                true -> {
                     tokenResult.data?.let {
                         defaultKumulPreferenceDatasource.updateAccessToken(it.accessToken)
                         defaultKumulPreferenceDatasource.updateRefreshToken(it.refreshToken)
@@ -60,7 +70,7 @@ class TokenInterceptor @Inject constructor(
                     true
                 }
 
-                else -> false
+                false -> false
             }
         }
     }

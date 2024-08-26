@@ -10,9 +10,9 @@ data class RequestMeetUpCreateDto(
     @SerialName("placeName")
     val placeName: String,
     @SerialName("x")
-    val x: Double,
+    val x: Double? = null,
     @SerialName("y")
-    val y: Double,
+    val y: Double? = null,
     @SerialName("address")
     val address: String?,
     @SerialName("roadAddress")

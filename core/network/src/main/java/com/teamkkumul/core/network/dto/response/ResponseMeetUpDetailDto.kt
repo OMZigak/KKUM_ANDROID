@@ -24,7 +24,7 @@ data class ResponseMeetUpDetailDto(
     @SerialName("promiseName")
     val promiseName: String,
     @SerialName("x")
-    val x: Double,
+    val x: Double? = null,
     @SerialName("y")
-    val y: Double,
+    val y: Double? = null,
 )
