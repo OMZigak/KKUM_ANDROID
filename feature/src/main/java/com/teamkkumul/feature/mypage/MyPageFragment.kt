@@ -6,7 +6,7 @@ import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
-import coil.load
+import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
@@ -14,6 +14,7 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyPageBinding
 import com.teamkkumul.feature.utils.setEmptyImageUrl
+import com.teamkkumul.feature.utils.type.DeleteDialogType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -21,7 +22,6 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
-
     private val viewModel by viewModels<MyPageViewModel>()
 
     override fun initView() {
@@ -29,6 +29,8 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
         initObserveMyPageState()
         initUserName()
         setSpanText()
+        initLogoutClickListener()
+        initWithdrawalClickListener()
     }
 
     private fun initUserName() {
@@ -63,5 +65,23 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
         }
 
         textView.text = spannableString
+    }
+
+    private fun initWithdrawalClickListener() {
+        binding.tvMyPageWithdrawal.setOnClickListener {
+            val action = MyPageFragmentDirections.actionFragmentMyPageToFragmentDeleteDialog(
+                dialogType = DeleteDialogType.Withdrawal,
+            )
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun initLogoutClickListener() {
+        binding.tvMyPageLogOut.setOnClickListener {
+            val action = MyPageFragmentDirections.actionFragmentMyPageToFragmentDeleteDialog(
+                dialogType = DeleteDialogType.Logout,
+            )
+            findNavController().navigate(action)
+        }
     }
 }
