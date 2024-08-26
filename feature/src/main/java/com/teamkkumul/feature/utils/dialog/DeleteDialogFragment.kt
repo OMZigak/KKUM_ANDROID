@@ -16,6 +16,8 @@ import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogDeleteBinding
 import com.teamkkumul.feature.utils.type.DeleteDialogType
+import com.teamkkumul.feature.utils.type.isImageVisible
+import com.teamkkumul.feature.utils.type.shouldChangeDescriptionColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -36,27 +38,29 @@ class DeleteDialogFragment :
     }
 
     private fun setUpDialog(dialogType: DeleteDialogType) = with(binding) {
-        val isImageVisible = checkImageVisibility(dialogType)
-        tvBtnCancel.setVisible(isImageVisible)
-        if (isImageVisible) ivDialogLeave.load(dialogType.imageResId)
+        // 이미지 visibilty 및 로드
+        val imgVisibility = dialogType.isImageVisible()
+        ivDialogLeave.setVisible(imgVisibility)
+        if (imgVisibility) ivDialogLeave.load(dialogType.imageResId)
+
+        // 텍스트 설정
         tvLeaveQuestion.text = getString(dialogType.question)
         tvLeaveQuestionDescription.text = getString(dialogType.questionDescription)
         tvBtnLeave.text = getString(dialogType.btnLeaveText)
+
+        // 설명 텍스트 색상 변경
+        if (dialogType.shouldChangeDescriptionColor()) {
+            tvLeaveQuestionDescription.setTextColor(colorOf(R.color.red))
+        }
     }
 
-    private fun checkImageVisibility(dialogType: DeleteDialogType) = when (dialogType) {
-        DeleteDialogType.Logout, DeleteDialogType.Withdrawal -> false
-        else -> true
-    }
-
-    // 여기에서 람다를 파라미터로 받음
     private fun initDeleteBtnClickListener(onDeleteAction: () -> Unit) {
         binding.tvBtnLeave.setOnClickListener {
             onDeleteAction()
         }
     }
 
-    private fun handleDeleteAction(args: DeleteDialogFragmentArgs) = with(binding) {
+    private fun handleDeleteAction(args: DeleteDialogFragmentArgs) {
         when (args.dialogType) {
             DeleteDialogType.MY_GROUP_LEAVE_DIALOG -> {
                 viewModel.deleteMyGroup(args.meetingId)
@@ -67,12 +71,8 @@ class DeleteDialogFragment :
                 // findNavController().navigate("key" to meetingId) 및 stack 제거 처리
             }
 
-            DeleteDialogType.PROMISE_DELETE_DIALOG -> {
-                tvLeaveQuestionDescription.setTextColor(colorOf(R.color.red))
-            }
-
+            DeleteDialogType.PROMISE_DELETE_DIALOG -> {}
             DeleteDialogType.Logout -> {}
-
             DeleteDialogType.Withdrawal -> {}
         }
     }
