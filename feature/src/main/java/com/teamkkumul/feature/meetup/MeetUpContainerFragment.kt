@@ -10,6 +10,7 @@ import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpContainerBinding
 import com.teamkkumul.feature.meetup.meetupdetail.MeetUpDetailFriendViewModel
@@ -65,9 +66,10 @@ class MeetUpContainerFragment :
     }
 
     private fun successMeetupDetailAppbarState(meetUpDetailModel: MeetUpDetailModel) {
-        binding.toolbarMeetUpContainer.toolbarTitle.text = meetUpDetailModel.promiseName
-        binding.toolbarMeetUpContainer.ivBtnMore.visibility =
-            if (meetUpDetailModel.isParticipant == true) View.VISIBLE else View.INVISIBLE
+        with(binding) {
+            toolbarMeetUpContainer.toolbarTitle.text = meetUpDetailModel.promiseName
+            toolbarMeetUpContainer.ivBtnMore.setVisible(meetUpDetailModel.isParticipant == true)
+        }
     }
 
     private fun navigationClickListener() {
