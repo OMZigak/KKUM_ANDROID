@@ -9,11 +9,14 @@ import com.teamkkumul.core.ui.base.BindingDialogFragment
 import com.teamkkumul.core.ui.util.context.dialogFragmentResize
 import com.teamkkumul.core.ui.util.context.toast
 import com.teamkkumul.core.ui.util.fragment.colorOf
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
+import com.teamkkumul.core.ui.util.intent.navigateTo
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
+import com.teamkkumul.feature.auth.LoginActivity
 import com.teamkkumul.feature.databinding.FragmentDialogDeleteBinding
 import com.teamkkumul.feature.utils.type.DeleteDialogType
 import com.teamkkumul.feature.utils.type.isImageVisible
@@ -35,6 +38,8 @@ class DeleteDialogFragment :
         initDeleteBtnClickListener { handleDeleteAction(args) }
         initCancelBtnClickListener()
         observeDeleteMyGroupState()
+        observeWithdrawState()
+        observeLogoutState()
     }
 
     private fun setUpDialog(dialogType: DeleteDialogType) = with(binding) {
@@ -72,8 +77,9 @@ class DeleteDialogFragment :
             }
 
             DeleteDialogType.PROMISE_DELETE_DIALOG -> {}
-            DeleteDialogType.Logout -> {}
-            DeleteDialogType.Withdrawal -> {}
+            DeleteDialogType.Logout -> viewModel.postLogout()
+
+            DeleteDialogType.Withdrawal -> viewModel.deleteWithdrawal()
         }
     }
 
@@ -86,6 +92,26 @@ class DeleteDialogFragment :
                 }
 
                 is UiState.Failure -> requireContext().toast(uiState.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun observeLogoutState() {
+        viewModel.logoutState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> navigateTo<LoginActivity>(requireContext())
+                is UiState.Failure -> toast(it.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun observeWithdrawState() {
+        viewModel.withdrawState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> navigateTo<LoginActivity>(requireContext())
+                is UiState.Failure -> toast(it.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
