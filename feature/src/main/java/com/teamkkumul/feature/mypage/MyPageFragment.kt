@@ -1,5 +1,6 @@
 package com.teamkkumul.feature.mypage
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -9,6 +10,7 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyPageBinding
+import com.teamkkumul.feature.signup.SetProfileActivity
 import com.teamkkumul.feature.utils.extension.updateLevelText
 import com.teamkkumul.feature.utils.setEmptyImageUrl
 import com.teamkkumul.feature.utils.type.DeleteDialogType
@@ -22,12 +24,14 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     private val viewModel by viewModels<MyPageViewModel>()
+    private var profileImageUrl: String? = null
 
     override fun initView() {
         viewModel.getMyPageUserInfo()
         initObserveMyPageState()
         initLogoutClickListener()
         initWithdrawalClickListener()
+        navigateToSetProfile()
     }
 
     private fun initObserveMyPageState() {
@@ -42,6 +46,7 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
 
     private fun handleSuccess(data: UserModel) {
         binding.tvMyPageName.text = data.name
+        profileImageUrl = data.profileImg
         binding.ivMyPageProfile.setEmptyImageUrl(data.profileImg)
         binding.tvMyPageUserState.text =
             requireContext().updateLevelText(data.level, LevelColorType.MY_PAGE)
@@ -62,6 +67,15 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
                 dialogType = DeleteDialogType.Logout,
             )
             findNavController().navigate(action)
+        }
+    }
+
+    private fun navigateToSetProfile() {
+        binding.ivMyPageProfile.setOnClickListener {
+            val intent = Intent(requireContext(), SetProfileActivity::class.java).apply {
+                putExtra(SetProfileActivity.PROFILE_IMAGE_URL, profileImageUrl)
+            }
+            startActivity(intent)
         }
     }
 }

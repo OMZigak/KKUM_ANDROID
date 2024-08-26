@@ -28,6 +28,9 @@ object KeyStorage {
     const val MEET_UP_DELETE_DIALOG = "meetUpDeleteDialog"
     const val GROUP_NAME = "groupName"
     const val DIALOG_TYPE = "dialogType"
+    const val SET_NAME_ACTIVITY = "setNameActivity"
+    const val MY_PAGE_FRAGMENT = "myPageFragment"
+    const val PROFILE_IMAGE_URL = "profileImageUrl"
 }
 
 object PROGRESS {
