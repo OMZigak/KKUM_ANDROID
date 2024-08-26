@@ -218,8 +218,8 @@
     <string name="dialog_logout_btn_right">로그아웃</string>
     <!--    탈퇴하기 다이얼로그-->
     <string name="dialog_withdrawal_title">정말 탈퇴 하시겠어요?</string>
-    <string name="dialog_withdrawal_desc">정말 탈퇴 하시겠어요?</string>
-    <string name="dialog_withdrawal_btn_right">떠날래요</string>
+    <string name="dialog_withdrawal_description">탈퇴 버튼 선택 시,\n계정은 삭제되며 복구되지 않습니다.</string>
+    <string name="dialog_withdrawal_btn_right">탈퇴하기</string>
 
 
 </resources>

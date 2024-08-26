@@ -32,8 +32,8 @@ enum class DeleteDialogType(
         btnLeaveText = R.string.dialog_logout_btn_right,
     ),
     Withdrawal(
-        question = R.string.tv_delete_meet_up_question,
-        questionDescription = R.string.tv_delete_meet_up_question_description,
+        question = R.string.dialog_withdrawal_title,
+        questionDescription = R.string.dialog_withdrawal_description,
         btnLeaveText = R.string.dialog_withdrawal_btn_right,
     ),
 }
