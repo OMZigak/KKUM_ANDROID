@@ -37,7 +37,7 @@
             android:id="@+id/tv_leave_question_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:text="@string/tv_leave_question_description"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Kkumul.body_06"
