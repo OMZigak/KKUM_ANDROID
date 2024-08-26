@@ -19,18 +19,21 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-
-        val kkumulBaseUrl = (properties["base.url"] as? String)?.trim('"') ?: ""
-        buildConfigField("String", "KKUMUL_BASE_URL", "\"$kkumulBaseUrl\"")
     }
 
     buildTypes {
+        debug {
+            val kkumulBaseUrl = (properties["base.url"] as? String)?.trim('"') ?: ""
+            buildConfigField("String", "KKUMUL_BASE_URL", "\"$kkumulBaseUrl\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            val kkumulReleaseBaseUrl = (properties["release.base.url"] as? String)?.trim('"') ?: ""
+            buildConfigField("String", "KKUMUL_BASE_URL", "\"$kkumulReleaseBaseUrl\"")
         }
     }
     compileOptions {
