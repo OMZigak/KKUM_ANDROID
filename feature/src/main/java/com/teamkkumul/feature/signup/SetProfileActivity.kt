@@ -13,7 +13,6 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
 import com.teamkkumul.feature.signup.SetNameActivity.Companion.INPUT_NAME
-import com.teamkkumul.feature.utils.KeyStorage.UPDATED_PHOTO_URI
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
