@@ -212,5 +212,14 @@
     <string name="tv_btn_cancel">취소</string>
     <string name="tv_btn_leave">나가기</string>
     <string name="tv_btn_delete">삭제하기</string>
+    <!--    로그아웃 다이얼로그-->
+    <string name="dialog_logout_title">로그아웃 하시겠어요?</string>
+    <string name="dialog_logout_description">로그아웃 시, 다시 로그인 하셔야 해요.</string>
+    <string name="dialog_logout_btn_right">로그아웃</string>
+    <!--    탈퇴하기 다이얼로그-->
+    <string name="dialog_withdrawal_title">정말 탈퇴 하시겠어요?</string>
+    <string name="dialog_withdrawal_desc">정말 탈퇴 하시겠어요?</string>
+    <string name="dialog_withdrawal_btn_right">떠날래요</string>
+
 
 </resources>
