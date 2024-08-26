@@ -9,11 +9,14 @@ interface KumulPreferencesDataSource {
     val memberName: Flow<String>
 
     suspend fun updateAccessToken(accessToken: String)
+
     suspend fun updateRefreshToken(refreshToken: String)
 
     suspend fun updateAutoLogin(autoLogin: Boolean)
+
     suspend fun updateMemberName(name: String)
 
     suspend fun clear()
-    suspend fun clearForRefreshToken()
+
+    suspend fun clearForLogout()
 }

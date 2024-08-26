@@ -2,6 +2,7 @@ package com.teamkkumul.core.network.di
 
 import com.teamkkumul.core.network.api.HomeService
 import com.teamkkumul.core.network.api.LoginService
+import com.teamkkumul.core.network.api.LogoutService
 import com.teamkkumul.core.network.api.MeetUpCreateService
 import com.teamkkumul.core.network.api.MeetUpService
 import com.teamkkumul.core.network.api.MeetingsService
@@ -57,4 +58,9 @@ object ApiModule {
     @Singleton
     fun provideMeetUpCreateService(@KKUMUL retrofit: Retrofit): MeetUpCreateService =
         retrofit.create(MeetUpCreateService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideLogoutService(@KKUMUL retrofit: Retrofit): LogoutService =
+        retrofit.create(LogoutService::class.java)
 }

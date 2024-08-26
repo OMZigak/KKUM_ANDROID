@@ -194,14 +194,14 @@
                     android:id="@+id/group_home_meeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:constraint_referenced_ids="tv_home_group_text,tv_home_meeting_title,iv_home_location,tv_home_meeting_where,iv_home_time,tv_home_meeting_time,tv_home_ready_time,iv_home_ready_circle,pg_home_ready,tv_home_moving_time,iv_home_moving_circle,pg_home_moving,tvv_home_arrive_time,iv_home_arrive_circle,pg_home_arrive,pg_home_arrive_end,btn_home_ready,btn_home_moving,btn_home_arrive,tv_home_moving_start_help_text" />
 
                 <androidx.constraintlayout.widget.Group
                     android:id="@+id/group_home_meeting_empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:constraint_referenced_ids="iv_home_empty,tv_home_empty" />
 
                 <ImageView
@@ -270,6 +270,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
+                    android:ellipsize="marquee"
+                    android:maxWidth="130dp"
+                    android:maxLines="1"
                     android:text="용산역"
                     android:textAppearance="@style/TextAppearance.Kkumul.body_06"
                     app:layout_constraintBottom_toBottomOf="@id/iv_home_location"
