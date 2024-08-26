@@ -6,7 +6,9 @@ import com.teamkkumul.core.data.repository.MeetUpRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.model.LatePersonModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,8 +21,8 @@ class LatePersonViewModel @Inject constructor(
     private val _latePersonState = MutableStateFlow<UiState<LatePersonModel>>(UiState.Loading)
     val latePersonState get() = _latePersonState.asStateFlow()
 
-    private val _patchMeetUpState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
-    val patchMeetUpState get() = _patchMeetUpState.asStateFlow()
+    private val _patchMeetUpState = MutableSharedFlow<UiState<Unit>>()
+    val patchMeetUpState get() = _patchMeetUpState.asSharedFlow()
 
     fun getLateComersList(promiseId: Int) {
         viewModelScope.launch {
