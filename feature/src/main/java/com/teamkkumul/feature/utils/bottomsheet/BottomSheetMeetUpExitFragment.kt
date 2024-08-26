@@ -4,9 +4,9 @@ import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingBottomSheetFragment
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentExitMeetUpBottomSheetBinding
-import com.teamkkumul.feature.utils.DeleteDialogType
 import com.teamkkumul.feature.utils.KeyStorage.MEET_UP_NAME
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
+import com.teamkkumul.feature.utils.type.DeleteDialogType
 
 class BottomSheetMeetUpExitFragment :
     BindingBottomSheetFragment<FragmentExitMeetUpBottomSheetBinding>(R.layout.fragment_exit_meet_up_bottom_sheet) {

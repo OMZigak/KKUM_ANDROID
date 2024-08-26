@@ -69,17 +69,12 @@ class DeleteDialogFragment :
 
     private fun handleDeleteAction(args: DeleteDialogFragmentArgs) {
         when (args.dialogType) {
-            DeleteDialogType.MY_GROUP_LEAVE_DIALOG -> {
-                viewModel.deleteMyGroup(args.meetingId)
-            }
+            DeleteDialogType.MY_GROUP_LEAVE_DIALOG -> viewModel.deleteMyGroup(args.meetingId)
 
-            DeleteDialogType.PROMISE_LEAVE_DIALOG -> {
-                viewModel.leaveMeetUp(promiseId)
-            }
+            DeleteDialogType.PROMISE_LEAVE_DIALOG -> viewModel.leaveMeetUp(args.promiseId)
 
-            DeleteDialogType.PROMISE_DELETE_DIALOG -> {
-                viewModel.deleteMeetUp(promiseId)
-            }
+            DeleteDialogType.PROMISE_DELETE_DIALOG -> viewModel.deleteMeetUp(args.promiseId)
+
             DeleteDialogType.Logout -> viewModel.postLogout()
 
             DeleteDialogType.Withdrawal -> viewModel.deleteWithdrawal()
