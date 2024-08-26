@@ -17,22 +17,26 @@
             app:title="@{@string/my_page_title}" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
             android:id="@+id/iv_my_page_profile"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="136dp"
             android:layout_marginTop="28dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_my_page_profile"
+            android:src="@drawable/ic_profile_basic_44"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_my_page" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar_my_page"
+            app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
         <ImageView
+            android:id="@+id/iv_my_page_profile_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="-6dp"
+            android:layout_marginBottom="-6dp"
+            android:padding="6dp"
             android:src="@drawable/ic_my_page_edit"
             app:layout_constraintBottom_toBottomOf="@id/iv_my_page_profile"
             app:layout_constraintEnd_toEndOf="@id/iv_my_page_profile" />
@@ -78,7 +82,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_my_page_name_text" />
 
         <View
-            android:id="@+id/v_my_page_middle_line"
+            android:id="@+id/view_my_page_middle_line"
             android:layout_width="0dp"
             android:layout_height="6dp"
             android:layout_marginTop="34dp"
@@ -88,79 +92,23 @@
             app:layout_constraintTop_toBottomOf="@id/tv_my_page_user_state" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_my_page_my_push_alram"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="14dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/shape_white0_radius_8"
-            android:paddingVertical="18dp"
-            android:paddingStart="21dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/v_my_page_middle_line">
-
-            <TextView
-                android:id="@+id/tv_my_page_push_alarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_page_push_alarm"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_my_page_ready_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/my_page_ready_time"
-                android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
-                android:textColor="@color/gray6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_my_page_push_alarm" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="푸쉬 알림을 받을 수 있습니다."
-                android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
-                android:textColor="@color/gray6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_my_page_ready_time" />
-
-
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="18dp"
-                android:thumb="@drawable/sel_switch_thumb"
-                android:track="@drawable/sel_switch_track"
-                app:layout_constraintDimensionRatio="46:27"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="14dp"
-            android:layout_marginTop="17dp"
-            android:background="@drawable/shape_white0_radius_8"
-            android:paddingVertical="30dp"
-            android:paddingStart="21dp"
-            android:paddingTop="26dp"
+            android:paddingVertical="16dp"
             android:paddingEnd="22dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_my_page_my_push_alram">
+            app:layout_constraintTop_toBottomOf="@id/view_my_page_middle_line">
 
             <TextView
                 android:id="@+id/tv_my_page_version_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="21dp"
+                android:paddingVertical="12dp"
                 android:text="@string/my_page_version_info"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 android:textColor="@color/gray7"
@@ -169,37 +117,53 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
                 android:text="@string/my_page_version_number"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_page_version_info"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/tv_my_page_version_info" />
 
             <TextView
                 android:id="@+id/tv_my_page_use_promise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:paddingHorizontal="21dp"
+                android:paddingVertical="12dp"
                 android:text="@string/my_page_use_promise"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_page_version_info" />
 
             <TextView
-                android:id="@+id/tv_my_page_log_out"
+                android:id="@+id/tv_my_page_ask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="@string/my_page_log_out"
+                android:paddingHorizontal="21dp"
+                android:paddingVertical="7dp"
+                android:text="문의하기"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_page_use_promise" />
 
             <TextView
+                android:id="@+id/tv_my_page_log_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="21dp"
+                android:paddingVertical="12dp"
+                android:text="@string/my_page_log_out"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_my_page_ask" />
+
+            <TextView
                 android:id="@+id/tv_my_page_quit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:paddingHorizontal="21dp"
+                android:paddingVertical="12dp"
                 android:text="@string/my_page_quit"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 app:layout_constraintBottom_toBottomOf="parent"
