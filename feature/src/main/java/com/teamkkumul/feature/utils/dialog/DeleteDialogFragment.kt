@@ -12,6 +12,7 @@ import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogDeleteBinding
 import com.teamkkumul.feature.utils.type.DeleteDialogType
@@ -27,11 +28,9 @@ class DeleteDialogFragment :
     override fun initView() {
         val args: DeleteDialogFragmentArgs by navArgs()
         val dialogType = args.dialogType
-        val promiseId = args.promiseId
-        val meetingId = args.meetingId
 
         setUpDialog(dialogType)
-        initDeleteBtnClickListener(dialogType, promiseId, meetingId)
+        initDeleteBtnClickListener { handleDeleteAction(args) }
         initCancelBtnClickListener()
         observeDeleteMyGroupState()
     }
@@ -45,20 +44,17 @@ class DeleteDialogFragment :
         }
     }
 
-    private fun initDeleteBtnClickListener(
-        dialogType: DeleteDialogType,
-        promiseId: Int,
-        meetingId: Int,
-    ) {
+    // 여기에서 람다를 파라미터로 받음
+    private fun initDeleteBtnClickListener(onDeleteAction: () -> Unit) {
         binding.tvBtnLeave.setOnClickListener {
-            handleDeleteAction(dialogType, promiseId, meetingId)
+            onDeleteAction()
         }
     }
 
-    private fun handleDeleteAction(dialogType: DeleteDialogType, promiseId: Int, meetingId: Int) {
-        when (dialogType) {
+    private fun handleDeleteAction(args: DeleteDialogFragmentArgs) = with(binding) {
+        when (args.dialogType) {
             DeleteDialogType.MY_GROUP_LEAVE_DIALOG -> {
-                viewModel.deleteMyGroup(meetingId)
+                viewModel.deleteMyGroup(args.meetingId)
             }
 
             DeleteDialogType.PROMISE_LEAVE_DIALOG -> {
@@ -67,12 +63,12 @@ class DeleteDialogFragment :
             }
 
             DeleteDialogType.PROMISE_DELETE_DIALOG -> {
-                // viewModel.deleteMeetUp(args.promiseId)
-                // findNavController().navigate("key" to meetingId) 및 stack 제거 처리
-                binding.tvLeaveQuestionDescription.setTextColor(
-                    colorOf(R.color.red),
-                )
+                tvLeaveQuestionDescription.setTextColor(colorOf(R.color.red))
             }
+
+            DeleteDialogType.Logout -> {}
+
+            DeleteDialogType.Withdrawal -> {}
         }
     }
 
