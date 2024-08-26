@@ -25,6 +25,7 @@ import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.getCurrentTime
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import com.teamkkumul.model.home.HomeTodayMeetingModel
 import com.teamkkumul.model.home.UserModel
@@ -114,7 +115,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         tvHomeGroupText.text = data.name.toString()
         tvHomeMeetingTitle.text = data.meetingName.toString()
         tvHomeMeetingWhere.text = data.placeName.toString()
-        tvHomeMeetingTime.text = data.time
+        tvHomeMeetingTime.text = data.time.formatTimeToPmAm()
         promiseId = data.promiseId
         initMeetingNextBtnClick(data.promiseId)
         viewModel.getReadyStatus(data.promiseId)

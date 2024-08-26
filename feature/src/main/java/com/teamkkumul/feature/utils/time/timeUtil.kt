@@ -18,6 +18,11 @@ object TimeUtils {
 
     fun String.parseDateToYearMonthDay(): String {
         val date = inputFormat.parse(this)
+        return outputDateFormat.format(date)
+    }
+
+    fun String.parseDateToMonthDay(): String {
+        val date = inputFormat.parse(this)
         return outputDateFormatText.format(date)
     }
 }
