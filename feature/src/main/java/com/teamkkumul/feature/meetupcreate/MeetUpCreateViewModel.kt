@@ -9,6 +9,7 @@ import com.teamkkumul.core.data.repository.MyGroupRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.model.MeetUpCreateLocationModel
 import com.teamkkumul.model.MeetUpCreateModel
+import com.teamkkumul.model.MeetUpEditParticipantModel
 import com.teamkkumul.model.MyGroupMemberModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -56,6 +57,10 @@ class MeetUpCreateViewModel @Inject constructor(
 
     private val _meetUpCreateState = MutableStateFlow<UiState<Int>>(UiState.Loading)
     val meetUpCreateState get() = _meetUpCreateState.asStateFlow()
+
+    private val _meetUpEditMemberState =
+        MutableStateFlow<UiState<List<MeetUpEditParticipantModel.Member>?>>(UiState.Loading)
+    val meetUpEditMemberState get() = _meetUpEditMemberState.asStateFlow()
 
     fun postMeetUpCreate(meetingId: Int, meetUpCreateModel: MeetUpCreateModel) {
         viewModelScope.launch {
@@ -131,6 +136,19 @@ class MeetUpCreateViewModel @Inject constructor(
                 }
             }.onFailure { exception ->
                 _meetUpCreateMemberState.emit(UiState.Failure(exception.message.toString()))
+            }
+    }
+
+    fun getMeetUpEditMember(promiseId: Int) = viewModelScope.launch {
+        meetUpCreateLocationRepository.getMeetUpEditParticipant(promiseId)
+            .onSuccess { meetUpEditParticipantModel ->
+                if (meetUpEditParticipantModel.isEmpty()) {
+                    _meetUpEditMemberState.emit(UiState.Empty)
+                } else {
+                    _meetUpEditMemberState.emit(UiState.Success(meetUpEditParticipantModel))
+                }
+            }.onFailure { exception ->
+                _meetUpEditMemberState.emit(UiState.Failure(exception.message.toString()))
             }
     }
 
