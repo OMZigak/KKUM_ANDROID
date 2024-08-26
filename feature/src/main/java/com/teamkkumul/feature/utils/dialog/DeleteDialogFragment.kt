@@ -34,6 +34,8 @@ class DeleteDialogFragment :
         initDeleteBtnClickListener(dialogType, promiseId, meetingId)
         initCancelBtnClickListener()
         observeDeleteMyGroupState()
+        observeLeaveMeetUpState()
+        observeDeleteMeetUpState()
     }
 
     private fun setUpDialog(dialogType: DeleteDialogType) {
@@ -42,6 +44,9 @@ class DeleteDialogFragment :
             tvLeaveQuestion.text = getString(dialogType.question)
             tvLeaveQuestionDescription.text = getString(dialogType.questionDescription)
             tvBtnLeave.text = getString(dialogType.btnText)
+        }
+        if (dialogType == DeleteDialogType.PROMISE_DELETE_DIALOG) {
+            binding.tvLeaveQuestionDescription.setTextColor(colorOf(R.color.red))
         }
     }
 
@@ -62,16 +67,11 @@ class DeleteDialogFragment :
             }
 
             DeleteDialogType.PROMISE_LEAVE_DIALOG -> {
-                // viewModel.deleteMeetUp(args.promiseId)
-                // findNavController().navigate("key" to meetingId) 및 stack 제거 처리
+                viewModel.leaveMeetUp(promiseId)
             }
 
             DeleteDialogType.PROMISE_DELETE_DIALOG -> {
-                // viewModel.deleteMeetUp(args.promiseId)
-                // findNavController().navigate("key" to meetingId) 및 stack 제거 처리
-                binding.tvLeaveQuestionDescription.setTextColor(
-                    colorOf(R.color.red),
-                )
+                viewModel.deleteMeetUp(promiseId)
             }
         }
     }
@@ -85,6 +85,34 @@ class DeleteDialogFragment :
                 }
 
                 is UiState.Failure -> requireContext().toast(uiState.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun observeLeaveMeetUpState() {
+        viewModel.leaveMeetUpState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    findNavController().popBackStack(R.id.fragment_my_group_detail, false)
+                    dismiss()
+                }
+
+                is UiState.Failure -> requireContext().toast(it.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun observeDeleteMeetUpState() {
+        viewModel.deleteMeetUpState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    findNavController().popBackStack(R.id.fragment_my_group_detail, false)
+                    dismiss()
+                }
+
+                is UiState.Failure -> requireContext().toast(it.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
