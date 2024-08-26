@@ -114,7 +114,11 @@
         android:id="@+id/fragment_my_page"
         android:name="com.teamkkumul.feature.mypage.MyPageFragment"
         android:label="@string/my_page_title"
-        tools:layout="@layout/fragment_my_page" />
+        tools:layout="@layout/fragment_my_page">
+        <action
+            android:id="@+id/action_fragment_my_page_to_fragment_delete_dialog"
+            app:destination="@id/deleteDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/exampleComposeFragment"
         android:name="com.teamkkumul.feature.compose.ExampleComposeFragment"
