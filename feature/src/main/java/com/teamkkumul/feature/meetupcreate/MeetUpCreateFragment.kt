@@ -165,10 +165,6 @@ class MeetUpCreateFragment :
         }
     }
 
-    private fun setInputTextColor(colorResId: Int) {
-        binding.etMeetUpName.setTextColor(colorOf(colorResId))
-    }
-
     private fun updateCounter(length: Int) {
         binding.tvCounter.text = "$length/10"
     }
