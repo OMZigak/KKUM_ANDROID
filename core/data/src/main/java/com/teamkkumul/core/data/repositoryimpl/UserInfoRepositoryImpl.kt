@@ -40,7 +40,7 @@ internal class UserInfoRepositoryImpl @Inject constructor(
         kumulPreferencesDataSource.clear()
     }
 
-    override suspend fun clearForRefreshToken() {
-        kumulPreferencesDataSource.clearForRefreshToken()
+    override suspend fun clearForLogout() {
+        kumulPreferencesDataSource.clearForLogout()
     }
 }
