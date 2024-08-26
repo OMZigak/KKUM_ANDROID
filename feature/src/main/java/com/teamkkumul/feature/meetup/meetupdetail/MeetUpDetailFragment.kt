@@ -55,6 +55,7 @@ class MeetUpDetailFragment :
 
     private fun successMeetUpDetailState(meetUpDetailModel: MeetUpDetailModel) {
         with(binding) {
+            tvMeetUpName.text = meetUpDetailModel.promiseName
             tvMeetUpDetailLocation.text = meetUpDetailModel.placeName
             tvMeetUpDetailTime.text =
                 "${meetUpDetailModel.time.parseDateToMonthDay()} ${meetUpDetailModel.time.formatTimeToPmAm()}"
