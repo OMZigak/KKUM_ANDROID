@@ -126,6 +126,6 @@ class DeleteDialogFragment :
 
     override fun onResume() {
         super.onResume()
-        context?.dialogFragmentResize(this, 34.0f)
+        requireContext().dialogFragmentResize(this, 27f)
     }
 }
