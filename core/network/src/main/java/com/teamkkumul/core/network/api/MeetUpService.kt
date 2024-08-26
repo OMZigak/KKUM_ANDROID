@@ -34,4 +34,9 @@ interface MeetUpService {
     suspend fun leaveMeetUp(
         @Path("promiseId") promiseId: Int,
     ): BaseResponse<Unit>
+
+    @DELETE("/api/v1/promises/{promiseId}")
+    suspend fun deleteMeetUp(
+        @Path("promiseId") promiseId: Int,
+    ): BaseResponse<Unit>
 }

@@ -56,4 +56,11 @@ class MeetUpRepositoryImpl @Inject constructor(
     }.recoverCatching {
         return it.handleThrowable()
     }
+
+    override suspend fun deleteMeetUp(promiseId: Int): Result<Unit> = runCatching {
+        meetUpService.deleteMeetUp(promiseId)
+        Unit
+    }.recoverCatching {
+        return it.handleThrowable()
+    }
 }

@@ -12,4 +12,5 @@ interface MeetUpRepository {
     suspend fun getLateComersList(promiseId: Int): Result<LatePersonModel>
     suspend fun patchMeetUpComplete(promiseId: Int): Result<Unit>
     suspend fun leaveMeetUp(promiseId: Int): Result<Unit>
+    suspend fun deleteMeetUp(promiseId: Int): Result<Unit>
 }

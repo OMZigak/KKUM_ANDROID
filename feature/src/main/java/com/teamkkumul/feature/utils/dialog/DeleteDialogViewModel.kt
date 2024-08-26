@@ -22,6 +22,9 @@ class DeleteDialogViewModel @Inject constructor(
     private val _leaveMeetUpState = MutableSharedFlow<UiState<Unit>>()
     val leaveMeetUpState get() = _leaveMeetUpState.asSharedFlow()
 
+    private val _deleteMeetUpState = MutableSharedFlow<UiState<Unit>>()
+    val deleteMeetUpState get() = _deleteMeetUpState.asSharedFlow()
+
     fun deleteMyGroup(meetingId: Int) {
         viewModelScope.launch {
             myGroupRepository.deleteMyGroup(meetingId).onSuccess {
@@ -40,6 +43,17 @@ class DeleteDialogViewModel @Inject constructor(
             }
                 .onFailure { exception ->
                     _leaveMeetUpState.emit(UiState.Failure(exception.message.toString()))
+                }
+        }
+    }
+
+    fun deleteMeetUp(promiseId: Int) {
+        viewModelScope.launch {
+            meetUpRepository.deleteMeetUp(promiseId).onSuccess {
+                _deleteMeetUpState.emit(UiState.Success(Unit))
+            }
+                .onFailure { exception ->
+                    _deleteMeetUpState.emit(UiState.Failure(exception.message.toString()))
                 }
         }
     }
