@@ -1,4 +1,6 @@
-package com.teamkkumul.feature.utils.type
+package com.teamkkumul.feature.utils.extension
+
+import com.teamkkumul.feature.utils.type.DeleteDialogType
 
 fun DeleteDialogType.isImageVisible(): Boolean =
     this != DeleteDialogType.Logout && this != DeleteDialogType.Withdrawal

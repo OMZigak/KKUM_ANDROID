@@ -18,9 +18,9 @@ import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.auth.LoginActivity
 import com.teamkkumul.feature.databinding.FragmentDialogDeleteBinding
+import com.teamkkumul.feature.utils.extension.isImageVisible
+import com.teamkkumul.feature.utils.extension.shouldChangeDescriptionColor
 import com.teamkkumul.feature.utils.type.DeleteDialogType
-import com.teamkkumul.feature.utils.type.isImageVisible
-import com.teamkkumul.feature.utils.type.shouldChangeDescriptionColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
