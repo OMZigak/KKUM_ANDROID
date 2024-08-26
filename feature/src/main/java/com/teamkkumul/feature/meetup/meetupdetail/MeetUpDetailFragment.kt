@@ -15,6 +15,7 @@ import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.time.TimeUtils.calculateDday
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToMonthDay
+import com.teamkkumul.feature.utils.time.setDdayTextColor
 import com.teamkkumul.model.MeetUpDetailModel
 import com.teamkkumul.model.MeetUpParticipantModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,7 +56,7 @@ class MeetUpDetailFragment :
     }
 
     private fun successMeetUpDetailState(meetUpDetailModel: MeetUpDetailModel) {
-        val dDay = meetUpDetailModel.time.calculateDday()
+        val (dDayString, dDayInt) = meetUpDetailModel.time.calculateDday()
         with(binding) {
             tvMeetUpName.text = meetUpDetailModel.promiseName
             tvMeetUpDetailLocation.text = meetUpDetailModel.placeName
@@ -63,7 +64,8 @@ class MeetUpDetailFragment :
                 "${meetUpDetailModel.time.parseDateToMonthDay()} ${meetUpDetailModel.time.formatTimeToPmAm()}"
             tvMeetUpDetailReadyLevel.text = meetUpDetailModel.dressUpLevel
             tvMeetUpDetailPenalty.text = meetUpDetailModel.penalty
-            tvMeetUpDetailDday.text = dDay
+            tvMeetUpDetailDday.text = dDayString
+            tvMeetUpDetailDday.setTextColor(context?.getColor(setDdayTextColor(dDayInt)) ?: R.color.gray3)
         }
     }
 
