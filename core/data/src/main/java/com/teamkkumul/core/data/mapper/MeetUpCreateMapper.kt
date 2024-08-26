@@ -2,8 +2,10 @@ package com.teamkkumul.core.data.mapper
 
 import com.teamkkumul.core.network.dto.request.RequestMeetUpCreateDto
 import com.teamkkumul.core.network.dto.response.ResponseMeetUpCreateLocationDto
+import com.teamkkumul.core.network.dto.response.ResponseMeetUpEditParticipantDto
 import com.teamkkumul.model.MeetUpCreateLocationModel
 import com.teamkkumul.model.MeetUpCreateModel
+import com.teamkkumul.model.MeetUpEditParticipantModel
 
 internal fun ResponseMeetUpCreateLocationDto.toMeetUpCreateLocationModel(): List<MeetUpCreateLocationModel.Location> =
     locations.map { location ->
@@ -30,3 +32,13 @@ fun MeetUpCreateModel.toRequestMeetUpCreateDto(): RequestMeetUpCreateDto {
         penalty = penalty,
     )
 }
+
+internal fun ResponseMeetUpEditParticipantDto.toMeetUpEditParticipant(): List<MeetUpEditParticipantModel.Member> =
+    members.map { member ->
+        MeetUpEditParticipantModel.Member(
+            memberId = member.memberId,
+            profileImg = member.profileImg,
+            name = member.name,
+            isParticipant = member.isParticipant,
+        )
+    }
