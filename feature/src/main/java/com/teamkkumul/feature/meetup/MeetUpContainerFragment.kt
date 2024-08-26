@@ -32,8 +32,6 @@ class MeetUpContainerFragment :
         initMyPageTabLayout(promiseId)
         initObservePromiseNameState()
         navigationClickListener()
-
-        binding.toolbarMeetUpContainer.ivBtnMore.visibility = View.VISIBLE
     }
 
     private fun initMyPageTabLayout(promiseId: Int) = with(binding) {
@@ -59,27 +57,27 @@ class MeetUpContainerFragment :
     private fun initObservePromiseNameState() {
         viewModel.meetupDetailState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Success -> successPromiseNameState(uiState.data)
+                is UiState.Success -> successMeetupDetailAppbarState(uiState.data)
                 is UiState.Failure -> Timber.tag("promise name").d(uiState.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
 
-    private fun successPromiseNameState(meetUpDetailModel: MeetUpDetailModel) {
+    private fun successMeetupDetailAppbarState(meetUpDetailModel: MeetUpDetailModel) {
         binding.toolbarMeetUpContainer.toolbarTitle.text = meetUpDetailModel.promiseName
+        binding.toolbarMeetUpContainer.ivBtnMore.visibility =
+            if (meetUpDetailModel.isParticipant == true) View.VISIBLE else View.INVISIBLE
     }
 
     private fun navigationClickListener() {
         binding.toolbarMeetUpContainer.ivBtnMore.setOnClickListener {
-            val meetUpName = binding.toolbarMeetUpContainer.toolbarTitle.text.toString() // 제목 가져오기 수정
+            val meetUpName = binding.toolbarMeetUpContainer.toolbarTitle.text.toString()
             if (meetUpName.isNotBlank()) {
                 findNavController().navigate(
                     R.id.action_meetUpContainerFragment_to_exitMeetUpBottomSheetFragment,
                     bundleOf(PROMISE_ID to currentId, MEET_UP_NAME to meetUpName),
                 )
-            } else {
-                Timber.e("MeetUp 이름이 설정되지 않았거나 비어 있습니다")
             }
         }
     }
