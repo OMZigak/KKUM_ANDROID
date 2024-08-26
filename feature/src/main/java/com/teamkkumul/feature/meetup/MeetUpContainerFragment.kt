@@ -74,7 +74,7 @@ class MeetUpContainerFragment :
         binding.toolbarMeetUpContainer.ivBtnMore.setOnClickListener {
             val meetUpName = binding.toolbarMeetUpContainer.title.toString()
             findNavController().navigate(
-                R.id.action_meetUpDetailFragment_to_exitMeetUpBottomSheetFragment,
+                R.id.action_meetUpContainer_to_exitMeetUpBottomSheetFragment,
                 bundleOf(PROMISE_ID to currentId, MEET_UP_NAME to meetUpName),
             )
         }

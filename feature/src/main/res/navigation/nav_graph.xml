@@ -62,12 +62,7 @@
         android:id="@+id/fragment_meet_up_detail"
         android:name="com.teamkkumul.feature.meetup.meetupdetail.MeetUpDetailFragment"
         android:label="My Group Detail"
-        tools:layout="@layout/fragment_meet_up_detail">
-
-        <action
-            android:id="@+id/action_meetUpDetailFragment_to_exitMeetUpBottomSheetFragment"
-            app:destination="@id/fragment_exit_meet_up_bottom_sheet" />
-    </fragment>
+        tools:layout="@layout/fragment_meet_up_detail" />
 
     <fragment
         android:id="@+id/fragment_meet_up_create"
@@ -185,6 +180,9 @@
         <action
             android:id="@+id/action_fragment_meet_up_container_to_readyInfoInputFragment"
             app:destination="@id/fragment_ready_info_input" />
+        <action
+            android:id="@+id/action_meetUpContainer_to_exitMeetUpBottomSheetFragment"
+            app:destination="@id/fragment_exit_meet_up_bottom_sheet" />
     </fragment>
 
     <fragment
