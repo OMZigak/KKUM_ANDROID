@@ -13,13 +13,12 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.auth.model.KakaoLoginState
 import com.teamkkumul.feature.auth.model.LoginSideEffect
 import com.teamkkumul.feature.utils.KeyStorage.DATA_NULL
+import com.teamkkumul.model.login.LoginModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,7 +30,6 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
     private val _kakaoLoginState: MutableStateFlow<KakaoLoginState> =
         MutableStateFlow(KakaoLoginState())
-    val kakaoLoginState: StateFlow<KakaoLoginState> get() = _kakaoLoginState.asStateFlow()
 
     private val _loginSideEffect: MutableSharedFlow<LoginSideEffect> = MutableSharedFlow()
     val loginSideEffect: SharedFlow<LoginSideEffect>
@@ -40,10 +38,8 @@ class LoginViewModel @Inject constructor(
     private val _fcmToken: MutableStateFlow<String> = MutableStateFlow("")
     private val _kakaoToken: MutableStateFlow<String> = MutableStateFlow("")
 
-    private fun saveRefreshToken(token: String) {
-        viewModelScope.launch {
-            userInfoRepository.saveRefreshToken(token)
-        }
+    fun setFcmToken(token: String) {
+        _fcmToken.value = token
     }
 
     fun startKaKaoLogin(context: Context) {
@@ -95,8 +91,25 @@ class LoginViewModel @Inject constructor(
         userInfoRepository.saveAccessToken(token)
     }
 
-    fun setFcmToken(token: String) {
-        _fcmToken.value = token
+    private fun postLogin() {
+        viewModelScope.launch {
+            authRepository.postLogin("KAKAO", _fcmToken.value, _kakaoToken.value)
+                .onSuccess { response ->
+                    saveAccessToken(response.accessToken)
+                    saveRefreshToken(response.refreshToken)
+                    saveMemberName(response.name)
+                    saveIsAutoLogin(true)
+                    checkIsAutoLogin(response)
+                }.onFailure {
+                    _loginSideEffect.emit(LoginSideEffect.ShowSnackBar(it.message.toString()))
+                }
+        }
+    }
+
+    private fun saveRefreshToken(token: String) {
+        viewModelScope.launch {
+            userInfoRepository.saveRefreshToken(token)
+        }
     }
 
     private fun saveMemberName(input: String?) {
@@ -113,18 +126,11 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun postLogin() {
-        viewModelScope.launch {
-            authRepository.postLogin("KAKAO", _fcmToken.value, _kakaoToken.value)
-                .onSuccess { response ->
-                    saveAccessToken(response.accessToken)
-                    saveRefreshToken(response.refreshToken)
-                    saveMemberName(response.name)
-                    saveIsAutoLogin(true)
-                    _loginSideEffect.emit(LoginSideEffect.NavigateToOnBoarding)
-                }.onFailure {
-                    _loginSideEffect.emit(LoginSideEffect.ShowSnackBar(it.message.toString()))
-                }
+    private suspend fun checkIsAutoLogin(response: LoginModel) {
+        if (response.name == null) {
+            _loginSideEffect.emit(LoginSideEffect.NavigateToOnBoarding)
+        } else {
+            _loginSideEffect.emit(LoginSideEffect.NavigateToMain)
         }
     }
 }
