@@ -35,11 +35,13 @@ class MeetUpCreateFragment :
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
     private var currentText: String = ""
     private var isInitialized = false
+
     override fun initView() {
         val meetUpType =
             arguments?.getString(KeyStorage.MEET_UP_TYPE) ?: MeetUpType.CREATE.toString()
         val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
         val promiseId = arguments?.getInt(KeyStorage.PROMISE_ID) ?: -1
+        viewModel.updateMeetUpModel(promiseId = promiseId) // 특정 필드만 updatae 하기
 
         if (MeetUpType.valueOf(meetUpType) == MeetUpType.EDIT && !isInitialized) {
             arguments?.let {
@@ -47,7 +49,7 @@ class MeetUpCreateFragment :
             }
             isInitialized = true
             binding.tbMeetUpCreate.toolbarTitle.text = getString(R.string.edit_meet_up_title)
-            navigateToEditFriend(promiseId)
+            navigateToEditFriend(viewModel.getPromiseId()) // viewModel.getPromiseId() =  promise id를 가져옴
         } else {
             binding.tbMeetUpCreate.toolbarTitle.text = getString(R.string.create_meet_up_title)
 
@@ -155,6 +157,7 @@ class MeetUpCreateFragment :
             Timber.tag("promise").d(bundle.toString())
         }
     }
+
     private fun observeSelectedLocation() {
         viewModel.meetUpLocation.flowWithLifecycle(viewLifeCycle).onEach { location ->
             binding.tvMeetUpCreateLocationEnter.text = location
@@ -185,9 +188,10 @@ class MeetUpCreateFragment :
     }
 
     private fun validInput(input: String) {
-        val isValid = input.length <= GROUP_NAME_MAX_LENGTH && input.matches(
-            nameRegex,
-        )
+        val isValid = input.length <= GROUP_NAME_MAX_LENGTH &&
+            input.matches(
+                nameRegex,
+            )
         if (isValid) {
             currentText = input
             setColor(R.color.main_color)

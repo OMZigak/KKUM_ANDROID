@@ -32,7 +32,6 @@ class MeetUpLevelFragment :
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
 
     private var meetingId: Int = -1
-    private var promiseId: Int = -1
     private var selectedItems: List<Int> = emptyList()
     private lateinit var meetUpDate: String
     private lateinit var meetUpTime: String
@@ -47,7 +46,6 @@ class MeetUpLevelFragment :
             arguments?.getString(KeyStorage.MEET_UP_TYPE) ?: MeetUpType.CREATE.toString()
         arguments?.let {
             meetingId = it.getInt(KeyStorage.MEETING_ID, -1)
-            promiseId = it.getInt(KeyStorage.PROMISE_ID, -1)
             selectedItems = it.getIntArray("selectedItems")?.toList() ?: emptyList()
             meetUpDate = it.getString(KeyStorage.MEET_UP_DATE, "")
             meetUpTime = it.getString(KeyStorage.MEET_UP_TIME, "")
@@ -71,8 +69,7 @@ class MeetUpLevelFragment :
         setupChipGroups(chipGroups, btnCreateMeetUp)
 
         if (MeetUpType.valueOf(meetUpType) == MeetUpType.EDIT) {
-            setupEditMeetUpButton(btnCreateMeetUp, promiseId, selectedItems)
-            Timber.tag("check promise").d(promiseId.toString())
+            setupEditMeetUpButton(btnCreateMeetUp, viewModel.getPromiseId(), selectedItems)
             initObserveMeetUpEdit()
         } else {
             setupCreateMeetUpButton(btnCreateMeetUp, meetingId, selectedItems)

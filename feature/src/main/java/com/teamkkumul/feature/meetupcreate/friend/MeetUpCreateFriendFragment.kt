@@ -18,7 +18,6 @@ import com.teamkkumul.feature.databinding.FragmentMeetUpFriendPlusBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
 import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
-import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.itemdecorator.GridSpacingItemDecoration
@@ -30,7 +29,6 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MeetUpCreateFriendFragment :
     BindingFragment<FragmentMeetUpFriendPlusBinding>(R.layout.fragment_meet_up_friend_plus) {
-
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
 
     private var _friendEditAdapter: MeetUpEditFriendAdapter? = null
@@ -42,7 +40,6 @@ class MeetUpCreateFriendFragment :
     private var selectedItems: MutableList<Int> = mutableListOf()
 
     private var meetingId: Int = -1
-    private var promiseId: Int = -1
 
     private lateinit var meetUpDate: String
     private lateinit var meetUpTime: String
@@ -57,7 +54,6 @@ class MeetUpCreateFriendFragment :
             arguments?.getString(KeyStorage.MEET_UP_TYPE) ?: MeetUpType.CREATE.toString()
 
         arguments?.let {
-            promiseId = it.getInt(PROMISE_ID, -1)
             meetingId = it.getInt(MEETING_ID, -1)
             meetUpDate = it.getString(KeyStorage.MEET_UP_DATE, "")
             meetUpTime = it.getString(KeyStorage.MEET_UP_TIME, "")
@@ -65,23 +61,34 @@ class MeetUpCreateFriendFragment :
             meetUpName = it.getString(KeyStorage.MEET_UP_NAME, "")
             meetUpLocationX = it.getString(KeyStorage.MEET_UP_LOCATION_X, "")
             meetUpLocationY = it.getString(KeyStorage.MEET_UP_LOCATION_Y, "")
-
-            if (MeetUpType.valueOf(meetUpType) == MeetUpType.EDIT) {
-                viewModel.getMeetUpEditMember(promiseId)
-                initObserveMeetUpEditParticipant()
-                initRecyclerEditView()
-            } else {
-                viewModel.getMyGroupMemberToMeetUp(meetingId)
-                initObserveMyGroupMemberToMeetUp()
-                initRecyclerView()
-            }
         }
 
-        viewModel.setProgressBar(50)
-        binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
+        if (MeetUpType.valueOf(meetUpType) == MeetUpType.EDIT) {
+            initSetEditMemberUI()
+        } else {
+            initSetDefaultMemberUI()
+        }
 
+        updateTobBarUi()
         initNextButton()
         observeProgress()
+    }
+
+    private fun initSetEditMemberUI() {
+        viewModel.getMeetUpEditMember(viewModel.getPromiseId()) // viewModel.getPromiseId() =  promise id를 가져옴
+        initObserveMeetUpEditParticipant()
+        initRecyclerEditView()
+    }
+
+    private fun initSetDefaultMemberUI() {
+        viewModel.getMyGroupMemberToMeetUp(meetingId)
+        initObserveMyGroupMemberToMeetUp()
+        initRecyclerView()
+    }
+
+    private fun updateTobBarUi() {
+        viewModel.setProgressBar(50)
+        binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
     }
 
     private fun observeProgress() {
