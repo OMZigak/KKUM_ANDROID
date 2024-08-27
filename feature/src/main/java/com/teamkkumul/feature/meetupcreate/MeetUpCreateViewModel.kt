@@ -62,6 +62,9 @@ class MeetUpCreateViewModel @Inject constructor(
         MutableStateFlow<UiState<List<MeetUpEditParticipantModel.Member>?>>(UiState.Loading)
     val meetUpEditMemberState get() = _meetUpEditMemberState.asStateFlow()
 
+    private val _meetUpEditState = MutableStateFlow<UiState<Int>>(UiState.Loading)
+    val meetUpEditState get() = _meetUpEditState.asStateFlow()
+
     fun postMeetUpCreate(meetingId: Int, meetUpCreateModel: MeetUpCreateModel) {
         viewModelScope.launch {
             meetUpCreateLocationRepository.postMeetUpCreate(meetingId, meetUpCreateModel)
@@ -69,6 +72,17 @@ class MeetUpCreateViewModel @Inject constructor(
                     _meetUpCreateState.emit(UiState.Success(it))
                 }.onFailure {
                     _meetUpCreateState.emit(UiState.Failure(it.message.toString()))
+                }
+        }
+    }
+
+    fun putMeetUpEdit(promiseId: Int, meetUpCreateModel: MeetUpCreateModel) {
+        viewModelScope.launch {
+            meetUpCreateLocationRepository.putMeetUpEdit(promiseId, meetUpCreateModel)
+                .onSuccess {
+                    _meetUpEditState.emit(UiState.Success(it))
+                }.onFailure {
+                    _meetUpEditState.emit(UiState.Failure(it.message.toString()))
                 }
         }
     }

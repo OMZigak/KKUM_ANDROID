@@ -89,7 +89,7 @@ class MeetUpDetailFragment :
                         putString(KeyStorage.MEET_UP_LEVEL, meetUpDetailModel.dressUpLevel)
                         putString(KeyStorage.MEET_UP_PENALTY, meetUpDetailModel.penalty)
                     }
-                    Timber.tag("meetup 1").d(bundle.toString())
+                    Timber.tag("meet").d(bundle.toString())
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_container_to_meetUpCreateFragment,
                         bundle,

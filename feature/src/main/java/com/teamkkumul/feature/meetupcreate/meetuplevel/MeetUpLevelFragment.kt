@@ -17,6 +17,7 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpLevelBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
 import com.teamkkumul.feature.utils.KeyStorage
+import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.model.MeetUpCreateModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +32,7 @@ class MeetUpLevelFragment :
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
 
     private var meetingId: Int = -1
+    private var promiseId: Int = -1
     private var selectedItems: List<Int> = emptyList()
     private lateinit var meetUpDate: String
     private lateinit var meetUpTime: String
@@ -38,10 +40,14 @@ class MeetUpLevelFragment :
     private lateinit var meetUpName: String
     private lateinit var meetUpLocationX: String
     private lateinit var meetUpLocationY: String
+    private lateinit var meetUpType: String
 
     override fun initView() {
+        val meetUpType =
+            arguments?.getString(KeyStorage.MEET_UP_TYPE) ?: MeetUpType.CREATE.toString()
         arguments?.let {
             meetingId = it.getInt(KeyStorage.MEETING_ID, -1)
+            promiseId = it.getInt(KeyStorage.PROMISE_ID, -1)
             selectedItems = it.getIntArray("selectedItems")?.toList() ?: emptyList()
             meetUpDate = it.getString(KeyStorage.MEET_UP_DATE, "")
             meetUpTime = it.getString(KeyStorage.MEET_UP_TIME, "")
@@ -50,6 +56,7 @@ class MeetUpLevelFragment :
             meetUpLocationX = it.getString(KeyStorage.MEET_UP_LOCATION_X, "")
             meetUpLocationY = it.getString(KeyStorage.MEET_UP_LOCATION_Y, "")
         }
+        Timber.tag("kk").d(meetUpType)
 
         binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
 
@@ -62,17 +69,50 @@ class MeetUpLevelFragment :
 
         val chipGroups = listOf(meetUpLevel, penalty)
         setupChipGroups(chipGroups, btnCreateMeetUp)
-        setupCreateMeetUpButton(btnCreateMeetUp, meetingId, selectedItems)
-        initObserveMeetUpCreate()
+
+        if (MeetUpType.valueOf(meetUpType) == MeetUpType.EDIT) {
+            setupEditMeetUpButton(btnCreateMeetUp, promiseId, selectedItems)
+            Timber.tag("check promise").d(promiseId.toString())
+            initObserveMeetUpEdit()
+        } else {
+            setupCreateMeetUpButton(btnCreateMeetUp, meetingId, selectedItems)
+            initObserveMeetUpCreate()
+        }
     }
 
     private fun initObserveMeetUpCreate() {
         viewModel.meetUpCreateState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> {
+                    meetUpType = arguments?.getString(KeyStorage.MEET_UP_TYPE)
+                        ?: MeetUpType.CREATE.toString()
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete,
-                        bundleOf(KeyStorage.PROMISE_ID to it.data),
+                        bundleOf(
+                            KeyStorage.PROMISE_ID to it.data,
+                            KeyStorage.MEET_UP_TYPE to meetUpType,
+                        ),
+                    )
+                }
+
+                is UiState.Failure -> Timber.tag("post error").d(it.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun initObserveMeetUpEdit() {
+        viewModel.meetUpEditState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    meetUpType = arguments?.getString(KeyStorage.MEET_UP_TYPE)
+                        ?: MeetUpType.CREATE.toString()
+                    findNavController().navigate(
+                        R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete,
+                        bundleOf(
+                            KeyStorage.PROMISE_ID to it.data,
+                            KeyStorage.MEET_UP_TYPE to meetUpType,
+                        ),
                     )
                 }
 
@@ -129,6 +169,33 @@ class MeetUpLevelFragment :
                 y = meetUpLocationY.toDouble(),
             )
             viewModel.postMeetUpCreate(id, meetUpCreateModel)
+        }
+    }
+
+    private fun setupEditMeetUpButton(button: Button, id: Int, selectedItems: List<Int>) {
+        button.setOnClickListener {
+            val selectedMeetUpLevel = getSelectedChipText(binding.cgMeetUpLevel)
+            val selectedPenalty = getSelectedChipText(binding.cgSetPenalty)
+
+            Timber.d("Selected Meet Up Level~: $selectedMeetUpLevel")
+            Timber.d("Selected Penalty~: $selectedPenalty")
+
+            val dressUpLevel = preprocessDressUpLevel(selectedMeetUpLevel)
+
+            val meetUpCreateModel = MeetUpCreateModel(
+                name = meetUpName,
+                address = null,
+                dressUpLevel = dressUpLevel,
+                penalty = selectedPenalty,
+                placeName = meetUpLocation,
+                roadAddress = null,
+                time = meetUpDate,
+                participants = selectedItems,
+                x = meetUpLocationX.toDouble(),
+                y = meetUpLocationY.toDouble(),
+            )
+            viewModel.putMeetUpEdit(id, meetUpCreateModel)
+            Timber.tag("check final").d(meetUpCreateModel.toString())
         }
     }
 
