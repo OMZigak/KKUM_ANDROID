@@ -43,3 +43,9 @@ object TimeStorage {
     const val END_HOUR = 23
     const val END_MINUTE = 59
 }
+
+object WebLink {
+    const val NOTION_LINK = "https://arrow-frog-4b9.notion.site/a66033a3ff4a40bfaa6eff0a5bee737d"
+    const val GOOGLE_FORM_LINK =
+        "https://docs.google.com/forms/d/e/1FAIpQLSdRR65ARe2M7JxQEAx8vpFz-I8tyEYwlpLwtSnJjniGOapPVQ/viewform"
+}

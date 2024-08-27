@@ -108,3 +108,7 @@ fun Context.navigateToAppSettings() {
     intent.data = uri
     startActivity(intent)
 }
+
+fun Context.navigateToWeb(uri: String) {
+    Intent(Intent.ACTION_VIEW, Uri.parse(uri)).also { startActivity(it) }
+}
