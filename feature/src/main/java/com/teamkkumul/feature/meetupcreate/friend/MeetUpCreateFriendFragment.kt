@@ -50,8 +50,12 @@ class MeetUpCreateFriendFragment :
     private lateinit var meetUpName: String
     private lateinit var meetUpLocationX: String
     private lateinit var meetUpLocationY: String
+    private lateinit var meetUpType: String
 
     override fun initView() {
+        val meetUpType =
+            arguments?.getString(KeyStorage.MEET_UP_TYPE) ?: MeetUpType.CREATE.toString()
+
         arguments?.let {
             promiseId = it.getInt(PROMISE_ID, -1)
             meetingId = it.getInt(MEETING_ID, -1)
@@ -62,18 +66,14 @@ class MeetUpCreateFriendFragment :
             meetUpLocationX = it.getString(KeyStorage.MEET_UP_LOCATION_X, "")
             meetUpLocationY = it.getString(KeyStorage.MEET_UP_LOCATION_Y, "")
 
-            val meetUpType = it.getString(KeyStorage.MEET_UP_TYPE, MeetUpType.CREATE.toString())
-
             if (MeetUpType.valueOf(meetUpType) == MeetUpType.EDIT) {
                 viewModel.getMeetUpEditMember(promiseId)
                 initObserveMeetUpEditParticipant()
                 initRecyclerEditView()
-                Timber.d("Editing new meetup")
             } else {
                 viewModel.getMyGroupMemberToMeetUp(meetingId)
                 initObserveMyGroupMemberToMeetUp()
                 initRecyclerView()
-                Timber.d("Creating new meetup")
             }
         }
 
@@ -131,18 +131,23 @@ class MeetUpCreateFriendFragment :
             this.isEnabled = isEnabled
             if (isEnabled) {
                 setOnClickListener {
+                    meetUpType = arguments?.getString(KeyStorage.MEET_UP_TYPE)
+                        ?: MeetUpType.CREATE.toString()
                     val bundle = arguments?.apply {
                         putIntArray("selectedItems", selectedItems.toIntArray())
                         putString(KeyStorage.MEET_UP_DATE, meetUpDate)
                         putString(KeyStorage.MEET_UP_TIME, meetUpTime)
                         putString(KeyStorage.MEET_UP_LOCATION, meetUpLocation)
                         putString(KeyStorage.MEET_UP_NAME, meetUpName)
+                        putString(KeyStorage.MEET_UP_LOCATION_X, meetUpLocationX)
+                        putString(KeyStorage.MEET_UP_LOCATION_Y, meetUpLocationY)
+                        putString(KeyStorage.MEET_UP_TYPE, meetUpType)
                     }
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_create_friend_to_fragment_meet_up_level,
                         bundle,
                     )
-                    Timber.tag("edit friend").d(selectedItems.toString())
+                    Timber.tag("check2").d(bundle.toString())
                 }
                 ViewCompat.setBackgroundTintList(
                     this,

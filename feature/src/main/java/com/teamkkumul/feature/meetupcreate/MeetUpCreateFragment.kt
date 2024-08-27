@@ -46,8 +46,15 @@ class MeetUpCreateFragment :
                 initEditFlow(it)
             }
             isInitialized = true
+            binding.tbMeetUpCreate.toolbarTitle.text = getString(R.string.edit_meet_up_title)
+            navigateToEditFriend(promiseId)
+        } else {
+            binding.tbMeetUpCreate.toolbarTitle.text = getString(R.string.create_meet_up_title)
+
+            navigateToFriend(id)
         }
 
+        Timber.tag("ce").d(meetUpType)
         viewModel.setProgressBar(25)
         binding.clMeetUpDate.setOnClickListener {
             showDatePickerDialog()
@@ -69,7 +76,6 @@ class MeetUpCreateFragment :
         observeProgress()
         observeSelectedLocation()
         observeFormValidation()
-        navigateToFriend(id, promiseId)
         initHideKeyBoard()
     }
 
@@ -94,7 +100,35 @@ class MeetUpCreateFragment :
         }.launchIn(viewLifeCycleScope)
     }
 
-    private fun navigateToFriend(id: Int, promiseId: Int) {
+    private fun navigateToEditFriend(promiseId: Int) {
+        binding.btnMeetUpCreateNext.setOnClickListener {
+            val meetUpDate = "${viewModel.meetUpDate.value} ${viewModel.meetUpTime.value}" ?: ""
+            val meetUpTime = viewModel.meetUpTime.value ?: ""
+            val meetUpLocation = viewModel.meetUpLocation.value ?: ""
+            val meetUpName = currentText
+            val meetUpLocationX = viewModel.meetUpLocationX.value
+            val meetUpLocationY = viewModel.meetUpLocationY.value
+
+            val bundle = Bundle().apply {
+                putInt(KeyStorage.PROMISE_ID, promiseId)
+                putString(KeyStorage.MEET_UP_DATE, meetUpDate)
+                putString(KeyStorage.MEET_UP_TIME, meetUpTime)
+                putString(KeyStorage.MEET_UP_LOCATION, meetUpLocation)
+                putString(KeyStorage.MEET_UP_NAME, meetUpName)
+                putString(KeyStorage.MEET_UP_LOCATION_X, meetUpLocationX)
+                putString(KeyStorage.MEET_UP_LOCATION_Y, meetUpLocationY)
+                putString(KeyStorage.MEET_UP_TYPE, arguments?.getString(KeyStorage.MEET_UP_TYPE))
+            }
+
+            findNavController().navigate(
+                R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
+                bundle,
+            )
+            Timber.tag("promise edit").d(bundle.toString())
+        }
+    }
+
+    private fun navigateToFriend(id: Int) {
         binding.btnMeetUpCreateNext.setOnClickListener {
             val meetUpDate = "${viewModel.meetUpDate.value} ${viewModel.meetUpTime.value}" ?: ""
             val meetUpTime = viewModel.meetUpTime.value ?: ""
@@ -105,7 +139,6 @@ class MeetUpCreateFragment :
 
             val bundle = Bundle().apply {
                 putInt(KeyStorage.MEETING_ID, id)
-                putInt(KeyStorage.PROMISE_ID, promiseId)
                 putString(KeyStorage.MEET_UP_DATE, meetUpDate)
                 putString(KeyStorage.MEET_UP_TIME, meetUpTime)
                 putString(KeyStorage.MEET_UP_LOCATION, meetUpLocation)
@@ -122,7 +155,6 @@ class MeetUpCreateFragment :
             Timber.tag("promise").d(bundle.toString())
         }
     }
-
     private fun observeSelectedLocation() {
         viewModel.meetUpLocation.flowWithLifecycle(viewLifeCycle).onEach { location ->
             binding.tvMeetUpCreateLocationEnter.text = location
