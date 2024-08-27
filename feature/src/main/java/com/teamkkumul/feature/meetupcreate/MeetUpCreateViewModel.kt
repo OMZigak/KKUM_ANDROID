@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.MeetUpCreateLocationRepository
 import com.teamkkumul.core.data.repository.MyGroupRepository
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.model.MeetUpCreateLocationModel
 import com.teamkkumul.model.MeetUpCreateModel
 import com.teamkkumul.model.MeetUpEditParticipantModel
@@ -80,6 +81,7 @@ class MeetUpCreateViewModel @Inject constructor(
             dressUpLevel = "",
             penalty = "",
             promiseId = -1,
+            meetUpType = MeetUpType.CREATE.name,
         ),
     )
 
@@ -218,6 +220,7 @@ class MeetUpCreateViewModel @Inject constructor(
         dressUpLevel: String? = null,
         penalty: String? = null,
         promiseId: Int? = null,
+        meetupType: String? = null,
     ) {
         // copy 메서드를 사용하여 현재 상태를 기반으로 일부 필드를 업데이트
         _meetUpCreateModel.value = _meetUpCreateModel.value.copy(
@@ -232,9 +235,15 @@ class MeetUpCreateViewModel @Inject constructor(
             dressUpLevel = dressUpLevel ?: _meetUpCreateModel.value.dressUpLevel,
             penalty = penalty ?: _meetUpCreateModel.value.penalty,
             promiseId = promiseId ?: _meetUpCreateModel.value.promiseId,
+            meetUpType = meetupType ?: _meetUpCreateModel.value.meetUpType,
         )
     }
 
     // promiseId를 안전하게 반환하는 헬퍼 함수
     fun getPromiseId() = meetUpCreateModel.value.promiseId ?: -1
+
+    fun isEditMode(): Boolean = getMeetUpType() == MeetUpType.EDIT.name
+
+    private fun getMeetUpType(): String =
+        meetUpCreateModel.value.meetUpType ?: MeetUpType.CREATE.name
 }
