@@ -12,4 +12,5 @@ data class MeetUpCreateModel(
     val dressUpLevel: String,
     val penalty: String,
     val promiseId: Int? = null,
+    val meetUpType: String? = null,
 )
