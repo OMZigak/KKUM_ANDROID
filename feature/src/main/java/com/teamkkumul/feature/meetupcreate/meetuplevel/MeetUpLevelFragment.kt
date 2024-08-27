@@ -95,7 +95,7 @@ class MeetUpLevelFragment :
                     )
                 }
 
-                is UiState.Failure -> Timber.tag("post error").d(it.errorMessage)
+                is UiState.Failure -> toast(it.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)

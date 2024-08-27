@@ -25,7 +25,6 @@ class MeetUpCreateViewModel @Inject constructor(
     private val meetUpCreateLocationRepository: MeetUpCreateLocationRepository,
     private val myGroupRepository: MyGroupRepository,
 ) : ViewModel() {
-
     private val _meetUpInputState = MutableStateFlow(false)
     val meetUpInputState: StateFlow<Boolean> get() = _meetUpInputState
 
@@ -57,8 +56,8 @@ class MeetUpCreateViewModel @Inject constructor(
 
     private val _meetUpName = MutableStateFlow<Boolean>(false)
 
-    private val _meetUpCreateState = MutableStateFlow<UiState<Int>>(UiState.Loading)
-    val meetUpCreateState get() = _meetUpCreateState.asStateFlow()
+    private val _meetUpCreateState = MutableSharedFlow<UiState<Int>>()
+    val meetUpCreateState get() = _meetUpCreateState.asSharedFlow()
 
     private val _meetUpEditMemberState =
         MutableStateFlow<UiState<List<MeetUpEditParticipantModel.Member>?>>(UiState.Loading)
