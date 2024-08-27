@@ -38,12 +38,15 @@ class MeetUpCreateFragment :
 
     override fun initView() {
         val meetUpType =
-            arguments?.getString(KeyStorage.MEET_UP_TYPE) ?: MeetUpType.CREATE.toString()
+            arguments?.getString(KeyStorage.MEET_UP_TYPE) ?: MeetUpType.CREATE.name
         val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
         val promiseId = arguments?.getInt(KeyStorage.PROMISE_ID) ?: -1
-        viewModel.updateMeetUpModel(promiseId = promiseId) // 특정 필드만 updatae 하기
+        viewModel.updateMeetUpModel(
+            promiseId = promiseId,
+            meetupType = meetUpType,
+        ) // 특정 필드만 updatae 하기
 
-        if (MeetUpType.valueOf(meetUpType) == MeetUpType.EDIT && !isInitialized) {
+        if (viewModel.isEditMode()) {
             arguments?.let {
                 initEditFlow(it)
             }
@@ -112,14 +115,12 @@ class MeetUpCreateFragment :
             val meetUpLocationY = viewModel.meetUpLocationY.value
 
             val bundle = Bundle().apply {
-                putInt(KeyStorage.PROMISE_ID, promiseId)
                 putString(KeyStorage.MEET_UP_DATE, meetUpDate)
                 putString(KeyStorage.MEET_UP_TIME, meetUpTime)
                 putString(KeyStorage.MEET_UP_LOCATION, meetUpLocation)
                 putString(KeyStorage.MEET_UP_NAME, meetUpName)
                 putString(KeyStorage.MEET_UP_LOCATION_X, meetUpLocationX)
                 putString(KeyStorage.MEET_UP_LOCATION_Y, meetUpLocationY)
-                putString(KeyStorage.MEET_UP_TYPE, arguments?.getString(KeyStorage.MEET_UP_TYPE))
             }
 
             findNavController().navigate(

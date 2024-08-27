@@ -18,7 +18,6 @@ import com.teamkkumul.feature.databinding.FragmentMeetUpFriendPlusBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
 import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
-import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.itemdecorator.GridSpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,12 +46,8 @@ class MeetUpCreateFriendFragment :
     private lateinit var meetUpName: String
     private lateinit var meetUpLocationX: String
     private lateinit var meetUpLocationY: String
-    private lateinit var meetUpType: String
 
     override fun initView() {
-        val meetUpType =
-            arguments?.getString(KeyStorage.MEET_UP_TYPE) ?: MeetUpType.CREATE.toString()
-
         arguments?.let {
             meetingId = it.getInt(MEETING_ID, -1)
             meetUpDate = it.getString(KeyStorage.MEET_UP_DATE, "")
@@ -63,11 +58,8 @@ class MeetUpCreateFriendFragment :
             meetUpLocationY = it.getString(KeyStorage.MEET_UP_LOCATION_Y, "")
         }
 
-        if (MeetUpType.valueOf(meetUpType) == MeetUpType.EDIT) {
-            initSetEditMemberUI()
-        } else {
-            initSetDefaultMemberUI()
-        }
+        if (viewModel.isEditMode()) initSetEditMemberUI()
+        else initSetDefaultMemberUI()
 
         updateTobBarUi()
         initNextButton()
@@ -138,8 +130,6 @@ class MeetUpCreateFriendFragment :
             this.isEnabled = isEnabled
             if (isEnabled) {
                 setOnClickListener {
-                    meetUpType = arguments?.getString(KeyStorage.MEET_UP_TYPE)
-                        ?: MeetUpType.CREATE.toString()
                     val bundle = arguments?.apply {
                         putIntArray("selectedItems", selectedItems.toIntArray())
                         putString(KeyStorage.MEET_UP_DATE, meetUpDate)
@@ -148,7 +138,6 @@ class MeetUpCreateFriendFragment :
                         putString(KeyStorage.MEET_UP_NAME, meetUpName)
                         putString(KeyStorage.MEET_UP_LOCATION_X, meetUpLocationX)
                         putString(KeyStorage.MEET_UP_LOCATION_Y, meetUpLocationY)
-                        putString(KeyStorage.MEET_UP_TYPE, meetUpType)
                     }
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_create_friend_to_fragment_meet_up_level,

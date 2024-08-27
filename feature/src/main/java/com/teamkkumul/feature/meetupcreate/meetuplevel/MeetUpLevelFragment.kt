@@ -2,7 +2,6 @@ package com.teamkkumul.feature.meetupcreate.meetuplevel
 
 import android.view.View
 import android.widget.Button
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -18,7 +17,6 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpLevelBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
 import com.teamkkumul.feature.utils.KeyStorage
-import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.model.MeetUpCreateModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,11 +37,8 @@ class MeetUpLevelFragment :
     private lateinit var meetUpName: String
     private lateinit var meetUpLocationX: String
     private lateinit var meetUpLocationY: String
-    private lateinit var meetUpType: String
 
     override fun initView() {
-        val meetUpType =
-            arguments?.getString(KeyStorage.MEET_UP_TYPE) ?: MeetUpType.CREATE.toString()
         arguments?.let {
             meetingId = it.getInt(KeyStorage.MEETING_ID, -1)
             selectedItems = it.getIntArray("selectedItems")?.toList() ?: emptyList()
@@ -54,8 +49,6 @@ class MeetUpLevelFragment :
             meetUpLocationX = it.getString(KeyStorage.MEET_UP_LOCATION_X, "")
             meetUpLocationY = it.getString(KeyStorage.MEET_UP_LOCATION_Y, "")
         }
-        Timber.tag("kk").d(meetUpType)
-
         binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
 
         viewModel.setProgressBar(75)
@@ -68,7 +61,7 @@ class MeetUpLevelFragment :
         val chipGroups = listOf(meetUpLevel, penalty)
         setupChipGroups(chipGroups, btnCreateMeetUp)
 
-        if (MeetUpType.valueOf(meetUpType) == MeetUpType.EDIT) {
+        if (viewModel.isEditMode()) {
             setupEditMeetUpButton(btnCreateMeetUp, viewModel.getPromiseId(), selectedItems)
             initObserveMeetUpEdit()
         } else {
@@ -81,14 +74,9 @@ class MeetUpLevelFragment :
         viewModel.meetUpCreateState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> {
-                    meetUpType = arguments?.getString(KeyStorage.MEET_UP_TYPE)
-                        ?: MeetUpType.CREATE.toString()
+                    viewModel.updateMeetUpModel(promiseId = it.data)
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete,
-                        bundleOf(
-                            KeyStorage.PROMISE_ID to it.data,
-                            KeyStorage.MEET_UP_TYPE to meetUpType,
-                        ),
                     )
                 }
 
@@ -102,14 +90,9 @@ class MeetUpLevelFragment :
         viewModel.meetUpEditState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> {
-                    meetUpType = arguments?.getString(KeyStorage.MEET_UP_TYPE)
-                        ?: MeetUpType.CREATE.toString()
+                    viewModel.updateMeetUpModel(promiseId = it.data)
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete,
-                        bundleOf(
-                            KeyStorage.PROMISE_ID to it.data,
-                            KeyStorage.MEET_UP_TYPE to meetUpType,
-                        ),
                     )
                 }
 
