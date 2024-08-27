@@ -81,4 +81,9 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
             startActivity(intent)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getMyPageUserInfo()
+    }
 }
