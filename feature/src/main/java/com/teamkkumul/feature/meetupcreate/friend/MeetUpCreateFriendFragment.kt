@@ -28,15 +28,18 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MeetUpCreateFriendFragment :
     BindingFragment<FragmentMeetUpFriendPlusBinding>(R.layout.fragment_meet_up_friend_plus) {
-
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
 
-    private var _friendAdapter: MeetUpCreateFriendAdapter? = null
-    private val friendAdapter get() = requireNotNull(_friendAdapter)
+    private var _friendEditAdapter: MeetUpEditFriendAdapter? = null
+    private val friendEditAdapter get() = requireNotNull(_friendEditAdapter)
+
+    private var _friendCreateAdapter: MeetUpCreateFriendAdapter? = null
+    private val friendCreateAdapter get() = requireNotNull(_friendCreateAdapter)
 
     private var selectedItems: MutableList<Int> = mutableListOf()
 
     private var meetingId: Int = -1
+
     private lateinit var meetUpDate: String
     private lateinit var meetUpTime: String
     private lateinit var meetUpLocation: String
@@ -55,14 +58,29 @@ class MeetUpCreateFriendFragment :
             meetUpLocationY = it.getString(KeyStorage.MEET_UP_LOCATION_Y, "")
         }
 
-        viewModel.setProgressBar(50)
-        binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
+        if (viewModel.isEditMode()) initSetEditMemberUI()
+        else initSetDefaultMemberUI()
 
-        initRecyclerView()
-        viewModel.getMyGroupMemberToMeetUp(meetingId)
-        initObserveMyGroupMemberToMeetUp()
+        updateTobBarUi()
         initNextButton()
         observeProgress()
+    }
+
+    private fun initSetEditMemberUI() {
+        viewModel.getMeetUpEditMember(viewModel.getPromiseId()) // viewModel.getPromiseId() =  promise id를 가져옴
+        initObserveMeetUpEditParticipant()
+        initRecyclerEditView()
+    }
+
+    private fun initSetDefaultMemberUI() {
+        viewModel.getMyGroupMemberToMeetUp(meetingId)
+        initObserveMyGroupMemberToMeetUp()
+        initRecyclerView()
+    }
+
+    private fun updateTobBarUi() {
+        viewModel.setProgressBar(50)
+        binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
     }
 
     private fun observeProgress() {
@@ -74,7 +92,7 @@ class MeetUpCreateFriendFragment :
     }
 
     private fun initRecyclerView() {
-        _friendAdapter = MeetUpCreateFriendAdapter(
+        _friendCreateAdapter = MeetUpCreateFriendAdapter(
             { selectedItem ->
                 selectedItems = selectedItem.toMutableList()
                 Timber.tag("sss").d(selectedItem.toString())
@@ -85,7 +103,24 @@ class MeetUpCreateFriendFragment :
         )
         binding.rvMeetUpCreateFreindPlus.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
-            adapter = friendAdapter
+            adapter = friendCreateAdapter
+            addItemDecoration(GridSpacingItemDecoration(3, requireContext().pxToDp(8)))
+        }
+    }
+
+    private fun initRecyclerEditView() {
+        _friendEditAdapter = MeetUpEditFriendAdapter(
+            onMeetUpCreateFriendClicked = { selectedItem ->
+                selectedItems = selectedItem.toMutableList()
+                Timber.tag("sss").d(selectedItem.toString())
+            },
+            onMeetUpCreateFriendSelected = {
+                updateNextButton(true)
+            },
+        )
+        binding.rvMeetUpCreateFreindPlus.apply {
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            adapter = friendEditAdapter
             addItemDecoration(GridSpacingItemDecoration(3, requireContext().pxToDp(8)))
         }
     }
@@ -101,11 +136,14 @@ class MeetUpCreateFriendFragment :
                         putString(KeyStorage.MEET_UP_TIME, meetUpTime)
                         putString(KeyStorage.MEET_UP_LOCATION, meetUpLocation)
                         putString(KeyStorage.MEET_UP_NAME, meetUpName)
+                        putString(KeyStorage.MEET_UP_LOCATION_X, meetUpLocationX)
+                        putString(KeyStorage.MEET_UP_LOCATION_Y, meetUpLocationY)
                     }
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_create_friend_to_fragment_meet_up_level,
                         bundle,
                     )
+                    Timber.tag("check2").d(bundle.toString())
                 }
                 ViewCompat.setBackgroundTintList(
                     this,
@@ -129,14 +167,36 @@ class MeetUpCreateFriendFragment :
                         updateMeetUpCreateFriendVisibility(false)
                     } else {
                         updateMeetUpCreateFriendVisibility(true)
-                        friendAdapter.submitList(uiState.data)
+                        friendCreateAdapter.submitList(uiState.data)
+                        Timber.tag("meee").d(uiState.data.toString())
                     }
                 }
+
                 is UiState.Failure -> Timber.tag("meet up create friend").d(uiState.errorMessage)
                 is UiState.Empty -> {
                     updateMeetUpCreateFriendVisibility(false)
                 }
 
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun initObserveMeetUpEditParticipant() {
+        viewModel.meetUpEditMemberState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> {
+                    if (uiState.data == null) {
+                        updateMeetUpCreateFriendVisibility(false)
+                    } else {
+                        updateMeetUpCreateFriendVisibility(true)
+                        friendEditAdapter.submitList(uiState.data)
+                        Timber.tag("meetupedit").d(uiState.data.toString())
+                    }
+                }
+
+                is UiState.Failure -> Timber.tag("meet up edit participant").d(uiState.errorMessage)
+                is UiState.Empty -> updateMeetUpCreateFriendVisibility(false)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
@@ -155,6 +215,6 @@ class MeetUpCreateFriendFragment :
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _friendAdapter = null
+        _friendEditAdapter = null
     }
 }

@@ -9,7 +9,7 @@ object KeyStorage {
     const val PROMISE_ID = "promiseId"
     const val MEETING_ID = "meetingId"
     const val MEET_UP_LEVEL = "meetUpLevel"
-    const val PENALTY = "penalty"
+    const val MEET_UP_PENALTY = "penalty"
     const val MEET_UP_TIME = "meetUpTime"
     const val MEET_UP_DATE = "meetUpDate"
     const val MEET_UP_LOCATION = "meetUpLocation"
@@ -31,6 +31,7 @@ object KeyStorage {
     const val SET_NAME_ACTIVITY = "setNameActivity"
     const val MY_PAGE_FRAGMENT = "myPageFragment"
     const val PROFILE_IMAGE_URL = "profileImageUrl"
+    const val MEET_UP_TYPE = "meetUpType"
 }
 
 object PROGRESS {

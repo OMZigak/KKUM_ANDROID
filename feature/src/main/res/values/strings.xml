@@ -16,6 +16,8 @@
     <string name="meet_up_create_loation_title">약속 장소</string>
 
     <string name="add_meet_up_title">약속 추가하기</string>
+    <string name="create_meet_up_title">약속 생성하기</string>
+    <string name="edit_meet_up_title">약속 수정하기</string>
 
     <!--    로그인-->
     <string name="login_kakao_btn_text">카카오로 계속하기</string>
@@ -134,11 +136,11 @@
     <string name="penalty_indian_bob">인디안밥 맞기</string>
     <string name="penalty_tak_bam">딱밤 맞기</string>
     <string name="penalty_blind_eye">눈 감아주기</string>
-    <string name="create_meet_up">약속 생성하기</string>
 
     <!-- 약속 생성 완료 -->
     <string name="tv_add_meet_up_complete">약속이 생성되었어요!</string>
     <string name="tv_add_meet_up_complete_description">해당 약속은 모임 내에서 확인 가능해요</string>
+    <string name="tv_edit_meet_up_complete">약속이 수정되었어요!</string>
 
     <!--    준비 정보 입력 화면-->
     <string name="ready_status_toolbar">준비 정보 입력하기</string>
@@ -175,6 +177,8 @@
 
     <string name="meet_up_create_friend_empty">약속에 함께할 꾸물이들이 없어요!</string>
     <string name="meet_up_create_friend_invite">모임에 친구들을 초대해보세요.</string>
+
+    <string name="meet_up_edit">약속 수정하기</string>
 
     <!-- 지각 꾸물이 화면 -->
     <string name="end_meet_up">약속 마치기</string>

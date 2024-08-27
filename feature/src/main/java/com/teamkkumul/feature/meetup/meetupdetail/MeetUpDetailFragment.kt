@@ -3,6 +3,7 @@ package com.teamkkumul.feature.meetup.meetupdetail
 import android.os.Bundle
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
@@ -12,11 +13,15 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.core.ui.view.setTextColor
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
+import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
+import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.time.TimeUtils.calculateDday
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
+import com.teamkkumul.feature.utils.time.TimeUtils.parseDateOnly
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToMonthDay
+import com.teamkkumul.feature.utils.time.TimeUtils.parseTimeOnly
 import com.teamkkumul.feature.utils.time.setDdayTextColor
 import com.teamkkumul.model.MeetUpDetailModel
 import com.teamkkumul.model.MeetUpParticipantModel
@@ -45,6 +50,10 @@ class MeetUpDetailFragment :
         initObserveMeetUpDetailState()
         initObserveMeetUpParticipantListState()
         initObserveMeetUpParticipantState()
+
+        binding.btnMeetUpDetailEdit.setOnClickListener {
+            navigateToEditMeetUp()
+        }
     }
 
     private fun initObserveMeetUpDetailState() {
@@ -52,6 +61,42 @@ class MeetUpDetailFragment :
             when (uiState) {
                 is UiState.Failure -> Timber.tag("meet up detail").d(uiState.errorMessage)
                 is UiState.Success -> successMeetUpDetailState(uiState.data)
+                else -> {}
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun navigateToEditMeetUp() {
+        viewModel.meetupDetailState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> {
+                    val meetUpDetailModel = uiState.data
+                    val bundle = Bundle().apply {
+                        putString(KeyStorage.MEET_UP_TYPE, MeetUpType.EDIT.toString())
+                        putInt(KeyStorage.PROMISE_ID, promiseId)
+                        putString(KeyStorage.MEET_UP_NAME, meetUpDetailModel.promiseName)
+                        putString(KeyStorage.MEET_UP_LOCATION, meetUpDetailModel.placeName)
+                        putString(
+                            KeyStorage.MEET_UP_DATE,
+                            meetUpDetailModel.time.parseDateOnly(),
+                        )
+                        putString(
+                            KeyStorage.MEET_UP_TIME,
+                            meetUpDetailModel.time.parseTimeOnly(),
+                        )
+                        putString(KeyStorage.MEET_UP_LOCATION_X, meetUpDetailModel.x.toString())
+                        putString(KeyStorage.MEET_UP_LOCATION_Y, meetUpDetailModel.y.toString())
+                        putString(KeyStorage.MEET_UP_LEVEL, meetUpDetailModel.dressUpLevel)
+                        putString(KeyStorage.MEET_UP_PENALTY, meetUpDetailModel.penalty)
+                    }
+                    Timber.tag("meet").d(bundle.toString())
+                    findNavController().navigate(
+                        R.id.action_fragment_meet_up_container_to_meetUpCreateFragment,
+                        bundle,
+                    )
+                }
+
+                is UiState.Failure -> Timber.tag("MeetUpDetailFragment").d(uiState.errorMessage)
                 else -> {}
             }
         }.launchIn(viewLifeCycleScope)
@@ -67,7 +112,9 @@ class MeetUpDetailFragment :
             tvMeetUpDetailReadyLevel.text = meetUpDetailModel.dressUpLevel
             tvMeetUpDetailPenalty.text = meetUpDetailModel.penalty
             tvMeetUpDetailDday.text = dDayString
-            tvMeetUpDetailDday.setTextColor(context?.getColor(setDdayTextColor(dDayInt)) ?: R.color.gray3)
+            tvMeetUpDetailDday.setTextColor(
+                context?.getColor(setDdayTextColor(dDayInt)) ?: R.color.gray3,
+            )
 
             if (dDayInt > 0) {
                 ivMeetUpDday.setImageResource(R.drawable.ic_meet_up_detail_receipt_gray)

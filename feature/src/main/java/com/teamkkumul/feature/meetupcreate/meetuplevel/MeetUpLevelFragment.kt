@@ -2,7 +2,6 @@ package com.teamkkumul.feature.meetupcreate.meetuplevel
 
 import android.view.View
 import android.widget.Button
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -10,6 +9,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.colorOf
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
@@ -27,7 +27,6 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MeetUpLevelFragment :
     BindingFragment<FragmentMeetUpLevelBinding>(R.layout.fragment_meet_up_level) {
-
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
 
     private var meetingId: Int = -1
@@ -50,7 +49,6 @@ class MeetUpLevelFragment :
             meetUpLocationX = it.getString(KeyStorage.MEET_UP_LOCATION_X, "")
             meetUpLocationY = it.getString(KeyStorage.MEET_UP_LOCATION_Y, "")
         }
-
         binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
 
         viewModel.setProgressBar(75)
@@ -62,21 +60,43 @@ class MeetUpLevelFragment :
 
         val chipGroups = listOf(meetUpLevel, penalty)
         setupChipGroups(chipGroups, btnCreateMeetUp)
-        setupCreateMeetUpButton(btnCreateMeetUp, meetingId, selectedItems)
-        initObserveMeetUpCreate()
+
+        if (viewModel.isEditMode()) {
+            setupEditMeetUpButton(btnCreateMeetUp, viewModel.getPromiseId(), selectedItems)
+            initObserveMeetUpEdit()
+        } else {
+            setupCreateMeetUpButton(btnCreateMeetUp, meetingId, selectedItems)
+            initObserveMeetUpCreate()
+        }
     }
 
     private fun initObserveMeetUpCreate() {
         viewModel.meetUpCreateState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> {
+                    viewModel.updateMeetUpModel(promiseId = it.data)
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete,
-                        bundleOf(KeyStorage.PROMISE_ID to it.data),
                     )
                 }
 
-                is UiState.Failure -> Timber.tag("post error").d(it.errorMessage)
+                is UiState.Failure -> toast(it.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun initObserveMeetUpEdit() {
+        viewModel.meetUpEditState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    viewModel.updateMeetUpModel(promiseId = it.data)
+                    findNavController().navigate(
+                        R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete,
+                    )
+                }
+
+                is UiState.Failure -> toast(it.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
@@ -129,6 +149,33 @@ class MeetUpLevelFragment :
                 y = meetUpLocationY.toDouble(),
             )
             viewModel.postMeetUpCreate(id, meetUpCreateModel)
+        }
+    }
+
+    private fun setupEditMeetUpButton(button: Button, id: Int, selectedItems: List<Int>) {
+        button.setOnClickListener {
+            val selectedMeetUpLevel = getSelectedChipText(binding.cgMeetUpLevel)
+            val selectedPenalty = getSelectedChipText(binding.cgSetPenalty)
+
+            Timber.d("Selected Meet Up Level~: $selectedMeetUpLevel")
+            Timber.d("Selected Penalty~: $selectedPenalty")
+
+            val dressUpLevel = preprocessDressUpLevel(selectedMeetUpLevel)
+
+            val meetUpCreateModel = MeetUpCreateModel(
+                name = meetUpName,
+                address = null,
+                dressUpLevel = dressUpLevel,
+                penalty = selectedPenalty,
+                placeName = meetUpLocation,
+                roadAddress = null,
+                time = meetUpDate,
+                participants = selectedItems,
+                x = meetUpLocationX.toDouble(),
+                y = meetUpLocationY.toDouble(),
+            )
+            viewModel.putMeetUpEdit(id, meetUpCreateModel)
+            Timber.tag("check final").d(meetUpCreateModel.toString())
         }
     }
 

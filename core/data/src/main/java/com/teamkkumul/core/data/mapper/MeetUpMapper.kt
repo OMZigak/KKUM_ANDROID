@@ -48,6 +48,8 @@ internal fun ResponseMeetUpDetailDto.toMeetUpDetailModel(): MeetUpDetailModel =
         placeName = placeName,
         time = time,
         promiseName = promiseName,
+        x = x,
+        y = y,
     )
 
 internal fun ResponseLatePersonDto.toLatePersonModel(): LatePersonModel {

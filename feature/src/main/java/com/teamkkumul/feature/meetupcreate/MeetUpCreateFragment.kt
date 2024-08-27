@@ -18,10 +18,12 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpCreateBinding
 import com.teamkkumul.feature.utils.KeyStorage
+import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.feature.utils.animateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -32,10 +34,32 @@ class MeetUpCreateFragment :
     BindingFragment<FragmentMeetUpCreateBinding>(R.layout.fragment_meet_up_create) {
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
     private var currentText: String = ""
+    private var isInitialized = false
 
     override fun initView() {
+        val meetUpType =
+            arguments?.getString(KeyStorage.MEET_UP_TYPE) ?: MeetUpType.CREATE.name
         val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
+        val promiseId = arguments?.getInt(KeyStorage.PROMISE_ID) ?: -1
+        viewModel.updateMeetUpModel(
+            promiseId = promiseId,
+            meetupType = meetUpType,
+        ) // 특정 필드만 updatae 하기
 
+        if (!isInitialized && viewModel.isEditMode()) {
+            arguments?.let {
+                initEditFlow(it)
+            }
+            isInitialized = true
+            binding.tbMeetUpCreate.toolbarTitle.text = getString(R.string.edit_meet_up_title)
+            navigateToEditFriend(viewModel.getPromiseId()) // viewModel.getPromiseId() =  promise id를 가져옴
+        } else {
+            binding.tbMeetUpCreate.toolbarTitle.text = getString(R.string.create_meet_up_title)
+
+            navigateToFriend(id)
+        }
+
+        Timber.tag("ce").d(meetUpType)
         viewModel.setProgressBar(25)
         binding.clMeetUpDate.setOnClickListener {
             showDatePickerDialog()
@@ -57,14 +81,54 @@ class MeetUpCreateFragment :
         observeProgress()
         observeSelectedLocation()
         observeFormValidation()
-        navigateToFriend(id)
         initHideKeyBoard()
+    }
+
+    private fun initEditFlow(arguments: Bundle) {
+        currentText = arguments.getString(KeyStorage.MEET_UP_NAME, "")
+        viewModel.setMeetUpDate(arguments.getString(KeyStorage.MEET_UP_DATE, ""))
+        viewModel.setMeetUpTime(arguments.getString(KeyStorage.MEET_UP_TIME, ""))
+        viewModel.setMeetUpLocation(arguments.getString(KeyStorage.MEET_UP_LOCATION, ""))
+        viewModel.setMeetUpLocationX(arguments.getString(KeyStorage.MEET_UP_LOCATION_X, ""))
+        viewModel.setMeetUpLocationY(arguments.getString(KeyStorage.MEET_UP_LOCATION_Y, ""))
+
+        binding.etMeetUpName.setText(currentText)
+        validInput(currentText)
+        binding.tvMeetUpCreateDateEnter.text = viewModel.meetUpDate.value
+        binding.tvMeetUpCreateTimeEnter.text = viewModel.meetUpTime.value
+        binding.tvMeetUpCreateLocationEnter.text = viewModel.meetUpLocation.value
     }
 
     private fun observeFormValidation() {
         viewModel.meetUpInputState.flowWithLifecycle(viewLifeCycle).onEach { isFormValid ->
             binding.btnMeetUpCreateNext.isEnabled = isFormValid
         }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun navigateToEditFriend(promiseId: Int) {
+        binding.btnMeetUpCreateNext.setOnClickListener {
+            val meetUpDate = "${viewModel.meetUpDate.value} ${viewModel.meetUpTime.value}" ?: ""
+            val meetUpTime = viewModel.meetUpTime.value ?: ""
+            val meetUpLocation = viewModel.meetUpLocation.value ?: ""
+            val meetUpName = currentText
+            val meetUpLocationX = viewModel.meetUpLocationX.value
+            val meetUpLocationY = viewModel.meetUpLocationY.value
+
+            val bundle = Bundle().apply {
+                putString(KeyStorage.MEET_UP_DATE, meetUpDate)
+                putString(KeyStorage.MEET_UP_TIME, meetUpTime)
+                putString(KeyStorage.MEET_UP_LOCATION, meetUpLocation)
+                putString(KeyStorage.MEET_UP_NAME, meetUpName)
+                putString(KeyStorage.MEET_UP_LOCATION_X, meetUpLocationX)
+                putString(KeyStorage.MEET_UP_LOCATION_Y, meetUpLocationY)
+            }
+
+            findNavController().navigate(
+                R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
+                bundle,
+            )
+            Timber.tag("promise edit").d(bundle.toString())
+        }
     }
 
     private fun navigateToFriend(id: Int) {
@@ -84,12 +148,14 @@ class MeetUpCreateFragment :
                 putString(KeyStorage.MEET_UP_NAME, meetUpName)
                 putString(KeyStorage.MEET_UP_LOCATION_X, meetUpLocationX)
                 putString(KeyStorage.MEET_UP_LOCATION_Y, meetUpLocationY)
+                putString(KeyStorage.MEET_UP_TYPE, arguments?.getString(KeyStorage.MEET_UP_TYPE))
             }
 
             findNavController().navigate(
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
                 bundle,
             )
+            Timber.tag("promise").d(bundle.toString())
         }
     }
 
@@ -123,9 +189,10 @@ class MeetUpCreateFragment :
     }
 
     private fun validInput(input: String) {
-        val isValid = input.length <= GROUP_NAME_MAX_LENGTH && input.matches(
-            nameRegex,
-        )
+        val isValid = input.length <= GROUP_NAME_MAX_LENGTH &&
+            input.matches(
+                nameRegex,
+            )
         if (isValid) {
             currentText = input
             setColor(R.color.main_color)
@@ -173,6 +240,7 @@ class MeetUpCreateFragment :
         val builder = MaterialDatePicker.Builder.datePicker()
         val picker = builder.build()
         picker.addOnPositiveButtonClickListener { selectedDate ->
+            Timber.tag("create time").d(selectedDate.toString())
             val formattedDateForm =
                 formatDate(Date(selectedDate), "yyyy-MM-dd")
 
@@ -191,6 +259,7 @@ class MeetUpCreateFragment :
     private fun observeMeetUpDate() {
         viewModel.meetUpDate.flowWithLifecycle(viewLifeCycle).onEach {
             if (it.isNotEmpty()) {
+                Timber.tag("create date").d(it)
                 val date = parseDate(it, "yyyy-MM-dd")
                 val formattedDate = date?.let { date -> formatDate(date, "yyyy.MM.dd") }
 

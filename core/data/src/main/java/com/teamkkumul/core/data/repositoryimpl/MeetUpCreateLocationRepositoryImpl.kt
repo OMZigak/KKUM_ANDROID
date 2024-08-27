@@ -1,12 +1,14 @@
 package com.teamkkumul.core.data.repositoryimpl
 
 import com.teamkkumul.core.data.mapper.toMeetUpCreateLocationModel
+import com.teamkkumul.core.data.mapper.toMeetUpEditParticipant
 import com.teamkkumul.core.data.mapper.toRequestMeetUpCreateDto
 import com.teamkkumul.core.data.repository.MeetUpCreateLocationRepository
 import com.teamkkumul.core.data.utils.handleThrowable
 import com.teamkkumul.core.network.api.MeetUpCreateService
 import com.teamkkumul.model.MeetUpCreateLocationModel
 import com.teamkkumul.model.MeetUpCreateModel
+import com.teamkkumul.model.MeetUpEditParticipantModel
 import javax.inject.Inject
 
 class MeetUpCreateLocationRepositoryImpl @Inject constructor(
@@ -30,6 +32,30 @@ class MeetUpCreateLocationRepositoryImpl @Inject constructor(
 
             meetUpCreateLocationService.postNewMeetUp(
                 meetingId,
+                requestDto,
+            ).data?.promiseId
+        }.mapCatching {
+            requireNotNull(it)
+        }.recoverCatching {
+            return it.handleThrowable()
+        }
+    }
+
+    override suspend fun getMeetUpEditParticipant(promiseId: Int): Result<List<MeetUpEditParticipantModel.Member>> =
+        runCatching {
+            val response = meetUpCreateLocationService.getMeetUpEditParticipant(promiseId)
+            response.data?.toMeetUpEditParticipant() ?: throw Exception("null")
+        }
+
+    override suspend fun putMeetUpEdit(
+        promiseId: Int,
+        meetUpCreateModel: MeetUpCreateModel,
+    ): Result<Int> {
+        return runCatching {
+            val requestDto = meetUpCreateModel.toRequestMeetUpCreateDto()
+
+            meetUpCreateLocationService.putMeetUpEdit(
+                promiseId,
                 requestDto,
             ).data?.promiseId
         }.mapCatching {

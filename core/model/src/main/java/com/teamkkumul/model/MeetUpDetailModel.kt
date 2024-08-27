@@ -9,4 +9,6 @@ data class MeetUpDetailModel(
     val roadAddress: String?,
     val time: String,
     val promiseName: String,
+    val x: Double?,
+    val y: Double?,
 )

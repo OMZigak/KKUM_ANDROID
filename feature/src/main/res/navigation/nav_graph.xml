@@ -183,6 +183,9 @@
         <action
             android:id="@+id/action_meetUpContainerFragment_to_exitMeetUpBottomSheetFragment"
             app:destination="@id/fragment_exit_meet_up_bottom_sheet" />
+        <action
+            android:id="@+id/action_fragment_meet_up_container_to_meetUpCreateFragment"
+            app:destination="@id/fragment_meet_up_create" />
     </fragment>
 
     <fragment
