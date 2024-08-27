@@ -26,6 +26,7 @@ class SetProfileActivity :
 
     private val setProfileViewModel: SetProfileViewModel by viewModels()
     private var inputName: String? = null
+    private var selectedImageUri: String? = null
 
     private val sourceFragment: String by lazy {
         intent.getStringExtra(SOURCE_FRAGMENT) ?: ""
@@ -72,6 +73,10 @@ class SetProfileActivity :
                     if (sourceFragment == SET_NAME_ACTIVITY) {
                         inputName?.let { navigateToWelcome(it) }
                     } else if (sourceFragment == MY_PAGE_FRAGMENT) {
+                        val intent = Intent().apply {
+                            putExtra(PROFILE_IMAGE_URL, selectedImageUri ?: profileImageUrl)
+                        }
+                        setResult(Activity.RESULT_OK, intent)
                         finish()
                     }
                 }
