@@ -46,7 +46,7 @@ class MeetUpCreateFragment :
             meetupType = meetUpType,
         ) // 특정 필드만 updatae 하기
 
-        if (viewModel.isEditMode()) {
+        if (!isInitialized && viewModel.isEditMode()) {
             arguments?.let {
                 initEditFlow(it)
             }
