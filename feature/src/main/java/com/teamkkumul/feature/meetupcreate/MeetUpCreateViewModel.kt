@@ -12,8 +12,10 @@ import com.teamkkumul.model.MeetUpCreateModel
 import com.teamkkumul.model.MeetUpEditParticipantModel
 import com.teamkkumul.model.MyGroupMemberModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -62,8 +64,8 @@ class MeetUpCreateViewModel @Inject constructor(
         MutableStateFlow<UiState<List<MeetUpEditParticipantModel.Member>?>>(UiState.Loading)
     val meetUpEditMemberState get() = _meetUpEditMemberState.asStateFlow()
 
-    private val _meetUpEditState = MutableStateFlow<UiState<Int>>(UiState.Loading)
-    val meetUpEditState get() = _meetUpEditState.asStateFlow()
+    private val _meetUpEditState = MutableSharedFlow<UiState<Int>>()
+    val meetUpEditState get() = _meetUpEditState.asSharedFlow()
 
     fun postMeetUpCreate(meetingId: Int, meetUpCreateModel: MeetUpCreateModel) {
         viewModelScope.launch {

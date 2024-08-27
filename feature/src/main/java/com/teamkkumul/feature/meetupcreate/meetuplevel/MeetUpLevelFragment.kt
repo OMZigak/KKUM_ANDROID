@@ -10,6 +10,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.colorOf
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
@@ -28,7 +29,6 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MeetUpLevelFragment :
     BindingFragment<FragmentMeetUpLevelBinding>(R.layout.fragment_meet_up_level) {
-
     private val viewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
 
     private var meetingId: Int = -1
@@ -116,7 +116,7 @@ class MeetUpLevelFragment :
                     )
                 }
 
-                is UiState.Failure -> Timber.tag("post error").d(it.errorMessage)
+                is UiState.Failure -> toast(it.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
