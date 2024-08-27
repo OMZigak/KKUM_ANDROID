@@ -14,7 +14,6 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetNameBinding
 import com.teamkkumul.feature.utils.Debouncer
-import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.KeyStorage.SET_NAME_ACTIVITY
 import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
