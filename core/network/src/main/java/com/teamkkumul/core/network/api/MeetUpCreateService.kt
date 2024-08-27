@@ -8,6 +8,7 @@ import com.teamkkumul.core.network.dto.response.ResponseMeetUpEditParticipantDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -27,4 +28,10 @@ interface MeetUpCreateService {
     suspend fun getMeetUpEditParticipant(
         @Path("promiseId") promiseId: Int,
     ): BaseResponse<ResponseMeetUpEditParticipantDto>
+
+    @PUT("/api/v1/promises/{promiseId}")
+    suspend fun putMeetUpEdit(
+        @Path("promiseId") promiseId: Int,
+        @Body request: RequestMeetUpCreateDto,
+    ): BaseResponse<ResponseMeetUpDetailDto>
 }

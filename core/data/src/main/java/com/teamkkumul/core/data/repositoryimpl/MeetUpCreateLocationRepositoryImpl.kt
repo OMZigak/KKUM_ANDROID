@@ -46,4 +46,22 @@ class MeetUpCreateLocationRepositoryImpl @Inject constructor(
             val response = meetUpCreateLocationService.getMeetUpEditParticipant(promiseId)
             response.data?.toMeetUpEditParticipant() ?: throw Exception("null")
         }
+
+    override suspend fun putMeetUpEdit(
+        promiseId: Int,
+        meetUpCreateModel: MeetUpCreateModel,
+    ): Result<Int> {
+        return runCatching {
+            val requestDto = meetUpCreateModel.toRequestMeetUpCreateDto()
+
+            meetUpCreateLocationService.putMeetUpEdit(
+                promiseId,
+                requestDto,
+            ).data?.promiseId
+        }.mapCatching {
+            requireNotNull(it)
+        }.recoverCatching {
+            return it.handleThrowable()
+        }
+    }
 }
