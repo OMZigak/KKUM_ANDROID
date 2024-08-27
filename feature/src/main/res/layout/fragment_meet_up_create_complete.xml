@@ -49,19 +49,6 @@
             app:layout_constraintTop_toBottomOf="@id/iv_add_meet_up_complete" />
 
         <TextView
-            android:id="@+id/tv_edit_meet_up_complete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/tv_edit_meet_up_complete"
-            android:textAppearance="@style/TextAppearance.Kkumul.head_01"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_add_meet_up_complete" />
-
-
-        <TextView
             android:id="@+id/tv_add_meet_up_complete_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
