@@ -14,6 +14,8 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetNameBinding
 import com.teamkkumul.feature.utils.Debouncer
+import com.teamkkumul.feature.utils.KeyStorage.SET_NAME_ACTIVITY
+import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -71,9 +73,11 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
         if (isValid) {
             currentText = input
             setColor(R.color.main_color)
+            setInputTextColor(R.color.black0)
             setErrorState(null)
         } else {
             setColor(R.color.red)
+            setInputTextColor(R.color.red)
             setErrorState(getString(R.string.set_name_error_message))
         }
         updateCounter(input.length)
@@ -91,13 +95,16 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
         val color = colorOf(colorResId)
         with(binding) {
             tvCounter.setTextColor(color)
-            etSetName.setTextColor(color)
             tilSetName.boxStrokeColor = color
         }
     }
 
+    private fun setInputTextColor(colorResId: Int) {
+        binding.etSetName.setTextColor(colorOf(colorResId))
+    }
+
     private fun updateCounter(length: Int) {
-        binding.tvCounter.text = "${length.coerceAtMost(5)}/5"
+        binding.tvCounter.text = "$length/5"
     }
 
     private fun updateButtonState(isValid: Boolean) {
@@ -107,6 +114,7 @@ class SetNameActivity : BindingActivity<ActivitySetNameBinding>(R.layout.activit
     private fun navigateToSetProfile(inputName: String) {
         val intent = Intent(this, SetProfileActivity::class.java).apply {
             putExtra(INPUT_NAME, inputName)
+            putExtra(SOURCE_FRAGMENT, SET_NAME_ACTIVITY)
         }
         startActivity(intent)
     }

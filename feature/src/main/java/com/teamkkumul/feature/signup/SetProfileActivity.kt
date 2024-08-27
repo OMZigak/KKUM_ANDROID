@@ -13,6 +13,9 @@ import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
 import com.teamkkumul.feature.signup.SetNameActivity.Companion.INPUT_NAME
+import com.teamkkumul.feature.utils.KeyStorage.MY_PAGE_FRAGMENT
+import com.teamkkumul.feature.utils.KeyStorage.SET_NAME_ACTIVITY
+import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -23,6 +26,15 @@ class SetProfileActivity :
 
     private val setProfileViewModel: SetProfileViewModel by viewModels()
     private var inputName: String? = null
+    private var selectedImageUri: String? = null
+
+    private val sourceFragment: String by lazy {
+        intent.getStringExtra(SOURCE_FRAGMENT) ?: ""
+    }
+
+    private val profileImageUrl: String? by lazy {
+        intent.getStringExtra(PROFILE_IMAGE_URL)
+    }
 
     private val selectImageLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -41,17 +53,32 @@ class SetProfileActivity :
 
     override fun initView() {
         inputName = intent.getStringExtra(INPUT_NAME)
+        loadProfileImage()
         initObserveImageState()
         initSetProfileBtnClick()
         initOkayBtnClick()
         initNotNowBtnClick()
     }
 
+    private fun loadProfileImage() {
+        profileImageUrl?.let {
+            binding.ivBtnSetProfile.load(it)
+        }
+    }
+
     private fun initObserveImageState() {
         setProfileViewModel.updateImageState.flowWithLifecycle(lifecycle).onEach {
             when (it) {
                 is UiState.Success -> {
-                    inputName?.let { navigateToWelcome(it) }
+                    if (sourceFragment == SET_NAME_ACTIVITY) {
+                        inputName?.let { navigateToWelcome(it) }
+                    } else if (sourceFragment == MY_PAGE_FRAGMENT) {
+                        val intent = Intent().apply {
+                            putExtra(PROFILE_IMAGE_URL, selectedImageUri ?: profileImageUrl)
+                        }
+                        setResult(Activity.RESULT_OK, intent)
+                        finish()
+                    }
                 }
 
                 is UiState.Failure -> {}
@@ -92,5 +119,9 @@ class SetProfileActivity :
             putExtra(INPUT_NAME, inputName)
         }
         startActivity(intent)
+    }
+
+    companion object {
+        const val PROFILE_IMAGE_URL = "profile_image_url"
     }
 }
