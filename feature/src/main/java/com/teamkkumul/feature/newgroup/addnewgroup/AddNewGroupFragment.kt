@@ -59,9 +59,11 @@ class AddNewGroupFragment :
         if (isValid) {
             currentText = input
             setColor(R.color.main_color)
+            setInputTextColor(R.color.black0)
             setErrorState(null)
         } else {
             setColor(R.color.red)
+            setInputTextColor(R.color.red)
             setErrorState(getString(R.string.set_group_name_error_message))
         }
         updateCounter(input.length)
@@ -79,13 +81,16 @@ class AddNewGroupFragment :
         val color = colorOf(colorResId)
         with(binding) {
             tvCounter.setTextColor(color)
-            etSetGroupName.setTextColor(color)
             tilSetGroupName.boxStrokeColor = color
         }
     }
 
+    private fun setInputTextColor(colorResId: Int) {
+        binding.etSetGroupName.setTextColor(colorOf(colorResId))
+    }
+
     private fun updateCounter(length: Int) {
-        binding.tvCounter.text = "${length.coerceAtMost(10)}/10"
+        binding.tvCounter.text = "$length/10"
     }
 
     private fun updateButtonState(isValid: Boolean) {

@@ -22,11 +22,15 @@ object KeyStorage {
     const val SOURCE_FRAGMENT = "sourceFragment"
     const val ADD_NEW_GROUP_FRAGMENT = "addNewGroup"
     const val MY_GROUP_DETAIL_FRAGMENT = "myGroupDetail"
+    const val UPDATED_PHOTO_URI = "updatedPhotoUri"
     const val MEET_UP_LEAVE_DIALOG = "meetUpLeaveDialog"
     const val MY_GROUP_LEAVE_DIALOG = "myGroupLeaveDialog"
     const val MEET_UP_DELETE_DIALOG = "meetUpDeleteDialog"
     const val GROUP_NAME = "groupName"
     const val DIALOG_TYPE = "dialogType"
+    const val SET_NAME_ACTIVITY = "setNameActivity"
+    const val MY_PAGE_FRAGMENT = "myPageFragment"
+    const val PROFILE_IMAGE_URL = "profileImageUrl"
     const val MEET_UP_TYPE = "meetUpType"
 }
 
@@ -39,4 +43,10 @@ object TimeStorage {
     const val START_TIME = 0
     const val END_HOUR = 23
     const val END_MINUTE = 59
+}
+
+object WebLink {
+    const val NOTION_LINK = "https://arrow-frog-4b9.notion.site/a66033a3ff4a40bfaa6eff0a5bee737d"
+    const val GOOGLE_FORM_LINK =
+        "https://docs.google.com/forms/d/e/1FAIpQLSdRR65ARe2M7JxQEAx8vpFz-I8tyEYwlpLwtSnJjniGOapPVQ/viewform"
 }
