@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.databinding.adapters.ImageViewBindingAdapter.setImageUri
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
@@ -76,17 +77,22 @@ class SetProfileActivity :
                             inputName?.let { navigateToWelcome(it) }
                         }
                         MY_PAGE_FRAGMENT -> {
-                            val intent = Intent().apply {
-                                putExtra(PROFILE_IMAGE_URL, selectedImageUri)
-                            }
-                            setResult(Activity.RESULT_OK, intent)
-                            finish()
+                            setProfileImageUri()
                         }
                     }
                 }
+
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
+    }
+
+    private fun setProfileImageUri() {
+        val intent = Intent().apply {
+            putExtra(PROFILE_IMAGE_URL, selectedImageUri)
+        }
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     private fun initSetProfileBtnClick() {
