@@ -47,7 +47,7 @@ class SetProfileActivity :
                         ivBtnSetProfile.load(uri)
                         btnOkay.isEnabled = true
                     }
-                    setProfileViewModel.setPhotoUri(uri.toString())
+                    setProfileViewModel.setPhotoUri(this.selectedImageUri)
                 }
             }
         }
