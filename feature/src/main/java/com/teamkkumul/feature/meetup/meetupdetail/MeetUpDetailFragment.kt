@@ -16,9 +16,6 @@ import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
 import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.MeetUpType
-import com.teamkkumul.feature.utils.color.setMeetUpDetailImage
-import com.teamkkumul.feature.utils.color.setMeetUpDetailTextColor
-import com.teamkkumul.feature.utils.color.setMeetUpTitleColor
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.time.TimeUtils.calculateDday
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
@@ -27,6 +24,9 @@ import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToMonthDay
 import com.teamkkumul.feature.utils.time.TimeUtils.parseTimeOnly
 import com.teamkkumul.feature.utils.time.setDday
 import com.teamkkumul.feature.utils.time.setDdayTextColor
+import com.teamkkumul.feature.utils.time.setMeetUpDetailImage
+import com.teamkkumul.feature.utils.time.setMeetUpDetailTextColor
+import com.teamkkumul.feature.utils.time.setMeetUpTitleColor
 import com.teamkkumul.model.MeetUpDetailModel
 import com.teamkkumul.model.MeetUpParticipantModel
 import dagger.hilt.android.AndroidEntryPoint
