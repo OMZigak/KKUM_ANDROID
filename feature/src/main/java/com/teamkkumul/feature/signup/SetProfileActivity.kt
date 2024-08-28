@@ -71,18 +71,19 @@ class SetProfileActivity :
         setProfileViewModel.updateImageState.flowWithLifecycle(lifecycle).onEach {
             when (it) {
                 is UiState.Success -> {
-                    if (sourceFragment == SET_NAME_ACTIVITY) {
-                        inputName?.let { navigateToWelcome(it) }
-                    } else if (sourceFragment == MY_PAGE_FRAGMENT) {
-                        val intent = Intent().apply {
-                            putExtra(PROFILE_IMAGE_URL, selectedImageUri)
+                    when (sourceFragment) {
+                        SET_NAME_ACTIVITY -> {
+                            inputName?.let { navigateToWelcome(it) }
                         }
-                        setResult(Activity.RESULT_OK, intent)
-                        finish()
+                        MY_PAGE_FRAGMENT -> {
+                            val intent = Intent().apply {
+                                putExtra(PROFILE_IMAGE_URL, selectedImageUri)
+                            }
+                            setResult(Activity.RESULT_OK, intent)
+                            finish()
+                        }
                     }
                 }
-
-                is UiState.Failure -> {}
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
