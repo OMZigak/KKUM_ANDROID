@@ -10,7 +10,6 @@ import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
-import com.teamkkumul.core.ui.view.setTextColor
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
 import com.teamkkumul.feature.utils.KeyStorage
@@ -103,7 +102,8 @@ class MeetUpDetailFragment :
     }
 
     private fun successMeetUpDetailState(meetUpDetailModel: MeetUpDetailModel) {
-        val (dDayString, dDayInt) = meetUpDetailModel.time.calculateDday()
+        val dDay = meetUpDetailModel.time.calculateDday()
+        val dDayInt: Int = 0
         with(binding) {
             tvMeetUpName.text = meetUpDetailModel.promiseName
             tvMeetUpDetailLocation.text = meetUpDetailModel.placeName
@@ -111,17 +111,15 @@ class MeetUpDetailFragment :
                 "${meetUpDetailModel.time.parseDateToMonthDay()} ${meetUpDetailModel.time.formatTimeToPmAm()}"
             tvMeetUpDetailReadyLevel.text = meetUpDetailModel.dressUpLevel
             tvMeetUpDetailPenalty.text = meetUpDetailModel.penalty
-            tvMeetUpDetailDday.text = dDayString
-            tvMeetUpDetailDday.setTextColor(
-                context?.getColor(setDdayTextColor(dDayInt)) ?: R.color.gray3,
-            )
+            tvMeetUpDetailDday.text = dDay
+            tvMeetUpDetailDday.setTextColor(colorOf(setDdayTextColor(dDayInt)) ?: R.color.gray3)
 
-            if (dDayInt > 0) {
+            if (dDayInt > 0) { // 잠만 이렇게 toInt 쓰면 안됨 -> D-DAY를 어케 toInt를 하니
                 ivMeetUpDday.setImageResource(R.drawable.ic_meet_up_detail_receipt_gray)
-                groupMeetUpDetail.setTextColor(colorOf(R.color.gray4))
+                // groupMeetUpDetail.setTextColor(colorOf(R.color.gray4))
             } else {
                 ivMeetUpDday.setImageResource(R.drawable.ic_meet_up_detail_receipt)
-                groupMeetUpDetail.setTextColor(colorOf(R.color.main_color))
+                // groupMeetUpDetail.setTextColor(colorOf(R.color.main_color))
             }
         }
     }
