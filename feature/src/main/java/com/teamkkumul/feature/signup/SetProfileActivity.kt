@@ -41,12 +41,13 @@ class SetProfileActivity :
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
                 val selectedImageUri: Uri? = data?.data
-                selectedImageUri?.let {
+                selectedImageUri?.let { uri ->
+                    this.selectedImageUri = uri.toString()
                     with(binding) {
-                        ivBtnSetProfile.load(selectedImageUri)
+                        ivBtnSetProfile.load(uri)
                         btnOkay.isEnabled = true
                     }
-                    setProfileViewModel.setPhotoUri(selectedImageUri.toString())
+                    setProfileViewModel.setPhotoUri(uri.toString())
                 }
             }
         }
@@ -74,7 +75,7 @@ class SetProfileActivity :
                         inputName?.let { navigateToWelcome(it) }
                     } else if (sourceFragment == MY_PAGE_FRAGMENT) {
                         val intent = Intent().apply {
-                            putExtra(PROFILE_IMAGE_URL, selectedImageUri ?: profileImageUrl)
+                            putExtra(PROFILE_IMAGE_URL, selectedImageUri)
                         }
                         setResult(Activity.RESULT_OK, intent)
                         finish()

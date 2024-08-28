@@ -1,9 +1,12 @@
 package com.teamkkumul.feature.mypage
 
+import android.app.Activity
 import android.content.Intent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.navigateToWeb
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
@@ -39,6 +42,15 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
         initUsePromiseClickListener()
         initAskClickListener()
     }
+
+    private val setProfileLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.getStringExtra(SetProfileActivity.PROFILE_IMAGE_URL)?.let {
+                    binding.ivMyPageProfile.load(it)
+                }
+            }
+        }
 
     private fun initObserveMyPageState() {
         viewModel.myPageState.flowWithLifecycle(viewLifeCycle).onEach {
@@ -79,16 +91,11 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
     private fun navigateToSetProfile() {
         binding.ivMyPageProfile.setOnClickListener {
             val intent = Intent(requireContext(), SetProfileActivity::class.java).apply {
-                putExtra(SetProfileActivity.PROFILE_IMAGE_URL, profileImageUrl)
+                putExtra(SetProfileActivity.PROFILE_IMAGE_URL, profileImageUrl) // my page에서 set profile 갈 때 사진 가져가기
                 putExtra(SOURCE_FRAGMENT, MY_PAGE_FRAGMENT)
             }
-            startActivity(intent)
+            setProfileLauncher.launch(intent)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getMyPageUserInfo()
     }
 
     private fun initAskClickListener() {
