@@ -2,11 +2,11 @@ package com.teamkkumul.feature.mypage
 
 import android.app.Activity
 import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
-import coil.load
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.navigateToWeb
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
@@ -32,6 +32,7 @@ import timber.log.Timber
 class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     private val viewModel by viewModels<MyPageViewModel>()
     private var profileImageUrl: String? = null
+    private lateinit var setProfileLauncher: ActivityResultLauncher<Intent>
 
     override fun initView() {
         viewModel.getMyPageUserInfo()
@@ -41,16 +42,14 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
         navigateToSetProfile()
         initUsePromiseClickListener()
         initAskClickListener()
-    }
 
-    private val setProfileLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                result.data?.getStringExtra(SetProfileActivity.PROFILE_IMAGE_URL)?.let {
-                    binding.ivMyPageProfile.load(it)
+        setProfileLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    viewModel.getMyPageUserInfo()
                 }
             }
-        }
+    }
 
     private fun initObserveMyPageState() {
         viewModel.myPageState.flowWithLifecycle(viewLifeCycle).onEach {
