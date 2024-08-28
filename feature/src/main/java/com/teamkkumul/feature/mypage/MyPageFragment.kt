@@ -91,7 +91,7 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
     private fun navigateToSetProfile() {
         binding.ivMyPageProfile.setOnClickListener {
             val intent = Intent(requireContext(), SetProfileActivity::class.java).apply {
-                putExtra(SetProfileActivity.PROFILE_IMAGE_URL, profileImageUrl) // my page에서 set profile 갈 때 사진 가져가기
+                putExtra(SetProfileActivity.PROFILE_IMAGE_URL, profileImageUrl)
                 putExtra(SOURCE_FRAGMENT, MY_PAGE_FRAGMENT)
             }
             setProfileLauncher.launch(intent)

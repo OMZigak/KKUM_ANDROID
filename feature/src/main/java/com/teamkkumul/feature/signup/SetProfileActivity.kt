@@ -104,7 +104,11 @@ class SetProfileActivity :
 
     private fun initNotNowBtnClick() {
         binding.tvBtnNotNow.setOnClickListener {
-            inputName?.let { navigateToWelcome(it) }
+            if (sourceFragment == MY_PAGE_FRAGMENT) {
+                finish()
+            } else {
+                inputName?.let { navigateToWelcome(it) }
+            }
         }
     }
 
