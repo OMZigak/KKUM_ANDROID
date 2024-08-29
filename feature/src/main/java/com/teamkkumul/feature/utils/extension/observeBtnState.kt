@@ -29,7 +29,7 @@ fun setUpButton(
     button: MaterialButton,
     circle: ImageView,
     progressBar: LinearProgressIndicator,
-    progressBarEnd: LinearProgressIndicator?,
+    progressBarEnd: LinearProgressIndicator? = null,
     helpText: TextView,
 ) {
     button.apply {
