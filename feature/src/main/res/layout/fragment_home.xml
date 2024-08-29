@@ -439,6 +439,18 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_home_location"
                     app:strokeColor="@color/main_color" />
 
+                <TextView
+                    android:id="@+id/tv_home_ready_help_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/home_btn_help_text"
+                    android:textAppearance="@style/TextAppearance.Kkumul.label_02"
+                    android:textColor="@color/gray5"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_ready"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_ready"
+                    app:layout_constraintTop_toBottomOf="@id/btn_home_ready" />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_home_moving"
                     style="?attr/materialButtonOutlinedStyle"
@@ -456,6 +468,19 @@
                     app:layout_constraintStart_toEndOf="@id/btn_home_ready"
                     app:layout_constraintTop_toTopOf="@id/btn_home_ready"
                     app:strokeColor="@color/gray3" />
+
+                <TextView
+                    android:id="@+id/tv_home_moving_help_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/home_btn_moving_help_text"
+                    android:textAppearance="@style/TextAppearance.Kkumul.label_02"
+                    android:textColor="@color/gray5"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_moving"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_moving"
+                    app:layout_constraintTop_toBottomOf="@id/btn_home_ready" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_home_arrive"
@@ -476,15 +501,16 @@
                     app:strokeColor="@color/gray3" />
 
                 <TextView
-                    android:id="@+id/tv_home_moving_start_help_text"
+                    android:id="@+id/tv_home_completed_help_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/home_btn_help_text"
+                    android:text="@string/home_btn_completed_help_text"
                     android:textAppearance="@style/TextAppearance.Kkumul.label_02"
                     android:textColor="@color/gray5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_arrive"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_arrive"
                     app:layout_constraintTop_toBottomOf="@id/btn_home_ready" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
