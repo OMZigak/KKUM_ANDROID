@@ -7,7 +7,6 @@ import com.teamkkumul.core.data.repository.MeetUpRepository
 import com.teamkkumul.core.data.repository.MeetingsRepository
 import com.teamkkumul.core.data.repository.MyGroupRepository
 import com.teamkkumul.core.data.repository.ProfileRepository
-import com.teamkkumul.core.data.repository.ReqresRepository
 import com.teamkkumul.core.data.repository.UserInfoRepository
 import com.teamkkumul.core.data.repositoryimpl.AuthRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.HomeRepositoryImpl
@@ -16,7 +15,6 @@ import com.teamkkumul.core.data.repositoryimpl.MeetUpRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.MeetingsRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.MyGroupRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.ProfileRepositoryImpl
-import com.teamkkumul.core.data.repositoryimpl.ReqresRepositoryImpl
 import com.teamkkumul.core.data.repositoryimpl.UserInfoRepositoryImpl
 import com.teamkkumul.core.datastore.datasource.DefaultKumulPreferenceDatasource
 import com.teamkkumul.core.datastore.datasource.KumulPreferencesDataSource
@@ -29,12 +27,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal abstract class DataModule {
-    @Binds
-    @Singleton
-    abstract fun bindsReqresRepo(
-        reqresRepository: ReqresRepositoryImpl,
-    ): ReqresRepository
-
     @Binds
     @Singleton
     abstract fun bindsKumulLocalDataSource(
