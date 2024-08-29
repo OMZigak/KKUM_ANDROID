@@ -49,6 +49,7 @@ class MeetUpDetailFragment :
     }
 
     override fun initView() {
+        sharedViewModel.updateMeetUpModel(meetupType = MeetUpType.CREATE.name)
         initMemberRecyclerView()
         viewModel.getMeetUpParticipant(promiseId)
         viewModel.getMeetUpParticipantList(promiseId)

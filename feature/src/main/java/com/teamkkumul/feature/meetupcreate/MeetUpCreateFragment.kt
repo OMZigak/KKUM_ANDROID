@@ -94,24 +94,31 @@ class MeetUpCreateFragment :
 
     private fun observeFormValidation() {
         viewModel.meetUpInputState.flowWithLifecycle(viewLifeCycle).onEach { isFormValid ->
-            binding.btnMeetUpCreateNext.isEnabled = isFormValid
+            val isComplete = isFormComplete()
+            binding.btnMeetUpCreateNext.isEnabled = isComplete
         }.launchIn(viewLifeCycleScope)
     }
 
     private fun navigateToEditFriend(promiseId: Int) {
         binding.btnMeetUpCreateNext.setOnClickListener {
+            updateSharedViewmodel()
             findNavController().navigate(
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
             )
         }
     }
 
+    private fun updateSharedViewmodel() {
+        sharedViewModel.updateMeetUpModel(
+            name = binding.etMeetUpName.text.toString(),
+            time = binding.tvMeetUpCreateTimeEnter.text.toString(),
+            date = binding.tvMeetUpCreateDateEnter.text.toString(),
+        )
+    }
+
     private fun navigateToFriend(id: Int) {
         binding.btnMeetUpCreateNext.setOnClickListener {
-            sharedViewModel.updateMeetUpModel(
-                name = binding.etMeetUpName.text.toString(),
-                meetingId = id,
-            )
+            updateSharedViewmodel()
             findNavController().navigate(
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
             )
@@ -164,7 +171,7 @@ class MeetUpCreateFragment :
             setErrorState(getString(R.string.meet_up_name_error_message))
         }
         updateCounter(input.length)
-        viewModel.setMeetUpName(isValid)
+//        viewModel.setMeetUpName(isValid)
     }
 
     private fun setInputTextColor(colorResId: Int) {
@@ -219,7 +226,7 @@ class MeetUpCreateFragment :
     private fun observeMeetUpDate() {
         sharedViewModel.meetUpCreateModel.flowWithLifecycle(viewLifeCycle).onEach {
             if (!it.date.isNullOrEmpty()) {
-                binding.tvMeetUpCreateDateEnter.text = it.date.toString().changeDateToText()
+                binding.tvMeetUpCreateDateEnter.text = it.date.toString()
                 binding.tvMeetUpCreateDateEnter.setTextColor(colorOf(R.color.gray8))
                 binding.ivMeetUpDate.setImageResource(R.drawable.ic_date_fill_24)
             }
@@ -270,6 +277,12 @@ class MeetUpCreateFragment :
             }
         }.launchIn(viewLifeCycleScope)
     }
+
+    private fun isFormComplete(): Boolean =
+        binding.etMeetUpName.text.toString().isNotEmpty() &&
+            binding.tvMeetUpCreateDateEnter.text.isNotEmpty() &&
+            binding.tvMeetUpCreateTimeEnter.text.isNotEmpty() &&
+            binding.tvMeetUpCreateLocationEnter.text.isNotEmpty()
 
     companion object {
         private const val NAME_PATTERN = "^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣\\s]{1,10}$"
