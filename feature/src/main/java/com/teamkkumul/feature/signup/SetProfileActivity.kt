@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.databinding.adapters.ImageViewBindingAdapter.setImageUri
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
@@ -76,6 +75,7 @@ class SetProfileActivity :
                         SET_NAME_ACTIVITY -> {
                             inputName?.let { navigateToWelcome(it) }
                         }
+
                         MY_PAGE_FRAGMENT -> {
                             setResult(Activity.RESULT_OK, intent)
                             finish()
