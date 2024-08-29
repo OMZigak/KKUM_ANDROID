@@ -77,7 +77,8 @@ class SetProfileActivity :
                             inputName?.let { navigateToWelcome(it) }
                         }
                         MY_PAGE_FRAGMENT -> {
-                            setProfileImageUri()
+                            setResult(Activity.RESULT_OK, intent)
+                            finish()
                         }
                     }
                 }
@@ -85,14 +86,6 @@ class SetProfileActivity :
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
-    }
-
-    private fun setProfileImageUri() {
-        val intent = Intent().apply {
-            putExtra(PROFILE_IMAGE_URL, selectedImageUri)
-        }
-        setResult(Activity.RESULT_OK, intent)
-        finish()
     }
 
     private fun initSetProfileBtnClick() {
