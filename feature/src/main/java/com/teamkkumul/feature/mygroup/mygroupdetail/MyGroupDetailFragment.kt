@@ -80,6 +80,7 @@ class MyGroupDetailFragment :
                 R.id.action_myGroupDetailFragment_to_meetUpCreateFragment,
                 bundleOf(MEETING_ID to currentId),
             )
+            Timber.tag("checkeeee").d(currentId.toString())
         }
 
         binding.toolbarMyGroupDetail.ivBtnMore.setOnClickListener {

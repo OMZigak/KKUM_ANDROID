@@ -13,6 +13,18 @@ object TimeUtils {
     private val outputSimpleTimeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
     private val outputSimpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
+    // yyyy-mm-dd -> a h:mm
+    fun String.changeTimeToPmAm(): String {
+        val time = outputSimpleTimeFormat.parse(this)
+        return outputPmAmFormat.format(time)
+    }
+
+    // a h:mm -> yyyy.MM.dd
+    fun String.changeDateToText(): String {
+        val date = outputSimpleDateFormat.parse(this)
+        return outputDateFormat.format(date)
+    }
+
     fun String.formatTimeToPmAm(): String {
         val date = inputFormat.parse(this)
         return outputPmAmFormat.format(date)
@@ -40,7 +52,8 @@ object TimeUtils {
 
     fun String.calculateDday(): Int {
         val eventDate = outputDateFormat.parse(outputDateFormat.format(inputFormat.parse(this)))
-        val currentDate = outputDateFormat.parse(outputDateFormat.format(System.currentTimeMillis()))
+        val currentDate =
+            outputDateFormat.parse(outputDateFormat.format(System.currentTimeMillis()))
 
         val diffInMillis = eventDate.time - currentDate.time
         val dDay = -(diffInMillis / (1000 * 60 * 60 * 24)).toInt()
