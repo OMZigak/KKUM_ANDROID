@@ -1,16 +1,12 @@
 package com.teamkkumul.feature.home
 
-import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.teamkkumul.core.ui.base.BindingFragment
-import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
@@ -21,9 +17,10 @@ import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.extension.getLevelImageResId
+import com.teamkkumul.feature.utils.extension.observeBtnState
+import com.teamkkumul.feature.utils.extension.setUpButton
 import com.teamkkumul.feature.utils.extension.updateLevelText
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
-import com.teamkkumul.feature.utils.model.BtnState
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
 import com.teamkkumul.feature.utils.time.getCurrentTime
 import com.teamkkumul.feature.utils.type.LevelColorType
@@ -32,7 +29,6 @@ import com.teamkkumul.model.home.HomeTodayMeetingModel
 import com.teamkkumul.model.home.UserModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -208,58 +204,33 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun initObserveBtnState() = with(binding) {
-        observeBtnState(
-            viewModel.readyBtnState,
-            btnHomeReady,
-            ivHomeReadyCircle,
-            pgHomeReady,
-            null,
-        )
-        observeBtnState(
-            viewModel.movingStartBtnState,
-            binding.btnHomeMoving,
-            ivHomeMovingCircle,
-            pgHomeMoving,
-            null,
-        )
-        observeBtnState(
-            viewModel.completedBtnState,
-            binding.btnHomeArrive,
-            ivHomeArriveCircle,
-            pgHomeArrive,
-            pgHomeArriveEnd,
-        )
-    }
-
-    private fun observeBtnState(
-        stateFlow: StateFlow<BtnState>,
-        button: MaterialButton,
-        circle: ImageView,
-        progressBar: LinearProgressIndicator,
-        progressBarEnd: LinearProgressIndicator?,
-    ) {
-        stateFlow.flowWithLifecycle(viewLifeCycle).onEach { state ->
-            setUpButton(state, button, circle, progressBar, progressBarEnd)
-        }.launchIn(viewLifeCycleScope)
-    }
-
-    private fun setUpButton(
-        state: BtnState,
-        button: MaterialButton,
-        circle: ImageView,
-        progressBar: LinearProgressIndicator,
-        progressBarEnd: LinearProgressIndicator?,
-    ) {
-        button.apply {
-            setStrokeColorResource(state.strokeColor)
-            setTextColor(colorOf(state.textColor))
-            setBackgroundColor(colorOf(state.backGroundColor))
-            isEnabled = state.isEnabled
+        observeBtnState(stateFlow = viewModel.readyBtnState) { state ->
+            setUpButton(
+                state = state,
+                button = btnHomeReady,
+                circle = ivHomeReadyCircle,
+                progressBar = pgHomeReady,
+                helpText = tvHomeReadyHelpText,
+            )
         }
-        circle.setImageResource(state.circleImage)
-        progressBar.progress = state.progress
-        if (progressBarEnd != null) {
-            progressBarEnd.progress = state.progress
+        observeBtnState(stateFlow = viewModel.movingStartBtnState) { state ->
+            setUpButton(
+                state = state,
+                button = binding.btnHomeMoving,
+                circle = ivHomeMovingCircle,
+                progressBar = pgHomeMoving,
+                helpText = tvHomeMovingHelpText,
+            )
+        }
+        observeBtnState(stateFlow = viewModel.completedBtnState) { state ->
+            setUpButton(
+                state = state,
+                button = btnHomeArrive,
+                circle = ivHomeArriveCircle,
+                progressBar = pgHomeArrive,
+                progressBarEnd = pgHomeArriveEnd,
+                helpText = tvHomeCompletedHelpText,
+            )
         }
     }
 
