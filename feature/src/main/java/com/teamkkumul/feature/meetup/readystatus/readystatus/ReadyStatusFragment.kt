@@ -5,6 +5,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -244,38 +245,47 @@ class ReadyStatusFragment :
     }
 
     private fun initObserveBtnState() = with(binding) {
-        observeBtnState(
-            viewModel.readyBtnState,
-            btnHomeReady,
-            ivHomeReadyCircle,
-            pgHomeReady,
-            null,
-        )
-        observeBtnState(
-            viewModel.movingStartBtnState,
-            binding.btnHomeMoving,
-            ivHomeMovingCircle,
-            pgHomeMoving,
-            null,
-        )
-        observeBtnState(
-            viewModel.completedBtnState,
-            binding.btnHomeArrive,
-            ivHomeArriveCircle,
-            pgHomeArrive,
-            pgHomeArriveEnd,
-        )
+        // observeBtnState를 람다식으로 처리
+        observeBtnState(viewModel.readyBtnState) { state ->
+            setUpButton(
+                state,
+                btnHomeReady,
+                ivHomeReadyCircle,
+                pgHomeReady,
+                null,
+                tvHomeReadyHelpText,
+            )
+        }
+
+        observeBtnState(viewModel.movingStartBtnState) { state ->
+            setUpButton(
+                state,
+                btnHomeMoving,
+                ivHomeMovingCircle,
+                pgHomeMoving,
+                null,
+                tvHomeMovingHelpText,
+            )
+        }
+
+        observeBtnState(viewModel.completedBtnState) { state ->
+            setUpButton(
+                state,
+                btnHomeArrive,
+                ivHomeArriveCircle,
+                pgHomeArrive,
+                pgHomeArriveEnd,
+                tvHomeCompletedHelpText,
+            )
+        }
     }
 
     private fun observeBtnState(
         stateFlow: StateFlow<BtnState>,
-        button: MaterialButton,
-        circle: ImageView,
-        progressBar: LinearProgressIndicator,
-        progressBarEnd: LinearProgressIndicator?,
+        onStateChanged: (BtnState) -> Unit,
     ) {
         stateFlow.flowWithLifecycle(viewLifeCycle).onEach { state ->
-            setUpButton(state, button, circle, progressBar, progressBarEnd)
+            onStateChanged(state)
         }.launchIn(viewLifeCycleScope)
     }
 
