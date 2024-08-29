@@ -94,7 +94,7 @@ class ReadyStatusFragment :
         handleButtonClicks(data)
 
         val preparationAvailable = data.preparationTime != null
-        updateReadyStatusInfoVisibility(preparationAvailable)
+        updateReadyTimeAlarmVisibility(preparationAvailable)
 
         if (!preparationAvailable) return
         updateReadyAndMovingTimes(data)
@@ -109,7 +109,7 @@ class ReadyStatusFragment :
         viewModel.setPopUpVisible(data.preparationTime == null)
     }
 
-    private fun updateReadyStatusInfoVisibility(preparationAvailable: Boolean) = with(binding) {
+    private fun updateReadyTimeAlarmVisibility(preparationAvailable: Boolean) = with(binding) {
         groupReadyInfoInput.setVisible(preparationAvailable)
         tvReadyInfoNext.setVisible(!preparationAvailable)
     }
