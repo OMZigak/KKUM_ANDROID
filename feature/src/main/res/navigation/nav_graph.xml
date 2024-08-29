@@ -186,6 +186,11 @@
         <action
             android:id="@+id/action_fragment_meet_up_container_to_meetUpCreateFragment"
             app:destination="@id/fragment_meet_up_create" />
+        <action
+            android:id="@+id/action_fragment_meet_up_container_to_fragment_home"
+            app:destination="@id/fragment_home"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
