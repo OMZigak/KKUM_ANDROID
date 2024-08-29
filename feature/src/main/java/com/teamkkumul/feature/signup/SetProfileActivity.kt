@@ -41,12 +41,13 @@ class SetProfileActivity :
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
                 val selectedImageUri: Uri? = data?.data
-                selectedImageUri?.let {
+                selectedImageUri?.let { uri ->
+                    this.selectedImageUri = uri.toString()
                     with(binding) {
-                        ivBtnSetProfile.load(selectedImageUri)
+                        ivBtnSetProfile.load(uri)
                         btnOkay.isEnabled = true
                     }
-                    setProfileViewModel.setPhotoUri(selectedImageUri.toString())
+                    setProfileViewModel.setPhotoUri(this.selectedImageUri)
                 }
             }
         }
@@ -70,18 +71,18 @@ class SetProfileActivity :
         setProfileViewModel.updateImageState.flowWithLifecycle(lifecycle).onEach {
             when (it) {
                 is UiState.Success -> {
-                    if (sourceFragment == SET_NAME_ACTIVITY) {
-                        inputName?.let { navigateToWelcome(it) }
-                    } else if (sourceFragment == MY_PAGE_FRAGMENT) {
-                        val intent = Intent().apply {
-                            putExtra(PROFILE_IMAGE_URL, selectedImageUri ?: profileImageUrl)
+                    when (sourceFragment) {
+                        SET_NAME_ACTIVITY -> {
+                            inputName?.let { navigateToWelcome(it) }
                         }
-                        setResult(Activity.RESULT_OK, intent)
-                        finish()
+
+                        MY_PAGE_FRAGMENT -> {
+                            setResult(Activity.RESULT_OK, intent)
+                            finish()
+                        }
                     }
                 }
 
-                is UiState.Failure -> {}
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
@@ -103,7 +104,11 @@ class SetProfileActivity :
 
     private fun initNotNowBtnClick() {
         binding.tvBtnNotNow.setOnClickListener {
-            inputName?.let { navigateToWelcome(it) }
+            if (sourceFragment == MY_PAGE_FRAGMENT) {
+                finish()
+            } else {
+                inputName?.let { navigateToWelcome(it) }
+            }
         }
     }
 

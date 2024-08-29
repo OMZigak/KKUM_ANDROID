@@ -6,13 +6,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
-import com.teamkkumul.core.ui.view.setTextColor
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
@@ -24,7 +24,11 @@ import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateOnly
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToMonthDay
 import com.teamkkumul.feature.utils.time.TimeUtils.parseTimeOnly
+import com.teamkkumul.feature.utils.time.setDday
 import com.teamkkumul.feature.utils.time.setDdayTextColor
+import com.teamkkumul.feature.utils.time.setMeetUpDetailImage
+import com.teamkkumul.feature.utils.time.setMeetUpDetailTextColor
+import com.teamkkumul.feature.utils.time.setMeetUpTitleColor
 import com.teamkkumul.model.MeetUpDetailModel
 import com.teamkkumul.model.MeetUpParticipantModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -100,7 +104,7 @@ class MeetUpDetailFragment :
     }
 
     private fun successMeetUpDetailState(meetUpDetailModel: MeetUpDetailModel) {
-        val (dDayString, dDayInt) = meetUpDetailModel.time.calculateDday()
+        val dDay = meetUpDetailModel.time.calculateDday()
         with(binding) {
             tvMeetUpName.text = meetUpDetailModel.promiseName
             tvMeetUpDetailLocation.text = meetUpDetailModel.placeName
@@ -108,18 +112,16 @@ class MeetUpDetailFragment :
                 "${meetUpDetailModel.time.parseDateToMonthDay()} ${meetUpDetailModel.time.formatTimeToPmAm()}"
             tvMeetUpDetailReadyLevel.text = meetUpDetailModel.dressUpLevel
             tvMeetUpDetailPenalty.text = meetUpDetailModel.penalty
-            tvMeetUpDetailDday.text = dDayString
-            tvMeetUpDetailDday.setTextColor(
-                context?.getColor(setDdayTextColor(dDayInt)) ?: R.color.gray3,
-            )
+            tvMeetUpDetailDday.text = setDday(dDay)
+            tvMeetUpDetailDday.setTextColor(colorOf(setDdayTextColor(dDay)))
 
-            if (dDayInt > 0) {
-                ivMeetUpDday.setImageResource(R.drawable.ic_meet_up_detail_receipt_gray)
-                groupMeetUpDetail.setTextColor(colorOf(R.color.gray4))
-            } else {
-                ivMeetUpDday.setImageResource(R.drawable.ic_meet_up_detail_receipt)
-                groupMeetUpDetail.setTextColor(colorOf(R.color.main_color))
-            }
+            ivMeetUpDday.load(setMeetUpDetailImage(dDay))
+            tvMeetUpName.setTextColor(colorOf(setMeetUpTitleColor(dDay)))
+            tvMeetUpParticipatePeople.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
+            tvMeetUpDetailInformationLocation.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
+            tvMeetUpDetailInformationTime.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
+            tvMeetUpDetailInformationReadyLevel.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
+            tvMeetUpDetailInformationPenalty.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
         }
     }
 

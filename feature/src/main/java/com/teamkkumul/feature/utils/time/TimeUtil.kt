@@ -38,19 +38,13 @@ object TimeUtils {
         return outputSimpleDateFormat.format(date)
     }
 
-    fun String.calculateDday(): Pair<String, Int> {
+    fun String.calculateDday(): Int {
         val eventDate = outputDateFormat.parse(outputDateFormat.format(inputFormat.parse(this)))
         val currentDate = outputDateFormat.parse(outputDateFormat.format(System.currentTimeMillis()))
 
         val diffInMillis = eventDate.time - currentDate.time
         val dDay = -(diffInMillis / (1000 * 60 * 60 * 24)).toInt()
 
-        val dDayString = when {
-            dDay > 0 -> "D+$dDay"
-            dDay == 0 -> "D-DAY"
-            else -> "D$dDay"
-        }
-
-        return Pair(dDayString, dDay)
+        return dDay
     }
 }
