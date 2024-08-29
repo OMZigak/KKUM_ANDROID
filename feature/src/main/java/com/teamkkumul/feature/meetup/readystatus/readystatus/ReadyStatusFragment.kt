@@ -106,7 +106,7 @@ class ReadyStatusFragment :
         tvHomeReadyTime.text = data.preparationStartAt
         tvHomeMovingTime.text = data.departureAt
         tvHomeArriveTime.text = data.arrivalAt
-        viewModel.setPopUpVisible(data.preparationTime == null)
+        viewModel.setPopUpVisible(data.preparationStartAt == null)
     }
 
     private fun updateReadyTimeAlarmVisibility(preparationAvailable: Boolean) = with(binding) {

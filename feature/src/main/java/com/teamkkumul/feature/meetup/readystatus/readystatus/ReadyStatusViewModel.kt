@@ -8,10 +8,8 @@ import com.teamkkumul.feature.utils.model.BtnState
 import com.teamkkumul.model.home.HomeMembersStatus
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,8 +39,8 @@ class ReadyStatusViewModel @Inject constructor(
         MutableStateFlow<UiState<List<HomeMembersStatus.Participant?>>>(UiState.Loading)
     val membersReadyStatus get() = _membersReadyStatus.asStateFlow()
 
-    private val _popUpVisible = MutableSharedFlow<Boolean>()
-    val popUpVisible get() = _popUpVisible.asSharedFlow()
+    private val _popUpVisible = MutableStateFlow<Boolean>(true)
+    val popUpVisible get() = _popUpVisible.asStateFlow()
 
     fun setPopUpVisible(isVisible: Boolean) {
         viewModelScope.launch {
