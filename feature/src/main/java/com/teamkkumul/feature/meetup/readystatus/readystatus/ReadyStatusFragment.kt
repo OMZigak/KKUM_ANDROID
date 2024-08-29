@@ -285,6 +285,7 @@ class ReadyStatusFragment :
         circle: ImageView,
         progressBar: LinearProgressIndicator,
         progressBarEnd: LinearProgressIndicator?,
+        helpText: TextView,
     ) {
         button.apply {
             setStrokeColorResource(state.strokeColor)
@@ -294,9 +295,8 @@ class ReadyStatusFragment :
         }
         circle.setImageResource(state.circleImage)
         progressBar.progress = state.progress
-        if (progressBarEnd != null) {
-            progressBarEnd.progress = state.progress
-        }
+        progressBarEnd?.progress = state.progress
+        helpText.setVisible(state.isHelpTextVisible)
     }
 
     companion object {
