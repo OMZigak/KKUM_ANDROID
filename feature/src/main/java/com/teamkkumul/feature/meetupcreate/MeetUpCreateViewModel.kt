@@ -29,21 +29,6 @@ class MeetUpCreateViewModel @Inject constructor(
     private val _meetUpInputState = MutableStateFlow(false)
     val meetUpInputState: StateFlow<Boolean> get() = _meetUpInputState
 
-    private val _meetUpLocation = MutableStateFlow<String>("")
-    val meetUpLocation: StateFlow<String> get() = _meetUpLocation
-
-    private val _meetUpLocationX = MutableStateFlow<String>("")
-    val meetUpLocationX: StateFlow<String> get() = _meetUpLocationX
-
-    private val _meetUpLocationY = MutableStateFlow<String>("")
-    val meetUpLocationY: StateFlow<String> get() = _meetUpLocationY
-
-    private val _meetUpDate = MutableStateFlow<String>("")
-    val meetUpDate: StateFlow<String> get() = _meetUpDate
-
-    private val _meetUpTime = MutableStateFlow<String>("")
-    val meetUpTime: StateFlow<String> get() = _meetUpTime
-
     private val _meetUpCreateLocationState =
         MutableStateFlow<UiState<List<MeetUpCreateLocationModel.Location>>>(UiState.Loading)
     val meetUpCreateLocationState get() = _meetUpCreateLocationState.asStateFlow()
@@ -82,6 +67,8 @@ class MeetUpCreateViewModel @Inject constructor(
             penalty = "",
             promiseId = -1,
             meetUpType = MeetUpType.CREATE.name,
+            date = "",
+            meetingId = -1,
         ),
     )
 
@@ -110,41 +97,8 @@ class MeetUpCreateViewModel @Inject constructor(
         }
     }
 
-    fun setMeetUpDate(input: String) {
-        viewModelScope.launch {
-            _meetUpDate.emit(input)
-            validateForm()
-        }
-    }
-
-    fun setMeetUpTime(input: String) {
-        viewModelScope.launch {
-            _meetUpTime.emit(input)
-            validateForm()
-        }
-    }
-
     fun setProgressBar(value: Int) {
         _progressLiveData.value = value
-    }
-
-    fun setMeetUpLocation(location: String) {
-        viewModelScope.launch {
-            _meetUpLocation.emit(location)
-            validateForm()
-        }
-    }
-
-    fun setMeetUpLocationX(x: String) {
-        viewModelScope.launch {
-            _meetUpLocationX.emit(x)
-        }
-    }
-
-    fun setMeetUpLocationY(y: String) {
-        viewModelScope.launch {
-            _meetUpLocationY.emit(y)
-        }
     }
 
     fun setMeetUpName(input: Boolean) {
@@ -195,13 +149,24 @@ class MeetUpCreateViewModel @Inject constructor(
         }
     }
 
+    //    private fun validateForm() {
+//        viewModelScope.launch {
+//            val isFormValid =
+//                _meetUpLocation.value.isNotEmpty() &&
+//                        _meetUpDate.value.isNotEmpty() &&
+//                        _meetUpTime.value.isNotEmpty() &&
+//                        _meetUpName.value
+//
+//            _meetUpInputState.emit(isFormValid)
+//        }
+//    }
     private fun validateForm() {
         viewModelScope.launch {
             val isFormValid =
-                _meetUpLocation.value.isNotEmpty() &&
-                    _meetUpDate.value.isNotEmpty() &&
-                    _meetUpTime.value.isNotEmpty() &&
-                    _meetUpName.value
+                !_meetUpCreateModel.value.date.isNullOrEmpty() &&
+                        _meetUpCreateModel.value.time.isNotEmpty() &&
+                        _meetUpCreateModel.value.placeName.isNotEmpty() &&
+                        _meetUpName.value
 
             _meetUpInputState.emit(isFormValid)
         }
@@ -221,6 +186,8 @@ class MeetUpCreateViewModel @Inject constructor(
         penalty: String? = null,
         promiseId: Int? = null,
         meetupType: String? = null,
+        date: String? = null,
+        meetingId: Int? = null,
     ) {
         // copy 메서드를 사용하여 현재 상태를 기반으로 일부 필드를 업데이트
         _meetUpCreateModel.value = _meetUpCreateModel.value.copy(
@@ -236,11 +203,14 @@ class MeetUpCreateViewModel @Inject constructor(
             penalty = penalty ?: _meetUpCreateModel.value.penalty,
             promiseId = promiseId ?: _meetUpCreateModel.value.promiseId,
             meetUpType = meetupType ?: _meetUpCreateModel.value.meetUpType,
+            date = date ?: _meetUpCreateModel.value.date,
+            meetingId = meetingId ?: _meetUpCreateModel.value.meetingId
         )
     }
 
-    // promiseId를 안전하게 반환하는 헬퍼 함수
+    // promiseId, meetingId를 안전하게 반환하는 헬퍼 함수
     fun getPromiseId() = meetUpCreateModel.value.promiseId ?: -1
+    fun getMeetingId() = meetUpCreateModel.value.meetingId ?: -1
 
     fun isEditMode(): Boolean = getMeetUpType() == MeetUpType.EDIT.name
 
