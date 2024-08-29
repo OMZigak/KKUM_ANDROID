@@ -45,6 +45,7 @@ class MeetUpLevelFragment :
         setupChipGroups(chipGroups, btnCreateMeetUp)
 
         if (sharedViewModel.isEditMode()) {
+            getPreviousChipGroupState()
             setupEditMeetUpButton(btnCreateMeetUp, sharedViewModel.getPromiseId(), selectedItems)
             initObserveMeetUpEdit()
         } else {
@@ -74,7 +75,7 @@ class MeetUpLevelFragment :
         viewModel.meetUpEditState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> {
-//                    viewModel.updateMeetUpModel(promiseId = it.data)
+                    // viewModel.updateMeetUpModel(promiseId = it.data)
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete,
                     )
@@ -102,6 +103,14 @@ class MeetUpLevelFragment :
                     if (isChecked) {
                         val chipIndex = chipGroup.indexOfChild(buttonView)
                         onChipSelected(chipGroup, chipIndex)
+
+                        when (chipGroup.id) {
+                            R.id.cg_meet_up_level -> {
+                                val dressUpLevel = preprocessDressUpLevel(chip.text.toString())
+                                sharedViewModel.updateMeetUpModel(dressUpLevel = dressUpLevel)
+                            }
+                            R.id.cg_set_penalty -> sharedViewModel.updateMeetUpModel(penalty = chip.text.toString())
+                        }
                     }
                     updateChipStyle(chip, isChecked)
                     updateButtonState(chipGroups, btnCreateMeetUp)
@@ -198,6 +207,26 @@ class MeetUpLevelFragment :
             }
         }
         return ""
+    }
+
+    private fun getPreviousChipGroupState() {
+        val dressUpLevel = sharedViewModel.meetUpCreateModel.value.dressUpLevel
+        val penalty = sharedViewModel.meetUpCreateModel.value.penalty
+
+        getPreviousChipText(binding.cgMeetUpLevel, dressUpLevel)
+        getPreviousChipText(binding.cgSetPenalty, penalty)
+    }
+
+    private fun getPreviousChipText(chipGroup: ChipGroup, text: String?) {
+        text?.let {
+            for (i in 0 until chipGroup.childCount) {
+                val chip = chipGroup.getChildAt(i) as Chip
+                if (chip.text.toString() == text) {
+                    chip.isChecked = true
+                    break
+                }
+            }
+        }
     }
 
     companion object {
