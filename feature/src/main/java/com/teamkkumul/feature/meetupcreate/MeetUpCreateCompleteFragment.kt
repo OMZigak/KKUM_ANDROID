@@ -12,7 +12,7 @@ import com.teamkkumul.feature.utils.animateProgressBar
 
 class MeetUpCreateCompleteFragment :
     BindingFragment<FragmentMeetUpCreateCompleteBinding>(R.layout.fragment_meet_up_create_complete) {
-    private val sharedViewModel by activityViewModels<MeetUpCreateViewModel>()
+    private val sharedViewModel by activityViewModels<MeetUpSharedViewModel>()
 
     override fun initView() {
         setProgressBar(100)

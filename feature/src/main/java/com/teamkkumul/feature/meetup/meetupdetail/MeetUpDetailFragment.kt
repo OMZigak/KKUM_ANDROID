@@ -15,7 +15,7 @@ import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
-import com.teamkkumul.feature.meetupcreate.MeetUpCreateViewModel
+import com.teamkkumul.feature.meetupcreate.MeetUpSharedViewModel
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
@@ -40,7 +40,7 @@ import timber.log.Timber
 class MeetUpDetailFragment :
     BindingFragment<FragmentMeetUpDetailBinding>(R.layout.fragment_meet_up_detail) {
     private val viewModel: MeetUpDetailFriendViewModel by viewModels<MeetUpDetailFriendViewModel>()
-    private val sharedViewModel: MeetUpCreateViewModel by activityViewModels<MeetUpCreateViewModel>()
+    private val sharedViewModel: MeetUpSharedViewModel by activityViewModels<MeetUpSharedViewModel>()
     private var _meetUpDetailAdapter: MeetUpDetailListAdapter? = null
     private val meetUpDetailAdapter get() = requireNotNull(_meetUpDetailAdapter)
 
