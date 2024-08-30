@@ -46,11 +46,12 @@ class MeetUpCreateFragment :
         if (!isInitialized && sharedViewModel.isEditMode()) {
             initEditFlow()
             isInitialized = true
-            binding.tbMeetUpCreate.toolbarTitle.text = getString(R.string.edit_meet_up_title)
+            binding.tbMeetUpCreate.title = getString(R.string.edit_meet_up_title)
             navigateToEditFriend(sharedViewModel.getPromiseId())
         } else {
-            binding.tbMeetUpCreate.toolbarTitle.text = getString(R.string.create_meet_up_title)
+            binding.tbMeetUpCreate.title = getString(R.string.create_meet_up_title)
             navigateToFriend(meetingId)
+            Timber.tag("sS").d(getString(R.string.create_meet_up_title))
         }
 
         sharedViewModel.setProgressBar(25)
