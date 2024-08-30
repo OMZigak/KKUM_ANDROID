@@ -110,7 +110,6 @@ class MeetUpCreateFragment :
             findNavController().navigate(
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
             )
-            Timber.tag("checkeed").d(sharedViewModel.meetUpCreateModel.value.toString())
         }
     }
 
@@ -132,7 +131,6 @@ class MeetUpCreateFragment :
         setSingleLine(true)
         doAfterTextChanged {
             validInput(text.toString())
-            toast(text.toString())
         }
         setOnEditorActionListener { _, actionId, event ->
             if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER)) {
@@ -275,7 +273,6 @@ class MeetUpCreateFragment :
     }
 
     private fun isFormComplete(): Boolean {
-        Timber.tag("ddddd").d(viewModel.meetUpName.value.toString())
         return viewModel.meetUpName.value &&
             timeEntered &&
             dateEntered &&
