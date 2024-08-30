@@ -14,21 +14,11 @@ class MeetUpCreateViewModel @Inject constructor() : ViewModel() {
     private val _meetUpInputState = MutableStateFlow(false)
     val meetUpInputState: StateFlow<Boolean> get() = _meetUpInputState
     private val _meetUpName = MutableStateFlow<Boolean>(false)
-
-//    fun setMeetUpName(input: Boolean) {
-//        viewModelScope.launch {
-//            _meetUpName.emit(input)
-//        }
-//    }
-
-//    private fun validateForm() {
-//        viewModelScope.launch {
-//            val isFormValid =
-//                !meetUpCreateModel.value.date.isNullOrEmpty() &&
-//                    _meetUpCreateModel.value.time.isNotEmpty() &&
-//                    _meetUpCreateModel.value.placeName.isNotEmpty() &&
-//                    _meetUpCreateModel.value.name.isNotEmpty()
-//            _meetUpInputState.emit(isFormValid)
-//        }
-//    }
+    val meetUpName: StateFlow<Boolean> get() = _meetUpName
+    fun setMeetUpName(input: Boolean) {
+        viewModelScope.launch {
+            _meetUpName.emit(input)
+            _meetUpInputState.value = _meetUpName.value
+        }
+    }
 }

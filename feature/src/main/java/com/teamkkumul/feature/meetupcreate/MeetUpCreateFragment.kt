@@ -13,12 +13,12 @@ import com.google.android.material.timepicker.TimeFormat
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.hideKeyboard
 import com.teamkkumul.core.ui.util.fragment.colorOf
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpCreateBinding
 import com.teamkkumul.feature.utils.KeyStorage
-import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.time.TimeUtils.changeDateToText
 import com.teamkkumul.feature.utils.time.TimeUtils.changeTimeToPmAm
@@ -37,14 +37,12 @@ class MeetUpCreateFragment :
     private val sharedViewModel: MeetUpSharedViewModel by activityViewModels<MeetUpSharedViewModel>()
     private val viewModel: MeetUpCreateViewModel by viewModels<MeetUpCreateViewModel>()
     private var isInitialized = false
+    private var timeEntered = false
+    private var dateEntered = false
 
     override fun initView() {
-        val meetUpType =
-            arguments?.getString(KeyStorage.MEET_UP_TYPE) ?: MeetUpType.CREATE.name
-        val id = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
-        val promiseId = arguments?.getInt(KeyStorage.PROMISE_ID) ?: -1
+        val meetingId = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
 
-        Timber.tag("checkkkk").d(id.toString())
         if (!isInitialized && sharedViewModel.isEditMode()) {
             initEditFlow()
             isInitialized = true
@@ -52,10 +50,9 @@ class MeetUpCreateFragment :
             navigateToEditFriend(sharedViewModel.getPromiseId())
         } else {
             binding.tbMeetUpCreate.toolbarTitle.text = getString(R.string.create_meet_up_title)
-            navigateToFriend(id)
+            navigateToFriend(meetingId)
         }
 
-        Timber.tag("ce").d(meetUpType)
         sharedViewModel.setProgressBar(25)
         binding.clMeetUpDate.setOnClickListener {
             showDatePickerDialog()
@@ -70,7 +67,6 @@ class MeetUpCreateFragment :
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_location,
             )
         }
-
         binding.tbMeetUpCreate.toolbarMyPageLine.visibility = View.GONE
 
         observeMeetUpDate()
@@ -84,7 +80,8 @@ class MeetUpCreateFragment :
     private fun initEditFlow() {
         binding.etMeetUpName.setText(sharedViewModel.meetUpCreateModel.value.name)
         validInput(sharedViewModel.meetUpCreateModel.value.name)
-        Timber.tag("checkee").d(sharedViewModel.meetUpCreateModel.value.toString())
+        binding.tvMeetUpCreateDateEnter.text =
+            sharedViewModel.meetUpCreateModel.value.date?.changeDateToText()
         binding.tvMeetUpCreateDateEnter.text =
             sharedViewModel.meetUpCreateModel.value.date?.changeDateToText()
         binding.tvMeetUpCreateTimeEnter.text =
@@ -93,32 +90,22 @@ class MeetUpCreateFragment :
     }
 
     private fun observeFormValidation() {
-        viewModel.meetUpInputState.flowWithLifecycle(viewLifeCycle).onEach { isFormValid ->
-            val isComplete = isFormComplete()
-            binding.btnMeetUpCreateNext.isEnabled = isComplete
+        viewModel.meetUpInputState.flowWithLifecycle(viewLifeCycle).onEach {
+            binding.btnMeetUpCreateNext.isEnabled = isFormComplete()
         }.launchIn(viewLifeCycleScope)
     }
 
     private fun navigateToEditFriend(promiseId: Int) {
         binding.btnMeetUpCreateNext.setOnClickListener {
-            updateSharedViewmodel()
             findNavController().navigate(
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
             )
         }
     }
 
-    private fun updateSharedViewmodel() {
-        sharedViewModel.updateMeetUpModel(
-            name = binding.etMeetUpName.text.toString(),
-            time = binding.tvMeetUpCreateTimeEnter.text.toString(),
-            date = binding.tvMeetUpCreateDateEnter.text.toString(),
-        )
-    }
-
     private fun navigateToFriend(id: Int) {
         binding.btnMeetUpCreateNext.setOnClickListener {
-            updateSharedViewmodel()
+            sharedViewModel.updateMeetUpModel(meetingId = id)
             findNavController().navigate(
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
             )
@@ -144,6 +131,7 @@ class MeetUpCreateFragment :
         setSingleLine(true)
         doAfterTextChanged {
             validInput(text.toString())
+            toast(text.toString())
         }
         setOnEditorActionListener { _, actionId, event ->
             if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER)) {
@@ -165,13 +153,15 @@ class MeetUpCreateFragment :
             setColor(R.color.main_color)
             setInputTextColor(R.color.black0)
             setErrorState(null)
+            viewModel.setMeetUpName(true)
         } else {
             setColor(R.color.red)
             setInputTextColor(R.color.red)
             setErrorState(getString(R.string.meet_up_name_error_message))
         }
         updateCounter(input.length)
-//        viewModel.setMeetUpName(isValid)
+        viewModel.setMeetUpName(isValid)
+        binding.btnMeetUpCreateNext.isEnabled = isFormComplete()
     }
 
     private fun setInputTextColor(colorResId: Int) {
@@ -226,9 +216,11 @@ class MeetUpCreateFragment :
     private fun observeMeetUpDate() {
         sharedViewModel.meetUpCreateModel.flowWithLifecycle(viewLifeCycle).onEach {
             if (!it.date.isNullOrEmpty()) {
-                binding.tvMeetUpCreateDateEnter.text = it.date.toString()
+                binding.tvMeetUpCreateDateEnter.text = it.date.toString().changeDateToText()
                 binding.tvMeetUpCreateDateEnter.setTextColor(colorOf(R.color.gray8))
                 binding.ivMeetUpDate.setImageResource(R.drawable.ic_date_fill_24)
+                dateEntered = true
+                observeFormValidation()
             }
         }.launchIn(viewLifeCycleScope)
     }
@@ -274,15 +266,20 @@ class MeetUpCreateFragment :
                 binding.tvMeetUpCreateTimeEnter.text = it.time.changeTimeToPmAm()
                 binding.tvMeetUpCreateTimeEnter.setTextColor(colorOf(R.color.gray8))
                 binding.ivMeetUpTime.setImageResource(R.drawable.ic_time_fill_24)
+                timeEntered = true
+                observeFormValidation()
             }
+            Timber.tag("time").d(timeEntered.toString())
         }.launchIn(viewLifeCycleScope)
     }
 
-    private fun isFormComplete(): Boolean =
-        binding.etMeetUpName.text.toString().isNotEmpty() &&
-            binding.tvMeetUpCreateDateEnter.text.isNotEmpty() &&
-            binding.tvMeetUpCreateTimeEnter.text.isNotEmpty() &&
+    private fun isFormComplete(): Boolean {
+        Timber.tag("ddddd").d(viewModel.meetUpName.value.toString())
+        return viewModel.meetUpName.value &&
+            timeEntered &&
+            dateEntered &&
             binding.tvMeetUpCreateLocationEnter.text.isNotEmpty()
+    }
 
     companion object {
         private const val NAME_PATTERN = "^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣\\s]{1,10}$"
