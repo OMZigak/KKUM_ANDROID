@@ -13,7 +13,6 @@ import com.google.android.material.timepicker.TimeFormat
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.context.hideKeyboard
 import com.teamkkumul.core.ui.util.fragment.colorOf
-import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.feature.R
@@ -51,7 +50,6 @@ class MeetUpCreateFragment :
         } else {
             binding.tbMeetUpCreate.title = getString(R.string.create_meet_up_title)
             navigateToFriend(meetingId)
-            Timber.tag("sS").d(getString(R.string.create_meet_up_title))
         }
 
         sharedViewModel.setProgressBar(25)
@@ -98,6 +96,7 @@ class MeetUpCreateFragment :
 
     private fun navigateToEditFriend(promiseId: Int) {
         binding.btnMeetUpCreateNext.setOnClickListener {
+            sharedViewModel.updateMeetUpModel(name = binding.etMeetUpName.text.toString())
             findNavController().navigate(
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
             )
@@ -106,6 +105,7 @@ class MeetUpCreateFragment :
 
     private fun navigateToFriend(id: Int) {
         binding.btnMeetUpCreateNext.setOnClickListener {
+            sharedViewModel.updateMeetUpModel(name = binding.etMeetUpName.text.toString())
             sharedViewModel.updateMeetUpModel(meetingId = id)
             findNavController().navigate(
                 R.id.action_fragment_meet_up_create_to_fragment_meet_up_create_friend,
@@ -148,7 +148,6 @@ class MeetUpCreateFragment :
                 nameRegex,
             )
         if (isValid) {
-            sharedViewModel.updateMeetUpModel(name = input)
             setColor(R.color.main_color)
             setInputTextColor(R.color.black0)
             setErrorState(null)
