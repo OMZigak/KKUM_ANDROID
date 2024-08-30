@@ -15,8 +15,7 @@
         <include
             android:id="@+id/tb_meet_up_create"
             layout="@layout/view_toolbar"
-            app:title="@{@string/add_meet_up_title}"
-            />
+            app:title="@{@string/add_meet_up_title}" />
 
         <ProgressBar
             android:id="@+id/pb_meet_up_create_friend"
@@ -91,25 +90,25 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="48dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toTopOf="@id/tv_meet_up_friend_plus_next"
+                app:layout_constraintBottom_toTopOf="@id/btn_meet_up_create_next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_meet_up_do_plus"
-                tools:listitem="@layout/item_meet_up_create_friend"></androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/item_meet_up_create_friend">
+            </androidx.recyclerview.widget.RecyclerView>
 
-            <TextView
-                android:id="@+id/tv_meet_up_friend_plus_next"
-                style="@style/TextAppearance.Kkumul.body_03"
+            <Button
+                android:id="@+id/btn_meet_up_create_next"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginBottom="50dp"
-                android:background="@drawable/shape_radius_8"
-                android:backgroundTint="@color/gray2"
-                android:paddingVertical="14dp"
+                android:background="@drawable/sel_btn"
+                android:enabled="false"
                 android:text="@string/next"
-                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 android:textColor="@color/white0"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="332:50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
