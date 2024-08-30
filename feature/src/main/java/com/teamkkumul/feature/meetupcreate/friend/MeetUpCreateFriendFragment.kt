@@ -36,9 +36,13 @@ class MeetUpCreateFriendFragment :
     private var selectedItems: MutableList<Int> = mutableListOf()
 
     override fun initView() {
-        if (sharedViewModel.isEditMode()) initSetEditMemberUI(sharedViewModel.getPromiseId())
-        else initSetDefaultMemberUI(sharedViewModel.getMeetingId())
-
+        if (sharedViewModel.isEditMode()) {
+            binding.tbMeetUpCreate.title = getString(R.string.edit_meet_up_title)
+            initSetEditMemberUI(sharedViewModel.getPromiseId())
+        } else {
+            binding.tbMeetUpCreate.title = getString(R.string.create_meet_up_title)
+            initSetDefaultMemberUI(sharedViewModel.getMeetingId())
+        }
         updateTobBarUi()
         initNextButton()
         observeProgress()

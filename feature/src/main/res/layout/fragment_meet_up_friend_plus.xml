@@ -14,8 +14,7 @@
 
         <include
             android:id="@+id/tb_meet_up_create"
-            layout="@layout/view_toolbar"
-            app:title="@{@string/add_meet_up_title}" />
+            layout="@layout/view_toolbar" />
 
         <ProgressBar
             android:id="@+id/pb_meet_up_create_friend"
@@ -94,8 +93,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_meet_up_do_plus"
-                tools:listitem="@layout/item_meet_up_create_friend">
-            </androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/item_meet_up_create_friend"></androidx.recyclerview.widget.RecyclerView>
 
             <Button
                 android:id="@+id/btn_meet_up_create_next"

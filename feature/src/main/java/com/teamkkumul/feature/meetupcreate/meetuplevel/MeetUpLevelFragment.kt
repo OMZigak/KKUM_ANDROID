@@ -45,11 +45,12 @@ class MeetUpLevelFragment :
         setupChipGroups(chipGroups, btnCreateMeetUp)
 
         if (sharedViewModel.isEditMode()) {
+            binding.tbMeetUpCreate.title = getString(R.string.edit_meet_up_title)
             setupEditMeetUpButton(btnCreateMeetUp, sharedViewModel.getPromiseId(), selectedItems)
             initObserveMeetUpEdit()
         } else {
+            binding.tbMeetUpCreate.title = getString(R.string.create_meet_up_title)
             setupCreateMeetUpButton(btnCreateMeetUp, sharedViewModel.getMeetingId(), selectedItems)
-            Timber.tag("meetingid").d(sharedViewModel.getMeetingId().toString())
             initObserveMeetUpCreate()
         }
     }
@@ -74,7 +75,6 @@ class MeetUpLevelFragment :
         viewModel.meetUpEditState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> {
-//                    viewModel.updateMeetUpModel(promiseId = it.data)
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_level_to_fragment_add_meet_up_complete,
                     )
