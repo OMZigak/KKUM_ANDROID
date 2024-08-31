@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:src="@drawable/ic_penalty_icon"
+            android:src="@drawable/ic_penalty_green_24"
             app:layout_constraintBottom_toBottomOf="@id/iv_box_penalty"
             app:layout_constraintStart_toStartOf="@id/iv_box_penalty"
             app:layout_constraintTop_toTopOf="@id/iv_box_penalty" />
