@@ -50,6 +50,7 @@ internal fun ResponseMeetUpDetailDto.toMeetUpDetailModel(): MeetUpDetailModel =
         promiseName = promiseName,
         x = x,
         y = y,
+        promiseId = promiseId
     )
 
 internal fun ResponseLatePersonDto.toLatePersonModel(): LatePersonModel {

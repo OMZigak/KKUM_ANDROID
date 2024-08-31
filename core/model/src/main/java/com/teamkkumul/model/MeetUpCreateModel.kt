@@ -13,4 +13,6 @@ data class MeetUpCreateModel(
     val penalty: String,
     val promiseId: Int? = null,
     val meetUpType: String? = null,
+    val date: String? = null,
+    val meetingId: Int? = null
 )

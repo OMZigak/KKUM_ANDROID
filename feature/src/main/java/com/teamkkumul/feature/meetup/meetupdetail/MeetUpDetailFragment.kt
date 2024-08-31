@@ -2,18 +2,20 @@ package com.teamkkumul.feature.meetup.meetupdetail
 
 import android.os.Bundle
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
-import com.teamkkumul.feature.utils.KeyStorage
+import com.teamkkumul.feature.meetupcreate.MeetUpSharedViewModel
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
@@ -37,8 +39,8 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MeetUpDetailFragment :
     BindingFragment<FragmentMeetUpDetailBinding>(R.layout.fragment_meet_up_detail) {
-    private val viewModel: MeetUpDetailFriendViewModel by activityViewModels<MeetUpDetailFriendViewModel>()
-
+    private val viewModel: MeetUpDetailFriendViewModel by viewModels<MeetUpDetailFriendViewModel>()
+    private val sharedViewModel: MeetUpSharedViewModel by activityViewModels<MeetUpSharedViewModel>()
     private var _meetUpDetailAdapter: MeetUpDetailListAdapter? = null
     private val meetUpDetailAdapter get() = requireNotNull(_meetUpDetailAdapter)
 
@@ -47,6 +49,7 @@ class MeetUpDetailFragment :
     }
 
     override fun initView() {
+        sharedViewModel.updateMeetUpModel(meetupType = MeetUpType.CREATE.name)
         initMemberRecyclerView()
         viewModel.getMeetUpParticipant(promiseId)
         viewModel.getMeetUpParticipantList(promiseId)
@@ -73,37 +76,32 @@ class MeetUpDetailFragment :
     private fun navigateToEditMeetUp() {
         viewModel.meetupDetailState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
+                is UiState.Failure -> toast("수정하기가 불가 합니다")
                 is UiState.Success -> {
-                    val meetUpDetailModel = uiState.data
-                    val bundle = Bundle().apply {
-                        putString(KeyStorage.MEET_UP_TYPE, MeetUpType.EDIT.toString())
-                        putInt(KeyStorage.PROMISE_ID, promiseId)
-                        putString(KeyStorage.MEET_UP_NAME, meetUpDetailModel.promiseName)
-                        putString(KeyStorage.MEET_UP_LOCATION, meetUpDetailModel.placeName)
-                        putString(
-                            KeyStorage.MEET_UP_DATE,
-                            meetUpDetailModel.time.parseDateOnly(),
-                        )
-                        putString(
-                            KeyStorage.MEET_UP_TIME,
-                            meetUpDetailModel.time.parseTimeOnly(),
-                        )
-                        putString(KeyStorage.MEET_UP_LOCATION_X, meetUpDetailModel.x.toString())
-                        putString(KeyStorage.MEET_UP_LOCATION_Y, meetUpDetailModel.y.toString())
-                        putString(KeyStorage.MEET_UP_LEVEL, meetUpDetailModel.dressUpLevel)
-                        putString(KeyStorage.MEET_UP_PENALTY, meetUpDetailModel.penalty)
-                    }
-                    Timber.tag("meet").d(bundle.toString())
+                    updateSharedViewModel(uiState.data)
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_container_to_meetUpCreateFragment,
-                        bundle,
                     )
                 }
 
-                is UiState.Failure -> Timber.tag("MeetUpDetailFragment").d(uiState.errorMessage)
                 else -> {}
             }
         }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun updateSharedViewModel(data: MeetUpDetailModel) {
+        sharedViewModel.updateMeetUpModel(
+            meetupType = MeetUpType.EDIT.name,
+            promiseId = data.promiseId,
+            name = data.promiseName,
+            placeName = data.placeName,
+            time = data.time.parseTimeOnly(),
+            date = data.time.parseDateOnly(),
+            x = data.x,
+            y = data.y,
+            penalty = data.penalty,
+            dressUpLevel = data.dressUpLevel,
+        )
     }
 
     private fun successMeetUpDetailState(meetUpDetailModel: MeetUpDetailModel) {
