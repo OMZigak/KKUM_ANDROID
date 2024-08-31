@@ -13,8 +13,7 @@
 
         <include
             android:id="@+id/tb_meet_up_create"
-            layout="@layout/view_toolbar"
-            app:title="@{@string/add_meet_up_title}" />
+            layout="@layout/view_toolbar" />
 
         <ProgressBar
             android:id="@+id/pb_meet_up_create_complete"

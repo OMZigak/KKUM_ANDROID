@@ -45,12 +45,13 @@ class MeetUpLevelFragment :
         setupChipGroups(chipGroups, btnCreateMeetUp)
 
         if (sharedViewModel.isEditMode()) {
+            binding.tbMeetUpCreate.title = getString(R.string.edit_meet_up_title)
             getPreviousChipGroupState()
             setupEditMeetUpButton(btnCreateMeetUp, sharedViewModel.getPromiseId(), selectedItems)
             initObserveMeetUpEdit()
         } else {
+            binding.tbMeetUpCreate.title = getString(R.string.create_meet_up_title)
             setupCreateMeetUpButton(btnCreateMeetUp, sharedViewModel.getMeetingId(), selectedItems)
-            Timber.tag("meetingid").d(sharedViewModel.getMeetingId().toString())
             initObserveMeetUpCreate()
         }
     }

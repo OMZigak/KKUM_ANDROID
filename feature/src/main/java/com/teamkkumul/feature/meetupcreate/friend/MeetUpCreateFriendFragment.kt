@@ -1,8 +1,6 @@
 package com.teamkkumul.feature.meetupcreate.friend
 
 import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -38,9 +36,13 @@ class MeetUpCreateFriendFragment :
     private var selectedItems: MutableList<Int> = mutableListOf()
 
     override fun initView() {
-        if (sharedViewModel.isEditMode()) initSetEditMemberUI(sharedViewModel.getPromiseId())
-        else initSetDefaultMemberUI(sharedViewModel.getMeetingId())
-
+        if (sharedViewModel.isEditMode()) {
+            binding.tbMeetUpCreate.title = getString(R.string.edit_meet_up_title)
+            initSetEditMemberUI(sharedViewModel.getPromiseId())
+        } else {
+            binding.tbMeetUpCreate.title = getString(R.string.create_meet_up_title)
+            initSetDefaultMemberUI(sharedViewModel.getMeetingId())
+        }
         updateTobBarUi()
         initNextButton()
         observeProgress()
@@ -106,7 +108,7 @@ class MeetUpCreateFriendFragment :
     }
 
     private fun updateNextButton(isEnabled: Boolean) {
-        with(binding.tvMeetUpFriendPlusNext) {
+        with(binding.btnMeetUpCreateNext) {
             this.isEnabled = isEnabled
             if (isEnabled) {
                 setOnClickListener {
@@ -116,18 +118,7 @@ class MeetUpCreateFriendFragment :
                     findNavController().navigate(
                         R.id.action_fragment_meet_up_create_friend_to_fragment_meet_up_level,
                     )
-                    Timber.tag("checkkk").d(sharedViewModel.meetUpCreateModel.value.toString())
                 }
-                ViewCompat.setBackgroundTintList(
-                    this,
-                    ContextCompat.getColorStateList(requireContext(), R.color.main_color),
-                )
-            } else {
-                setOnClickListener(null)
-                ViewCompat.setBackgroundTintList(
-                    this,
-                    ContextCompat.getColorStateList(requireContext(), R.color.gray2),
-                )
             }
         }
     }
@@ -141,7 +132,6 @@ class MeetUpCreateFriendFragment :
                     } else {
                         updateMeetUpCreateFriendVisibility(true)
                         friendCreateAdapter.submitList(uiState.data)
-                        Timber.tag("meee").d(uiState.data.toString())
                     }
                 }
 
@@ -164,7 +154,6 @@ class MeetUpCreateFriendFragment :
                     } else {
                         updateMeetUpCreateFriendVisibility(true)
                         friendEditAdapter.submitList(uiState.data)
-                        Timber.tag("meetupedit").d(uiState.data.toString())
                     }
                 }
 
