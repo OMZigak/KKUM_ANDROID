@@ -1,14 +1,19 @@
 package com.teamkkumul.feature.signup
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.teamkkumul.core.ui.base.BindingActivity
+import com.teamkkumul.core.ui.util.context.showPermissionAppSettingsDialog
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
@@ -28,6 +33,23 @@ class SetProfileActivity :
     private var inputName: String? = null
     private var selectedImageUri: String? = null
 
+    private lateinit var getGalleryLauncher: ActivityResultLauncher<String>
+    private lateinit var getPhotoPickerLauncher: ActivityResultLauncher<PickVisualMediaRequest>
+
+    private val requestPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            when (isGranted) {
+                true -> openGallery()
+                false -> handlePermissionDenied()
+            }
+        }
+
+    private fun handlePermissionDenied() {
+        if (!shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_IMAGES)) {
+            showPermissionAppSettingsDialog()
+        }
+    }
+
     private val sourceFragment: String by lazy {
         intent.getStringExtra(SOURCE_FRAGMENT) ?: ""
     }
@@ -36,22 +58,6 @@ class SetProfileActivity :
         intent.getStringExtra(PROFILE_IMAGE_URL)
     }
 
-    private val selectImageLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                val selectedImageUri: Uri? = data?.data
-                selectedImageUri?.let { uri ->
-                    this.selectedImageUri = uri.toString()
-                    with(binding) {
-                        ivBtnSetProfile.load(uri)
-                        btnOkay.isEnabled = true
-                    }
-                    setProfileViewModel.setPhotoUri(this.selectedImageUri)
-                }
-            }
-        }
-
     override fun initView() {
         inputName = intent.getStringExtra(INPUT_NAME)
         loadProfileImage()
@@ -59,6 +65,8 @@ class SetProfileActivity :
         initSetProfileBtnClick()
         initOkayBtnClick()
         initNotNowBtnClick()
+        initPhotoPickerLauncher()
+        initGalleryLauncher()
     }
 
     private fun loadProfileImage() {
@@ -90,7 +98,7 @@ class SetProfileActivity :
 
     private fun initSetProfileBtnClick() {
         binding.ivBtnSetProfile.setOnClickListener {
-            openGallery()
+            getGalleryPermission()
         }
     }
 
@@ -113,10 +121,46 @@ class SetProfileActivity :
     }
 
     private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK).apply {
-            type = "image/*"
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            getGalleryLauncher.launch("image/*")
+        } else {
+            getPhotoPickerLauncher.launch(
+                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
+            )
         }
-        selectImageLauncher.launch(intent)
+    }
+
+    private fun getGalleryPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            openGallery()
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions.launch(Manifest.permission.READ_MEDIA_IMAGES)
+        } else {
+            requestPermissions.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+    }
+
+    private fun initPhotoPickerLauncher() {
+        getPhotoPickerLauncher =
+            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
+                uploadSelectedProfileImage(it)
+            }
+    }
+
+    private fun initGalleryLauncher() {
+        getGalleryLauncher =
+            registerForActivityResult(ActivityResultContracts.GetContent()) {
+                uploadSelectedProfileImage(it)
+            }
+    }
+
+    private fun uploadSelectedProfileImage(imageUri: Uri?) {
+        imageUri?.let {
+            selectedImageUri = it.toString()
+            binding.ivBtnSetProfile.load(it)
+            setProfileViewModel.setPhotoUri(selectedImageUri)
+            binding.btnOkay.isEnabled = true
+        }
     }
 
     private fun navigateToWelcome(inputName: String) {

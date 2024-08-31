@@ -11,7 +11,7 @@ import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
-import com.teamkkumul.core.ui.view.setVisible
+import com.teamkkumul.core.ui.view.setInVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
@@ -80,6 +80,7 @@ class MyGroupDetailFragment :
                 R.id.action_myGroupDetailFragment_to_meetUpCreateFragment,
                 bundleOf(MEETING_ID to currentId),
             )
+            Timber.tag("checkeeee").d(currentId.toString())
         }
 
         binding.toolbarMyGroupDetail.ivBtnMore.setOnClickListener {
@@ -166,10 +167,6 @@ class MyGroupDetailFragment :
                     R.id.fragment_dialog_invitation_code,
                     bundleOf(CODE to code, SOURCE_FRAGMENT to MY_GROUP_DETAIL_FRAGMENT),
                 )
-                /* val dialog = DialogInvitationCodeFragment.newInstance(
-                     code,
-                 )
-                 dialog.show(parentFragmentManager, "DialogInvitationCodeFragment")*/
             },
         )
         binding.rvMyGroupFriendList.apply {
@@ -223,8 +220,8 @@ class MyGroupDetailFragment :
     }
 
     private fun updateTextVisibility(isVisible: Boolean) {
-        binding.vMeetUpIncludeMe.setVisible(isVisible)
-        binding.vAllMeetUp.setVisible(!isVisible)
+        binding.vMeetUpIncludeMe.setInVisible(isVisible)
+        binding.vAllMeetUp.setInVisible(!isVisible)
     }
 
     private fun updateTextAppearance(isSelected: Boolean) {

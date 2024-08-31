@@ -12,15 +12,14 @@
 
         <include
             android:id="@+id/tb_meet_up_create"
-            layout="@layout/view_toolbar"
-            app:title="@{@string/add_meet_up_title}" />
+            layout="@layout/view_toolbar" />
 
         <ProgressBar
             android:id="@+id/pb_meet_up_level"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:max="100"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:progress="0"
             android:progressDrawable="@drawable/pg_meet_up_green"
             app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create"
