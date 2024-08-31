@@ -7,5 +7,5 @@ import com.teamkkumul.model.MeetUpSealedItem
 class MeetUpDetailFriendPlusViewHolder(
     private val binding: ItemMyGroupFriendPlusBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun onBind(data: MeetUpSealedItem.MyGroupPlus) {}
+    // fun onBind(data: MeetUpSealedItem.MyGroupPlus) {}
 }

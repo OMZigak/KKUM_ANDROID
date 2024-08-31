@@ -1,9 +1,9 @@
 package com.teamkkumul.model
 
 sealed class MeetUpSealedItem {
-    data class MyGroupPlus(
-        val num: Int,
-    ) : MeetUpSealedItem()
+//    data class MyGroupPlus(
+//        val num: Int,
+//    ) : MeetUpSealedItem()
 
     data class Participant(
         val id: Int,

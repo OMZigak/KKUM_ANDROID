@@ -17,14 +17,14 @@ class MeetUpDetailListAdapter() :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MeetUpDetailFriendViewHolder -> holder.onBind(getItem(position) as MeetUpSealedItem.Participant)
-            is MeetUpDetailFriendPlusViewHolder -> holder.onBind(getItem(position) as MeetUpSealedItem.MyGroupPlus)
+            // is MeetUpDetailFriendPlusViewHolder -> holder.onBind(getItem(position) as MeetUpSealedItem.MyGroupPlus)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (currentList[position]) {
             is MeetUpSealedItem.Participant -> VIEW_TYPE_MEMBER
-            is MeetUpSealedItem.MyGroupPlus -> VIEW_TYPE_PLUS_ICON
+            // is MeetUpSealedItem.MyGroupPlus -> VIEW_TYPE_PLUS_ICON
             else -> throw IllegalArgumentException()
         }
     }

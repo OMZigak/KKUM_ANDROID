@@ -25,7 +25,7 @@ internal fun ResponseMeetUpParticipantDto.toMeetUpParticipantModel(): MeetUpPart
 internal fun ResponseMeetUpParticipantDto.toMeetUpSealedItem(): List<MeetUpSealedItem> {
     val items = mutableListOf<MeetUpSealedItem>()
 
-    items.add(MeetUpSealedItem.MyGroupPlus(0))
+    // items.add(MeetUpSealedItem.MyGroupPlus(0))
     participants.forEach {
         items.add(
             MeetUpSealedItem.Participant(
