@@ -35,16 +35,14 @@ class MeetUpCreateFragment :
     BindingFragment<FragmentMeetUpCreateBinding>(R.layout.fragment_meet_up_create) {
     private val sharedViewModel: MeetUpSharedViewModel by activityViewModels<MeetUpSharedViewModel>()
     private val viewModel: MeetUpCreateViewModel by viewModels<MeetUpCreateViewModel>()
-    private var isInitialized = false
     private var timeEntered = false
     private var dateEntered = false
 
     override fun initView() {
         val meetingId = arguments?.getInt(KeyStorage.MEETING_ID) ?: -1
 
-        if (!isInitialized && sharedViewModel.isEditMode()) {
+        if (sharedViewModel.isEditMode()) {
             initEditFlow()
-            isInitialized = true
             binding.tbMeetUpCreate.title = getString(R.string.edit_meet_up_title)
             navigateToEditFriend(sharedViewModel.getPromiseId())
         } else {
@@ -89,7 +87,7 @@ class MeetUpCreateFragment :
     }
 
     private fun observeFormValidation() {
-        viewModel.meetUpInputState.flowWithLifecycle(viewLifeCycle).onEach {
+        viewModel.meetUpName.flowWithLifecycle(viewLifeCycle).onEach {
             binding.btnMeetUpCreateNext.isEnabled = isFormComplete()
         }.launchIn(viewLifeCycleScope)
     }

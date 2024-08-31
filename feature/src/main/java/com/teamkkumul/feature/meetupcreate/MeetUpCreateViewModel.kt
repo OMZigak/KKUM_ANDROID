@@ -15,6 +15,7 @@ class MeetUpCreateViewModel @Inject constructor() : ViewModel() {
     val meetUpInputState: StateFlow<Boolean> get() = _meetUpInputState
     private val _meetUpName = MutableStateFlow<Boolean>(false)
     val meetUpName: StateFlow<Boolean> get() = _meetUpName
+
     fun setMeetUpName(input: Boolean) {
         viewModelScope.launch {
             _meetUpName.emit(input)
