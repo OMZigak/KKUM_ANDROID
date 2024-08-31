@@ -38,6 +38,7 @@
         <item name="errorEnabled">true</item>
         <item name="errorIconDrawable">@null</item>
         <item name="counterTextColor">@color/gray3</item>
+        <item name="hintTextAppearance">@style/TextAppearance.Kkumul.body_04</item>
         <item name="counterTextAppearance">@style/CounterTextAppearance</item>
         <item name="errorTextColor">@color/red</item>
         <item name="errorTextAppearance">@style/TextAppearance.Kkumul.caption_02</item>
