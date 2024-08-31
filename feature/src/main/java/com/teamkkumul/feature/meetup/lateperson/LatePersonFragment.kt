@@ -110,7 +110,7 @@ class LatePersonFragment :
                 when (patchMeetUpState) {
                     is UiState.Success -> {
                         toast("약속 마치기 성공 !")
-                        findNavController().navigate(R.id.action_fragment_meet_up_container_to_fragment_home)
+                        findNavController().popBackStack()
                     }
 
                     is UiState.Failure -> {
