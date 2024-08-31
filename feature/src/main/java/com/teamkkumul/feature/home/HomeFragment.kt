@@ -16,6 +16,7 @@ import com.teamkkumul.feature.databinding.FragmentHomeBinding
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
+import com.teamkkumul.feature.utils.extension.getLevelFenceText
 import com.teamkkumul.feature.utils.extension.getLevelImageResId
 import com.teamkkumul.feature.utils.extension.observeBtnState
 import com.teamkkumul.feature.utils.extension.setUpButton
@@ -142,6 +143,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         ivHomeLevel.load(getLevelImageResId(data.level))
         tvHomeLevel.text =
             requireContext().updateLevelText(data.level, LevelColorType.HOME)
+        tvHomeFence.text = getString(getLevelFenceText(data.level))
     }
 
     private fun initHomeBtnClick() {
