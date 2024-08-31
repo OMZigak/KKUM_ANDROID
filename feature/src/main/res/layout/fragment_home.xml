@@ -99,7 +99,7 @@
 
             <TextView
                 android:id="@+id/tv_home_fence"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="46dp"
                 android:background="@drawable/ic_home_rect_green"
@@ -109,6 +109,9 @@
                 android:text="@string/home_fence_text"
                 android:textAppearance="@style/TextAppearance.Kkumul.label_01"
                 android:textColor="@color/white0"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintEnd_toStartOf="@id/iv_home_level"
                 app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
                 app:layout_constraintTop_toBottomOf="@id/tv_home_late_text" />
 
@@ -125,7 +128,7 @@
 
             <ImageView
                 android:id="@+id/iv_home_level"
-                android:layout_width="0dp"
+                android:layout_width="146dp"
                 android:layout_height="0dp"
                 android:src="@drawable/ic_home_lv_1"
                 app:layout_constraintBottom_toTopOf="@id/tv_home_level"
@@ -196,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:visibility="visible"
                     app:constraint_referenced_ids="tv_home_group_text,tv_home_meeting_title,iv_home_location,tv_home_meeting_where,iv_home_time,tv_home_meeting_time,tv_home_ready_time,iv_home_ready_circle,pg_home_ready,tv_home_moving_time,iv_home_moving_circle,pg_home_moving,tvv_home_arrive_time,iv_home_arrive_circle,pg_home_arrive,pg_home_arrive_end,btn_home_ready,btn_home_moving,btn_home_arrive
-,tv_home_ready_help_text,tv_home_moving_help_text,tv_home_completed_help_text" />
+" />
 
                 <androidx.constraintlayout.widget.Group
                     android:id="@+id/group_home_meeting_empty"
