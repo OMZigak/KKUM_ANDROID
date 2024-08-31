@@ -2,6 +2,7 @@ package com.teamkkumul.feature.meetupcreate.friend
 
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,7 +27,7 @@ import timber.log.Timber
 class MeetUpCreateFriendFragment :
     BindingFragment<FragmentMeetUpFriendPlusBinding>(R.layout.fragment_meet_up_friend_plus) {
     private val sharedViewModel: MeetUpSharedViewModel by activityViewModels<MeetUpSharedViewModel>()
-    private val viewModel: MeetUpCreateFriendViewModel by activityViewModels<MeetUpCreateFriendViewModel>()
+    private val viewModel: MeetUpCreateFriendViewModel by viewModels<MeetUpCreateFriendViewModel>()
     private var _friendEditAdapter: MeetUpEditFriendAdapter? = null
     private val friendEditAdapter get() = requireNotNull(_friendEditAdapter)
 
