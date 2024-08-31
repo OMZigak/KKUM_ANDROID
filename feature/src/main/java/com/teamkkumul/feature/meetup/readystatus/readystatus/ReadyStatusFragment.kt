@@ -20,14 +20,15 @@ import com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder.ReadySta
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
-import com.teamkkumul.feature.utils.extension.observeBtnState
 import com.teamkkumul.feature.utils.extension.setUpButton
+import com.teamkkumul.feature.utils.model.BtnState
 import com.teamkkumul.feature.utils.time.calculateReadyStartTime
 import com.teamkkumul.feature.utils.time.getCurrentTime
 import com.teamkkumul.feature.utils.time.parseMinutesToHoursAndMinutes
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -273,6 +274,15 @@ class ReadyStatusFragment :
                 tvHomeCompletedHelpText,
             )
         }
+    }
+
+    private fun observeBtnState(
+        stateFlow: StateFlow<BtnState>,
+        onStateChanged: (BtnState) -> Unit,
+    ) {
+        stateFlow.flowWithLifecycle(viewLifeCycle).onEach { state ->
+            onStateChanged(state)
+        }.launchIn(viewLifeCycleScope)
     }
 
     companion object {
