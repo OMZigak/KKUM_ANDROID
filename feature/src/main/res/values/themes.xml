@@ -59,6 +59,7 @@
         <item name="android:textAppearance">@style/TextAppearance.Kkumul.body_04</item>
         <item name="android:includeFontPadding">true</item>
         <item name="android:textColor">@color/black0</item>
+        <item name="hintTextAppearance">@style/TextAppearance.Kkumul.body_04</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.Circle" parent="">

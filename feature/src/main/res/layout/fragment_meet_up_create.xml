@@ -102,11 +102,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="약속을 추가해보세요"
+                            android:paddingVertical="15dp"
                             android:maxLength="18"
                             android:maxLines="1"
                             android:paddingEnd="40dp"
                             android:singleLine="true"
                             android:textColorHint="@color/gray3" />
+
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -114,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="17dp"
                         android:layout_marginEnd="12dp"
                         android:text="@string/counter_10"
                         android:textAppearance="@style/TextAppearance.Kkumul.body_06"
@@ -137,9 +139,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/shape_white0_radius_8"
+                    android:background="@drawable/shape_gray_line_8_rect"
                     android:paddingVertical="15dp"
-                    android:paddingStart="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_meet_up_location">
@@ -149,6 +150,7 @@
                         style="@style/TextAppearance.Kkumul.body_04"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
                         android:hint="약속 장소를 검색해 주세요"
                         android:textColorHint="@color/gray3"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -170,7 +172,7 @@
                     style="@style/TextAppearance.Kkumul.body_03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="28dp"
                     android:text="@string/meet_up_create_time"
                     android:textColor="@color/gray8"
                     app:layout_constraintStart_toStartOf="parent"
@@ -181,7 +183,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/shape_white0_radius_8"
+                    android:background="@drawable/shape_gray_line_8_rect"
                     android:paddingVertical="11dp"
                     android:paddingStart="11dp"
                     android:paddingEnd="43dp"
@@ -224,7 +226,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/shape_white0_radius_8"
+                    android:background="@drawable/shape_gray_line_8_rect"
                     android:paddingVertical="11dp"
                     android:paddingStart="11dp"
                     android:paddingEnd="43dp"
