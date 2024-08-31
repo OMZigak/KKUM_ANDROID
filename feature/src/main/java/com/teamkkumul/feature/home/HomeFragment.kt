@@ -86,6 +86,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         when {
             data.preparationStartAt != null && data.departureAt != null && data.arrivalAt != null -> {
                 viewModel.clickCompletedBtn()
+                viewModel.updateAllInvisible()
             }
 
             data.departureAt != null && data.preparationStartAt != null -> {
@@ -94,6 +95,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
             data.preparationStartAt != null -> {
                 viewModel.clickReadyBtn()
+            }
+
+            data.preparationStartAt == null -> {
+                viewModel.updateReadyHelpText()
             }
         }
     }
