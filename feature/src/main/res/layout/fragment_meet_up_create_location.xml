@@ -30,9 +30,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_meet_up_name"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
-                app:layout_constraintDimensionRatio="335:46"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -53,7 +52,7 @@
                         android:hint="약속 장소를 검색해 주세요"
                         android:imeOptions="actionDone"
                         android:inputType="text"
-                        android:paddingVertical="15dp"
+                        android:paddingVertical="12dp"
                         android:paddingStart="12dp"
                         android:textAppearance="@style/TextAppearance.Kkumul.body_04"
                         android:textColorHint="@color/gray3"
