@@ -8,7 +8,6 @@ import com.teamkkumul.core.network.api.MeetUpService
 import com.teamkkumul.core.network.api.MeetingsService
 import com.teamkkumul.core.network.api.MyGroupService
 import com.teamkkumul.core.network.api.ProfileService
-import com.teamkkumul.core.network.api.ReqresService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,11 +18,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
-    @Provides
-    @Singleton
-    fun provideReqresService(@KKUMUL retrofit: Retrofit): ReqresService =
-        retrofit.create(ReqresService::class.java)
-
     @Provides
     @Singleton
     fun provideMyGroupService(@KKUMUL retrofit: Retrofit): MyGroupService =

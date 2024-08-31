@@ -11,9 +11,6 @@
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_fragment_home_to_exampleComposeFragment"
-            app:destination="@id/exampleComposeFragment" />
-        <action
             android:id="@+id/action_fragment_home_to_meetUpContainerFragment"
             app:destination="@id/fragment_meet_up_container" />
     </fragment>
@@ -114,10 +111,6 @@
             android:id="@+id/action_fragment_my_page_to_fragment_delete_dialog"
             app:destination="@id/deleteDialogFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/exampleComposeFragment"
-        android:name="com.teamkkumul.feature.compose.ExampleComposeFragment"
-        android:label="ExampleComposeFragment" />
     <fragment
         android:id="@+id/fragment_add_my_group"
         android:name="com.teamkkumul.feature.newgroup.addmygroup.AddMyGroupFragment"

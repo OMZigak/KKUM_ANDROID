@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
@@ -23,6 +20,7 @@ import com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder.ReadySta
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
+import com.teamkkumul.feature.utils.extension.setUpButton
 import com.teamkkumul.feature.utils.model.BtnState
 import com.teamkkumul.feature.utils.time.calculateReadyStartTime
 import com.teamkkumul.feature.utils.time.getCurrentTime
@@ -94,7 +92,7 @@ class ReadyStatusFragment :
         handleButtonClicks(data)
 
         val preparationAvailable = data.preparationTime != null
-        updateReadyStatusInfoVisibility(preparationAvailable)
+        updateReadyTimeAlarmVisibility(preparationAvailable)
 
         if (!preparationAvailable) return
         updateReadyAndMovingTimes(data)
@@ -106,10 +104,10 @@ class ReadyStatusFragment :
         tvHomeReadyTime.text = data.preparationStartAt
         tvHomeMovingTime.text = data.departureAt
         tvHomeArriveTime.text = data.arrivalAt
-        viewModel.setPopUpVisible(data.preparationTime == null)
+        viewModel.setPopUpVisible(data.preparationStartAt == null)
     }
 
-    private fun updateReadyStatusInfoVisibility(preparationAvailable: Boolean) = with(binding) {
+    private fun updateReadyTimeAlarmVisibility(preparationAvailable: Boolean) = with(binding) {
         groupReadyInfoInput.setVisible(preparationAvailable)
         tvReadyInfoNext.setVisible(!preparationAvailable)
     }
@@ -244,59 +242,47 @@ class ReadyStatusFragment :
     }
 
     private fun initObserveBtnState() = with(binding) {
-        observeBtnState(
-            viewModel.readyBtnState,
-            btnHomeReady,
-            ivHomeReadyCircle,
-            pgHomeReady,
-            null,
-        )
-        observeBtnState(
-            viewModel.movingStartBtnState,
-            binding.btnHomeMoving,
-            ivHomeMovingCircle,
-            pgHomeMoving,
-            null,
-        )
-        observeBtnState(
-            viewModel.completedBtnState,
-            binding.btnHomeArrive,
-            ivHomeArriveCircle,
-            pgHomeArrive,
-            pgHomeArriveEnd,
-        )
+        observeBtnState(stateFlow = viewModel.readyBtnState) { state ->
+            setUpButton(
+                state,
+                btnHomeReady,
+                ivHomeReadyCircle,
+                pgHomeReady,
+                null,
+                tvHomeReadyHelpText,
+            )
+        }
+
+        observeBtnState(stateFlow = viewModel.movingStartBtnState) { state ->
+            setUpButton(
+                state,
+                btnHomeMoving,
+                ivHomeMovingCircle,
+                pgHomeMoving,
+                null,
+                tvHomeMovingHelpText,
+            )
+        }
+
+        observeBtnState(stateFlow = viewModel.completedBtnState) { state ->
+            setUpButton(
+                state,
+                btnHomeArrive,
+                ivHomeArriveCircle,
+                pgHomeArrive,
+                pgHomeArriveEnd,
+                tvHomeCompletedHelpText,
+            )
+        }
     }
 
     private fun observeBtnState(
         stateFlow: StateFlow<BtnState>,
-        button: MaterialButton,
-        circle: ImageView,
-        progressBar: LinearProgressIndicator,
-        progressBarEnd: LinearProgressIndicator?,
+        onStateChanged: (BtnState) -> Unit,
     ) {
         stateFlow.flowWithLifecycle(viewLifeCycle).onEach { state ->
-            setUpButton(state, button, circle, progressBar, progressBarEnd)
+            onStateChanged(state)
         }.launchIn(viewLifeCycleScope)
-    }
-
-    private fun setUpButton(
-        state: BtnState,
-        button: MaterialButton,
-        circle: ImageView,
-        progressBar: LinearProgressIndicator,
-        progressBarEnd: LinearProgressIndicator?,
-    ) {
-        button.apply {
-            setStrokeColorResource(state.strokeColor)
-            setTextColor(colorOf(state.textColor))
-            setBackgroundColor(colorOf(state.backGroundColor))
-            isEnabled = state.isEnabled
-        }
-        circle.setImageResource(state.circleImage)
-        progressBar.progress = state.progress
-        if (progressBarEnd != null) {
-            progressBarEnd.progress = state.progress
-        }
     }
 
     companion object {

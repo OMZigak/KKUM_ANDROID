@@ -109,6 +109,9 @@
                 android:text="@string/home_fence_text"
                 android:textAppearance="@style/TextAppearance.Kkumul.label_01"
                 android:textColor="@color/white0"
+                app:layout_constraintEnd_toStartOf="@id/iv_home_level"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
                 app:layout_constraintTop_toBottomOf="@id/tv_home_late_text" />
 
@@ -127,12 +130,13 @@
                 android:id="@+id/iv_home_level"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="-16dp"
                 android:src="@drawable/ic_home_lv_1"
                 app:layout_constraintBottom_toTopOf="@id/tv_home_level"
                 app:layout_constraintDimensionRatio="160:198"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/tv_home_fence" />
+                app:layout_constraintStart_toEndOf="@id/tv_home_late_text" />
 
             <TextView
                 android:id="@+id/tv_home_level"
@@ -195,7 +199,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
-                    app:constraint_referenced_ids="tv_home_group_text,tv_home_meeting_title,iv_home_location,tv_home_meeting_where,iv_home_time,tv_home_meeting_time,tv_home_ready_time,iv_home_ready_circle,pg_home_ready,tv_home_moving_time,iv_home_moving_circle,pg_home_moving,tvv_home_arrive_time,iv_home_arrive_circle,pg_home_arrive,pg_home_arrive_end,btn_home_ready,btn_home_moving,btn_home_arrive,tv_home_moving_start_help_text" />
+                    app:constraint_referenced_ids="tv_home_group_text,tv_home_meeting_title,iv_home_location,tv_home_meeting_where,iv_home_time,tv_home_meeting_time,tv_home_ready_time,iv_home_ready_circle,pg_home_ready,tv_home_moving_time,iv_home_moving_circle,pg_home_moving,tvv_home_arrive_time,iv_home_arrive_circle,pg_home_arrive,pg_home_arrive_end,btn_home_ready,btn_home_moving,btn_home_arrive
+" />
 
                 <androidx.constraintlayout.widget.Group
                     android:id="@+id/group_home_meeting_empty"
@@ -439,6 +444,18 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_home_location"
                     app:strokeColor="@color/main_color" />
 
+                <TextView
+                    android:id="@+id/tv_home_ready_help_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/home_btn_help_text"
+                    android:textAppearance="@style/TextAppearance.Kkumul.label_02"
+                    android:textColor="@color/gray5"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_ready"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_ready"
+                    app:layout_constraintTop_toBottomOf="@id/btn_home_ready" />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_home_moving"
                     style="?attr/materialButtonOutlinedStyle"
@@ -456,6 +473,19 @@
                     app:layout_constraintStart_toEndOf="@id/btn_home_ready"
                     app:layout_constraintTop_toTopOf="@id/btn_home_ready"
                     app:strokeColor="@color/gray3" />
+
+                <TextView
+                    android:id="@+id/tv_home_moving_help_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/home_btn_moving_help_text"
+                    android:textAppearance="@style/TextAppearance.Kkumul.label_02"
+                    android:textColor="@color/gray5"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_moving"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_moving"
+                    app:layout_constraintTop_toBottomOf="@id/btn_home_ready" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_home_arrive"
@@ -476,15 +506,16 @@
                     app:strokeColor="@color/gray3" />
 
                 <TextView
-                    android:id="@+id/tv_home_moving_start_help_text"
+                    android:id="@+id/tv_home_completed_help_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/home_btn_help_text"
+                    android:text="@string/home_btn_completed_help_text"
                     android:textAppearance="@style/TextAppearance.Kkumul.label_02"
                     android:textColor="@color/gray5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_arrive"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_arrive"
                     app:layout_constraintTop_toBottomOf="@id/btn_home_ready" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

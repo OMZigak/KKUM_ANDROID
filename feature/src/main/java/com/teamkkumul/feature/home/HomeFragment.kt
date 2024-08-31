@@ -14,12 +14,14 @@ import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setInVisible
 import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentHomeBinding
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
+import com.teamkkumul.feature.utils.extension.getLevelFenceText
 import com.teamkkumul.feature.utils.extension.getLevelImageResId
 import com.teamkkumul.feature.utils.extension.updateLevelText
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
@@ -56,6 +58,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         initHomeMeetUpRecyclerView()
         initObserveHomePromiseState()
         initObserveReadyStatusState()
+        observeHelpTextState()
     }
 
     private fun initGetHomeApi() {
@@ -83,6 +86,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         when {
             data.preparationStartAt != null && data.departureAt != null && data.arrivalAt != null -> {
                 viewModel.clickCompletedBtn()
+                viewModel.updateAllInvisible()
             }
 
             data.departureAt != null && data.preparationStartAt != null -> {
@@ -91,6 +95,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
             data.preparationStartAt != null -> {
                 viewModel.clickReadyBtn()
+            }
+
+            data.preparationStartAt == null -> {
+                viewModel.updateReadyHelpText()
             }
         }
     }
@@ -103,7 +111,13 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                     updateTodayMeetingUI(it.data)
                 }
 
-                is UiState.Empty -> updateMeetingVisibility(false)
+                is UiState.Empty -> {
+                    updateMeetingVisibility(false)
+                    viewLifeCycleScope.launch {
+                        delay(10)
+                        setHelpTextInvisible()
+                    }
+                }
 
                 is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
                 else -> Unit
@@ -146,6 +160,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         ivHomeLevel.load(getLevelImageResId(data.level))
         tvHomeLevel.text =
             requireContext().updateLevelText(data.level, LevelColorType.HOME)
+        tvHomeFence.text = getString(getLevelFenceText(data.level))
     }
 
     private fun initHomeBtnClick() {
@@ -287,6 +302,24 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 bundleOf(PROMISE_ID to promiseId),
             )
         }
+    }
+
+    private fun observeHelpTextState() {
+        viewModel.isReady.flowWithLifecycle(viewLifeCycle).onEach {
+            binding.tvHomeReadyHelpText.setInVisible(it)
+        }.launchIn(viewLifeCycleScope)
+        viewModel.isMoving.flowWithLifecycle(viewLifeCycle).onEach {
+            binding.tvHomeMovingHelpText.setInVisible(it)
+        }.launchIn(viewLifeCycleScope)
+        viewModel.isCompleted.flowWithLifecycle(viewLifeCycle).onEach {
+            binding.tvHomeCompletedHelpText.setInVisible(it)
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun setHelpTextInvisible() {
+        binding.tvHomeReadyHelpText.setVisible(false)
+        binding.tvHomeMovingHelpText.setVisible(false)
+        binding.tvHomeCompletedHelpText.setVisible(false)
     }
 
     override fun onDestroyView() {
