@@ -5,7 +5,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.os.bundleOf
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -16,6 +15,7 @@ import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.doAfterTextChangedWithCursor
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentReadyInfoInputBinding
 import com.teamkkumul.feature.meetup.readystatus.readyinfoinput.alarm.AlarmReceiver
@@ -91,41 +91,33 @@ class ReadyInfoInputFragment :
     }
 
     private fun setReadyHour() {
-        binding.etReadyStatusReadHour.doAfterTextChanged { text ->
-            if (!text.isNullOrEmpty()) {
-                setTimeDebouncer.setDelay(text.toString(), 400L) { delayedText ->
-                    viewModel.setReadyHour(delayedText)
-                }
+        binding.etReadyStatusReadHour.doAfterTextChangedWithCursor { text ->
+            setTimeDebouncer.setDelay(text, 400L) { delayedText ->
+                viewModel.setReadyHour(delayedText)
             }
         }
     }
 
     private fun setReadyMinute() {
-        binding.etReadyStatusReadyMinute.doAfterTextChanged { text ->
-            if (!text.isNullOrEmpty()) {
-                setTimeDebouncer.setDelay(text.toString(), 400L) { delayedText ->
-                    viewModel.setReadyMinute(delayedText)
-                }
+        binding.etReadyStatusReadyMinute.doAfterTextChangedWithCursor { text ->
+            setTimeDebouncer.setDelay(text, 400L) { delayedText ->
+                viewModel.setReadyMinute(delayedText)
             }
         }
     }
 
     private fun setMovingHour() {
-        binding.etReadyStatusMovingHour.doAfterTextChanged { text ->
-            if (!text.isNullOrEmpty()) {
-                setTimeDebouncer.setDelay(text.toString(), 400L) { delayedText ->
-                    viewModel.setMovingHour(delayedText)
-                }
+        binding.etReadyStatusMovingHour.doAfterTextChangedWithCursor { text ->
+            setTimeDebouncer.setDelay(text, 400L) { delayedText ->
+                viewModel.setMovingHour(delayedText)
             }
         }
     }
 
     private fun setMovingMinute() {
-        binding.etReadyStatusMovingMinute.doAfterTextChanged { text ->
-            if (!text.isNullOrEmpty()) {
-                setTimeDebouncer.setDelay(text.toString(), 400L) { delayedText ->
-                    viewModel.setMovingMinute(delayedText)
-                }
+        binding.etReadyStatusMovingMinute.doAfterTextChangedWithCursor { text ->
+            setTimeDebouncer.setDelay(text, 400L) { delayedText ->
+                viewModel.setMovingMinute(delayedText)
             }
         }
     }
