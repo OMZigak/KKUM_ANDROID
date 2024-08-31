@@ -18,7 +18,7 @@ enum class DeleteDialogType(
     PROMISE_LEAVE_DIALOG(
         question = R.string.tv_leave_question,
         questionDescription = R.string.tv_leave_question_description,
-        imageResId = R.drawable.ic_dialog_leave_meet_up,
+        imageResId = R.drawable.ic_meet_up_detail_receipt_gray,
     ),
     PROMISE_DELETE_DIALOG(
         question = R.string.tv_delete_meet_up_question,
