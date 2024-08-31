@@ -48,3 +48,11 @@ fun getLevelImageResId(level: Int): Int = when (level) {
     4 -> R.drawable.ic_home_lv_4
     else -> R.drawable.ic_home_lv_1
 }
+
+fun getLevelFenceText(level: Int): Int = when (level) {
+    1 -> R.string.home_fence_lv1
+    2 -> R.string.home_fence_lv2
+    3 -> R.string.home_fence_lv3
+    4 -> R.string.home_fence_lv4
+    else -> R.string.home_fence_lv1
+}
