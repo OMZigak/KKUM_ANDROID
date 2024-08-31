@@ -99,7 +99,7 @@
 
             <TextView
                 android:id="@+id/tv_home_fence"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="46dp"
                 android:background="@drawable/ic_home_rect_green"
@@ -109,9 +109,9 @@
                 android:text="@string/home_fence_text"
                 android:textAppearance="@style/TextAppearance.Kkumul.label_01"
                 android:textColor="@color/white0"
+                app:layout_constraintEnd_toStartOf="@id/iv_home_level"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintEnd_toStartOf="@id/iv_home_level"
                 app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
                 app:layout_constraintTop_toBottomOf="@id/tv_home_late_text" />
 
@@ -128,14 +128,15 @@
 
             <ImageView
                 android:id="@+id/iv_home_level"
-                android:layout_width="146dp"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="-16dp"
                 android:src="@drawable/ic_home_lv_1"
                 app:layout_constraintBottom_toTopOf="@id/tv_home_level"
                 app:layout_constraintDimensionRatio="160:198"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/tv_home_fence" />
+                app:layout_constraintStart_toEndOf="@id/tv_home_late_text" />
 
             <TextView
                 android:id="@+id/tv_home_level"
