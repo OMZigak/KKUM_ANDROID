@@ -7,6 +7,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -190,12 +192,21 @@ class MeetUpCreateFragment :
     }
 
     private fun showDatePickerDialog() {
+        val today = MaterialDatePicker.todayInUtcMilliseconds()
+
+        val calendarConstraints = CalendarConstraints.Builder()
+            .setStart(today)
+            .setValidator(DateValidatorPointForward.from(today))
+            .build()
+
         val builder = MaterialDatePicker.Builder.datePicker()
+            .setCalendarConstraints(calendarConstraints)
+
         val picker = builder.build()
+
         picker.addOnPositiveButtonClickListener { selectedDate ->
             Timber.tag("create time").d(selectedDate.toString())
-            val formattedDateForm =
-                formatDate(Date(selectedDate), "yyyy-MM-dd")
+            val formattedDateForm = formatDate(Date(selectedDate), "yyyy-MM-dd")
 
             binding.tvMeetUpCreateDateEnter.setTextColor(
                 ContextCompat.getColor(
@@ -206,6 +217,7 @@ class MeetUpCreateFragment :
             binding.ivMeetUpDate.setImageResource(R.drawable.ic_date_fill_24)
             sharedViewModel.updateMeetUpModel(date = formattedDateForm)
         }
+
         picker.show(parentFragmentManager, picker.toString())
     }
 
