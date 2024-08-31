@@ -5,7 +5,7 @@ import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.teamkkumul.core.ui.util.context.colorOf
-import com.teamkkumul.core.ui.view.setInvisible
+import com.teamkkumul.core.ui.view.setInVisible
 import com.teamkkumul.feature.utils.model.BtnState
 
 fun setUpButton(
@@ -25,5 +25,5 @@ fun setUpButton(
     circle.setImageResource(state.circleImage)
     progressBar.progress = state.progress
     progressBarEnd?.progress = state.progress
-    helpText.setInvisible(state.isHelpTextVisible)
+    helpText.setInVisible(state.isHelpTextVisible)
 }
