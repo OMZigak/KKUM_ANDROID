@@ -152,7 +152,7 @@ class MeetUpCreateFragment :
             setInputTextColor(R.color.black0)
             setErrorState(null)
             viewModel.setMeetUpName(true)
-            setErrorState("")
+            binding.tilMeetUpName.isHelperTextEnabled = true
         } else {
             setColor(R.color.red)
             setInputTextColor(R.color.red)
