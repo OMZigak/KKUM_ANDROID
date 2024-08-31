@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.MeetUpRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.model.MeetUpDetailModel
+import com.teamkkumul.model.MeetUpParticipantItem
 import com.teamkkumul.model.MeetUpParticipantModel
-import com.teamkkumul.model.MeetUpSealedItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +25,7 @@ class MeetUpDetailFriendViewModel @Inject constructor(
     val meetUpParticipantState get() = _meetUpParticipantState.asStateFlow()
 
     private val _meetUpParticipantListState =
-        MutableStateFlow<UiState<List<MeetUpSealedItem>>>(UiState.Loading)
+        MutableStateFlow<UiState<List<MeetUpParticipantItem>>>(UiState.Loading)
     val meetUpParticipantListState get() = _meetUpParticipantListState.asStateFlow()
 
     fun getMeetUpDetail(promiseId: Int) = viewModelScope.launch {

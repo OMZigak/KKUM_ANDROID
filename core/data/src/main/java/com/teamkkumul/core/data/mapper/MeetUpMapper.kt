@@ -5,8 +5,8 @@ import com.teamkkumul.core.network.dto.response.ResponseMeetUpDetailDto
 import com.teamkkumul.core.network.dto.response.ResponseMeetUpParticipantDto
 import com.teamkkumul.model.LatePersonModel
 import com.teamkkumul.model.MeetUpDetailModel
+import com.teamkkumul.model.MeetUpParticipantItem
 import com.teamkkumul.model.MeetUpParticipantModel
-import com.teamkkumul.model.MeetUpSealedItem
 
 internal fun ResponseMeetUpParticipantDto.toMeetUpParticipantModel(): MeetUpParticipantModel =
     MeetUpParticipantModel(
@@ -22,13 +22,12 @@ internal fun ResponseMeetUpParticipantDto.toMeetUpParticipantModel(): MeetUpPart
         },
     )
 
-internal fun ResponseMeetUpParticipantDto.toMeetUpSealedItem(): List<MeetUpSealedItem> {
-    val items = mutableListOf<MeetUpSealedItem>()
+internal fun ResponseMeetUpParticipantDto.toMeetUpSealedItem(): List<MeetUpParticipantItem> {
+    val items = mutableListOf<MeetUpParticipantItem>()
 
-    items.add(MeetUpSealedItem.MyGroupPlus(0))
     participants.forEach {
         items.add(
-            MeetUpSealedItem.Participant(
+            MeetUpParticipantItem(
                 name = it.name,
                 id = it.participantId,
                 profileImg = it.profileImg,

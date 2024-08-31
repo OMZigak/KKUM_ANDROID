@@ -10,7 +10,7 @@ import com.teamkkumul.core.network.api.MeetUpService
 import com.teamkkumul.model.LatePersonModel
 import com.teamkkumul.model.MeetUpDetailModel
 import com.teamkkumul.model.MeetUpParticipantModel
-import com.teamkkumul.model.MeetUpSealedItem
+import com.teamkkumul.model.MeetUpParticipantItem
 import javax.inject.Inject
 
 class MeetUpRepositoryImpl @Inject constructor(
@@ -28,7 +28,7 @@ class MeetUpRepositoryImpl @Inject constructor(
             response.data?.toMeetUpDetailModel() ?: throw Exception("null")
         }
 
-    override suspend fun getMeetUpFriendList(promiseId: Int): Result<List<MeetUpSealedItem>> {
+    override suspend fun getMeetUpFriendList(promiseId: Int): Result<List<MeetUpParticipantItem>> {
         return runCatching {
             val response = meetUpService.getMeetUpParticipantList(promiseId)
             response.data?.toMeetUpSealedItem() ?: throw Exception("null")
