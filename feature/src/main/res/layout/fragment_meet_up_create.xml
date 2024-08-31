@@ -102,9 +102,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="약속을 추가해보세요"
-                            android:paddingVertical="15dp"
                             android:maxLength="18"
                             android:maxLines="1"
+                            android:paddingVertical="15dp"
                             android:paddingEnd="40dp"
                             android:singleLine="true"
                             android:textColorHint="@color/gray3" />
@@ -137,13 +137,16 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_my_group_enter_location"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginTop="6dp"
                     android:background="@drawable/shape_gray_line_8_rect"
-                    android:paddingVertical="15dp"
+                    app:layout_constraintDimensionRatio="335:46"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_meet_up_location">
+                    app:layout_constraintTop_toBottomOf="@id/tv_meet_up_location"
+                    app:layout_constraintWidth_default="spread">
+
 
                     <TextView
                         android:id="@+id/tv_meet_up_create_location_enter"
@@ -181,12 +184,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_meet_up_date"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginTop="6dp"
                     android:background="@drawable/shape_gray_line_8_rect"
                     android:paddingVertical="11dp"
                     android:paddingStart="11dp"
                     android:paddingEnd="43dp"
+                    app:layout_constraintDimensionRatio="163:46"
                     app:layout_constraintEnd_toStartOf="@+id/cl_meet_up_time"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="packed"
@@ -203,8 +207,7 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_chainStyle="packed"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                         />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_meet_up_create_date_enter"
@@ -223,13 +226,14 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_meet_up_time"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="6dp"
                     android:background="@drawable/shape_gray_line_8_rect"
                     android:paddingVertical="11dp"
                     android:paddingStart="11dp"
                     android:paddingEnd="43dp"
+                    app:layout_constraintDimensionRatio="163:46"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/cl_meet_up_date"
