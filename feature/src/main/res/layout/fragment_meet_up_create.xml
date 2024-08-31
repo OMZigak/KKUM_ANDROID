@@ -114,7 +114,7 @@
                                 android:hint="약속을 추가해보세요"
                                 android:maxLength="18"
                                 android:maxLines="1"
-                                android:paddingVertical="12dp"
+                                android:paddingVertical="11dp"
                                 android:paddingEnd="40dp"
                                 android:singleLine="true"
                                 android:textColorHint="@color/gray3" />
@@ -187,7 +187,7 @@
                     style="@style/TextAppearance.Kkumul.body_03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="28dp"
                     android:text="@string/meet_up_create_time"
                     android:textColor="@color/gray8"
                     app:layout_constraintStart_toStartOf="parent"
