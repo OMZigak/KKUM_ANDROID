@@ -27,36 +27,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create">
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/cl_meet_up_create_search_location_enter"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_meet_up_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginTop="26dp"
-                android:hint="약속 장소를 검색해 주세요"
-                app:errorEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintDimensionRatio="335:46"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_meet_up_create_location_name_enter"
-                    style="@style/TextInputEditTextStyle"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/cl_meet_up_create_search_location_enter"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:paddingVertical="12dp"
-                    android:paddingStart="12dp"
-                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                    android:textColorHint="@color/gray3"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:errorEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_meet_up_create_location_name_enter"
+                        style="@style/TextInputEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="약속 장소를 검색해 주세요"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:paddingVertical="15dp"
+                        android:paddingStart="12dp"
+                        android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                        android:textColorHint="@color/gray3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_meet_up_create_location"
@@ -69,7 +74,7 @@
                 app:layout_constraintBottom_toTopOf="@id/tv_next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_meet_up_create_search_location_enter"
+                app:layout_constraintTop_toBottomOf="@id/cl_meet_up_name"
                 tools:listitem="@layout/item_meet_up_create_location" />
 
             <TextView

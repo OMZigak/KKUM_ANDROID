@@ -6,25 +6,21 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.teamkkumul.core.ui.view.ItemDiffCallback
 import com.teamkkumul.feature.databinding.ItemMyGroupFriendBinding
-import com.teamkkumul.feature.databinding.ItemMyGroupFriendPlusBinding
-import com.teamkkumul.feature.meetup.meetupdetail.viewholder.MeetUpDetailFriendPlusViewHolder
 import com.teamkkumul.feature.meetup.meetupdetail.viewholder.MeetUpDetailFriendViewHolder
-import com.teamkkumul.model.MeetUpSealedItem
+import com.teamkkumul.model.MeetUpParticipantItem
 
 class MeetUpDetailListAdapter() :
-    ListAdapter<MeetUpSealedItem, RecyclerView.ViewHolder>(DiffUtil) {
+    ListAdapter<MeetUpParticipantItem, RecyclerView.ViewHolder>(DiffUtil) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MeetUpDetailFriendViewHolder -> holder.onBind(getItem(position) as MeetUpSealedItem.Participant)
-            is MeetUpDetailFriendPlusViewHolder -> holder.onBind(getItem(position) as MeetUpSealedItem.MyGroupPlus)
+            is MeetUpDetailFriendViewHolder -> holder.onBind(getItem(position) as MeetUpParticipantItem)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (currentList[position]) {
-            is MeetUpSealedItem.Participant -> VIEW_TYPE_MEMBER
-            is MeetUpSealedItem.MyGroupPlus -> VIEW_TYPE_PLUS_ICON
+            is MeetUpParticipantItem -> VIEW_TYPE_MEMBER
             else -> throw IllegalArgumentException()
         }
     }
@@ -40,25 +36,15 @@ class MeetUpDetailListAdapter() :
                 MeetUpDetailFriendViewHolder(binding)
             }
 
-            VIEW_TYPE_PLUS_ICON -> {
-                val binding = ItemMyGroupFriendPlusBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false,
-                )
-                MeetUpDetailFriendPlusViewHolder(binding)
-            }
-
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 
     companion object {
-        private val DiffUtil = ItemDiffCallback<MeetUpSealedItem>(
+        private val DiffUtil = ItemDiffCallback<MeetUpParticipantItem>(
             onItemsTheSame = { old, new -> old.javaClass == new.javaClass },
             onContentsTheSame = { old, new -> old == new },
         )
         private const val VIEW_TYPE_MEMBER = 0
-        private const val VIEW_TYPE_PLUS_ICON = 1
     }
 }

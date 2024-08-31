@@ -1,6 +1,9 @@
 package com.teamkkumul.feature.mypage
 
+import android.app.Activity
 import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -29,6 +32,7 @@ import timber.log.Timber
 class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     private val viewModel by viewModels<MyPageViewModel>()
     private var profileImageUrl: String? = null
+    private lateinit var setProfileLauncher: ActivityResultLauncher<Intent>
 
     override fun initView() {
         viewModel.getMyPageUserInfo()
@@ -38,6 +42,13 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
         navigateToSetProfile()
         initUsePromiseClickListener()
         initAskClickListener()
+
+        setProfileLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    viewModel.getMyPageUserInfo()
+                }
+            }
     }
 
     private fun initObserveMyPageState() {
@@ -82,13 +93,8 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
                 putExtra(SetProfileActivity.PROFILE_IMAGE_URL, profileImageUrl)
                 putExtra(SOURCE_FRAGMENT, MY_PAGE_FRAGMENT)
             }
-            startActivity(intent)
+            setProfileLauncher.launch(intent)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getMyPageUserInfo()
     }
 
     private fun initAskClickListener() {
