@@ -116,6 +116,10 @@
     <string name="home_lv2">밍기적 꾸물이</string>
     <string name="home_lv3">기적 꾸물이</string>
     <string name="home_lv4">꾸물꿈</string>
+    <string name="home_fence_lv1">꾸물꿈에 오신 것을 환영해요!\n정시 도착으로 캐릭터를 성장시켜 보세요.</string>
+    <string name="home_fence_lv2">정시 도착의 꿈에 한 발짝 가까워졌어요!\n5번 정시 도착 시, ‘기적 꾸물이’가 될 수 있어요.</string>
+    <string name="home_fence_lv3">잘 하고 있어요!\n10번 정시 도착 시, ‘꾸물꿈’ 레벨로 성장할 수 있어요.</string>
+    <string name="home_fence_lv4">드디어 ‘꾸물꿈’ 레벨을 달성했네요.\n지각 꾸물이에서 탈출한 것을 축하해요!</string>
 
     <!--    약속 상세 화면 탭 바-->
     <string name="meet_up_container_tabbar_info">약속 정보</string>
