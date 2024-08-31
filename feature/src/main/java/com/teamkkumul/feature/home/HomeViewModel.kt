@@ -9,8 +9,11 @@ import com.teamkkumul.model.home.HomeReadyStatusModel
 import com.teamkkumul.model.home.HomeTodayMeetingModel
 import com.teamkkumul.model.home.UserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -50,6 +53,15 @@ class HomeViewModel @Inject constructor(
     val readyStatusState: StateFlow<UiState<HomeReadyStatusModel?>> =
         _readyStatusState.asStateFlow()
 
+    private val _isReady = MutableSharedFlow<Boolean>()
+    val isReady: SharedFlow<Boolean> get() = _isReady.asSharedFlow()
+
+    private val _isMoving = MutableStateFlow(false)
+    val isMoving: StateFlow<Boolean> get() = _isMoving
+
+    private val _isCompleted = MutableStateFlow(false)
+    val isCompleted: StateFlow<Boolean> get() = _isCompleted
+
     fun getReadyStatus(promiseId: Int) {
         viewModelScope.launch {
             homeRepository.getReadyStatus(promiseId)
@@ -58,6 +70,7 @@ class HomeViewModel @Inject constructor(
                         _readyStatusState.emit(UiState.Empty)
                     } else {
                         _readyStatusState.emit(UiState.Success(it))
+                        _isReady.emit(true)
                     }
                 }.onFailure {
                     _readyStatusState.emit(UiState.Failure(it.message.toString()))
@@ -136,6 +149,8 @@ class HomeViewModel @Inject constructor(
             _readyBtnState.emit(BtnState.InProgress(isEnabled = false))
             _movingStartBtnState.emit(BtnState.Default(isEnabled = true))
             _completedBtnState.emit(BtnState.DefaultGray(isEnabled = false))
+            _isReady.emit(false)
+            _isMoving.emit(true)
         }
     }
 
@@ -145,6 +160,8 @@ class HomeViewModel @Inject constructor(
             _readyBtnState.emit(BtnState.Complete(isEnabled = false))
             _movingStartBtnState.emit(BtnState.InProgress(isEnabled = false))
             _completedBtnState.emit(BtnState.Default(isEnabled = true))
+            _isMoving.emit(false)
+            _isCompleted.emit(true)
         }
     }
 
@@ -154,6 +171,7 @@ class HomeViewModel @Inject constructor(
             _readyBtnState.emit(BtnState.Complete(isEnabled = false))
             _movingStartBtnState.emit(BtnState.Complete(isEnabled = false))
             _completedBtnState.emit(BtnState.Complete(isEnabled = false))
+            _isCompleted.emit(false)
         }
     }
 
