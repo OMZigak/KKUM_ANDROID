@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.core.ui.util.context.showPermissionAppSettingsDialog
+import com.teamkkumul.core.ui.util.context.toast
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
@@ -97,6 +98,10 @@ class SetProfileActivity :
                             finish()
                         }
                     }
+                }
+
+                is UiState.Failure -> {
+                    toast(it.errorMessage)
                 }
 
                 else -> Unit
