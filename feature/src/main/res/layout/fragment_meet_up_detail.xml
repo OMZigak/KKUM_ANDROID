@@ -49,27 +49,20 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_meet_up_detail_dday"
                 tools:text="꾸물꿈 뒷풀이" />
 
-            <ImageButton
-                android:id="@+id/btn_meet_up_detail_edit"
+            <TextView
+                android:id="@+id/tv_meet_up_detail_edit"
                 android:layout_width="69dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="14dp"
+                android:gravity="center"
+                android:text="@string/tv_meet_up_detail_edit"
+                android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
+                android:textColor="@color/main_color"
                 android:background="@drawable/shape_gray_fill_8_rect"
                 android:backgroundTint="@color/white0"
                 app:layout_constraintBottom_toTopOf="@id/cl_meet_up_detail_card_back_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_meet_up_detail_edit"
-                android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
-                android:textColor="@color/main_color"
-                app:layout_constraintBottom_toBottomOf="@id/btn_meet_up_detail_edit"
-                app:layout_constraintEnd_toEndOf="@id/btn_meet_up_detail_edit"
-                app:layout_constraintStart_toStartOf="@id/btn_meet_up_detail_edit"
-                app:layout_constraintTop_toTopOf="@id/btn_meet_up_detail_edit" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_meet_up_detail_card_back_bottom"
