@@ -121,7 +121,7 @@ class SetProfileActivity :
     private fun initNotNowBtnClick() {
         binding.tvBtnNotNow.setOnClickListener {
             if (sourceFragment == MY_PAGE_FRAGMENT) {
-                finish()
+                setProfileViewModel.deleteImage()
             } else {
                 inputName?.let { navigateToWelcome(it) }
             }

@@ -30,4 +30,11 @@ internal class ProfileRepositoryImpl @Inject constructor(
     }.recoverCatching {
         return it.handleThrowable()
     }
+
+    override suspend fun deleteImage(): Result<Unit> = runCatching {
+        profileService.deleteImage().success
+        Unit
+    }.recoverCatching {
+        return it.handleThrowable()
+    }
 }

@@ -38,4 +38,15 @@ class SetProfileViewModel @Inject constructor(
                 }
         }
     }
+
+    fun deleteImage() {
+        viewModelScope.launch {
+            profileRepository.deleteImage()
+                .onSuccess {
+                    _updateImageState.emit(UiState.Success(Unit))
+                }.onFailure {
+                    _updateImageState.emit(UiState.Failure(it.message.orEmpty()))
+                }
+        }
+    }
 }
