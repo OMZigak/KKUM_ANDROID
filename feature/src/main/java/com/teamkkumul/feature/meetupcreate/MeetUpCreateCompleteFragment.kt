@@ -23,8 +23,8 @@ class MeetUpCreateCompleteFragment :
     private fun checkMeetUpType() {
         if (sharedViewModel.isEditMode()) {
             binding.tbMeetUpCreate.title = getString(R.string.edit_meet_up_title)
-            binding.tvAddMeetUpComplete.text = "약속이 수정되었어요!"
-            binding.tvAddMeetUpCompleteDescription.text = "해당 약속은 모임 내에서 확인 가능해요"
+            binding.tvAddMeetUpComplete.text = getString(R.string.tv_edit_meet_up_complete)
+            binding.tvAddMeetUpCompleteDescription.text = getString(R.string.tv_add_meet_up_complete_description)
             binding.btnCreateMeetUpComplete.text = getString(R.string.ready_input_completed)
         } else binding.tbMeetUpCreate.title = getString(R.string.create_meet_up_title)
     }
