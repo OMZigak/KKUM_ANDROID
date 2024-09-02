@@ -61,6 +61,7 @@ class SetProfileActivity :
     override fun initView() {
         inputName = intent.getStringExtra(INPUT_NAME)
         loadProfileImage()
+        initNotNowBtnText()
         initObserveImageState()
         initSetProfileBtnClick()
         initOkayBtnClick()
@@ -72,6 +73,13 @@ class SetProfileActivity :
     private fun loadProfileImage() {
         profileImageUrl?.let {
             binding.ivBtnSetProfile.load(it)
+        }
+    }
+
+    private fun initNotNowBtnText() {
+        binding.tvBtnNotNow.text = when (sourceFragment) {
+            MY_PAGE_FRAGMENT -> getString(R.string.set_profile_to_basic_image)
+            else -> getString(R.string.not_now)
         }
     }
 
