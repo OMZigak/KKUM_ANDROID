@@ -21,14 +21,16 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpCreateBinding
 import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.animateProgressBar
+import com.teamkkumul.feature.utils.time.TimeUtils
 import com.teamkkumul.feature.utils.time.TimeUtils.changeDateToText
 import com.teamkkumul.feature.utils.time.TimeUtils.changeTimeToPmAm
+import com.teamkkumul.feature.utils.time.TimeUtils.toHourAndMinuteFromTime
+import com.teamkkumul.feature.utils.time.TimeUtils.toMillisFromDate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -144,9 +146,9 @@ class MeetUpCreateFragment :
 
     private fun validInput(input: String) {
         val isValid = input.length <= GROUP_NAME_MAX_LENGTH &&
-            input.matches(
-                nameRegex,
-            )
+                input.matches(
+                    nameRegex,
+                )
         if (isValid) {
             setColor(R.color.main_color)
             setInputTextColor(R.color.black0)
@@ -193,6 +195,9 @@ class MeetUpCreateFragment :
     }
 
     private fun showDatePickerDialog() {
+        val currentDate = sharedViewModel.meetUpCreateModel.value.date?.toMillisFromDate()
+            ?: MaterialDatePicker.todayInUtcMilliseconds()
+
         val today = MaterialDatePicker.todayInUtcMilliseconds()
 
         val calendarConstraints = CalendarConstraints.Builder()
@@ -202,6 +207,7 @@ class MeetUpCreateFragment :
 
         val builder = MaterialDatePicker.Builder.datePicker()
             .setCalendarConstraints(calendarConstraints)
+            .setSelection(currentDate)
 
         val picker = builder.build()
 
@@ -239,9 +245,8 @@ class MeetUpCreateFragment :
     }
 
     private fun showTimePickerDialog() {
-        val calendar = Calendar.getInstance()
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-        val minute = calendar.get(Calendar.MINUTE)
+        val time = sharedViewModel.meetUpCreateModel.value.time ?: ""
+        val (hour, minute) = time.toHourAndMinuteFromTime()
 
         val timePicker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -251,12 +256,7 @@ class MeetUpCreateFragment :
             .build()
 
         timePicker.addOnPositiveButtonClickListener {
-            val formattedTimeForm = String.format(
-                "%02d:%02d:%02d",
-                timePicker.hour,
-                timePicker.minute,
-                0,
-            )
+            val formattedTimeForm = TimeUtils.formatToHHMM(timePicker.hour, timePicker.minute)
             binding.tvMeetUpCreateTimeEnter.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
@@ -284,9 +284,9 @@ class MeetUpCreateFragment :
 
     private fun isFormComplete(): Boolean {
         return viewModel.meetUpName.value &&
-            timeEntered &&
-            dateEntered &&
-            binding.tvMeetUpCreateLocationEnter.text.isNotEmpty()
+                timeEntered &&
+                dateEntered &&
+                binding.tvMeetUpCreateLocationEnter.text.isNotEmpty()
     }
 
     companion object {
