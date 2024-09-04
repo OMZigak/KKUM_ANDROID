@@ -39,6 +39,14 @@
             </intent-filter>
         </activity>
         <receiver android:name="com.teamkkumul.feature.meetup.readystatus.readyinfoinput.alarm.AlarmReceiver" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/img_kum_logo" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/white0" />
+
         <service
             android:name=".KkumulFirebaseMessagingService"
             android:exported="false">
