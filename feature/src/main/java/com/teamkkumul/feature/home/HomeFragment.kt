@@ -127,8 +127,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun updateTodayMeetingUI(data: HomeTodayMeetingModel?) = with(binding) {
         if (data == null) return
-        tvHomeGroupText.text = data.name.toString()
-        tvHomeMeetingTitle.text = data.meetingName.toString()
+        tvHomeGroupText.text = data.meetingName.toString()
+        tvHomeMeetingTitle.text = data.name.toString()
         tvHomeMeetingWhere.text = data.placeName.toString()
         tvHomeMeetingTime.text = data.time.formatTimeToPmAm()
         promiseId = data.promiseId
@@ -270,6 +270,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             setTextColor(colorOf(state.textColor))
             setBackgroundColor(colorOf(state.backGroundColor))
             isEnabled = state.isEnabled
+            text = requireContext().getString(state.btnText.label)
         }
         circle.setImageResource(state.circleImage)
         progressBar.progress = state.progress

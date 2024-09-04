@@ -231,6 +231,12 @@
     <string name="dialog_withdrawal_title">정말 탈퇴 하시겠어요?</string>
     <string name="dialog_withdrawal_description">탈퇴 버튼 선택 시,\n계정은 삭제되며 복구되지 않습니다.</string>
     <string name="dialog_withdrawal_btn_right">탈퇴하기</string>
-
-
+    <!--    홈화면 준비 버튼-->
+    <string name="home_btn_ready_default">준비 시작</string>
+    <string name="home_btn_ready_start">준비중</string>
+    <string name="home_btn_ready_completed">준비 완료</string>
+    <string name="home_btn_moving_default">이동 시작</string>
+    <string name="home_btn_moving_start">이동중</string>
+    <string name="home_btn_moving_completed">이동 완료</string>
+    <string name="home_btn_completed">도착 완료</string>
 </resources>
