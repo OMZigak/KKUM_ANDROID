@@ -1,6 +1,5 @@
 package com.teamkkumul.feature.meetup
 
-import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle

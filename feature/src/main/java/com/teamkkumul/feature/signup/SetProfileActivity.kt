@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.teamkkumul.core.ui.base.BindingActivity
 import com.teamkkumul.core.ui.util.context.showPermissionAppSettingsDialog
+import com.teamkkumul.core.ui.util.context.toast
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.ActivitySetProfileBinding
@@ -61,6 +62,7 @@ class SetProfileActivity :
     override fun initView() {
         inputName = intent.getStringExtra(INPUT_NAME)
         loadProfileImage()
+        initNotNowBtnText()
         initObserveImageState()
         initSetProfileBtnClick()
         initOkayBtnClick()
@@ -72,6 +74,13 @@ class SetProfileActivity :
     private fun loadProfileImage() {
         profileImageUrl?.let {
             binding.ivBtnSetProfile.load(it)
+        }
+    }
+
+    private fun initNotNowBtnText() {
+        binding.tvBtnNotNow.text = when (sourceFragment) {
+            MY_PAGE_FRAGMENT -> getString(R.string.set_profile_to_basic_image)
+            else -> getString(R.string.not_now)
         }
     }
 
@@ -89,6 +98,10 @@ class SetProfileActivity :
                             finish()
                         }
                     }
+                }
+
+                is UiState.Failure -> {
+                    toast(it.errorMessage)
                 }
 
                 else -> Unit
@@ -113,7 +126,7 @@ class SetProfileActivity :
     private fun initNotNowBtnClick() {
         binding.tvBtnNotNow.setOnClickListener {
             if (sourceFragment == MY_PAGE_FRAGMENT) {
-                finish()
+                setProfileViewModel.deleteImage()
             } else {
                 inputName?.let { navigateToWelcome(it) }
             }

@@ -13,6 +13,7 @@ import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpSharedViewModel
@@ -58,7 +59,7 @@ class MeetUpDetailFragment :
         initObserveMeetUpParticipantListState()
         initObserveMeetUpParticipantState()
 
-        binding.btnMeetUpDetailEdit.setOnClickListener {
+        binding.tvMeetUpDetailEdit.setOnClickListener {
             navigateToEditMeetUp()
         }
     }
@@ -123,6 +124,8 @@ class MeetUpDetailFragment :
             tvMeetUpDetailInformationTime.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
             tvMeetUpDetailInformationReadyLevel.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
             tvMeetUpDetailInformationPenalty.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
+
+            tvMeetUpDetailEdit.setVisible(meetUpDetailModel.isParticipant == true)
         }
     }
 
