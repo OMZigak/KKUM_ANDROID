@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,23 +27,27 @@ class ReadyInfoInputViewModel @Inject constructor(
     private val _readyInputState = MutableStateFlow(false)
     val readyInputState: StateFlow<Boolean> get() = _readyInputState
 
-    private val _readyHour = MutableSharedFlow<Boolean>()
-    val readyHour: SharedFlow<Boolean> get() = _readyHour
+    private val _readyHour = MutableStateFlow<Boolean?>(null)
+    val readyHour: StateFlow<Boolean?> get() = _readyHour
 
-    private val _readyMinute = MutableSharedFlow<Boolean>()
-    val readyMinute: SharedFlow<Boolean> get() = _readyMinute
+    private val _readyMinute = MutableStateFlow<Boolean?>(null)
+    val readyMinute: StateFlow<Boolean?> get() = _readyMinute
 
-    private val _movingHour = MutableSharedFlow<Boolean>()
-    val movingHour: SharedFlow<Boolean> get() = _movingHour
+    private val _movingHour = MutableStateFlow<Boolean?>(null)
+    val movingHour: StateFlow<Boolean?> get() = _movingHour
 
-    private val _movingMinute = MutableSharedFlow<Boolean>()
-    val movingMinute: SharedFlow<Boolean> get() = _movingMinute
+    private val _movingMinute = MutableStateFlow<Boolean?>(null)
+    val movingMinute: StateFlow<Boolean?> get() = _movingMinute
 
-    private val _patchReadyInfoInputState = MutableStateFlow<UiState<Boolean>>(UiState.Loading)
-    val patchReadyInfoInputState: StateFlow<UiState<Boolean>> get() = _patchReadyInfoInputState
+    private val _patchReadyInfoInputState = MutableSharedFlow<UiState<Boolean>>()
+    val patchReadyInfoInputState: SharedFlow<UiState<Boolean>> get() = _patchReadyInfoInputState
 
     private val _meetUpDetailState = MutableStateFlow<UiState<MeetUpDetailModel>>(UiState.Loading)
     val meetUpDetailState = _meetUpDetailState.asStateFlow()
+
+    init {
+        validateForm()
+    }
 
     fun getMeetUpDetail(promiseId: Int) {
         viewModelScope.launch {
@@ -73,28 +76,25 @@ class ReadyInfoInputViewModel @Inject constructor(
     fun setReadyHour(input: String) {
         viewModelScope.launch {
             _readyHour.emit(isReadyHourValid(input))
-            validateForm()
         }
     }
 
     fun setReadyMinute(input: String) {
         viewModelScope.launch {
             _readyMinute.emit(isReadyMinuteValid(input))
-            validateForm()
         }
     }
 
     fun setMovingHour(input: String) {
         viewModelScope.launch {
             _movingHour.emit(isReadyHourValid(input))
-            validateForm()
         }
     }
 
     fun setMovingMinute(input: String) {
         viewModelScope.launch {
             _movingMinute.emit(isReadyMinuteValid(input))
-            validateForm()
+//            validateForm()
         }
     }
 
@@ -112,8 +112,11 @@ class ReadyInfoInputViewModel @Inject constructor(
                 _movingHour,
                 _movingMinute,
             ) { readyHour, readyMinute, movingHour, movingMinute ->
-                readyHour && readyMinute && movingHour && movingMinute
-            }.collectLatest { isFormValid ->
+                (readyHour ?: false) &&
+                    (readyMinute ?: false) &&
+                    (movingHour ?: false) &&
+                    (movingMinute ?: false)
+            }.collect { isFormValid ->
                 _readyInputState.emit(isFormValid)
             }
         }

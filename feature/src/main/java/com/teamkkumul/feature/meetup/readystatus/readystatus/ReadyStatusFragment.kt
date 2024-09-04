@@ -10,6 +10,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
@@ -27,6 +28,7 @@ import com.teamkkumul.feature.utils.time.getCurrentTime
 import com.teamkkumul.feature.utils.time.parseMinutesToHoursAndMinutes
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -59,6 +61,12 @@ class ReadyStatusFragment :
     private fun initObservePopUpVisible() {
         viewModel.popUpVisible.flowWithLifecycle(viewLifeCycle).onEach {
             binding.groupReadyLatePopUp.setVisible(it)
+        }.launchIn(viewLifeCycleScope)
+
+        viewModel.timeTextState.flowWithLifecycle(viewLifeCycle).onEach {
+            binding.tvHomeReadyTime.text = it.readyTime
+            binding.tvHomeMovingTime.text = it.movingTime
+            binding.tvHomeArriveTime.text = it.completedTime
         }.launchIn(viewLifeCycleScope)
     }
 
@@ -101,10 +109,9 @@ class ReadyStatusFragment :
 
     private fun updateBasicUI(data: HomeReadyStatusModel?) = with(binding) {
         data ?: return
-        tvHomeReadyTime.text = data.preparationStartAt
-        tvHomeMovingTime.text = data.departureAt
-        tvHomeArriveTime.text = data.arrivalAt
-        viewModel.setPopUpVisible(data.preparationStartAt == null)
+        viewModel.updateReadyTime(data.preparationStartAt ?: "")
+        viewModel.updateMovingTime(data.departureAt ?: "")
+        viewModel.updateCompletedTime(data.arrivalAt ?: "")
     }
 
     private fun updateReadyTimeAlarmVisibility(preparationAvailable: Boolean) = with(binding) {
@@ -212,18 +219,27 @@ class ReadyStatusFragment :
     private fun initReadyBtnClick() = with(binding) {
         btnHomeReady.setOnClickListener {
             viewModel.patchReady(promiseId)
-            tvHomeReadyTime.text = getCurrentTime()
-            viewLifeCycleScope.launch {
-                animateProgressBar(pgHomeReady, 0, PROGRESS_NUM_100)
-            }
         }
+        viewModel.readyPatchState.flowWithLifecycle(viewLifeCycle).onEach {
+            when (it) {
+                is UiState.Success -> {
+                    viewModel.updateReadyTime(getCurrentTime())
+                    viewLifeCycleScope.launch(Dispatchers.Main) {
+                        animateProgressBar(pgHomeReady, 0, PROGRESS_NUM_100)
+                    }
+                }
+
+                is UiState.Failure -> toast(it.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun initMovingBtnClick() = with(binding) {
         btnHomeMoving.setOnClickListener {
             viewModel.patchMoving(promiseId)
-            tvHomeMovingTime.text = getCurrentTime()
-            viewLifeCycleScope.launch {
+            viewModel.updateMovingTime(getCurrentTime())
+            viewLifeCycleScope.launch(Dispatchers.Main) {
                 animateProgressBar(pgHomeMoving, 0, PROGRESS_NUM_100)
             }
         }
@@ -232,8 +248,8 @@ class ReadyStatusFragment :
     private fun initArriveBtnClick() = with(binding) {
         btnHomeArrive.setOnClickListener {
             viewModel.patchCompleted(promiseId)
-            tvHomeArriveTime.text = getCurrentTime()
-            viewLifeCycleScope.launch {
+            viewModel.updateCompletedTime(getCurrentTime())
+            viewLifeCycleScope.launch(Dispatchers.Main) {
                 animateProgressBar(pgHomeArrive, 0, PROGRESS_NUM_100)
                 delay(300L)
                 animateProgressBar(pgHomeArriveEnd, 0, PROGRESS_NUM_100)

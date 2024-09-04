@@ -4,14 +4,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.feature.meetup.readystatus.readystatus.model.TimeTextState
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.feature.utils.time.TimeUtils.isPastTime
 import com.teamkkumul.feature.utils.type.ReadyBtnTextType
 import com.teamkkumul.model.home.HomeMembersStatus
 import com.teamkkumul.model.home.HomeReadyStatusModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -58,6 +63,30 @@ class ReadyStatusViewModel @Inject constructor(
     private val _popUpVisible = MutableStateFlow<Boolean>(true)
     val popUpVisible get() = _popUpVisible.asStateFlow()
 
+    private val _readyPatchState = MutableSharedFlow<UiState<Unit>>()
+    val readyPatchState: SharedFlow<UiState<Unit>> get() = _readyPatchState
+
+    private val _timeTextState = MutableStateFlow(TimeTextState())
+    val timeTextState: StateFlow<TimeTextState> = _timeTextState.asStateFlow()
+
+    fun updateReadyTime(time: String) {
+        viewModelScope.launch {
+            _timeTextState.update { it.copy(readyTime = time) }
+        }
+    }
+
+    fun updateMovingTime(time: String) {
+        viewModelScope.launch {
+            _timeTextState.update { it.copy(movingTime = time) }
+        }
+    }
+
+    fun updateCompletedTime(time: String) {
+        viewModelScope.launch {
+            _timeTextState.update { it.copy(completedTime = time) }
+        }
+    }
+
     fun setPopUpVisible(isVisible: Boolean) {
         viewModelScope.launch {
             _popUpVisible.emit(isVisible)
@@ -87,6 +116,7 @@ class ReadyStatusViewModel @Inject constructor(
                         _readyStatusState.emit(UiState.Empty)
                     } else {
                         _readyStatusState.emit(UiState.Success(it))
+                        checkAndSetPopupVisibility(it) // 팝업 가시성 검사
                     }
                 }.onFailure {
                     _readyStatusState.emit(UiState.Failure(it.message.toString()))
@@ -100,7 +130,9 @@ class ReadyStatusViewModel @Inject constructor(
                 clickReadyBtn()
                 _membersReadyStatus.emit(UiState.Loading)
                 getMembersReadyStatus(promiseId = promiseId)
-            }
+                _readyPatchState.emit(UiState.Success(Unit))
+                _readyStatusState.emit(UiState.Loading)
+            }.onFailure { _readyPatchState.emit(UiState.Failure(it.message.toString())) }
         }
     }
 
@@ -110,6 +142,7 @@ class ReadyStatusViewModel @Inject constructor(
                 clickMovingStartBtn()
                 _membersReadyStatus.emit(UiState.Loading)
                 getMembersReadyStatus(promiseId = promiseId)
+                _readyStatusState.emit(UiState.Loading)
             }
         }
     }
@@ -120,13 +153,13 @@ class ReadyStatusViewModel @Inject constructor(
                 clickCompletedBtn()
                 _membersReadyStatus.emit(UiState.Loading)
                 getMembersReadyStatus(promiseId = promiseId)
+                _readyStatusState.emit(UiState.Loading)
             }
         }
     }
 
     fun clickReadyBtn() {
         viewModelScope.launch {
-            _popUpVisible.emit(false)
             if (isCompleteState(_readyBtnState)) return@launch
             _readyBtnState.emit(
                 BtnState.InProgress(
@@ -175,6 +208,7 @@ class ReadyStatusViewModel @Inject constructor(
 
     fun clickCompletedBtn() {
         viewModelScope.launch {
+            setPopUpVisible(false)
             if (isCompleteState(_completedBtnState)) return@launch
             _readyBtnState.emit(
                 BtnState.Complete(
@@ -199,5 +233,19 @@ class ReadyStatusViewModel @Inject constructor(
 
     private fun isCompleteState(stateFlow: StateFlow<BtnState>): Boolean {
         return stateFlow.value is BtnState.Complete
+    }
+
+    // 팝업 표시 여부를 결정하는 함수
+    private fun checkAndSetPopupVisibility(data: HomeReadyStatusModel) {
+        if (isCompleteState(_completedBtnState)) {
+            setPopUpVisible(false)
+            return
+        }
+
+        val shouldShowPopup = isPastTime(data.preparationStartAt) ||
+            isPastTime(data.departureAt) ||
+            isPastTime(data.arrivalAt)
+
+        setPopUpVisible(shouldShowPopup)
     }
 }

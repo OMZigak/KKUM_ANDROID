@@ -124,7 +124,8 @@ class ReadyInfoInputFragment :
 
     private fun observeReadyHourState() = with(binding) {
         viewModel.readyHour.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
-            val color = if (isValid) colorOf(R.color.main_color) else colorOf(R.color.red)
+            val color =
+                if (isValid ?: return@onEach) colorOf(R.color.main_color) else colorOf(R.color.red)
             tilReadyStatusReadHour.boxStrokeColor = color
             etReadyStatusReadHour.setTextColor(color)
             if (!isValid) {
@@ -136,7 +137,8 @@ class ReadyInfoInputFragment :
 
     private fun observeReadyMinuteState() = with(binding) {
         viewModel.readyMinute.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
-            val color = if (isValid) colorOf(R.color.main_color) else colorOf(R.color.red)
+            val color =
+                if (isValid ?: return@onEach) colorOf(R.color.main_color) else colorOf(R.color.red)
             tilReadyStatusReadyMinute.boxStrokeColor = color
             etReadyStatusReadyMinute.setTextColor(color)
             if (!isValid) {
@@ -148,7 +150,8 @@ class ReadyInfoInputFragment :
 
     private fun observeMovingHourState() = with(binding) {
         viewModel.movingHour.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
-            val color = if (isValid) colorOf(R.color.main_color) else colorOf(R.color.red)
+            val color =
+                if (isValid ?: return@onEach) colorOf(R.color.main_color) else colorOf(R.color.red)
             tilReadyStatusMovingHour.boxStrokeColor = color
             etReadyStatusMovingHour.setTextColor(color)
             if (!isValid) {
@@ -160,7 +163,8 @@ class ReadyInfoInputFragment :
 
     private fun observeMovingMinuteState() = with(binding) {
         viewModel.movingMinute.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
-            val color = if (isValid) colorOf(R.color.main_color) else colorOf(R.color.red)
+            val color =
+                if (isValid ?: return@onEach) colorOf(R.color.main_color) else colorOf(R.color.red)
             tilReadyStatusMovingMinute.boxStrokeColor = color
             etReadyStatusMovingMinute.setTextColor(color)
             if (!isValid) {

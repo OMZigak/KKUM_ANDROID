@@ -1,8 +1,10 @@
 package com.teamkkumul.feature.utils.time
 
 import android.annotation.SuppressLint
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 @SuppressLint("ConstantLocale")
@@ -96,5 +98,16 @@ object TimeUtils {
         val dDay = -(diffInMillis / (1000 * 60 * 60 * 24)).toInt()
 
         return dDay
+    }
+
+    fun isPastTime(serverTime: String?): Boolean {
+        if (serverTime.isNullOrEmpty()) return true
+        return try {
+            val serverDate = outputPmAmFormat.parse(serverTime)
+            val currentDate = Date()
+            serverDate?.before(currentDate) ?: false
+        } catch (e: ParseException) {
+            true
+        }
     }
 }
