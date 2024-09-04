@@ -1,6 +1,7 @@
 package com.teamkkumul.feature.utils.model
 
 import com.teamkkumul.feature.R
+import com.teamkkumul.feature.utils.type.ReadyBtnTextType
 
 sealed class BtnState(
     open val strokeColor: Int,
@@ -10,7 +11,7 @@ sealed class BtnState(
     open val isEnabled: Boolean,
     open val progress: Int,
     open val isHelpTextVisible: Boolean,
-    open val btnText: String,
+    open val btnText: ReadyBtnTextType,
 ) {
     data class Default(
         override val strokeColor: Int = R.color.main_color,
@@ -20,7 +21,7 @@ sealed class BtnState(
         override val isEnabled: Boolean,
         override val progress: Int = 0,
         override val isHelpTextVisible: Boolean = true,
-        override val btnText: String,
+        override val btnText: ReadyBtnTextType,
     ) : BtnState(
             strokeColor,
             textColor,
@@ -40,7 +41,7 @@ sealed class BtnState(
         override val isEnabled: Boolean = false,
         override val progress: Int = 0,
         override val isHelpTextVisible: Boolean = false,
-        override val btnText: String,
+        override val btnText: ReadyBtnTextType,
     ) : BtnState(
             strokeColor,
             textColor,
@@ -60,7 +61,7 @@ sealed class BtnState(
         override val isEnabled: Boolean,
         override val progress: Int = 100,
         override val isHelpTextVisible: Boolean = false,
-        override val btnText: String,
+        override val btnText: ReadyBtnTextType,
     ) : BtnState(
             strokeColor,
             textColor,
@@ -80,7 +81,7 @@ sealed class BtnState(
         override val isEnabled: Boolean = false,
         override val progress: Int = 100,
         override val isHelpTextVisible: Boolean = false,
-        override val btnText: String,
+        override val btnText: ReadyBtnTextType,
     ) : BtnState(
             strokeColor,
             textColor,
