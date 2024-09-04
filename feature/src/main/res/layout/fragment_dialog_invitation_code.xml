@@ -51,6 +51,8 @@
             android:layout_height="82dp"
             android:layout_marginHorizontal="35dp"
             android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_btn_invite_later"
             android:background="@color/gray0"
             app:layout_constraintEnd_toEndOf="@id/iv_dialog_invitation_code"
             app:layout_constraintStart_toStartOf="@id/iv_dialog_invitation_code"
