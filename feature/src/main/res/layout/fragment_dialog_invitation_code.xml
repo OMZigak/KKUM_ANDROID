@@ -79,51 +79,36 @@
             app:layout_constraintStart_toStartOf="@id/iv_invitation_code"
             app:layout_constraintTop_toBottomOf="@id/tv_invitation_code_title" />
 
-        <ImageView
-            android:id="@+id/iv_btn_invite_later"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/shape_gray3_fill_bl_8_rect"
-            app:layout_constraintBottom_toBottomOf="@id/iv_dialog_invitation_code"
-            app:layout_constraintDimensionRatio="155:52"
-            app:layout_constraintEnd_toStartOf="@id/iv_btn_copy"
-            app:layout_constraintStart_toStartOf="@id/iv_dialog_invitation_code"
-            app:layout_constraintTop_toBottomOf="@id/iv_invitation_code"
-            app:layout_constraintVertical_bias="1.0" />
-
         <TextView
             android:id="@+id/tv_btn_invite_later"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_invite_later"
-            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-            android:textColor="@color/white0"
-            app:layout_constraintBottom_toBottomOf="@id/iv_btn_invite_later"
-            app:layout_constraintEnd_toEndOf="@id/iv_btn_invite_later"
-            app:layout_constraintStart_toStartOf="@id/iv_btn_invite_later"
-            app:layout_constraintTop_toTopOf="@id/iv_btn_invite_later" />
-
-        <ImageView
-            android:id="@+id/iv_btn_copy"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/shape_gray7_fill_br_8_rect"
-            app:layout_constraintBottom_toBottomOf="@id/iv_dialog_invitation_code"
+            android:text="@string/tv_invite_later"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            android:background="@drawable/shape_gray3_fill_bl_8_rect"
             app:layout_constraintDimensionRatio="155:52"
-            app:layout_constraintEnd_toEndOf="@id/iv_dialog_invitation_code"
-            app:layout_constraintStart_toEndOf="@id/iv_btn_invite_later" />
+            app:layout_constraintVertical_bias="1.0"
+            android:gravity="center"
+            android:textColor="@color/white0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_btn_copy"
+            app:layout_constraintBottom_toBottomOf="@id/iv_dialog_invitation_code"/>
 
         <TextView
             android:id="@+id/tv_btn_copy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:text="@string/tv_copy"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            android:background="@drawable/shape_gray7_fill_br_8_rect"
+            app:layout_constraintDimensionRatio="155:52"
+            app:layout_constraintVertical_bias="1.0"
+            android:gravity="center"
             android:textColor="@color/white0"
-            app:layout_constraintBottom_toBottomOf="@id/iv_btn_copy"
-            app:layout_constraintEnd_toEndOf="@id/iv_btn_copy"
-            app:layout_constraintStart_toStartOf="@id/iv_btn_copy"
-            app:layout_constraintTop_toTopOf="@id/iv_btn_copy" />
+            app:layout_constraintStart_toEndOf="@id/tv_btn_invite_later"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_btn_invite_later"
+            app:layout_constraintBottom_toBottomOf="@id/iv_dialog_invitation_code"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
