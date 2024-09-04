@@ -49,7 +49,7 @@ class DialogInvitationCodeFragment :
     }
 
     private fun setupDialogBtn() {
-        binding.ivBtnCopy.setOnClickListener {
+        binding.tvBtnCopy.setOnClickListener {
             copyToClipboard(invitationCode)
             when (sourceFragment) {
                 ADD_NEW_GROUP_FRAGMENT -> {
@@ -65,7 +65,7 @@ class DialogInvitationCodeFragment :
                 }
             }
         }
-        binding.ivBtnInviteLater.setOnClickListener {
+        binding.tvBtnInviteLater.setOnClickListener {
             dismiss()
         }
     }

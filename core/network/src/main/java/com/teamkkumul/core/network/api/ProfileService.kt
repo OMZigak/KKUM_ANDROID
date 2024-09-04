@@ -11,6 +11,7 @@ import com.teamkkumul.core.network.dto.response.BaseResponse
 import com.teamkkumul.core.network.dto.response.ResponseSetNameDto
 import okhttp3.MultipartBody
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.Part
@@ -27,4 +28,7 @@ interface ProfileService {
     suspend fun updateImage(
         @Part image: MultipartBody.Part?,
     ): BaseResponse<Unit>
+
+    @DELETE("/$API/$V1/$USERS/$ME/$IMAGE")
+    suspend fun deleteImage(): BaseResponse<Unit>
 }
