@@ -46,11 +46,13 @@ class MeetUpLevelFragment :
 
         if (sharedViewModel.isEditMode()) {
             binding.tbMeetUpCreate.title = getString(R.string.edit_meet_up_title)
+            binding.btnCreateMeetUp.text= getString(R.string.tv_meet_up_detail_edit)
             getPreviousChipGroupState()
             setupEditMeetUpButton(btnCreateMeetUp, sharedViewModel.getPromiseId(), selectedItems)
             initObserveMeetUpEdit()
         } else {
             binding.tbMeetUpCreate.title = getString(R.string.create_meet_up_title)
+            binding.btnCreateMeetUp.text = getString(R.string.create_meet_up_title)
             setupCreateMeetUpButton(btnCreateMeetUp, sharedViewModel.getMeetingId(), selectedItems)
             initObserveMeetUpCreate()
         }
