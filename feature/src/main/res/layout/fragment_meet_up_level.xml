@@ -219,7 +219,6 @@
             android:layout_marginBottom="50dp"
             android:background="@drawable/sel_btn"
             android:enabled="false"
-            android:text="@string/create_meet_up_title"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
             android:textColor="@color/white0"
             app:layout_constraintBottom_toBottomOf="parent"

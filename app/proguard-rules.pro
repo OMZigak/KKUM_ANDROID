@@ -25,3 +25,7 @@
 -keep class * extends com.google.gson.TypeAdapter
 -keep interface com.kakao.sdk.**.*Api
 ##---------------END: Kakao SDK  ----------
+
+## Firebase Cloud Messaging (FCM)
+-keep class com.google.android.gms.** { *; }
+-keep class com.google.firebase.** { *; }

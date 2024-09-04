@@ -109,9 +109,6 @@
                 android:text="@string/home_fence_text"
                 android:textAppearance="@style/TextAppearance.Kkumul.label_01"
                 android:textColor="@color/white0"
-                app:layout_constraintEnd_toStartOf="@id/iv_home_level"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
                 app:layout_constraintTop_toBottomOf="@id/tv_home_late_text" />
 
@@ -130,13 +127,13 @@
                 android:id="@+id/iv_home_level"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-16dp"
+                android:layout_marginStart="6dp"
                 android:src="@drawable/ic_home_lv_1"
                 app:layout_constraintBottom_toTopOf="@id/tv_home_level"
                 app:layout_constraintDimensionRatio="160:198"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/tv_home_late_text" />
+                app:layout_constraintStart_toEndOf="@id/tv_home_fence" />
 
             <TextView
                 android:id="@+id/tv_home_level"

@@ -47,8 +47,8 @@ runtimeLivedata = "1.6.8"
 
 # google
 google-services = "4.4.2"
-firebaseBom = "33.1.2"
-firebaseMessagingKtx = "24.0.0"
+firebaseBom = "33.2.0"
+firebaseMessagingKtx = "24.0.1"
 
 [libraries]
 
