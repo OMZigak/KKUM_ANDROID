@@ -112,7 +112,6 @@ class ReadyStatusFragment :
         viewModel.updateReadyTime(data.preparationStartAt ?: "")
         viewModel.updateMovingTime(data.departureAt ?: "")
         viewModel.updateCompletedTime(data.arrivalAt ?: "")
-        viewModel.setPopUpVisible(data.preparationStartAt == null)
     }
 
     private fun updateReadyTimeAlarmVisibility(preparationAvailable: Boolean) = with(binding) {

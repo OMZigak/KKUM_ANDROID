@@ -6,6 +6,7 @@ import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.meetup.readystatus.readystatus.model.TimeTextState
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.feature.utils.time.TimeUtils.isPastTime
 import com.teamkkumul.feature.utils.type.ReadyBtnTextType
 import com.teamkkumul.model.home.HomeMembersStatus
 import com.teamkkumul.model.home.HomeReadyStatusModel
@@ -115,6 +116,7 @@ class ReadyStatusViewModel @Inject constructor(
                         _readyStatusState.emit(UiState.Empty)
                     } else {
                         _readyStatusState.emit(UiState.Success(it))
+                        checkAndSetPopupVisibility(it) // 팝업 가시성 검사
                     }
                 }.onFailure {
                     _readyStatusState.emit(UiState.Failure(it.message.toString()))
@@ -158,7 +160,6 @@ class ReadyStatusViewModel @Inject constructor(
 
     fun clickReadyBtn() {
         viewModelScope.launch {
-            _popUpVisible.emit(false)
             if (isCompleteState(_readyBtnState)) return@launch
             _readyBtnState.emit(
                 BtnState.InProgress(
@@ -207,6 +208,7 @@ class ReadyStatusViewModel @Inject constructor(
 
     fun clickCompletedBtn() {
         viewModelScope.launch {
+            setPopUpVisible(false)
             if (isCompleteState(_completedBtnState)) return@launch
             _readyBtnState.emit(
                 BtnState.Complete(
@@ -231,5 +233,19 @@ class ReadyStatusViewModel @Inject constructor(
 
     private fun isCompleteState(stateFlow: StateFlow<BtnState>): Boolean {
         return stateFlow.value is BtnState.Complete
+    }
+
+    // 팝업 표시 여부를 결정하는 함수
+    private fun checkAndSetPopupVisibility(data: HomeReadyStatusModel) {
+        if (isCompleteState(_completedBtnState)) {
+            setPopUpVisible(false)
+            return
+        }
+
+        val shouldShowPopup = isPastTime(data.preparationStartAt) ||
+            isPastTime(data.departureAt) ||
+            isPastTime(data.arrivalAt)
+
+        setPopUpVisible(shouldShowPopup)
     }
 }
