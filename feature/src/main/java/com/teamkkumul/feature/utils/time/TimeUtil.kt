@@ -2,6 +2,7 @@ package com.teamkkumul.feature.utils.time
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 @SuppressLint("ConstantLocale")
@@ -60,6 +61,30 @@ object TimeUtils {
     fun String.parseDateOnly(): String {
         val date = inputFormat.parse(this)
         return outputSimpleDateFormat.format(date)
+    }
+
+    fun String.toMillisFromDate(): Long? {
+        return if (this.isNullOrEmpty()) {
+            null
+        } else {
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(this)?.time
+        }
+    }
+
+    fun String.toHourAndMinuteFromTime(): Pair<Int, Int> {
+        return if (this.isEmpty()) {
+            val calendar = Calendar.getInstance()
+            Pair(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
+        } else {
+            val date = outputSimpleTimeFormat.parse(this)
+            val hour = date?.hours ?: 0
+            val minute = date?.minutes ?: 0
+            Pair(hour, minute)
+        }
+    }
+
+    fun formatToHHMM(hour: Int, minute: Int): String {
+        return String.format("%02d:%02d:%02d", hour, minute, 0)
     }
 
     fun String.calculateDday(): Int {
