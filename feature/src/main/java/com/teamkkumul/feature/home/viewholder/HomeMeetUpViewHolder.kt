@@ -27,8 +27,8 @@ class HomeMeetUpViewHolder(
         tvMyGroupRemainMeetUpDueDateDay.setTextColor(colorOf(setDdayTextColor(data.dDay)))
         tvMyGroupRemainMeetUpDueDateDay.text = setDday(data.dDay)
         tvMeetUpGroupText.visibility = View.VISIBLE
-        tvMeetUpGroupText.text = data.meetingName
-        tvMyGroupRemainMeetUpName.text = data.name
+        tvMeetUpGroupText.text = data.name
+        tvMyGroupRemainMeetUpName.text = data.meetingName
         tvMyGroupRemainMeetUpDate.text = data.time.parseDateToYearMonthDay()
         tvMyGroupRemainMeetUpLocation.text = data.placeName
         tvMyGroupRemainMeetUpTime.text = data.time.formatTimeToPmAm()
