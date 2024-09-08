@@ -66,7 +66,19 @@ class DialogInvitationCodeFragment :
             }
         }
         binding.tvBtnInviteLater.setOnClickListener {
-            dismiss()
+            when (sourceFragment) {
+                ADD_NEW_GROUP_FRAGMENT -> {
+                    if (invitationCode.isNotEmpty()) {
+                        findNavController().navigate(R.id.action_dialog_to_completed)
+                    } else {
+                        findNavController().navigate(R.id.action_dialog_to_my_group_detail)
+                    }
+                    dismiss()
+                }
+                MY_GROUP_DETAIL_FRAGMENT -> {
+                    dismiss()
+                }
+            }
         }
     }
 

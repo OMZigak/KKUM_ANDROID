@@ -275,7 +275,9 @@
         tools:layout="@layout/fragment_exit_meet_up_bottom_sheet">
         <action
             android:id="@+id/action_bottomSheetMeetUpExitFragment_to_deleteDialogFragment"
-            app:destination="@id/deleteDialogFragment" />
+            app:destination="@id/deleteDialogFragment"
+            app:popUpTo="@id/fragment_exit_meet_up_bottom_sheet"
+            app:popUpToInclusive="true" />
     </dialog>
 
     <dialog
