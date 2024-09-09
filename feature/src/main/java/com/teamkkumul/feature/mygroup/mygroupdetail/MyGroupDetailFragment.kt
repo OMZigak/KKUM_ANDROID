@@ -65,11 +65,11 @@ class MyGroupDetailFragment :
     }
 
     private fun textClickListeners() {
-        binding.tvAllMeetUp.setOnClickListener {
+        binding.clAllMeetUp.setOnClickListener {
             switchToAllMeetUpState()
         }
 
-        binding.tvMeetUpIncludeMe.setOnClickListener {
+        binding.clMeetUpIncludeMe.setOnClickListener {
             switchToMeetUpIncludeMeState()
         }
     }

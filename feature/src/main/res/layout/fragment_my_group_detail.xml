@@ -32,7 +32,7 @@
                 android:id="@+id/tv_my_group_create"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="25dp"
                 android:text="@string/my_group_create_data"
                 android:textAppearance="@style/TextAppearance.Kkumul.label_01"
                 android:textColor="@color/gray4"
@@ -103,7 +103,7 @@
                 android:id="@+id/tv_my_group_meet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="4dp"
                 android:text="@string/my_group_meet"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 app:layout_constraintBottom_toBottomOf="@id/tv_my_group_meet_up_count_num"
@@ -197,6 +197,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="16dp"
+                android:padding="2dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up">
 
@@ -222,10 +223,13 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_all_meet_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
+                android:paddingVertical="2dp"
+                android:paddingStart="1dp"
                 app:layout_constraintStart_toEndOf="@id/cl_meet_up_include_me"
                 app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up">
 
@@ -282,8 +286,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:backgroundTint="@color/main_color"
-                android:gravity="center_vertical"
                 android:text="@string/my_group_extended_fab"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_01"
                 android:textColor="@color/white0"
                 app:iconPadding="8dp"
