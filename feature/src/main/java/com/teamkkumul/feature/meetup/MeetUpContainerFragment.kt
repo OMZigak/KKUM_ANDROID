@@ -32,6 +32,7 @@ class MeetUpContainerFragment :
         initMyPageTabLayout(promiseId)
         initObservePromiseNameState()
         navigationClickListener()
+        binding.toolbarMeetUpContainer.toolbarMyPageLine.setVisible(false)
     }
 
     private fun initMyPageTabLayout(promiseId: Int) = with(binding) {
