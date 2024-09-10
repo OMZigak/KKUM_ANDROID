@@ -94,7 +94,6 @@ class ReadyInfoInputViewModel @Inject constructor(
     fun setMovingMinute(input: String) {
         viewModelScope.launch {
             _movingMinute.emit(isReadyMinuteValid(input))
-//            validateForm()
         }
     }
 
