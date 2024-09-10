@@ -219,7 +219,7 @@
     <string name="tv_leave_my_group_question">모임에서 나가시겠어요?</string>
     <string name="tv_leave_my_group_question_description">모임에서 나가도\n초대 코드를 통해 다시 들어올 수 있어요.</string>
     <string name="tv_delete_meet_up_question">정말 약속을 삭제하시겠어요?</string>
-    <string name="tv_delete_meet_up_question_description">약속을 삭제하면\n모든 참여 인원의 약속 목록에서 사라져요.</string>
+    <string name="tv_delete_meet_up_question_description">약속을 삭제하면 해당 약속이\n모든 참여 인원의 약속 목록에서 사라져요.</string>
     <string name="tv_btn_cancel">취소</string>
     <string name="tv_btn_leave">나가기</string>
     <string name="tv_btn_delete">삭제하기</string>
