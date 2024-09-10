@@ -23,6 +23,7 @@ import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
+import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToYearMonthDay
 import com.teamkkumul.model.MyGroupInfoModel
 import com.teamkkumul.model.MyGroupMemberModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -106,7 +107,7 @@ class MyGroupDetailFragment :
     }
 
     private fun successMyGroupInfoState(myGroupInfoModel: MyGroupInfoModel) {
-        binding.tvMyGroupCreateDate.text = myGroupInfoModel.createdAt
+        binding.tvMyGroupCreateDate.text = myGroupInfoModel.createdAt.parseDateToYearMonthDay()
         binding.tvMyGroupMeetUpCount.text = myGroupInfoModel.metCount.toString()
         binding.toolbarMyGroupDetail.title = myGroupInfoModel.name
     }
