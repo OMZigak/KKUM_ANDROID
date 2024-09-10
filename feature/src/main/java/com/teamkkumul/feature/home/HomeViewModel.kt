@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.feature.home.model.HelpTextState
 import com.teamkkumul.feature.utils.model.BtnState
 import com.teamkkumul.feature.utils.type.ReadyBtnTextType
 import com.teamkkumul.model.home.HomeReadyStatusModel
@@ -67,27 +68,15 @@ class HomeViewModel @Inject constructor(
     val readyStatusState: StateFlow<UiState<HomeReadyStatusModel?>> =
         _readyStatusState.asStateFlow()
 
-    private val _isReady = MutableStateFlow<Boolean>(false)
-    val isReady: StateFlow<Boolean> get() = _isReady.asStateFlow()
-
-    private val _isMoving = MutableStateFlow(false)
-    val isMoving: StateFlow<Boolean> get() = _isMoving
-
-    private val _isCompleted = MutableStateFlow(false)
-    val isCompleted: StateFlow<Boolean> get() = _isCompleted
+    private val _helpTextState = MutableStateFlow(HelpTextState())
+    val helpTextState: StateFlow<HelpTextState> get() = _helpTextState.asStateFlow()
 
     fun updateReadyHelpText() {
-        viewModelScope.launch {
-            _isReady.update { true }
-        }
+        _helpTextState.update { it.copy(isReadyHelpTextVisible = true) }
     }
 
     fun updateAllInvisible() {
-        viewModelScope.launch {
-            _isReady.update { false }
-            _isMoving.update { false }
-            _isCompleted.update { false }
-        }
+        _helpTextState.update { HelpTextState() }
     }
 
     fun getReadyStatus(promiseId: Int) {
@@ -191,8 +180,12 @@ class HomeViewModel @Inject constructor(
                     btnText = ReadyBtnTextType.COMPLETED,
                 ),
             )
-            _isReady.emit(false)
-            _isMoving.emit(true)
+            _helpTextState.update {
+                it.copy(
+                    isReadyHelpTextVisible = false,
+                    isMovingHelpTextVisible = true,
+                )
+            }
         }
     }
 
@@ -217,8 +210,12 @@ class HomeViewModel @Inject constructor(
                     btnText = ReadyBtnTextType.COMPLETED,
                 ),
             )
-            _isMoving.emit(false)
-            _isCompleted.emit(true)
+            _helpTextState.update {
+                it.copy(
+                    isMovingHelpTextVisible = false,
+                    isCompletedHelpTextVisible = true,
+                )
+            }
         }
     }
 
@@ -243,8 +240,7 @@ class HomeViewModel @Inject constructor(
                     btnText = ReadyBtnTextType.COMPLETED,
                 ),
             )
-            _isCompleted.emit(false)
-            _isReady.emit(false)
+            updateAllInvisible()
         }
     }
 
