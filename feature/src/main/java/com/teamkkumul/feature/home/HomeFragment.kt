@@ -1,6 +1,7 @@
 package com.teamkkumul.feature.home
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -71,9 +72,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         viewModel.readyStatusState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> updateReadyStatusUI(it.data)
-                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
-                is UiState.Empty -> Timber.tag("home").d("empty")
-                is UiState.Loading -> Timber.tag("home").d("loading")
+                is UiState.Failure -> Timber.e(it.errorMessage)
+                else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
@@ -115,11 +115,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                     updateMeetingVisibility(false)
                     viewLifeCycleScope.launch {
                         delay(10)
-                        setHelpTextInvisible()
+                        viewModel.updateAllInvisible()
                     }
                 }
 
-                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
+                is UiState.Failure -> Timber.e(it.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
@@ -146,7 +146,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         viewModel.homeState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> updateHomeTopBannerUI(it.data)
-                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
+                is UiState.Failure -> Timber.e(it.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
@@ -154,12 +154,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun updateHomeTopBannerUI(data: UserModel) = with(binding) {
         tvHomeNickname.text = getString(R.string.home_nickname_text, data.name.toString())
-        tvHomeMeetingCount.text =
-            getString(R.string.home_meeting_count_text, data.promiseCount)
+        tvHomeMeetingCount.text = getString(R.string.home_meeting_count_text, data.promiseCount)
         tvHomeLateCount.text = getString(R.string.home_late_count_text, data.tardyCount)
         ivHomeLevel.load(getLevelImageResId(data.level))
-        tvHomeLevel.text =
-            requireContext().updateLevelText(data.level, LevelColorType.HOME)
+        tvHomeLevel.text = requireContext().updateLevelText(data.level, LevelColorType.HOME)
         tvHomeFence.text = getString(getLevelFenceText(data.level))
     }
 
@@ -179,7 +177,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
                 is UiState.Empty -> updateUpComingMeetingVisibility(false)
 
-                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
+                is UiState.Failure -> Timber.e(it.errorMessage)
                 is UiState.Loading -> Unit
             }
         }.launchIn(viewLifeCycleScope)
@@ -223,38 +221,46 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun initObserveBtnState() = with(binding) {
-        observeBtnState(
-            viewModel.readyBtnState,
-            btnHomeReady,
-            ivHomeReadyCircle,
-            pgHomeReady,
-            null,
-        )
-        observeBtnState(
-            viewModel.movingStartBtnState,
-            binding.btnHomeMoving,
-            ivHomeMovingCircle,
-            pgHomeMoving,
-            null,
-        )
-        observeBtnState(
-            viewModel.completedBtnState,
-            binding.btnHomeArrive,
-            ivHomeArriveCircle,
-            pgHomeArrive,
-            pgHomeArriveEnd,
-        )
+        observeBtnState(stateFlow = viewModel.readyBtnState) { state ->
+            setUpButton(
+                state,
+                btnHomeReady,
+                ivHomeReadyCircle,
+                pgHomeReady,
+                null,
+                tvHomeReadyHelpText,
+            )
+        }
+
+        observeBtnState(stateFlow = viewModel.movingStartBtnState) { state ->
+            setUpButton(
+                state,
+                btnHomeMoving,
+                ivHomeMovingCircle,
+                pgHomeMoving,
+                null,
+                tvHomeMovingHelpText,
+            )
+        }
+
+        observeBtnState(stateFlow = viewModel.completedBtnState) { state ->
+            setUpButton(
+                state,
+                btnHomeArrive,
+                ivHomeArriveCircle,
+                pgHomeArrive,
+                pgHomeArriveEnd,
+                tvHomeCompletedHelpText,
+            )
+        }
     }
 
     private fun observeBtnState(
         stateFlow: StateFlow<BtnState>,
-        button: MaterialButton,
-        circle: ImageView,
-        progressBar: LinearProgressIndicator,
-        progressBarEnd: LinearProgressIndicator?,
+        onStateChanged: (BtnState) -> Unit,
     ) {
         stateFlow.flowWithLifecycle(viewLifeCycle).onEach { state ->
-            setUpButton(state, button, circle, progressBar, progressBarEnd)
+            onStateChanged(state)
         }.launchIn(viewLifeCycleScope)
     }
 
@@ -264,6 +270,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         circle: ImageView,
         progressBar: LinearProgressIndicator,
         progressBarEnd: LinearProgressIndicator?,
+        helpText: TextView,
     ) {
         button.apply {
             setStrokeColorResource(state.strokeColor)
@@ -277,6 +284,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         if (progressBarEnd != null) {
             progressBarEnd.progress = state.progress
         }
+        helpText.setInVisible(state.isHelpTextVisible)
     }
 
     private fun initHomeMeetUpRecyclerView() {
@@ -305,22 +313,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         }
     }
 
-    private fun observeHelpTextState() {
-        viewModel.isReady.flowWithLifecycle(viewLifeCycle).onEach {
-            binding.tvHomeReadyHelpText.setInVisible(it)
+    private fun observeHelpTextState() = with(binding) {
+        viewModel.helpTextState.flowWithLifecycle(viewLifeCycle).onEach {
+            tvHomeReadyHelpText.setInVisible(it.isReadyHelpTextVisible)
+            tvHomeMovingHelpText.setInVisible(it.isMovingHelpTextVisible)
+            tvHomeCompletedHelpText.setInVisible(it.isCompletedHelpTextVisible)
         }.launchIn(viewLifeCycleScope)
-        viewModel.isMoving.flowWithLifecycle(viewLifeCycle).onEach {
-            binding.tvHomeMovingHelpText.setInVisible(it)
-        }.launchIn(viewLifeCycleScope)
-        viewModel.isCompleted.flowWithLifecycle(viewLifeCycle).onEach {
-            binding.tvHomeCompletedHelpText.setInVisible(it)
-        }.launchIn(viewLifeCycleScope)
-    }
-
-    private fun setHelpTextInvisible() {
-        binding.tvHomeReadyHelpText.setVisible(false)
-        binding.tvHomeMovingHelpText.setVisible(false)
-        binding.tvHomeCompletedHelpText.setVisible(false)
     }
 
     override fun onDestroyView() {

@@ -42,31 +42,10 @@ class ReadyInfoInputFragment :
     private var promiseName: String? = null
 
     override fun initView() {
-        initHideKeyBoard()
         initSetEditText()
         initObserveState()
         initReadyInputBtnClick()
-        initObserveMeetUpDetailState()
-    }
-
-    private fun initObserveMeetUpDetailState() {
-        viewModel.getMeetUpDetail(promiseId)
-        viewModel.meetUpDetailState.flowWithLifecycle(viewLifeCycle).onEach { state ->
-            when (state) {
-                is UiState.Success -> {
-                    promiseName = state.data.promiseName
-                }
-
-                is UiState.Failure -> Timber.tag("readyinput").d(state.toString())
-                else -> {}
-            }
-        }.launchIn(viewLifeCycleScope)
-    }
-
-    private fun initHideKeyBoard() {
-        binding.root.setOnClickListener {
-            requireContext().hideKeyboard(binding.root)
-        }
+        initHideKeyBoard()
     }
 
     private fun initSetEditText() {
@@ -77,11 +56,23 @@ class ReadyInfoInputFragment :
     }
 
     private fun initObserveState() {
+        observeMeetUpDetailState()
         observeNextBtnState()
-        observeReadyHourState()
-        observeReadyMinuteState()
-        observeMovingHourState()
-        observeMovingMinuteState()
+        observeReadyInfoState()
+    }
+
+    private fun observeMeetUpDetailState() {
+        viewModel.getMeetUpDetail(promiseId)
+        viewModel.meetUpDetailState.flowWithLifecycle(viewLifeCycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    promiseName = state.data.promiseName
+                }
+
+                is UiState.Failure -> Timber.e(state.toString())
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
     }
 
     private fun observeNextBtnState() {
@@ -122,56 +113,57 @@ class ReadyInfoInputFragment :
         }
     }
 
-    private fun observeReadyHourState() = with(binding) {
-        viewModel.readyHour.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
-            val color =
-                if (isValid ?: return@onEach) colorOf(R.color.main_color) else colorOf(R.color.red)
-            tilReadyStatusReadHour.boxStrokeColor = color
-            etReadyStatusReadHour.setTextColor(color)
-            if (!isValid) {
-                etReadyStatusReadHour.setText(TimeStorage.END_HOUR.toString())
-                toast(getString(R.string.ready_info_input_hour_error))
-            }
+    private fun observeReadyInfoState() {
+        viewModel.readyInfo.flowWithLifecycle(viewLifeCycle).onEach { readyInfo ->
+            updateReadyHourState(readyInfo.readyHour)
+            updateReadyMinuteState(readyInfo.readyMinute)
+            updateMovingHourState(readyInfo.movingHour)
+            updateMovingMinuteState(readyInfo.movingMinute)
         }.launchIn(viewLifeCycleScope)
     }
 
-    private fun observeReadyMinuteState() = with(binding) {
-        viewModel.readyMinute.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
-            val color =
-                if (isValid ?: return@onEach) colorOf(R.color.main_color) else colorOf(R.color.red)
-            tilReadyStatusReadyMinute.boxStrokeColor = color
-            etReadyStatusReadyMinute.setTextColor(color)
-            if (!isValid) {
-                etReadyStatusReadyMinute.setText(TimeStorage.END_MINUTE.toString())
-                toast(getString(R.string.ready_info_input_minute_error))
-            }
-        }.launchIn(viewLifeCycleScope)
+    private fun updateReadyHourState(isValid: Boolean?) = with(binding) {
+        val color =
+            if (isValid ?: return) colorOf(R.color.main_color) else colorOf(R.color.red)
+        tilReadyStatusReadHour.boxStrokeColor = color
+        etReadyStatusReadHour.setTextColor(color)
+        if (!isValid) {
+            etReadyStatusReadHour.setText(TimeStorage.END_HOUR.toString())
+            toast(getString(R.string.ready_info_input_hour_error))
+        }
     }
 
-    private fun observeMovingHourState() = with(binding) {
-        viewModel.movingHour.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
-            val color =
-                if (isValid ?: return@onEach) colorOf(R.color.main_color) else colorOf(R.color.red)
-            tilReadyStatusMovingHour.boxStrokeColor = color
-            etReadyStatusMovingHour.setTextColor(color)
-            if (!isValid) {
-                etReadyStatusMovingHour.setText(TimeStorage.END_HOUR.toString())
-                toast(getString(R.string.ready_info_input_hour_error))
-            }
-        }.launchIn(viewLifeCycleScope)
+    private fun updateReadyMinuteState(isValid: Boolean?) = with(binding) {
+        val color =
+            if (isValid ?: return) colorOf(R.color.main_color) else colorOf(R.color.red)
+        tilReadyStatusReadyMinute.boxStrokeColor = color
+        etReadyStatusReadyMinute.setTextColor(color)
+        if (!isValid) {
+            etReadyStatusReadyMinute.setText(TimeStorage.END_MINUTE.toString())
+            toast(getString(R.string.ready_info_input_minute_error))
+        }
     }
 
-    private fun observeMovingMinuteState() = with(binding) {
-        viewModel.movingMinute.flowWithLifecycle(viewLifeCycle).onEach { isValid ->
-            val color =
-                if (isValid ?: return@onEach) colorOf(R.color.main_color) else colorOf(R.color.red)
-            tilReadyStatusMovingMinute.boxStrokeColor = color
-            etReadyStatusMovingMinute.setTextColor(color)
-            if (!isValid) {
-                etReadyStatusMovingMinute.setText(TimeStorage.END_MINUTE.toString())
-                toast(getString(R.string.ready_info_input_minute_error))
-            }
-        }.launchIn(viewLifeCycleScope)
+    private fun updateMovingHourState(isValid: Boolean?) = with(binding) {
+        val color =
+            if (isValid ?: return) colorOf(R.color.main_color) else colorOf(R.color.red)
+        tilReadyStatusMovingHour.boxStrokeColor = color
+        etReadyStatusMovingHour.setTextColor(color)
+        if (!isValid) {
+            etReadyStatusMovingHour.setText(TimeStorage.END_HOUR.toString())
+            toast(getString(R.string.ready_info_input_hour_error))
+        }
+    }
+
+    private fun updateMovingMinuteState(isValid: Boolean?) = with(binding) {
+        val color =
+            if (isValid ?: return) colorOf(R.color.main_color) else colorOf(R.color.red)
+        tilReadyStatusMovingMinute.boxStrokeColor = color
+        etReadyStatusMovingMinute.setTextColor(color)
+        if (!isValid) {
+            etReadyStatusMovingMinute.setText(TimeStorage.END_MINUTE.toString())
+            toast(getString(R.string.ready_info_input_minute_error))
+        }
     }
 
     private fun initReadyInputBtnClick() {
@@ -258,7 +250,7 @@ class ReadyInfoInputFragment :
             putExtra(KeyStorage.ALARM_TITLE, alarmTitle)
             putExtra(KeyStorage.ALARM_CONTENT, alarmContent)
             putExtra(KeyStorage.TAB_INDEX, 1)
-            putExtra(KeyStorage.PROMISE_ID, promiseId) // 추가된 부분
+            putExtra(KeyStorage.PROMISE_ID, promiseId)
         }
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext(),
@@ -268,5 +260,11 @@ class ReadyInfoInputFragment :
         )
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+    }
+
+    private fun initHideKeyBoard() {
+        binding.root.setOnClickListener {
+            requireContext().hideKeyboard(binding.root)
+        }
     }
 }
