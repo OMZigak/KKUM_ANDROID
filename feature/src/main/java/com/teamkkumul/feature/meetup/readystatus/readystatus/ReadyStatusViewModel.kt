@@ -60,7 +60,7 @@ class ReadyStatusViewModel @Inject constructor(
         MutableStateFlow<UiState<List<HomeMembersStatus.Participant?>>>(UiState.Loading)
     val membersReadyStatus get() = _membersReadyStatus.asStateFlow()
 
-    private val _popUpVisible = MutableStateFlow<Boolean>(true)
+    private val _popUpVisible = MutableStateFlow<Boolean>(false)
     val popUpVisible get() = _popUpVisible.asStateFlow()
 
     private val _readyPatchState = MutableSharedFlow<UiState<Unit>>()
@@ -88,9 +88,7 @@ class ReadyStatusViewModel @Inject constructor(
     }
 
     fun setPopUpVisible(isVisible: Boolean) {
-        viewModelScope.launch {
-            _popUpVisible.emit(isVisible)
-        }
+        _popUpVisible.update { isVisible }
     }
 
     fun getMembersReadyStatus(promiseId: Int) {
@@ -237,7 +235,7 @@ class ReadyStatusViewModel @Inject constructor(
 
     // 팝업 표시 여부를 결정하는 함수
     private fun checkAndSetPopupVisibility(data: HomeReadyStatusModel) {
-        if (isCompleteState(_completedBtnState)) {
+        if (isCompleteState(_completedBtnState) || data.preparationTime == null) {
             setPopUpVisible(false)
             return
         }
