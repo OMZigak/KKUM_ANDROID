@@ -23,7 +23,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/shape_radius_8"
             android:backgroundTint="@color/green1"
-            app:layout_constraintDimensionRatio="332:84"
+            app:layout_constraintDimensionRatio="332:80"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_my_group_detail">
@@ -69,7 +69,7 @@
                 android:id="@+id/tv_my_group_meet_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/my_group_meet_up"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -115,11 +115,12 @@
                 android:id="@+id/iv_my_group_detail_kkumul"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginEnd="18dp"
                 android:src="@drawable/ic_kkumul"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_my_group_meet" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
