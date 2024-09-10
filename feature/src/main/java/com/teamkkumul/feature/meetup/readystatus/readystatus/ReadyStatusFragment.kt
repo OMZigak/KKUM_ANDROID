@@ -23,6 +23,7 @@ import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentReadyStatusBinding
 import com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder.ReadyStatusFriendItemDecoration
+import com.teamkkumul.feature.utils.KeyStorage.IS_PARTICIPANT
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
@@ -50,6 +51,10 @@ class ReadyStatusFragment :
 
     private val promiseId: Int by lazy {
         requireArguments().getInt(PROMISE_ID)
+    }
+
+    private val isParticipant: Boolean by lazy {
+        requireArguments().getBoolean(IS_PARTICIPANT)
     }
 
     override fun initView() {
@@ -192,6 +197,7 @@ class ReadyStatusFragment :
 
     private fun initReadyInputBtnClick() {
         binding.tvReadyInfoNext.setOnClickListener {
+            if (isNotParticipant()) return@setOnClickListener
             findNavController().navigate(
                 R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
                 bundleOf(PROMISE_ID to promiseId),
@@ -199,11 +205,20 @@ class ReadyStatusFragment :
         }
 
         binding.btnReadyInfoInputEdit.setOnClickListener {
+            if (isNotParticipant()) return@setOnClickListener
             findNavController().navigate(
                 R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
                 bundleOf(PROMISE_ID to promiseId),
             )
         }
+    }
+
+    private fun isNotParticipant(): Boolean {
+        if (!isParticipant) {
+            toast(getString(R.string.ready_status_not_participant))
+            return true
+        }
+        return false
     }
 
     private fun initReadyStatusRecyclerview() {
@@ -330,10 +345,11 @@ class ReadyStatusFragment :
 
     companion object {
         @JvmStatic
-        fun newInstance(promiseId: Int) =
+        fun newInstance(promiseId: Int, participant: Boolean) =
             ReadyStatusFragment().apply {
                 arguments = Bundle().apply {
                     putInt(PROMISE_ID, promiseId)
+                    putBoolean(IS_PARTICIPANT, participant)
                 }
             }
     }

@@ -26,17 +26,31 @@ class MeetUpContainerFragment :
     private val viewModel: MeetUpDetailFriendViewModel by activityViewModels<MeetUpDetailFriendViewModel>()
 
     private val currentId: Int by lazy { arguments?.getInt(PROMISE_ID, -1) ?: -1 }
+    private val promiseId: Int by lazy { arguments?.getInt(PROMISE_ID) ?: -1 }
+
     override fun initView() {
-        val promiseId = arguments?.getInt(PROMISE_ID) ?: -1
         viewModel.getMeetUpDetail(promiseId)
-        initMyPageTabLayout(promiseId)
         initObservePromiseNameState()
         navigationClickListener()
     }
 
-    private fun initMyPageTabLayout(promiseId: Int) = with(binding) {
+    private fun initObservePromiseNameState() {
+        viewModel.meetupDetailState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> {
+                    successMeetupDetailAppbarState(uiState.data)
+                    initMyPageTabLayout(promiseId, uiState.data.isParticipant ?: true)
+                }
+
+                is UiState.Failure -> Timber.tag("promise name").d(uiState.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun initMyPageTabLayout(promiseId: Int, participant: Boolean) = with(binding) {
         vpMeetUpContainer.adapter =
-            MeetUpContainerVpAdapter(this@MeetUpContainerFragment, promiseId)
+            MeetUpContainerVpAdapter(this@MeetUpContainerFragment, promiseId, participant)
 
         val tabTitleArray = arrayOf(
             MEETUP_INFO,
@@ -52,16 +66,6 @@ class MeetUpContainerFragment :
 
         val tabIndex = arguments?.getInt(TAB_INDEX) ?: 0
         vpMeetUpContainer.setCurrentItem(tabIndex, false)
-    }
-
-    private fun initObservePromiseNameState() {
-        viewModel.meetupDetailState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
-            when (uiState) {
-                is UiState.Success -> successMeetupDetailAppbarState(uiState.data)
-                is UiState.Failure -> Timber.tag("promise name").d(uiState.errorMessage)
-                else -> Unit
-            }
-        }.launchIn(viewLifeCycleScope)
     }
 
     private fun successMeetupDetailAppbarState(meetUpDetailModel: MeetUpDetailModel) {

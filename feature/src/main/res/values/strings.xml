@@ -212,6 +212,7 @@
     <!--준비 정보 입력 후 화면-->
     <string name="ready_status_moving_start">%1$s에 이동을 시작해야 해요</string>
     <string name="ready_status_ready_start">%1$s에 준비하고,</string>
+    <string name="ready_status_not_participant">참여하지 않은 약속입니다</string>
 
     <!-- 모임, 약속 나가기, 약속 삭제 다이얼로그-->
     <string name="tv_leave_question">약속에서 나가시겠어요?</string>
