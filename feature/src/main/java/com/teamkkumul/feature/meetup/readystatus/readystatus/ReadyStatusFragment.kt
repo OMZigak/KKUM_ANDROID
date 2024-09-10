@@ -4,16 +4,21 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.teamkkumul.core.ui.base.BindingFragment
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.core.ui.view.setInVisible
 import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentReadyStatusBinding
@@ -21,7 +26,6 @@ import com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder.ReadySta
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
-import com.teamkkumul.feature.utils.extension.setUpButton
 import com.teamkkumul.feature.utils.model.BtnState
 import com.teamkkumul.feature.utils.time.calculateReadyStartTime
 import com.teamkkumul.feature.utils.time.getCurrentTime
@@ -299,6 +303,29 @@ class ReadyStatusFragment :
         stateFlow.flowWithLifecycle(viewLifeCycle).onEach { state ->
             onStateChanged(state)
         }.launchIn(viewLifeCycleScope)
+    }
+
+    private fun setUpButton(
+        state: BtnState,
+        button: MaterialButton,
+        circle: ImageView,
+        progressBar: LinearProgressIndicator,
+        progressBarEnd: LinearProgressIndicator?,
+        helpText: TextView,
+    ) {
+        button.apply {
+            setStrokeColorResource(state.strokeColor)
+            setTextColor(colorOf(state.textColor))
+            setBackgroundColor(colorOf(state.backGroundColor))
+            isEnabled = state.isEnabled
+            text = requireContext().getString(state.btnText.label)
+        }
+        circle.setImageResource(state.circleImage)
+        progressBar.progress = state.progress
+        if (progressBarEnd != null) {
+            progressBarEnd.progress = state.progress
+        }
+        helpText.setInVisible(state.isHelpTextVisible)
     }
 
     companion object {
