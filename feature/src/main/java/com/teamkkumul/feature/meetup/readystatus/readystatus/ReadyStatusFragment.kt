@@ -63,13 +63,16 @@ class ReadyStatusFragment :
         initObserveReadyStatusState()
         initObserveMembersReadyStatus()
         initObservePopUpVisible()
+        initObserveCurrentTimeText()
     }
 
     private fun initObservePopUpVisible() {
         viewModel.popUpVisible.flowWithLifecycle(viewLifeCycle).onEach {
             binding.groupReadyLatePopUp.setVisible(it)
         }.launchIn(viewLifeCycleScope)
+    }
 
+    private fun initObserveCurrentTimeText() {
         viewModel.timeTextState.flowWithLifecycle(viewLifeCycle).onEach {
             binding.tvHomeReadyTime.text = it.readyTime
             binding.tvHomeMovingTime.text = it.movingTime
@@ -82,9 +85,8 @@ class ReadyStatusFragment :
         viewModel.membersReadyStatus.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> readyStatusAdapter.submitList(it.data)
-                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
-                is UiState.Empty -> Timber.tag("home").d("empty")
-                is UiState.Loading -> Timber.tag("home").d("loading")
+                is UiState.Failure -> Timber.e(it.errorMessage)
+                else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
@@ -94,9 +96,8 @@ class ReadyStatusFragment :
         viewModel.readyStatusState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> updateReadyStatusUI(it.data)
-                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
-                is UiState.Empty -> Timber.tag("home").d("empty")
-                is UiState.Loading -> Timber.tag("home").d("loading")
+                is UiState.Failure -> Timber.e(it.errorMessage)
+                else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }

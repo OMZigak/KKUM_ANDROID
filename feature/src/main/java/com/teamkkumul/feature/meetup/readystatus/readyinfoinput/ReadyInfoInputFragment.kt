@@ -250,7 +250,7 @@ class ReadyInfoInputFragment :
             putExtra(KeyStorage.ALARM_TITLE, alarmTitle)
             putExtra(KeyStorage.ALARM_CONTENT, alarmContent)
             putExtra(KeyStorage.TAB_INDEX, 1)
-            putExtra(KeyStorage.PROMISE_ID, promiseId) // 추가된 부분
+            putExtra(KeyStorage.PROMISE_ID, promiseId)
         }
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext(),
