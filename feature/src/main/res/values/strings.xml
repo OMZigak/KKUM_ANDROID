@@ -66,7 +66,7 @@
     <string name="my_group_participate_people">모임 참여 인원</string>
     <string name="my_group_participate_number">명</string>
     <string name="my_group_check_remain_meet_up">남은 약속을 확인해 보세요!</string>
-    <string name="my_group_extended_fab">  +  약속추가 </string>
+    <string name="my_group_extended_fab">+&#x00A0;&#x00A0;약속추가</string>
     <string name="my_group_meet_up_empty">아직 약속이 없네요!</string>
     <string name="my_group_meet_up_empty_plus">약속을 추가</string>
     <string name="my_group_meet_up_empty_do_plus">해보세요!</string>
