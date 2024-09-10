@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.HomeRepository
 import com.teamkkumul.core.data.repository.MeetUpRepository
 import com.teamkkumul.core.ui.view.UiState
+import com.teamkkumul.feature.meetup.readystatus.readyinfoinput.model.ReadyInfo
 import com.teamkkumul.feature.utils.TimeStorage.END_HOUR
 import com.teamkkumul.feature.utils.TimeStorage.END_MINUTE
 import com.teamkkumul.feature.utils.TimeStorage.START_TIME
@@ -15,7 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,17 +28,8 @@ class ReadyInfoInputViewModel @Inject constructor(
     private val _readyInputState = MutableStateFlow(false)
     val readyInputState: StateFlow<Boolean> get() = _readyInputState
 
-    private val _readyHour = MutableStateFlow<Boolean?>(null)
-    val readyHour: StateFlow<Boolean?> get() = _readyHour
-
-    private val _readyMinute = MutableStateFlow<Boolean?>(null)
-    val readyMinute: StateFlow<Boolean?> get() = _readyMinute
-
-    private val _movingHour = MutableStateFlow<Boolean?>(null)
-    val movingHour: StateFlow<Boolean?> get() = _movingHour
-
-    private val _movingMinute = MutableStateFlow<Boolean?>(null)
-    val movingMinute: StateFlow<Boolean?> get() = _movingMinute
+    private val _readyInfo = MutableStateFlow(ReadyInfo())
+    val readyInfo: StateFlow<ReadyInfo> get() = _readyInfo.asStateFlow()
 
     private val _patchReadyInfoInputState = MutableSharedFlow<UiState<Boolean>>()
     val patchReadyInfoInputState: SharedFlow<UiState<Boolean>> get() = _patchReadyInfoInputState
@@ -74,26 +66,26 @@ class ReadyInfoInputViewModel @Inject constructor(
     }
 
     fun setReadyHour(input: String) {
-        viewModelScope.launch {
-            _readyHour.emit(isReadyHourValid(input))
+        _readyInfo.update { currentInfo ->
+            currentInfo.copy(readyHour = isReadyHourValid(input))
         }
     }
 
     fun setReadyMinute(input: String) {
-        viewModelScope.launch {
-            _readyMinute.emit(isReadyMinuteValid(input))
+        _readyInfo.update { currentInfo ->
+            currentInfo.copy(readyMinute = isReadyMinuteValid(input))
         }
     }
 
     fun setMovingHour(input: String) {
-        viewModelScope.launch {
-            _movingHour.emit(isReadyHourValid(input))
+        _readyInfo.update { currentInfo ->
+            currentInfo.copy(movingHour = isReadyHourValid(input))
         }
     }
 
     fun setMovingMinute(input: String) {
-        viewModelScope.launch {
-            _movingMinute.emit(isReadyMinuteValid(input))
+        _readyInfo.update { currentInfo ->
+            currentInfo.copy(movingMinute = isReadyMinuteValid(input))
         }
     }
 
@@ -105,17 +97,11 @@ class ReadyInfoInputViewModel @Inject constructor(
 
     private fun validateForm() {
         viewModelScope.launch {
-            combine(
-                _readyHour,
-                _readyMinute,
-                _movingHour,
-                _movingMinute,
-            ) { readyHour, readyMinute, movingHour, movingMinute ->
-                (readyHour ?: false) &&
-                    (readyMinute ?: false) &&
-                    (movingHour ?: false) &&
-                    (movingMinute ?: false)
-            }.collect { isFormValid ->
+            readyInfo.collect { info ->
+                val isFormValid = (info.readyHour ?: false) &&
+                    (info.readyMinute ?: false) &&
+                    (info.movingHour ?: false) &&
+                    (info.movingMinute ?: false)
                 _readyInputState.emit(isFormValid)
             }
         }
