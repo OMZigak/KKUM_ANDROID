@@ -7,6 +7,7 @@ import android.text.style.ForegroundColorSpan
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,7 @@ import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentReadyStatusBinding
 import com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder.ReadyStatusFriendItemDecoration
+import com.teamkkumul.feature.meetupcreate.MeetUpSharedViewModel
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
@@ -44,6 +46,7 @@ import timber.log.Timber
 class ReadyStatusFragment :
     BindingFragment<FragmentReadyStatusBinding>(R.layout.fragment_ready_status) {
     private val viewModel: ReadyStatusViewModel by viewModels()
+    private val sharedViewModel by activityViewModels<MeetUpSharedViewModel>()
 
     private var _readyStatusAdapter: ReadyStatusAdapter? = null
     private val readyStatusAdapter get() = requireNotNull(_readyStatusAdapter)
@@ -192,6 +195,7 @@ class ReadyStatusFragment :
 
     private fun initReadyInputBtnClick() {
         binding.tvReadyInfoNext.setOnClickListener {
+            if (isNotParticipant()) return@setOnClickListener
             findNavController().navigate(
                 R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
                 bundleOf(PROMISE_ID to promiseId),
@@ -199,11 +203,21 @@ class ReadyStatusFragment :
         }
 
         binding.btnReadyInfoInputEdit.setOnClickListener {
+            if (isNotParticipant()) return@setOnClickListener
             findNavController().navigate(
                 R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
                 bundleOf(PROMISE_ID to promiseId),
             )
         }
+    }
+
+    private fun isNotParticipant(): Boolean = when (!sharedViewModel.isParticipant()) {
+        true -> {
+            toast(getString(R.string.ready_status_not_participant))
+            true
+        }
+
+        false -> false
     }
 
     private fun initReadyStatusRecyclerview() {

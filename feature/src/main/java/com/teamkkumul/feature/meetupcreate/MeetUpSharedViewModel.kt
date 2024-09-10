@@ -3,17 +3,28 @@ package com.teamkkumul.feature.meetupcreate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.teamkkumul.core.data.repository.MeetUpRepository
+import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.model.MeetUpCreateModel
+import com.teamkkumul.model.MeetUpDetailModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MeetUpSharedViewModel @Inject constructor() : ViewModel() {
+class MeetUpSharedViewModel @Inject constructor(
+    private val meetUpRepository: MeetUpRepository,
+) : ViewModel() {
     private val _progressLiveData = MutableLiveData<Int>(0)
     val progressLiveData: LiveData<Int> get() = _progressLiveData
+
+    private val _meetUpDetailState = MutableStateFlow<UiState<MeetUpDetailModel>>(UiState.Loading)
+    val meetupDetailState get() = _meetUpDetailState.asStateFlow()
 
     // 초기 MeetUpCreateModel 객체를 StateFlow로 관리
     private val _meetUpCreateModel = MutableStateFlow(
@@ -78,11 +89,25 @@ class MeetUpSharedViewModel @Inject constructor() : ViewModel() {
         )
     }
 
+    fun getMeetUpDetail(promiseId: Int) = viewModelScope.launch {
+        meetUpRepository.getMeetUpDetail(promiseId)
+            .onSuccess { meetUpModel ->
+                _meetUpDetailState.emit(UiState.Success(meetUpModel))
+            }
+            .onFailure { exception ->
+                _meetUpDetailState.emit(UiState.Failure(exception.message.toString()))
+            }
+    }
+
     // promiseId, meetingId를 안전하게 반환하는 헬퍼 함수
     fun getPromiseId() = meetUpCreateModel.value.promiseId ?: -1
+
     fun getMeetingId() = meetUpCreateModel.value.meetingId ?: -1
 
     fun isEditMode(): Boolean = getMeetUpType() == MeetUpType.EDIT.name
+
+    fun isParticipant(): Boolean =
+        (_meetUpDetailState.value as? UiState.Success)?.data?.isParticipant ?: true
 
     private fun getMeetUpType(): String =
         meetUpCreateModel.value.meetUpType ?: MeetUpType.CREATE.name
