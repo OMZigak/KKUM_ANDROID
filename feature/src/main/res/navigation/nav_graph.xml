@@ -257,6 +257,13 @@
         android:name="com.teamkkumul.feature.utils.dialog.DeleteDialogFragment"
         android:label="DeleteDialogFragment"
         tools:layout="@layout/fragment_dialog_delete">
+
+        <action
+            android:id="@+id/action_dialog_to_my_group"
+            app:destination="@id/fragment_my_group"
+            app:popUpTo="@id/fragment_my_group"
+            app:popUpToInclusive="true" />
+
         <argument
             android:name="dialogType"
             app:argType="com.teamkkumul.feature.utils.type.DeleteDialogType" />
