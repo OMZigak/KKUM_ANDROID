@@ -66,7 +66,7 @@
     <string name="my_group_participate_people">모임 참여 인원</string>
     <string name="my_group_participate_number">명</string>
     <string name="my_group_check_remain_meet_up">남은 약속을 확인해 보세요!</string>
-    <string name="my_group_extended_fab">  +  약속추가 </string>
+    <string name="my_group_extended_fab">+&#x00A0;&#x00A0;약속추가</string>
     <string name="my_group_meet_up_empty">아직 약속이 없네요!</string>
     <string name="my_group_meet_up_empty_plus">약속을 추가</string>
     <string name="my_group_meet_up_empty_do_plus">해보세요!</string>
@@ -220,7 +220,7 @@
     <string name="tv_leave_my_group_question">모임에서 나가시겠어요?</string>
     <string name="tv_leave_my_group_question_description">모임에서 나가도\n초대 코드를 통해 다시 들어올 수 있어요.</string>
     <string name="tv_delete_meet_up_question">정말 약속을 삭제하시겠어요?</string>
-    <string name="tv_delete_meet_up_question_description">약속을 삭제하면\n모든 참여 인원의 약속 목록에서 사라져요.</string>
+    <string name="tv_delete_meet_up_question_description">약속을 삭제하면 해당 약속이\n모든 참여 인원의 약속 목록에서 사라져요.</string>
     <string name="tv_btn_cancel">취소</string>
     <string name="tv_btn_leave">나가기</string>
     <string name="tv_btn_delete">삭제하기</string>

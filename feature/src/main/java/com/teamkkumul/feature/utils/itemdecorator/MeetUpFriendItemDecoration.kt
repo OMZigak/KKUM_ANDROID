@@ -30,7 +30,7 @@ class MeetUpFriendItemDecoration(private val context: Context) : RecyclerView.It
 
             else -> {
                 outRect.left = context.pxToDp(6)
-                outRect.right = context.pxToDp(12)
+                outRect.right = context.pxToDp(6)
             }
         }
     }

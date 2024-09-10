@@ -99,7 +99,7 @@ class DeleteDialogFragment :
         viewModel.leaveMeetUpState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> {
-                    findNavController().popBackStack(R.id.fragment_my_group_detail, false)
+                    findNavController().navigate(R.id.fragment_my_group)
                     dismiss()
                 }
 
@@ -113,7 +113,7 @@ class DeleteDialogFragment :
         viewModel.deleteMeetUpState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> {
-                    findNavController().popBackStack(R.id.fragment_my_group_detail, false)
+                    findNavController().navigate(R.id.fragment_my_group)
                     dismiss()
                 }
 

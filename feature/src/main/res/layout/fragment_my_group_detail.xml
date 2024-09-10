@@ -23,7 +23,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/shape_radius_8"
             android:backgroundTint="@color/green1"
-            app:layout_constraintDimensionRatio="332:84"
+            app:layout_constraintDimensionRatio="332:80"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_my_group_detail">
@@ -32,7 +32,7 @@
                 android:id="@+id/tv_my_group_create"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="25dp"
                 android:text="@string/my_group_create_data"
                 android:textAppearance="@style/TextAppearance.Kkumul.label_01"
                 android:textColor="@color/gray4"
@@ -69,7 +69,7 @@
                 android:id="@+id/tv_my_group_meet_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/my_group_meet_up"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -103,7 +103,7 @@
                 android:id="@+id/tv_my_group_meet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="4dp"
                 android:text="@string/my_group_meet"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_03"
                 app:layout_constraintBottom_toBottomOf="@id/tv_my_group_meet_up_count_num"
@@ -115,11 +115,12 @@
                 android:id="@+id/iv_my_group_detail_kkumul"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginEnd="18dp"
                 android:src="@drawable/ic_kkumul"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_my_group_meet" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -197,6 +198,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="16dp"
+                android:padding="2dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up">
 
@@ -222,10 +224,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_all_meet_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
+                android:padding="3dp"
                 app:layout_constraintStart_toEndOf="@id/cl_meet_up_include_me"
                 app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up">
 
@@ -282,8 +286,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:backgroundTint="@color/main_color"
-                android:gravity="center_vertical"
                 android:text="@string/my_group_extended_fab"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.Kkumul.body_01"
                 android:textColor="@color/white0"
                 app:iconPadding="8dp"
