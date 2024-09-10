@@ -72,9 +72,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         viewModel.readyStatusState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> updateReadyStatusUI(it.data)
-                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
-                is UiState.Empty -> Timber.tag("home").d("empty")
-                is UiState.Loading -> Timber.tag("home").d("loading")
+                is UiState.Failure -> Timber.e(it.errorMessage)
+                else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
     }
@@ -120,7 +119,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                     }
                 }
 
-                is UiState.Failure -> Timber.tag("home").d(it.errorMessage)
+                is UiState.Failure -> Timber.e(it.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)
