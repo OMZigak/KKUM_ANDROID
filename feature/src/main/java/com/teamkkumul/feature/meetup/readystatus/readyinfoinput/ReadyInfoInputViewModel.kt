@@ -37,10 +37,6 @@ class ReadyInfoInputViewModel @Inject constructor(
     private val _meetUpDetailState = MutableStateFlow<UiState<MeetUpDetailModel>>(UiState.Loading)
     val meetUpDetailState = _meetUpDetailState.asStateFlow()
 
-    init {
-        validateForm()
-    }
-
     fun getMeetUpDetail(promiseId: Int) {
         viewModelScope.launch {
             meetUpRepository.getMeetUpDetail(promiseId).onSuccess {
@@ -69,41 +65,41 @@ class ReadyInfoInputViewModel @Inject constructor(
         _readyInfo.update { currentInfo ->
             currentInfo.copy(readyHour = isReadyHourValid(input))
         }
+        validateForm()
     }
 
     fun setReadyMinute(input: String) {
         _readyInfo.update { currentInfo ->
             currentInfo.copy(readyMinute = isReadyMinuteValid(input))
         }
+        validateForm()
     }
 
     fun setMovingHour(input: String) {
         _readyInfo.update { currentInfo ->
             currentInfo.copy(movingHour = isReadyHourValid(input))
         }
+        validateForm()
     }
 
     fun setMovingMinute(input: String) {
         _readyInfo.update { currentInfo ->
             currentInfo.copy(movingMinute = isReadyMinuteValid(input))
         }
+        validateForm()
     }
 
     private fun isReadyHourValid(input: String): Boolean =
-        input.toIntOrNull() in START_TIME..END_HOUR
+        input.toInt() in START_TIME..END_HOUR
 
     private fun isReadyMinuteValid(input: String): Boolean =
-        input.toIntOrNull() in START_TIME..END_MINUTE
+        input.toInt() in START_TIME..END_MINUTE
 
     private fun validateForm() {
-        viewModelScope.launch {
-            readyInfo.collect { info ->
-                val isFormValid = (info.readyHour ?: false) &&
-                    (info.readyMinute ?: false) &&
-                    (info.movingHour ?: false) &&
-                    (info.movingMinute ?: false)
-                _readyInputState.emit(isFormValid)
-            }
-        }
+        val isFormValid = (_readyInfo.value.readyHour == true) &&
+            (_readyInfo.value.readyMinute == true) &&
+            (_readyInfo.value.movingHour == true) &&
+            (_readyInfo.value.movingMinute == true)
+        _readyInputState.update { isFormValid }
     }
 }
