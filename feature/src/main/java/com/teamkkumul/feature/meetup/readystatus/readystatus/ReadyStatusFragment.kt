@@ -237,6 +237,7 @@ class ReadyStatusFragment :
 
     private fun initReadyBtnClick() = with(binding) {
         btnHomeReady.setOnClickListener {
+            if (isNotParticipant()) return@setOnClickListener
             viewModel.patchReady(promiseId)
         }
         viewModel.readyPatchState.flowWithLifecycle(viewLifeCycle).onEach {
