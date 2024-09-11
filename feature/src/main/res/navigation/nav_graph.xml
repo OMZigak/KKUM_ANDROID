@@ -261,7 +261,7 @@
         <action
             android:id="@+id/action_dialog_to_my_group"
             app:destination="@id/fragment_my_group"
-            app:popUpTo="@id/fragment_meet_up_container"
+            app:popUpTo="@id/fragment_my_group"
             app:popUpToInclusive="true" />
 
         <argument
