@@ -89,7 +89,7 @@ class ReadyInfoInputFragment :
 
     private fun setReadyHour() {
         binding.etReadyStatusReadHour.doAfterTextChangedWithCursor { text ->
-            setTimeDebouncer.setDelay(text, 400L) { delayedText ->
+            setTimeDebouncer.setDelay(text, 40L) { delayedText ->
                 viewModel.setReadyHour(delayedText)
             }
         }
@@ -97,7 +97,7 @@ class ReadyInfoInputFragment :
 
     private fun setReadyMinute() {
         binding.etReadyStatusReadyMinute.doAfterTextChangedWithCursor { text ->
-            setTimeDebouncer.setDelay(text, 400L) { delayedText ->
+            setTimeDebouncer.setDelay(text, 40L) { delayedText ->
                 viewModel.setReadyMinute(delayedText)
             }
         }
@@ -105,7 +105,7 @@ class ReadyInfoInputFragment :
 
     private fun setMovingHour() {
         binding.etReadyStatusMovingHour.doAfterTextChangedWithCursor { text ->
-            setTimeDebouncer.setDelay(text, 400L) { delayedText ->
+            setTimeDebouncer.setDelay(text, 40L) { delayedText ->
                 viewModel.setMovingHour(delayedText)
             }
         }
@@ -113,7 +113,7 @@ class ReadyInfoInputFragment :
 
     private fun setMovingMinute() {
         binding.etReadyStatusMovingMinute.doAfterTextChangedWithCursor { text ->
-            setTimeDebouncer.setDelay(text, 400L) { delayedText ->
+            setTimeDebouncer.setDelay(text, 40L) { delayedText ->
                 viewModel.setMovingMinute(delayedText)
             }
         }
@@ -256,7 +256,11 @@ class ReadyInfoInputFragment :
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmCalendar.timeInMillis, pendingIntent)
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            alarmCalendar.timeInMillis,
+            pendingIntent,
+        )
     }
 
     private fun initHideKeyBoard() {
