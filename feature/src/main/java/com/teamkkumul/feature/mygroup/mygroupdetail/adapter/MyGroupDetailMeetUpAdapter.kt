@@ -9,7 +9,7 @@ import com.teamkkumul.feature.mygroup.mygroupdetail.viewholder.MyGroupDetailMeet
 import com.teamkkumul.model.MyGroupMeetUpModel
 
 class MyGroupDetailMeetUpAdapter(
-    private val onMeetUpDetailBtnClicked: (MyGroupMeetUpModel.Promise) -> Unit,
+    private val onMeetUpDetailBtnClicked: (Int) -> Unit,
 ) : ListAdapter<MyGroupMeetUpModel.Promise, MyGroupDetailMeetUpViewHolder>(DiffUtil) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
