@@ -22,27 +22,30 @@
             android:max="100"
             android:progress="0"
             android:progressDrawable="@drawable/pg_meet_up_green"
-            app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create"
+            app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create" />
 
-            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create">
 
         <TextView
             android:id="@+id/tv_add_meet_up_step"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="30dp"
             android:text="@string/meet_up_step_3"
             android:textAppearance="@style/TextAppearance.Kkumul.body_05"
             android:textColor="@color/gray6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_meet_up_level_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
             android:layout_marginTop="20dp"
             android:text="@string/tv_meet_up_level_title"
             android:textAppearance="@style/TextAppearance.Kkumul.head_01"
@@ -53,8 +56,8 @@
             android:id="@+id/tv_meet_up_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
             android:layout_marginTop="26dp"
+            android:layout_marginStart="5dp"
             android:text="@string/meet_up_level"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
             android:textColor="@color/gray7"
@@ -65,7 +68,6 @@
             android:id="@+id/cg_meet_up_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_meet_up_level"
@@ -128,7 +130,7 @@
             android:id="@+id/tv_set_penalty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
             android:text="@string/set_penalty"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
@@ -140,7 +142,6 @@
             android:id="@+id/cg_set_penalty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="12dp"
             app:chipSpacing="4dp"
@@ -215,7 +216,6 @@
             android:id="@+id/btn_create_meet_up"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="14dp"
             android:layout_marginBottom="50dp"
             android:background="@drawable/sel_btn"
             android:enabled="false"
@@ -225,6 +225,7 @@
             app:layout_constraintDimensionRatio="332:50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
