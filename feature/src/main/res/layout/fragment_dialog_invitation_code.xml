@@ -84,7 +84,7 @@
         <TextView
             android:id="@+id/tv_btn_invite_later"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="64dp"
             android:text="@string/tv_invite_later"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
             android:background="@drawable/shape_gray3_fill_bl_8_rect"
@@ -97,7 +97,7 @@
         <TextView
             android:id="@+id/tv_btn_copy"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="64dp"
             android:text="@string/tv_copy"
             android:textAppearance="@style/TextAppearance.Kkumul.body_03"
             android:background="@drawable/shape_gray7_fill_br_8_rect"
