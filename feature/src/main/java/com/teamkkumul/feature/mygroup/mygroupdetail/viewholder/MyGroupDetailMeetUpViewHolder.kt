@@ -13,13 +13,13 @@ import com.teamkkumul.model.MyGroupMeetUpModel
 
 class MyGroupDetailMeetUpViewHolder(
     private val binding: ItemMyGroupRemainMeetUpBinding,
-    private val onMeetUpDetailBtnClicked: (Int) -> Unit,
+    private val onMeetUpDetailBtnClicked: (MyGroupMeetUpModel.Promise) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     private lateinit var currentItem: MyGroupMeetUpModel.Promise
 
     init {
         binding.root.setOnClickListener {
-            onMeetUpDetailBtnClicked(currentItem.promiseId)
+            onMeetUpDetailBtnClicked(currentItem)
         }
     }
 
