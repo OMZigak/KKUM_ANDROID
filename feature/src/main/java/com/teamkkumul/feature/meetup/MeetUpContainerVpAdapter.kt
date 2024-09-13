@@ -15,7 +15,7 @@ class MeetUpContainerVpAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> MeetUpDetailFragment.newInstance(promiseId)
+            0 -> MeetUpDetailFragment.newInstance(promiseId, dDay)
             1 -> ReadyStatusFragment.newInstance(promiseId, dDay)
             2 -> LatePersonFragment.newInstance(promiseId)
             else -> throw IllegalArgumentException("Invalid position")
