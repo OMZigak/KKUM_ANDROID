@@ -13,7 +13,6 @@ import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpContainerBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpSharedViewModel
-import com.teamkkumul.feature.utils.KeyStorage.D_DAY
 import com.teamkkumul.feature.utils.KeyStorage.MEET_UP_NAME
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.KeyStorage.TAB_INDEX
@@ -28,19 +27,18 @@ class MeetUpContainerFragment :
 
     private val currentId: Int by lazy { arguments?.getInt(PROMISE_ID, -1) ?: -1 }
     private val promiseId: Int by lazy { arguments?.getInt(PROMISE_ID) ?: -1 }
-    private val dDay: Int by lazy { arguments?.getInt(D_DAY) ?: -1 }
 
     override fun initView() {
         sharedViewModel.getMeetUpDetail(promiseId)
-        initMyPageTabLayout(promiseId, dDay)
+        initMyPageTabLayout(promiseId)
         initObservePromiseNameState()
         navigationClickListener()
         binding.toolbarMeetUpContainer.toolbarMyPageLine.setVisible(false)
     }
 
-    private fun initMyPageTabLayout(promiseId: Int, dDay: Int) = with(binding) {
+    private fun initMyPageTabLayout(promiseId: Int) = with(binding) {
         vpMeetUpContainer.adapter =
-            MeetUpContainerVpAdapter(this@MeetUpContainerFragment, promiseId, dDay)
+            MeetUpContainerVpAdapter(this@MeetUpContainerFragment, promiseId)
 
         val tabTitleArray = arrayOf(
             MEETUP_INFO,

@@ -17,12 +17,12 @@ import com.teamkkumul.core.ui.view.setVisible
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMeetUpDetailBinding
 import com.teamkkumul.feature.meetupcreate.MeetUpSharedViewModel
-import com.teamkkumul.feature.utils.KeyStorage.D_DAY
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.time.TimeUtils.calculateDday
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
+import com.teamkkumul.feature.utils.time.TimeUtils.isPastDefaultTime
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateOnly
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToMonthDay
 import com.teamkkumul.feature.utils.time.TimeUtils.parseTimeOnly
@@ -48,10 +48,6 @@ class MeetUpDetailFragment :
 
     private val promiseId: Int by lazy {
         requireArguments().getInt(PROMISE_ID)
-    }
-
-    private val dDay: Int by lazy {
-        requireArguments().getInt(D_DAY)
     }
 
     override fun initView() {
@@ -130,7 +126,12 @@ class MeetUpDetailFragment :
             tvMeetUpDetailInformationReadyLevel.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
             tvMeetUpDetailInformationPenalty.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
 
-            tvMeetUpDetailEdit.setVisible(meetUpDetailModel.isParticipant == true && dDay <= 0)
+            tvMeetUpDetailEdit.setVisible(
+                meetUpDetailModel.isParticipant == true &&
+                    !isPastDefaultTime(
+                        meetUpDetailModel.time,
+                    ),
+            )
         }
     }
 
@@ -174,10 +175,9 @@ class MeetUpDetailFragment :
 
     companion object {
         @JvmStatic
-        fun newInstance(promiseId: Int, dDay: Int) = MeetUpDetailFragment().apply {
+        fun newInstance(promiseId: Int) = MeetUpDetailFragment().apply {
             arguments = Bundle().apply {
                 putInt(PROMISE_ID, promiseId)
-                putInt(D_DAY, promiseId)
             }
         }
     }

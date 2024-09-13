@@ -9,14 +9,13 @@ import com.teamkkumul.feature.meetup.readystatus.readystatus.ReadyStatusFragment
 class MeetUpContainerVpAdapter(
     fragment: Fragment,
     private val promiseId: Int,
-    private val dDay: Int,
 ) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = TOTAL_TAG_NUM
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> MeetUpDetailFragment.newInstance(promiseId, dDay)
-            1 -> ReadyStatusFragment.newInstance(promiseId, dDay)
+            0 -> MeetUpDetailFragment.newInstance(promiseId)
+            1 -> ReadyStatusFragment.newInstance(promiseId)
             2 -> LatePersonFragment.newInstance(promiseId)
             else -> throw IllegalArgumentException("Invalid position")
         }

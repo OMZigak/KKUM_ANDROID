@@ -25,11 +25,11 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentReadyStatusBinding
 import com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder.ReadyStatusFriendItemDecoration
 import com.teamkkumul.feature.meetupcreate.MeetUpSharedViewModel
-import com.teamkkumul.feature.utils.KeyStorage.D_DAY
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.feature.utils.time.TimeUtils.isPastDefaultTime
 import com.teamkkumul.feature.utils.time.calculateReadyStartTime
 import com.teamkkumul.feature.utils.time.formatTimeToKoreanStyle
 import com.teamkkumul.feature.utils.time.getCurrentTime
@@ -55,10 +55,6 @@ class ReadyStatusFragment :
 
     private val promiseId: Int by lazy {
         requireArguments().getInt(PROMISE_ID)
-    }
-
-    private val dDay: Int by lazy {
-        requireArguments().getInt(D_DAY)
     }
 
     override fun initView() {
@@ -130,7 +126,7 @@ class ReadyStatusFragment :
 
     private fun updateReadyTimeAlarmVisibility(preparationAvailable: Boolean) = with(binding) {
         groupReadyInfoInput.setVisible(preparationAvailable)
-        if (preparationAvailable) btnReadyInfoInputEdit.setVisible(dDay <= 0)
+        if (preparationAvailable) btnReadyInfoInputEdit.setVisible(!isPastDefaultTime(viewModel.getPromiseTime()))
         tvReadyInfoNext.setVisible(!preparationAvailable)
     }
 
@@ -235,7 +231,7 @@ class ReadyStatusFragment :
         false -> false
     }
 
-    private fun isLateMeeting(): Boolean = when (dDay > 0) {
+    private fun isLateMeeting(): Boolean = when (isPastDefaultTime(viewModel.getPromiseTime())) {
         true -> {
             toast(getString(R.string.ready_status_late_meeting))
             true
@@ -369,11 +365,10 @@ class ReadyStatusFragment :
 
     companion object {
         @JvmStatic
-        fun newInstance(promiseId: Int, dDay: Int) =
+        fun newInstance(promiseId: Int) =
             ReadyStatusFragment().apply {
                 arguments = Bundle().apply {
                     putInt(PROMISE_ID, promiseId)
-                    putInt(D_DAY, dDay)
                 }
             }
     }
