@@ -105,7 +105,7 @@ object TimeUtils {
         return try {
             val serverDate = outputPmAmFormat.parse(serverTime)
             val currentDate = Date()
-            serverDate?.before(currentDate) ?: false
+            serverDate?.before(currentDate) ?: true
         } catch (e: ParseException) {
             true
         }
