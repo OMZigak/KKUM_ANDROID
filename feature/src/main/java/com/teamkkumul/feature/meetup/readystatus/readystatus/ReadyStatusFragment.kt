@@ -57,6 +57,8 @@ class ReadyStatusFragment :
         requireArguments().getInt(PROMISE_ID)
     }
 
+    private var promiseTime = ""
+
     override fun initView() {
         initReadyStatusBtnClick()
         initObserveBtnState()
@@ -119,6 +121,7 @@ class ReadyStatusFragment :
 
     private fun updateBasicUI(data: HomeReadyStatusModel?) = with(binding) {
         data ?: return
+        promiseTime = data.promiseTime.toString()
         viewModel.updateReadyTime(data.preparationStartAt ?: "")
         viewModel.updateMovingTime(data.departureAt ?: "")
         viewModel.updateCompletedTime(data.arrivalAt ?: "")
@@ -205,7 +208,7 @@ class ReadyStatusFragment :
                 R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
                 bundleOf(
                     PROMISE_ID to promiseId,
-                    "promiseTime" to viewModel.getPromiseTime(),
+                    "promiseTime" to promiseTime,
                 ),
             )
         }
@@ -216,7 +219,7 @@ class ReadyStatusFragment :
                 R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
                 bundleOf(
                     PROMISE_ID to promiseId,
-                    "promiseTime" to viewModel.getPromiseTime(),
+                    "promiseTime" to promiseTime,
                 ),
             )
         }
@@ -231,7 +234,7 @@ class ReadyStatusFragment :
         false -> false
     }
 
-    private fun isLateMeeting(): Boolean = when (isPastDefaultTime(viewModel.getPromiseTime())) {
+    private fun isLateMeeting(): Boolean = when (isPastDefaultTime(promiseTime)) {
         true -> {
             toast(getString(R.string.ready_status_late_meeting))
             true
