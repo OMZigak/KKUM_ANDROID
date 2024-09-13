@@ -31,6 +31,7 @@ import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.model.BtnState
 import com.teamkkumul.feature.utils.time.calculateReadyStartTime
+import com.teamkkumul.feature.utils.time.formatTimeToKoreanStyle
 import com.teamkkumul.feature.utils.time.getCurrentTime
 import com.teamkkumul.feature.utils.time.parseMinutesToHoursAndMinutes
 import com.teamkkumul.model.home.HomeReadyStatusModel
@@ -136,10 +137,10 @@ class ReadyStatusFragment :
     private fun updateReadyAndMovingTimes(data: HomeReadyStatusModel) {
         val newReadyTime =
             calculateReadyStartTime(data.promiseTime, data.preparationTime, data.travelTime)
-        spannableReadyStartTimeString(newReadyTime)
+        spannableReadyStartTimeString(formatTimeToKoreanStyle(newReadyTime))
 
         val newMovingTime = calculateReadyStartTime(data.promiseTime, 0, data.travelTime)
-        spannableMovingStartTimeString(newMovingTime)
+        spannableMovingStartTimeString(formatTimeToKoreanStyle(newMovingTime))
     }
 
     private fun updateDescriptions(data: HomeReadyStatusModel) {
@@ -206,7 +207,10 @@ class ReadyStatusFragment :
             if (isLateMeeting()) return@setOnClickListener
             findNavController().navigate(
                 R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
-                bundleOf(PROMISE_ID to promiseId),
+                bundleOf(
+                    PROMISE_ID to promiseId,
+                    "promiseTime" to viewModel.getPromiseTime(),
+                ),
             )
         }
 
@@ -214,7 +218,10 @@ class ReadyStatusFragment :
             if (isNotParticipant()) return@setOnClickListener
             findNavController().navigate(
                 R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
-                bundleOf(PROMISE_ID to promiseId),
+                bundleOf(
+                    PROMISE_ID to promiseId,
+                    "promiseTime" to viewModel.getPromiseTime(),
+                ),
             )
         }
     }

@@ -23,6 +23,7 @@ import com.teamkkumul.feature.utils.Debouncer
 import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.TimeStorage
+import com.teamkkumul.feature.utils.time.calculateReadyStartTime
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -37,8 +38,13 @@ class ReadyInfoInputFragment :
     private val setTimeDebouncer = Debouncer<String>()
 
     private val promiseId: Int by lazy {
-        requireArguments().getInt(KeyStorage.PROMISE_ID)
+        requireArguments().getInt(PROMISE_ID)
     }
+
+    private val promiseTime: String by lazy {
+        requireArguments().getString("promiseTime").orEmpty()
+    }
+
     private var promiseName: String? = null
 
     override fun initView() {
@@ -190,7 +196,6 @@ class ReadyInfoInputFragment :
                         bundleOf(PROMISE_ID to promiseId),
                     )
                     setReadyAndMovingAlarms(
-                        promiseId,
                         promiseName,
                         readyTime,
                         movingTime,
@@ -204,27 +209,26 @@ class ReadyInfoInputFragment :
     }
 
     private fun setReadyAndMovingAlarms(
-        promiseId: Int,
         promiseName: String?,
         readyTime: Int,
         movingTime: Int,
     ) {
+        val readyAlarmTime = calculateReadyStartTime(promiseTime, readyTime, movingTime) ?: return
+        val movingAlarmTime = calculateReadyStartTime(promiseTime, 0, movingTime) ?: return
         // 준비 시작 알람 설정
         setAlarm(
-            readyTime,
+            readyAlarmTime,
             getString(R.string.ready_info_input_ready_title),
             getString(R.string.ready_info_input_ready_content, promiseName),
             0,
-            promiseId,
         )
 
         // 이동 시작 알람 설정
         setAlarm(
-            movingTime,
+            movingAlarmTime,
             getString(R.string.ready_info_input_moving_title),
             getString(R.string.ready_info_input_moving_content, promiseName),
             1,
-            promiseId,
         )
     }
 
@@ -233,24 +237,17 @@ class ReadyInfoInputFragment :
     }
 
     private fun setAlarm(
-        minutesFromNow: Int,
+        alarmCalendar: Calendar,
         alarmTitle: String,
         alarmContent: String,
         requestCode: Int,
-        promiseId: Int,
     ) {
-        val calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            add(Calendar.MINUTE, minutesFromNow)
-            set(Calendar.SECOND, 0)
-        }
-
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(requireContext(), AlarmReceiver::class.java).apply {
             putExtra(KeyStorage.ALARM_TITLE, alarmTitle)
             putExtra(KeyStorage.ALARM_CONTENT, alarmContent)
             putExtra(KeyStorage.TAB_INDEX, 1)
-            putExtra(KeyStorage.PROMISE_ID, promiseId)
+            putExtra(PROMISE_ID, promiseId)
         }
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext(),
@@ -259,7 +256,7 @@ class ReadyInfoInputFragment :
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmCalendar.timeInMillis, pendingIntent)
     }
 
     private fun initHideKeyBoard() {

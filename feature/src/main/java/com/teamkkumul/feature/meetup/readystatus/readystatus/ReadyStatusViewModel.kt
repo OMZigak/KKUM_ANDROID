@@ -246,4 +246,7 @@ class ReadyStatusViewModel @Inject constructor(
 
         setPopUpVisible(shouldShowPopup)
     }
+
+    fun getPromiseTime(): String =
+        (_readyStatusState.value as? UiState.Success)?.data?.promiseTime.orEmpty()
 }
