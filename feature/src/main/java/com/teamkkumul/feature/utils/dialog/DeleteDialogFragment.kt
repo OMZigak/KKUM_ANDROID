@@ -100,7 +100,6 @@ class DeleteDialogFragment :
             when (it) {
                 is UiState.Success -> {
                     findNavController().popBackStack(R.id.fragment_meet_up_container, true)
-                    findNavController().navigate(R.id.fragment_my_group)
                     dismiss()
                 }
 
@@ -115,7 +114,6 @@ class DeleteDialogFragment :
             when (it) {
                 is UiState.Success -> {
                     findNavController().popBackStack(R.id.fragment_meet_up_container, true)
-                    findNavController().navigate(R.id.fragment_my_group)
                     dismiss()
                 }
 
