@@ -198,7 +198,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="16dp"
-                android:padding="2dp"
+                android:padding="3dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up">
 
@@ -227,7 +227,7 @@
                 android:id="@+id/cl_all_meet_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="16dp"
                 android:padding="3dp"
                 app:layout_constraintStart_toEndOf="@id/cl_meet_up_include_me"
