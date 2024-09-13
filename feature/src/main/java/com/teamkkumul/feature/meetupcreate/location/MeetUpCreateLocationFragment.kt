@@ -1,6 +1,5 @@
 package com.teamkkumul.feature.meetupcreate.location
 
-import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
@@ -9,6 +8,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.context.hideKeyboard
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycle
 import com.teamkkumul.core.ui.util.fragment.viewLifeCycleScope
 import com.teamkkumul.core.ui.view.UiState
@@ -38,17 +38,22 @@ class MeetUpCreateLocationFragment :
         setupLocationNameEditorAction()
     }
 
-    private fun setupLocationNameEditorAction() {
-        binding.etMeetUpCreateLocationNameEnter.setOnEditorActionListener { v, actionId, event ->
+    private fun setupLocationNameEditorAction() = with(binding.etMeetUpCreateLocationNameEnter) {
+        setSingleLine(true)
+        setOnEditorActionListener { _, actionId, event ->
             var handled = false
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val inputText = binding.etMeetUpCreateLocationNameEnter.text.toString()
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE ||
+                (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER)
+            ) {
+                requireContext().hideKeyboard(this)
+                val inputText = text.toString()
                 viewModel.getMeetUpCreateLocation(inputText)
                 handled = true
             }
             handled
         }
     }
+
 
     // 선택된 장소 업데이트
     private fun initRecyclerView() {
