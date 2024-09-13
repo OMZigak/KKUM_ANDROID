@@ -60,7 +60,7 @@ class MeetUpContainerFragment :
         sharedViewModel.meetupDetailState.flowWithLifecycle(viewLifeCycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> successMeetupDetailAppbarState(uiState.data)
-                is UiState.Failure -> Timber.tag("promise name").d(uiState.errorMessage)
+                is UiState.Failure -> Timber.e(uiState.errorMessage)
                 else -> Unit
             }
         }.launchIn(viewLifeCycleScope)

@@ -22,6 +22,7 @@ import com.teamkkumul.feature.utils.MeetUpType
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.time.TimeUtils.calculateDday
 import com.teamkkumul.feature.utils.time.TimeUtils.formatTimeToPmAm
+import com.teamkkumul.feature.utils.time.TimeUtils.isPastDefaultTime
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateOnly
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToMonthDay
 import com.teamkkumul.feature.utils.time.TimeUtils.parseTimeOnly
@@ -125,7 +126,12 @@ class MeetUpDetailFragment :
             tvMeetUpDetailInformationReadyLevel.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
             tvMeetUpDetailInformationPenalty.setTextColor(colorOf(setMeetUpDetailTextColor(dDay)))
 
-            tvMeetUpDetailEdit.setVisible(meetUpDetailModel.isParticipant == true)
+            tvMeetUpDetailEdit.setVisible(
+                meetUpDetailModel.isParticipant == true &&
+                    !isPastDefaultTime(
+                        meetUpDetailModel.time,
+                    ),
+            )
         }
     }
 

@@ -29,7 +29,9 @@ import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.model.BtnState
+import com.teamkkumul.feature.utils.time.TimeUtils.isPastDefaultTime
 import com.teamkkumul.feature.utils.time.calculateReadyStartTime
+import com.teamkkumul.feature.utils.time.formatTimeToKoreanStyle
 import com.teamkkumul.feature.utils.time.getCurrentTime
 import com.teamkkumul.feature.utils.time.parseMinutesToHoursAndMinutes
 import com.teamkkumul.model.home.HomeReadyStatusModel
@@ -54,6 +56,8 @@ class ReadyStatusFragment :
     private val promiseId: Int by lazy {
         requireArguments().getInt(PROMISE_ID)
     }
+
+    private var promiseTime = ""
 
     override fun initView() {
         initReadyStatusBtnClick()
@@ -117,6 +121,7 @@ class ReadyStatusFragment :
 
     private fun updateBasicUI(data: HomeReadyStatusModel?) = with(binding) {
         data ?: return
+        promiseTime = data.promiseTime.toString()
         viewModel.updateReadyTime(data.preparationStartAt ?: "")
         viewModel.updateMovingTime(data.departureAt ?: "")
         viewModel.updateCompletedTime(data.arrivalAt ?: "")
@@ -124,16 +129,17 @@ class ReadyStatusFragment :
 
     private fun updateReadyTimeAlarmVisibility(preparationAvailable: Boolean) = with(binding) {
         groupReadyInfoInput.setVisible(preparationAvailable)
+        if (preparationAvailable) btnReadyInfoInputEdit.setVisible(!isPastDefaultTime(viewModel.getPromiseTime()))
         tvReadyInfoNext.setVisible(!preparationAvailable)
     }
 
     private fun updateReadyAndMovingTimes(data: HomeReadyStatusModel) {
         val newReadyTime =
             calculateReadyStartTime(data.promiseTime, data.preparationTime, data.travelTime)
-        spannableReadyStartTimeString(newReadyTime)
+        spannableReadyStartTimeString(formatTimeToKoreanStyle(newReadyTime))
 
         val newMovingTime = calculateReadyStartTime(data.promiseTime, 0, data.travelTime)
-        spannableMovingStartTimeString(newMovingTime)
+        spannableMovingStartTimeString(formatTimeToKoreanStyle(newMovingTime))
     }
 
     private fun updateDescriptions(data: HomeReadyStatusModel) {
@@ -197,9 +203,13 @@ class ReadyStatusFragment :
     private fun initReadyInputBtnClick() {
         binding.tvReadyInfoNext.setOnClickListener {
             if (isNotParticipant()) return@setOnClickListener
+            if (isLateMeeting()) return@setOnClickListener
             findNavController().navigate(
                 R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
-                bundleOf(PROMISE_ID to promiseId),
+                bundleOf(
+                    PROMISE_ID to promiseId,
+                    "promiseTime" to promiseTime,
+                ),
             )
         }
 
@@ -207,7 +217,10 @@ class ReadyStatusFragment :
             if (isNotParticipant()) return@setOnClickListener
             findNavController().navigate(
                 R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
-                bundleOf(PROMISE_ID to promiseId),
+                bundleOf(
+                    PROMISE_ID to promiseId,
+                    "promiseTime" to promiseTime,
+                ),
             )
         }
     }
@@ -215,6 +228,15 @@ class ReadyStatusFragment :
     private fun isNotParticipant(): Boolean = when (!sharedViewModel.isParticipant()) {
         true -> {
             toast(getString(R.string.ready_status_not_participant))
+            true
+        }
+
+        false -> false
+    }
+
+    private fun isLateMeeting(): Boolean = when (isPastDefaultTime(promiseTime)) {
+        true -> {
+            toast(getString(R.string.ready_status_late_meeting))
             true
         }
 
@@ -237,6 +259,7 @@ class ReadyStatusFragment :
 
     private fun initReadyBtnClick() = with(binding) {
         btnHomeReady.setOnClickListener {
+            if (isNotParticipant()) return@setOnClickListener
             viewModel.patchReady(promiseId)
         }
         viewModel.readyPatchState.flowWithLifecycle(viewLifeCycle).onEach {
