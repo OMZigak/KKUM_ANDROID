@@ -284,7 +284,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         if (progressBarEnd != null) {
             progressBarEnd.progress = state.progress
         }
-        helpText.setInVisible(state.isHelpTextVisible)
     }
 
     private fun initHomeMeetUpRecyclerView() {
@@ -324,5 +323,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun onDestroyView() {
         super.onDestroyView()
         _homeMeetUpAdapter = null
+        viewModel.resetButtonStates()
     }
 }
