@@ -17,6 +17,7 @@ object KeyStorage {
     const val SET_NAME_ACTIVITY = "setNameActivity"
     const val MY_PAGE_FRAGMENT = "myPageFragment"
     const val D_DAY = "dDay"
+    const val READY_STATUS_INFO = "readyStatusInfo"
 }
 
 object PROGRESS {
