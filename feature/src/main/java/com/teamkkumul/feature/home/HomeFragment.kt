@@ -98,7 +98,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             }
 
             data.preparationStartAt == null -> {
-                viewModel.updateReadyHelpText()
+                viewModel.resetButtonStates()
             }
         }
     }
@@ -113,10 +113,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
                 is UiState.Empty -> {
                     updateMeetingVisibility(false)
-                    viewLifeCycleScope.launch {
-                        delay(10)
-                        viewModel.updateAllInvisible()
-                    }
+                    viewModel.updateAllInvisible()
                 }
 
                 is UiState.Failure -> Timber.e(it.errorMessage)

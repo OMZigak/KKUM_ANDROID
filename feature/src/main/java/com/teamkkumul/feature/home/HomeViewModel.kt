@@ -71,7 +71,7 @@ class HomeViewModel @Inject constructor(
     private val _helpTextState = MutableStateFlow(HelpTextState())
     val helpTextState: StateFlow<HelpTextState> get() = _helpTextState.asStateFlow()
 
-    fun updateReadyHelpText() {
+    private fun updateReadyHelpText() {
         _helpTextState.update { it.copy(isReadyHelpTextVisible = true) }
     }
 
@@ -268,6 +268,7 @@ class HomeViewModel @Inject constructor(
                     btnText = ReadyBtnTextType.COMPLETED,
                 ),
             )
+            updateReadyHelpText()
         }
     }
 }
