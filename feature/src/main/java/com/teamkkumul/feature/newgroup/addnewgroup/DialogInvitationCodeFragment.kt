@@ -3,10 +3,13 @@ package com.teamkkumul.feature.newgroup.addnewgroup
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingDialogFragment
 import com.teamkkumul.core.ui.util.context.dialogFragmentResize
+import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogInvitationCodeBinding
 import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_FRAGMENT
@@ -87,5 +90,9 @@ class DialogInvitationCodeFragment :
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("invitation_code", text)
         clipboard.setPrimaryClip(clip)
+        // API 레벨 31 미만에서만 커스텀 Toast 출력
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            toast(getString(R.string.toast_clipboard))
+        }
     }
 }

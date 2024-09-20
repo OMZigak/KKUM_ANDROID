@@ -241,4 +241,6 @@
     <string name="home_btn_moving_start">이동중</string>
     <string name="home_btn_moving_completed">이동 완료</string>
     <string name="home_btn_completed">도착 완료</string>
+
+    <string name="toast_clipboard">클립보드에 복사되었어요.</string>
 </resources>

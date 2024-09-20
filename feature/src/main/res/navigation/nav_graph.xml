@@ -145,7 +145,7 @@
             android:id="@+id/action_fragment_add_new_group_to_fragment_add_my_group_complete"
             app:destination="@id/fragment_add_my_group_complete"
             app:popUpTo="@id/fragment_add_new_group"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
 
     <dialog
