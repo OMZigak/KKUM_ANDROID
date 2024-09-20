@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetMyGroupMeetUpUseCase @Inject constructor(
     private val myGroupRepository: MyGroupRepository,
 ) {
-    suspend fun invoke(
+    suspend operator fun invoke(
         meetingId: Int,
         done: Boolean,
         isParticipant: Boolean? = null,
