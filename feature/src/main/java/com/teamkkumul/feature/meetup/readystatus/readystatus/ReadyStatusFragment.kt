@@ -26,6 +26,7 @@ import com.teamkkumul.feature.databinding.FragmentReadyStatusBinding
 import com.teamkkumul.feature.meetup.readystatus.readystatus.viewholder.ReadyStatusFriendItemDecoration
 import com.teamkkumul.feature.meetupcreate.MeetUpSharedViewModel
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
+import com.teamkkumul.feature.utils.KeyStorage.READY_STATUS_INFO
 import com.teamkkumul.feature.utils.PROGRESS.PROGRESS_NUM_100
 import com.teamkkumul.feature.utils.animateProgressBar
 import com.teamkkumul.feature.utils.model.BtnState
@@ -63,7 +64,6 @@ class ReadyStatusFragment :
         initReadyStatusBtnClick()
         initObserveBtnState()
         initReadyStatusRecyclerview()
-        initReadyInputBtnClick()
         initObserveReadyStatusState()
         initObserveMembersReadyStatus()
         initObservePopUpVisible()
@@ -110,6 +110,7 @@ class ReadyStatusFragment :
         data ?: return
         updateBasicUI(data)
         handleButtonClicks(data)
+        initReadyInputBtnClick(data)
 
         val preparationAvailable = data.preparationTime != null
         updateReadyTimeAlarmVisibility(preparationAvailable)
@@ -200,47 +201,43 @@ class ReadyStatusFragment :
         binding.tvReadyInfoInputMovingTime.text = spannable
     }
 
-    private fun initReadyInputBtnClick() {
+    private fun initReadyInputBtnClick(data: HomeReadyStatusModel) {
         binding.tvReadyInfoNext.setOnClickListener {
-            if (isNotParticipant()) return@setOnClickListener
-            if (isLateMeeting()) return@setOnClickListener
-            findNavController().navigate(
-                R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
-                bundleOf(
-                    PROMISE_ID to promiseId,
-                    "promiseTime" to promiseTime,
-                ),
-            )
+            if (isNotParticipantOrLateMeeting()) return@setOnClickListener
+            navigateToReadyInfoInputFragment(data)
         }
 
         binding.btnReadyInfoInputEdit.setOnClickListener {
-            if (isNotParticipant()) return@setOnClickListener
-            findNavController().navigate(
-                R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
-                bundleOf(
-                    PROMISE_ID to promiseId,
-                    "promiseTime" to promiseTime,
+            if (isNotParticipantOrLateMeeting()) return@setOnClickListener
+            navigateToReadyInfoInputFragment(data)
+        }
+    }
+
+    private fun navigateToReadyInfoInputFragment(data: HomeReadyStatusModel) {
+        findNavController().navigate(
+            R.id.action_fragment_meet_up_container_to_readyInfoInputFragment,
+            bundleOf(
+                READY_STATUS_INFO to data.copy(
+                    promiseId = promiseId,
                 ),
-            )
-        }
+            ),
+        )
     }
 
-    private fun isNotParticipant(): Boolean = when (!sharedViewModel.isParticipant()) {
-        true -> {
-            toast(getString(R.string.ready_status_not_participant))
-            true
+    private fun isNotParticipantOrLateMeeting(): Boolean {
+        return when {
+            !sharedViewModel.isParticipant() -> {
+                toast(getString(R.string.ready_status_not_participant))
+                true
+            }
+
+            isPastDefaultTime(promiseTime) -> {
+                toast(getString(R.string.ready_status_late_meeting))
+                true
+            }
+
+            else -> false
         }
-
-        false -> false
-    }
-
-    private fun isLateMeeting(): Boolean = when (isPastDefaultTime(promiseTime)) {
-        true -> {
-            toast(getString(R.string.ready_status_late_meeting))
-            true
-        }
-
-        false -> false
     }
 
     private fun initReadyStatusRecyclerview() {
@@ -259,7 +256,7 @@ class ReadyStatusFragment :
 
     private fun initReadyBtnClick() = with(binding) {
         btnHomeReady.setOnClickListener {
-            if (isNotParticipant()) return@setOnClickListener
+            if (isNotParticipantOrLateMeeting()) return@setOnClickListener
             viewModel.patchReady(promiseId)
         }
         viewModel.readyPatchState.flowWithLifecycle(viewLifeCycle).onEach {

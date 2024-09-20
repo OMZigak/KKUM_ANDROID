@@ -43,13 +43,22 @@ fun formatTimeToKoreanStyle(calendar: Calendar?): String {
     )
 }
 
-fun parseMinutesToHoursAndMinutes(minutes: Int?): String {
-    minutes ?: return ""
+fun splitMinutesToHoursAndMinutes(minutes: Int?): Pair<Int, Int>? {
+    minutes ?: return null
     val hours = minutes / 60
     val remainingMinutes = minutes % 60
+    return Pair(hours, remainingMinutes)
+}
+
+fun formatHoursAndMinutes(hours: Int, minutes: Int): String {
     return if (hours > 0) {
-        String.format(Locale.getDefault(), "%d시간 %02d분", hours, remainingMinutes)
+        String.format(Locale.getDefault(), "%d시간 %02d분", hours, minutes)
     } else {
-        String.format(Locale.getDefault(), "%d분", remainingMinutes)
+        String.format(Locale.getDefault(), "%d분", minutes)
     }
+}
+
+fun parseMinutesToHoursAndMinutes(minutes: Int?): String {
+    val (hours, remainingMinutes) = splitMinutesToHoursAndMinutes(minutes) ?: return ""
+    return formatHoursAndMinutes(hours, remainingMinutes)
 }
