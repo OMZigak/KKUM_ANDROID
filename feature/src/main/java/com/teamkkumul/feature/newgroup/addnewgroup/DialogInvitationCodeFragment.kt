@@ -5,8 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingDialogFragment
 import com.teamkkumul.core.ui.util.context.dialogFragmentResize
@@ -15,9 +14,11 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogInvitationCodeBinding
 import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.CODE
+import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DialogInvitationCodeFragment :
@@ -25,6 +26,10 @@ class DialogInvitationCodeFragment :
 
     private val invitationCode: String by lazy {
         arguments?.getString(CODE) ?: ""
+    }
+
+    private val meetingId: Int by lazy {
+        requireArguments().getInt(MEETING_ID)
     }
 
     private val sourceFragment: String by lazy {
@@ -58,7 +63,10 @@ class DialogInvitationCodeFragment :
             when (sourceFragment) {
                 ADD_NEW_GROUP_FRAGMENT -> {
                     if (invitationCode.isNotEmpty()) {
-                        findNavController().navigate(R.id.action_dialog_to_completed)
+                        findNavController().navigate(
+                            R.id.action_dialog_to_completed,
+                            bundleOf(MEETING_ID to meetingId)
+                        )
                     } else {
                         findNavController().navigate(R.id.action_dialog_to_my_group_detail)
                     }
@@ -73,7 +81,10 @@ class DialogInvitationCodeFragment :
             when (sourceFragment) {
                 ADD_NEW_GROUP_FRAGMENT -> {
                     if (invitationCode.isNotEmpty()) {
-                        findNavController().navigate(R.id.action_dialog_to_completed)
+                        findNavController().navigate(
+                            R.id.action_dialog_to_completed,
+                            bundleOf(MEETING_ID to meetingId)
+                        )
                     } else {
                         findNavController().navigate(R.id.action_dialog_to_my_group_detail)
                     }
