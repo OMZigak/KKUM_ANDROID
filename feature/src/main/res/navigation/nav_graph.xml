@@ -248,8 +248,8 @@
         <action
             android:id="@+id/action_fragment_meet_up_create_complete_to_fragment_meet_up_container"
             app:destination="@id/fragment_meet_up_container"
-            app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/fragment_meet_up_create"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <dialog
