@@ -27,204 +27,200 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="30dp"
             android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create">
 
-        <TextView
-            android:id="@+id/tv_add_meet_up_step"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/meet_up_step_3"
-            android:textAppearance="@style/TextAppearance.Kkumul.body_05"
-            android:textColor="@color/gray6"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_meet_up_level_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/tv_meet_up_level_title"
-            android:textAppearance="@style/TextAppearance.Kkumul.head_01"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_add_meet_up_step" />
-
-        <TextView
-            android:id="@+id/tv_meet_up_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:layout_marginStart="5dp"
-            android:text="@string/meet_up_level"
-            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-            android:textColor="@color/gray7"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_meet_up_level_title" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/cg_meet_up_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_meet_up_level"
-            app:singleLine="false"
-            app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_meet_up_level_1"
-                style="@style/ChipGroupTheme"
+            <TextView
+                android:id="@+id/tv_add_meet_up_step"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/meet_up_level_1"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                android:textColor="@color/gray5" />
+                android:text="@string/meet_up_step_3"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+                android:textColor="@color/gray6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_meet_up_level_2"
-                style="@style/ChipGroupTheme"
+            <TextView
+                android:id="@+id/tv_meet_up_level_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/meet_up_level_2"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                android:textColor="@color/gray5" />
+                android:layout_marginTop="20dp"
+                android:text="@string/tv_meet_up_level_title"
+                android:textAppearance="@style/TextAppearance.Kkumul.head_01"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_meet_up_step" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_meet_up_level_3"
-                style="@style/ChipGroupTheme"
+            <TextView
+                android:id="@+id/tv_meet_up_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/meet_up_level_3"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                android:textColor="@color/gray5" />
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="26dp"
+                android:text="@string/meet_up_level"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                android:textColor="@color/gray7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_level_title" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_meet_up_level_4"
-                style="@style/ChipGroupTheme"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cg_meet_up_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/meet_up_level_4"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                android:textColor="@color/gray5" />
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_level"
+                app:singleLine="false"
+                app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_meet_up_level_5"
-                style="@style/ChipGroupTheme"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_meet_up_level_1"
+                    style="@style/ChipGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/meet_up_level_1"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                    android:textColor="@color/gray5" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_meet_up_level_2"
+                    style="@style/ChipGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/meet_up_level_2"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                    android:textColor="@color/gray5" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_meet_up_level_3"
+                    style="@style/ChipGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/meet_up_level_3"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                    android:textColor="@color/gray5" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_meet_up_level_4"
+                    style="@style/ChipGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/meet_up_level_4"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                    android:textColor="@color/gray5" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_meet_up_level_5"
+                    style="@style/ChipGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/meet_up_level_none"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                    android:textColor="@color/gray5" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/tv_set_penalty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/meet_up_level_none"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                android:textColor="@color/gray5" />
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/set_penalty"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                android:textColor="@color/gray7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cg_meet_up_level" />
 
-        </com.google.android.material.chip.ChipGroup>
-
-        <TextView
-            android:id="@+id/tv_set_penalty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/set_penalty"
-            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-            android:textColor="@color/gray7"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cg_meet_up_level" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/cg_set_penalty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="12dp"
-            app:chipSpacing="4dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_set_penalty"
-            app:singleLine="false"
-            app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_penalty_reels"
-                style="@style/ChipGroupTheme"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cg_set_penalty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/penalty_reels"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                android:textColor="@color/gray5" />
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="12dp"
+                app:chipSpacing="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_set_penalty"
+                app:singleLine="false"
+                app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_penalty_cafe"
-                style="@style/ChipGroupTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/penalty_cafe"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                android:textColor="@color/gray5" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_penalty_reels"
+                    style="@style/ChipGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/penalty_reels"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                    android:textColor="@color/gray5" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_penalty_late_fee"
-                style="@style/ChipGroupTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/penalty_late_fee"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                android:textColor="@color/gray5" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_penalty_cafe"
+                    style="@style/ChipGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/penalty_cafe"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                    android:textColor="@color/gray5" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_penalty_indian_bob"
-                style="@style/ChipGroupTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/penalty_indian_bob"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                android:textColor="@color/gray5" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_penalty_late_fee"
+                    style="@style/ChipGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/penalty_late_fee"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                    android:textColor="@color/gray5" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_penalty_tak_bam"
-                style="@style/ChipGroupTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/penalty_tak_bam"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                android:textColor="@color/gray5" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_penalty_indian_bob"
+                    style="@style/ChipGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/penalty_indian_bob"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                    android:textColor="@color/gray5" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_penalty_blind_eye"
-                style="@style/ChipGroupTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/penalty_blind_eye"
-                android:textAppearance="@style/TextAppearance.Kkumul.body_04"
-                android:textColor="@color/gray5" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_penalty_tak_bam"
+                    style="@style/ChipGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/penalty_tak_bam"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                    android:textColor="@color/gray5" />
 
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_penalty_blind_eye"
+                    style="@style/ChipGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/penalty_blind_eye"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_04"
+                    android:textColor="@color/gray5" />
+            </com.google.android.material.chip.ChipGroup>
 
-        <Button
-            android:id="@+id/btn_create_meet_up"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="50dp"
-            android:background="@drawable/sel_btn"
-            android:enabled="false"
-            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-            android:textColor="@color/white0"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="332:50"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/btn_create_meet_up"
+                style="@style/NextButtonStyle"
+                android:enabled="false"
+                android:text="@string/next"
+                android:stateListAnimator="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="332:50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

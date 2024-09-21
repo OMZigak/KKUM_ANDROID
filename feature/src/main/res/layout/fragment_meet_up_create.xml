@@ -271,19 +271,16 @@
 
         <Button
             android:id="@+id/btn_meet_up_create_next"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            style="@style/NextButtonStyle"
             android:layout_marginHorizontal="14dp"
-            android:layout_marginBottom="50dp"
-            android:background="@drawable/sel_btn"
             android:enabled="false"
+            android:stateListAnimator="@null"
             android:text="@string/next"
-            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
-            android:textColor="@color/white0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="332:50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
