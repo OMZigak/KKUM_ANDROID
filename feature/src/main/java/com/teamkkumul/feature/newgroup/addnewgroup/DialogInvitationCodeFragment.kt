@@ -27,8 +27,8 @@ class DialogInvitationCodeFragment :
         arguments?.getString(CODE) ?: ""
     }
 
-    private val meetingId: Int? by lazy {
-        arguments?.getInt(MEETING_ID)
+    private val meetingId: Int by lazy {
+        arguments?.getInt(MEETING_ID) ?: -1
     }
 
     private val sourceFragment: String by lazy {
@@ -62,10 +62,7 @@ class DialogInvitationCodeFragment :
             when (sourceFragment) {
                 ADD_NEW_GROUP_FRAGMENT -> {
                     if (invitationCode.isNotEmpty()) {
-                        findNavController().navigate(
-                            R.id.action_dialog_to_completed,
-                            bundleOf(MEETING_ID to meetingId)
-                        )
+                        navigateToAddMyGroupComplete()
                     } else {
                         findNavController().navigate(R.id.action_dialog_to_my_group_detail)
                     }
@@ -80,10 +77,7 @@ class DialogInvitationCodeFragment :
             when (sourceFragment) {
                 ADD_NEW_GROUP_FRAGMENT -> {
                     if (invitationCode.isNotEmpty()) {
-                        findNavController().navigate(
-                            R.id.action_dialog_to_completed,
-                            bundleOf(MEETING_ID to meetingId)
-                        )
+                        navigateToAddMyGroupComplete()
                     } else {
                         findNavController().navigate(R.id.action_dialog_to_my_group_detail)
                     }
@@ -105,5 +99,12 @@ class DialogInvitationCodeFragment :
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S) {
             toast(getString(R.string.toast_clipboard))
         }
+    }
+
+    private fun navigateToAddMyGroupComplete() {
+        findNavController().navigate(
+            R.id.action_dialog_to_completed,
+            bundleOf(MEETING_ID to meetingId)
+        )
     }
 }
