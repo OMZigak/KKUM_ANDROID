@@ -216,7 +216,7 @@
         <action
             android:id="@+id/action_fragment_add_my_group_complete_to_fragment_my_group_detail"
             app:destination="@id/fragment_my_group_detail"
-            app:popUpTo="@id/fragment_add_my_group_complete"
+            app:popUpTo="@id/fragment_add_my_group"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_fragment_add_my_group_complete_to_fragment_my_group"
