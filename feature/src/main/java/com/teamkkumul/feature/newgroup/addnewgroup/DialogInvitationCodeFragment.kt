@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingDialogFragment
@@ -90,8 +91,8 @@ class DialogInvitationCodeFragment :
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("invitation_code", text)
         clipboard.setPrimaryClip(clip)
-        // API 레벨 31 미만에서만 커스텀 Toast 출력
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S) {
             toast(getString(R.string.toast_clipboard))
         }
     }
