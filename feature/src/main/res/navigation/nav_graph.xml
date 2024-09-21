@@ -130,7 +130,7 @@
         <action
             android:id="@+id/action_fragment_enter_invitation_code_to_fragment_my_group_detail"
             app:destination="@id/fragment_my_group_detail"
-            app:popUpTo="@id/fragment_enter_invitation_code"
+            app:popUpTo="@id/fragment_add_my_group"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -144,8 +144,8 @@
         <action
             android:id="@+id/action_fragment_add_new_group_to_fragment_add_my_group_complete"
             app:destination="@id/fragment_add_my_group_complete"
-            app:popUpTo="@id/fragment_add_new_group"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/fragment_my_group"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <dialog
