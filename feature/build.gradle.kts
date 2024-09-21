@@ -56,7 +56,6 @@ dependencies {
 
     // Compose
     implementation(libs.bundles.compose)
-    implementation(libs.firebase.messaging.ktx)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
     implementation(libs.bundles.androidx.compose.feature)
