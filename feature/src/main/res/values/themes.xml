@@ -123,4 +123,14 @@
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
 
+    <style name="NextButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginBottom">50dp</item>
+        <item name="android:background">@drawable/sel_btn</item>
+        <item name="android:enabled">true</item>
+        <item name="android:textColor">@color/white0</item>
+        <item name="android:textAppearance">@style/TextAppearance.Kkumul.body_03</item>
+    </style>
+
 </resources>
