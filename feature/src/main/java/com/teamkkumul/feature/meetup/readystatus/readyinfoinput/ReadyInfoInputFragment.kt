@@ -4,11 +4,13 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.widget.EditText
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingFragment
+import com.teamkkumul.core.ui.util.bundle.getSafeParcelable
 import com.teamkkumul.core.ui.util.context.hideKeyboard
 import com.teamkkumul.core.ui.util.fragment.colorOf
 import com.teamkkumul.core.ui.util.fragment.toast
@@ -22,8 +24,11 @@ import com.teamkkumul.feature.meetup.readystatus.readyinfoinput.alarm.AlarmRecei
 import com.teamkkumul.feature.utils.Debouncer
 import com.teamkkumul.feature.utils.KeyStorage
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
+import com.teamkkumul.feature.utils.KeyStorage.READY_STATUS_INFO
 import com.teamkkumul.feature.utils.TimeStorage
 import com.teamkkumul.feature.utils.time.calculateReadyStartTime
+import com.teamkkumul.feature.utils.time.splitMinutesToHoursAndMinutes
+import com.teamkkumul.model.home.HomeReadyStatusModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -37,21 +42,55 @@ class ReadyInfoInputFragment :
 
     private val setTimeDebouncer = Debouncer<String>()
 
-    private val promiseId: Int by lazy {
-        requireArguments().getInt(PROMISE_ID)
+    private val homeReadyStatusModel: HomeReadyStatusModel? by lazy {
+        requireArguments().getSafeParcelable<HomeReadyStatusModel>(READY_STATUS_INFO)
     }
-
-    private val promiseTime: String by lazy {
-        requireArguments().getString("promiseTime").orEmpty()
+    private val promiseId: Int by lazy {
+        homeReadyStatusModel?.promiseId ?: -1
     }
 
     private var promiseName: String? = null
 
     override fun initView() {
+        setDefaultEditTExtInput()
         initSetEditText()
         initObserveState()
         initReadyInputBtnClick()
         initHideKeyBoard()
+    }
+
+    private fun setDefaultEditTExtInput() {
+        handleTime(
+            homeReadyStatusModel?.preparationTime,
+            binding.etReadyStatusReadHour,
+            binding.etReadyStatusReadyMinute,
+            viewModel::setReadyHour,
+            viewModel::setReadyMinute,
+        )
+
+        handleTime(
+            homeReadyStatusModel?.travelTime,
+            binding.etReadyStatusMovingHour,
+            binding.etReadyStatusMovingMinute,
+            viewModel::setMovingHour,
+            viewModel::setMovingMinute,
+        )
+    }
+
+    private fun handleTime(
+        timeInMinutes: Int?,
+        hourEditText: EditText,
+        minuteEditText: EditText,
+        setHour: (String) -> Unit,
+        setMinute: (String) -> Unit,
+    ) {
+        if (timeInMinutes != null) {
+            val result = splitMinutesToHoursAndMinutes(timeInMinutes) ?: return
+            hourEditText.setText(result.first.toString())
+            minuteEditText.setText(result.second.toString())
+            setHour(result.first.toString())
+            setMinute(result.second.toString())
+        }
     }
 
     private fun initSetEditText() {
@@ -71,10 +110,7 @@ class ReadyInfoInputFragment :
         viewModel.getMeetUpDetail(promiseId)
         viewModel.meetUpDetailState.flowWithLifecycle(viewLifeCycle).onEach { state ->
             when (state) {
-                is UiState.Success -> {
-                    promiseName = state.data.promiseName
-                }
-
+                is UiState.Success -> promiseName = state.data.promiseName
                 is UiState.Failure -> Timber.e(state.toString())
                 else -> Unit
             }
@@ -213,8 +249,11 @@ class ReadyInfoInputFragment :
         readyTime: Int,
         movingTime: Int,
     ) {
-        val readyAlarmTime = calculateReadyStartTime(promiseTime, readyTime, movingTime) ?: return
-        val movingAlarmTime = calculateReadyStartTime(promiseTime, 0, movingTime) ?: return
+        val readyAlarmTime =
+            calculateReadyStartTime(homeReadyStatusModel?.promiseTime, readyTime, movingTime)
+                ?: return
+        val movingAlarmTime =
+            calculateReadyStartTime(homeReadyStatusModel?.promiseTime, 0, movingTime) ?: return
         // 준비 시작 알람 설정
         setAlarm(
             readyAlarmTime,

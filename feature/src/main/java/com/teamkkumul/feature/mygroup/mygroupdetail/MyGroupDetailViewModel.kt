@@ -2,6 +2,7 @@ package com.teamkkumul.feature.mygroup.mygroupdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chanu.core.domain.usecase.GetMyGroupMeetUpUseCase
 import com.teamkkumul.core.data.repository.MyGroupRepository
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.model.MyGroupDetailMemeberSealedItem
@@ -17,8 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MyGroupDetailViewModel @Inject constructor(
     private val myGroupRepository: MyGroupRepository,
+    private val getMyGroupMeetUpUseCase: GetMyGroupMeetUpUseCase,
 ) : ViewModel() {
-
     private val _myGroupInfoState = MutableStateFlow<UiState<MyGroupInfoModel>>(UiState.Loading)
     val myGroupInfoState get() = _myGroupInfoState.asStateFlow()
 
@@ -64,7 +65,7 @@ class MyGroupDetailViewModel @Inject constructor(
 
     fun getMyGroupMeetUp(meetingId: Int, done: Boolean, isParticipant: Boolean? = null) =
         viewModelScope.launch {
-            myGroupRepository.getMyGroupMeetUp(meetingId, done, isParticipant)
+            getMyGroupMeetUpUseCase.invoke(meetingId, done, isParticipant)
                 .onSuccess { myGroupMemberModel ->
                     if (myGroupMemberModel.isEmpty()) {
                         _myGroupMeetUpState.emit(UiState.Empty)
