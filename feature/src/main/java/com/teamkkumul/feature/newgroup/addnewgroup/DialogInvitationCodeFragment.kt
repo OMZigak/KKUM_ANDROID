@@ -18,7 +18,6 @@ import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class DialogInvitationCodeFragment :
@@ -28,8 +27,8 @@ class DialogInvitationCodeFragment :
         arguments?.getString(CODE) ?: ""
     }
 
-    private val meetingId: Int by lazy {
-        requireArguments().getInt(MEETING_ID)
+    private val meetingId: Int? by lazy {
+        arguments?.getInt(MEETING_ID)
     }
 
     private val sourceFragment: String by lazy {
