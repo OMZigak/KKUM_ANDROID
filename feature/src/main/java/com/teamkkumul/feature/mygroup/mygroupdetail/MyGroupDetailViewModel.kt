@@ -20,7 +20,8 @@ class MyGroupDetailViewModel @Inject constructor(
     private val myGroupRepository: MyGroupRepository,
     private val getMyGroupMeetUpUseCase: GetMyGroupMeetUpUseCase,
 ) : ViewModel() {
-    var isMeetUpIncludeMeSelected: Boolean = true
+    private val _isMeetUpIncludeMeSelected = MutableStateFlow(true)
+    val isMeetUpIncludeMeSelected get() = _isMeetUpIncludeMeSelected.asStateFlow()
 
     private val _myGroupInfoState = MutableStateFlow<UiState<MyGroupInfoModel>>(UiState.Loading)
     val myGroupInfoState get() = _myGroupInfoState.asStateFlow()
@@ -37,6 +38,9 @@ class MyGroupDetailViewModel @Inject constructor(
         MutableStateFlow<UiState<List<MyGroupMeetUpModel.Promise>>>(UiState.Loading)
     val myGroupMeetUpState get() = _myGroupMeetUpState.asStateFlow()
 
+    fun updateMeetUpIncludeMeState(isSelected: Boolean) {
+        _isMeetUpIncludeMeSelected.value = isSelected
+    }
     fun getMyGroupInfo(meetingId: Int) = viewModelScope.launch {
         myGroupRepository.getMyGroupInfo(meetingId)
             .onSuccess { myGroupInfoModel ->

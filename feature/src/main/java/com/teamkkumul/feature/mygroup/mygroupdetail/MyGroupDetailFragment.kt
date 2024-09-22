@@ -48,6 +48,13 @@ class MyGroupDetailFragment :
     private val currentId: Int by lazy { arguments?.getInt(MEETING_ID, -1) ?: -1 }
 
     override fun initView() {
+
+        if (viewModel.isMeetUpIncludeMeSelected.value) {
+            switchToMeetUpIncludeMeState()
+        } else {
+            switchToAllMeetUpState()
+        }
+
         initMemberRecyclerView()
         initMeetUpRecyclerView()
         viewModel.getMyGroupInfo(currentId)
@@ -213,7 +220,7 @@ class MyGroupDetailFragment :
     }
 
     private fun switchToAllMeetUpState() {
-        viewModel.isMeetUpIncludeMeSelected = false
+        viewModel.updateMeetUpIncludeMeState(false)
         updateTextAppearance(false)
         updateTextVisibility(false)
         binding.tvMeetUpIncludeMe.setTextColor(colorOf(R.color.gray6))
@@ -221,7 +228,7 @@ class MyGroupDetailFragment :
     }
 
     private fun switchToMeetUpIncludeMeState() {
-        viewModel.isMeetUpIncludeMeSelected = true
+        viewModel.updateMeetUpIncludeMeState(true)
         updateTextAppearance(true)
         updateTextVisibility(true)
         binding.tvAllMeetUp.setTextColor((colorOf(R.color.gray6)))
@@ -246,7 +253,7 @@ class MyGroupDetailFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (viewModel.isMeetUpIncludeMeSelected) {
+        if (viewModel.isMeetUpIncludeMeSelected.value) {
             switchToMeetUpIncludeMeState()
         } else {
             switchToAllMeetUpState()
