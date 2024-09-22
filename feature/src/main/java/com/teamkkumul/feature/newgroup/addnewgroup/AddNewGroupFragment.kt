@@ -14,12 +14,15 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentAddNewGroupBinding
 import com.teamkkumul.feature.utils.Debouncer
 import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_FRAGMENT
+import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_MODEL
 import com.teamkkumul.feature.utils.KeyStorage.CODE
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
+import com.teamkkumul.model.AddNewGroupModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class AddNewGroupFragment :
@@ -38,7 +41,7 @@ class AddNewGroupFragment :
         viewModel.meetingsState.flowWithLifecycle(viewLifeCycle).onEach {
             when (it) {
                 is UiState.Success -> {
-                    showInvitationDialog(it.data.meetingId, it.data.invitationCode)
+                    showInvitationDialog(it.data)
                 }
 
                 else -> Unit
@@ -98,10 +101,10 @@ class AddNewGroupFragment :
         binding.btnMakeNewGroup.isEnabled = isValid
     }
 
-    private fun showInvitationDialog(meetingId: Int, invitationCode: String) {
+    private fun showInvitationDialog(addNewGroupModel: AddNewGroupModel) {
         findNavController().navigate(
             R.id.fragment_dialog_invitation_code,
-            bundleOf(MEETING_ID to meetingId, CODE to invitationCode, SOURCE_FRAGMENT to ADD_NEW_GROUP_FRAGMENT),
+            bundleOf(ADD_NEW_GROUP_MODEL to addNewGroupModel, SOURCE_FRAGMENT to ADD_NEW_GROUP_FRAGMENT),
         )
     }
 
