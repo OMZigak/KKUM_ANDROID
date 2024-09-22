@@ -18,6 +18,7 @@ import javax.inject.Inject
 class MyGroupDetailViewModel @Inject constructor(
     private val myGroupRepository: MyGroupRepository,
 ) : ViewModel() {
+    var isMeetUpIncludeMeSelected: Boolean = true
 
     private val _myGroupInfoState = MutableStateFlow<UiState<MyGroupInfoModel>>(UiState.Loading)
     val myGroupInfoState get() = _myGroupInfoState.asStateFlow()
