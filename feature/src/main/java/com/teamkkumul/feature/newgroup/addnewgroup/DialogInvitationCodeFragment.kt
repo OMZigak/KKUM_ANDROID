@@ -74,9 +74,9 @@ class DialogInvitationCodeFragment :
 
     private fun setupDialogBtn() {
         binding.tvBtnCopy.setOnClickListener {
-            copyToClipboard(invitationCode)
             when (sourceFragment) {
                 ADD_NEW_GROUP_FRAGMENT -> {
+                    copyToClipboard(invitationCode)
                     if (invitationCode.isNotEmpty()) {
                         navigateToAddMyGroupComplete()
                     } else {
@@ -85,6 +85,7 @@ class DialogInvitationCodeFragment :
                     dismiss()
                 }
                 MY_GROUP_DETAIL_FRAGMENT -> {
+                    copyToClipboard(code)
                     dismiss()
                 }
             }
