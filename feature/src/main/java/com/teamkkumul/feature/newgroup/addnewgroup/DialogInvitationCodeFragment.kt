@@ -21,7 +21,6 @@ import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import com.teamkkumul.model.AddNewGroupModel
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class DialogInvitationCodeFragment :
@@ -123,6 +122,5 @@ class DialogInvitationCodeFragment :
             R.id.action_dialog_to_completed,
             bundleOf(MEETING_ID to meetingId)
         )
-        Timber.d("여기도 meetingId 잘 넘어감 (getSafeParcelable은 잘 적용된 것) $meetingId")
     }
 }
