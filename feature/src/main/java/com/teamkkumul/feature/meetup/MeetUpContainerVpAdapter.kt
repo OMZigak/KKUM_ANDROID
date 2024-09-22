@@ -6,7 +6,10 @@ import com.teamkkumul.feature.meetup.lateperson.LatePersonFragment
 import com.teamkkumul.feature.meetup.meetupdetail.MeetUpDetailFragment
 import com.teamkkumul.feature.meetup.readystatus.readystatus.ReadyStatusFragment
 
-class MeetUpContainerVpAdapter(fragment: Fragment, private val promiseId: Int) : FragmentStateAdapter(fragment) {
+class MeetUpContainerVpAdapter(
+    fragment: Fragment,
+    private val promiseId: Int,
+) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = TOTAL_TAG_NUM
 
     override fun createFragment(position: Int): Fragment {

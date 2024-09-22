@@ -17,8 +17,8 @@ fun calculateReadyStartTime(
     preparationTime: Int?,
     movingTime: Int?,
     extraTime: Int = 10,
-): String {
-    if (promiseTime == null || preparationTime == null || movingTime == null) return ""
+): Calendar? {
+    if (promiseTime == null || preparationTime == null || movingTime == null) return null
 
     val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
     val date = dateFormat.parse(promiseTime)
@@ -30,20 +30,35 @@ fun calculateReadyStartTime(
     calendar.add(Calendar.MINUTE, -movingTime)
     calendar.add(Calendar.MINUTE, -extraTime)
 
+    return calendar // Calendar 객체 반환
+}
+
+fun formatTimeToKoreanStyle(calendar: Calendar?): String {
+    if (calendar == null) return ""
     return String.format(
+        Locale.getDefault(),
         "%02d시 %02d분",
         calendar.get(Calendar.HOUR_OF_DAY),
         calendar.get(Calendar.MINUTE),
     )
 }
 
-fun parseMinutesToHoursAndMinutes(minutes: Int?): String {
-    minutes ?: return ""
+fun splitMinutesToHoursAndMinutes(minutes: Int?): Pair<Int, Int>? {
+    minutes ?: return null
     val hours = minutes / 60
     val remainingMinutes = minutes % 60
+    return Pair(hours, remainingMinutes)
+}
+
+fun formatHoursAndMinutes(hours: Int, minutes: Int): String {
     return if (hours > 0) {
-        String.format("%d시간 %02d분", hours, remainingMinutes)
+        String.format(Locale.getDefault(), "%d시간 %02d분", hours, minutes)
     } else {
-        String.format("%d분", remainingMinutes)
+        String.format(Locale.getDefault(), "%d분", minutes)
     }
+}
+
+fun parseMinutesToHoursAndMinutes(minutes: Int?): String {
+    val (hours, remainingMinutes) = splitMinutesToHoursAndMinutes(minutes) ?: return ""
+    return formatHoursAndMinutes(hours, remainingMinutes)
 }

@@ -18,6 +18,7 @@ import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
 import com.teamkkumul.feature.utils.KeyStorage.CODE
+import com.teamkkumul.feature.utils.KeyStorage.D_DAY
 import com.teamkkumul.feature.utils.KeyStorage.GROUP_NAME
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
@@ -45,6 +46,7 @@ class MyGroupDetailFragment :
 
     private var code: String = ""
     private val currentId: Int by lazy { arguments?.getInt(MEETING_ID, -1) ?: -1 }
+
     override fun initView() {
         initMemberRecyclerView()
         initMeetUpRecyclerView()
@@ -181,10 +183,13 @@ class MyGroupDetailFragment :
 
     private fun initMeetUpRecyclerView() {
         _meetUpAdapter = MyGroupDetailMeetUpAdapter(
-            onMeetUpDetailBtnClicked = { promiseId ->
+            onMeetUpDetailBtnClicked = { item ->
                 findNavController().navigate(
                     R.id.action_myGroupDetailFragment_to_meetUpContainerFragment,
-                    bundleOf(PROMISE_ID to promiseId),
+                    bundleOf(
+                        PROMISE_ID to item.promiseId,
+                        D_DAY to item.dDay,
+                    ),
                 )
             },
         )

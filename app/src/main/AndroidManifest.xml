@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -39,7 +40,15 @@
                     android:scheme="kakao${kakaoAppkey}" />
             </intent-filter>
         </activity>
-        <receiver android:name="com.teamkkumul.feature.meetup.readystatus.readyinfoinput.alarm.AlarmReceiver" />
+
+        <receiver
+            android:name="com.teamkkumul.feature.meetup.readystatus.readyinfoinput.alarm.AlarmReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.RECEIVE_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

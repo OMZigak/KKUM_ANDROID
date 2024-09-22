@@ -98,7 +98,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             }
 
             data.preparationStartAt == null -> {
-                viewModel.updateReadyHelpText()
+                viewModel.resetButtonStates()
             }
         }
     }
@@ -113,10 +113,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
                 is UiState.Empty -> {
                     updateMeetingVisibility(false)
-                    viewLifeCycleScope.launch {
-                        delay(10)
-                        viewModel.updateAllInvisible()
-                    }
+                    viewModel.updateAllInvisible()
                 }
 
                 is UiState.Failure -> Timber.e(it.errorMessage)
@@ -284,7 +281,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         if (progressBarEnd != null) {
             progressBarEnd.progress = state.progress
         }
-        helpText.setInVisible(state.isHelpTextVisible)
     }
 
     private fun initHomeMeetUpRecyclerView() {
@@ -324,5 +320,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun onDestroyView() {
         super.onDestroyView()
         _homeMeetUpAdapter = null
+        viewModel.resetButtonStates()
     }
 }

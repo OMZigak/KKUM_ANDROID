@@ -105,7 +105,18 @@ object TimeUtils {
         return try {
             val serverDate = outputPmAmFormat.parse(serverTime)
             val currentDate = Date()
-            serverDate?.before(currentDate) ?: false
+            serverDate?.before(currentDate) ?: true
+        } catch (e: ParseException) {
+            true
+        }
+    }
+
+    fun isPastDefaultTime(serverTime: String?): Boolean {
+        if (serverTime.isNullOrEmpty()) return true
+        return try {
+            val serverDate = inputFormat.parse(serverTime)
+            val currentDate = Date()
+            serverDate?.before(currentDate) ?: true
         } catch (e: ParseException) {
             true
         }
