@@ -8,27 +8,39 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.teamkkumul.core.ui.base.BindingDialogFragment
+import com.teamkkumul.core.ui.util.bundle.getSafeParcelable
 import com.teamkkumul.core.ui.util.context.dialogFragmentResize
 import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogInvitationCodeBinding
 import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_FRAGMENT
+import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_MODEL
 import com.teamkkumul.feature.utils.KeyStorage.CODE
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
+import com.teamkkumul.model.AddNewGroupModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DialogInvitationCodeFragment :
     BindingDialogFragment<FragmentDialogInvitationCodeBinding>(R.layout.fragment_dialog_invitation_code) {
 
+    private val addNewGroupModel: AddNewGroupModel? by lazy {
+        arguments?.getSafeParcelable(ADD_NEW_GROUP_MODEL)
+    }
+
     private val invitationCode: String by lazy {
+        addNewGroupModel?.invitationCode ?: ""
+    }
+
+    private val code: String by lazy {
         arguments?.getString(CODE) ?: ""
     }
 
     private val meetingId: Int by lazy {
-        arguments?.getInt(MEETING_ID) ?: -1
+        addNewGroupModel?.meetingId ?: -1
     }
 
     private val sourceFragment: String by lazy {
@@ -51,8 +63,13 @@ class DialogInvitationCodeFragment :
     }
 
     private fun getInvitationCode() {
-        if (invitationCode.isNotEmpty()) {
-            binding.tvInvitationCode.text = invitationCode
+        when (sourceFragment) {
+            ADD_NEW_GROUP_FRAGMENT -> {
+                binding.tvInvitationCode.text = invitationCode
+            }
+            MY_GROUP_DETAIL_FRAGMENT -> {
+                binding.tvInvitationCode.text = code
+            }
         }
     }
 
@@ -106,5 +123,6 @@ class DialogInvitationCodeFragment :
             R.id.action_dialog_to_completed,
             bundleOf(MEETING_ID to meetingId)
         )
+        Timber.d("여기도 meetingId 잘 넘어감 (getSafeParcelable은 잘 적용된 것) $meetingId")
     }
 }

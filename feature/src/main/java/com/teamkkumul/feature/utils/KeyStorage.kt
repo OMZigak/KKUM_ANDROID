@@ -18,6 +18,7 @@ object KeyStorage {
     const val MY_PAGE_FRAGMENT = "myPageFragment"
     const val D_DAY = "dDay"
     const val READY_STATUS_INFO = "readyStatusInfo"
+    const val ADD_NEW_GROUP_MODEL = "addNewGroupModel"
 }
 
 object PROGRESS {
