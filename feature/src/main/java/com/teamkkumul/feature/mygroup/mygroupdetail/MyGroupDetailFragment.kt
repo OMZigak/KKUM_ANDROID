@@ -49,12 +49,6 @@ class MyGroupDetailFragment :
 
     override fun initView() {
 
-        if (viewModel.isMeetUpIncludeMeSelected.value) {
-            switchToMeetUpIncludeMeState()
-        } else {
-            switchToAllMeetUpState()
-        }
-
         initMemberRecyclerView()
         initMeetUpRecyclerView()
         viewModel.getMyGroupInfo(currentId)
