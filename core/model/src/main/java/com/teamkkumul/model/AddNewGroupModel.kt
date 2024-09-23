@@ -7,4 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class AddNewGroupModel(
     val meetingId: Int,
     val invitationCode: String,
+    val sourceFragment: String ?= null
 ) : Parcelable

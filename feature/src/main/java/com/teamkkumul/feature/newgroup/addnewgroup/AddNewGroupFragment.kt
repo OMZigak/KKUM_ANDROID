@@ -99,9 +99,10 @@ class AddNewGroupFragment :
     }
 
     private fun showInvitationDialog(addNewGroupModel: AddNewGroupModel) {
+        val updatedModel = addNewGroupModel.copy(sourceFragment = ADD_NEW_GROUP_FRAGMENT)
         findNavController().navigate(
             R.id.fragment_dialog_invitation_code,
-            bundleOf(ADD_NEW_GROUP_MODEL to addNewGroupModel, SOURCE_FRAGMENT to ADD_NEW_GROUP_FRAGMENT),
+            bundleOf(ADD_NEW_GROUP_MODEL to updatedModel),
         )
     }
 
