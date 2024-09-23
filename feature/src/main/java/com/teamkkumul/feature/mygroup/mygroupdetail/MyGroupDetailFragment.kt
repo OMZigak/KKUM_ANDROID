@@ -1,5 +1,6 @@
 package com.teamkkumul.feature.mygroup.mygroupdetail
 
+import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -47,6 +48,7 @@ class MyGroupDetailFragment :
     private val currentId: Int by lazy { arguments?.getInt(MEETING_ID, -1) ?: -1 }
 
     override fun initView() {
+
         initMemberRecyclerView()
         initMeetUpRecyclerView()
         viewModel.getMyGroupInfo(currentId)
@@ -212,6 +214,7 @@ class MyGroupDetailFragment :
     }
 
     private fun switchToAllMeetUpState() {
+        viewModel.updateMeetUpIncludeMeState(false)
         updateTextAppearance(false)
         updateTextVisibility(false)
         binding.tvMeetUpIncludeMe.setTextColor(colorOf(R.color.gray6))
@@ -219,6 +222,7 @@ class MyGroupDetailFragment :
     }
 
     private fun switchToMeetUpIncludeMeState() {
+        viewModel.updateMeetUpIncludeMeState(true)
         updateTextAppearance(true)
         updateTextVisibility(true)
         binding.tvAllMeetUp.setTextColor((colorOf(R.color.gray6)))
@@ -238,6 +242,17 @@ class MyGroupDetailFragment :
 
         binding.tvMeetUpIncludeMe.setTextAppearance(selectIncludeMe)
         binding.tvAllMeetUp.setTextAppearance(selectAllMeetUp)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.isMeetUpIncludeMeSelected.flowWithLifecycle(viewLifeCycle).onEach { isSelected ->
+            if (isSelected) {
+                switchToMeetUpIncludeMeState()
+            } else {
+                switchToAllMeetUpState()
+            }
+        }.launchIn(viewLifeCycleScope)
     }
 
     override fun onDestroyView() {

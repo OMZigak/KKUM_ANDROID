@@ -114,7 +114,6 @@ androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterfa
 
 # firebase
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 
@@ -145,4 +144,4 @@ compose = ["androidx-activity-compose", "compose-ui", "compose-ui-graphics",
     "kotlinx-collections-immutable"
 ]
 androidx-compose-feature = ["androidx-runtime-livedata", "androidx-lifecycle-runtime-compose", "androidx-lifecycle-viewmodel-compose", "androidx-hilt-navigation-compose", "androidx-navigation-compose"]
-firebase = ["firebase-analytics", "firebase-messaging","firebase-messaging-ktx"]
+firebase = ["firebase-analytics", "firebase-messaging-ktx"]

@@ -14,4 +14,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tv_home_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/my_group_empty_text"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+        android:textColor="@color/gray3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_my_group_empty" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
