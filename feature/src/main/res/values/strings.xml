@@ -81,6 +81,8 @@
     <string name="my_group_meet_up_count">번</string>
     <string name="my_group_meet_up_include_me">내가 속한 약속</string>
     <string name="my_group_all_meet_up">모든 약속</string>
+    <string name="my_group_empty_text">아직 모임이 없네요!\n모임을 추가해 보세요.</string>
+
 
     <string name="exit_group">모임 나가기</string>
     <string name="exit_group_cancle">취소</string>
