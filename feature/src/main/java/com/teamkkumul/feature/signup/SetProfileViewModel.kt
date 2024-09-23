@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.teamkkumul.core.data.repository.ProfileRepository
 import com.teamkkumul.core.ui.view.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,8 +14,8 @@ import javax.inject.Inject
 class SetProfileViewModel @Inject constructor(
     private val profileRepository: ProfileRepository,
 ) : ViewModel() {
-    private val _updateImageState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
-    val updateImageState get() = _updateImageState.asStateFlow()
+    private val _updateImageState = MutableSharedFlow<UiState<Unit>>()
+    val updateImageState get() = _updateImageState.asSharedFlow()
 
     private var _photoUri: String? = null
     val photoUri: String? get() = _photoUri
@@ -26,13 +26,10 @@ class SetProfileViewModel @Inject constructor(
 
     fun updateImage(imageString: String?) {
         viewModelScope.launch {
+            _updateImageState.emit(UiState.Loading)
             profileRepository.updateImage(imageString)
-                .onSuccess { isSuccess ->
-                    if (isSuccess) {
-                        _updateImageState.emit(UiState.Success(Unit))
-                    } else {
-                        _updateImageState.emit(UiState.Failure("이미지 업로드 실패"))
-                    }
+                .onSuccess {
+                    _updateImageState.emit(UiState.Success(Unit))
                 }.onFailure {
                     _updateImageState.emit(UiState.Failure(it.message.orEmpty()))
                 }
