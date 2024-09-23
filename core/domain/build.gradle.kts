@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.chanu.core.domain"
+    namespace = "com.teamkkumul.core.domain"
     compileSdk = 34
 
     defaultConfig {
@@ -38,4 +38,12 @@ dependencies {
 
     implementation(libs.bundles.coroutine)
     implementation(libs.inject)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.bundles.androidx.android.test)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testImplementation(libs.junit.jupiter.api)
 }

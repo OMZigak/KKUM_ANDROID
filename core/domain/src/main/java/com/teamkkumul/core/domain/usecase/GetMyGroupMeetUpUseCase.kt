@@ -1,4 +1,4 @@
-package com.chanu.core.domain.usecase
+package com.teamkkumul.core.domain.usecase
 
 import com.teamkkumul.core.data.repository.MyGroupRepository
 import com.teamkkumul.model.MyGroupMeetUpModel
