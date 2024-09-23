@@ -12,6 +12,7 @@ import com.teamkkumul.model.MyGroupMemberModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,7 +40,7 @@ class MyGroupDetailViewModel @Inject constructor(
     val myGroupMeetUpState get() = _myGroupMeetUpState.asStateFlow()
 
     fun updateMeetUpIncludeMeState(isSelected: Boolean) {
-        _isMeetUpIncludeMeSelected.value = isSelected
+        _isMeetUpIncludeMeSelected.update { isSelected }
     }
     fun getMyGroupInfo(meetingId: Int) = viewModelScope.launch {
         myGroupRepository.getMyGroupInfo(meetingId)
