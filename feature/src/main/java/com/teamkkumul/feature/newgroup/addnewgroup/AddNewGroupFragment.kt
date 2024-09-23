@@ -15,14 +15,11 @@ import com.teamkkumul.feature.databinding.FragmentAddNewGroupBinding
 import com.teamkkumul.feature.utils.Debouncer
 import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_MODEL
-import com.teamkkumul.feature.utils.KeyStorage.CODE
-import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
 import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import com.teamkkumul.model.AddNewGroupModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class AddNewGroupFragment :
