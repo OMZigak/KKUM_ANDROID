@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamkkumul.core.ui.base.BindingFragment
@@ -31,6 +32,7 @@ import com.teamkkumul.model.MyGroupMemberModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -246,11 +248,14 @@ class MyGroupDetailFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (viewModel.isMeetUpIncludeMeSelected.value) {
-            switchToMeetUpIncludeMeState()
-        } else {
-            switchToAllMeetUpState()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isMeetUpIncludeMeSelected.collect { isSelected ->
+                if (isSelected) {
+                    switchToMeetUpIncludeMeState()
+                } else {
+                    switchToAllMeetUpState()
+                }
+            }
         }
     }
 
