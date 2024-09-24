@@ -17,17 +17,17 @@ import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentMyGroupDetailBinding
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailFriendAdapter
 import com.teamkkumul.feature.mygroup.mygroupdetail.adapter.MyGroupDetailMeetUpAdapter
-import com.teamkkumul.feature.utils.KeyStorage.CODE
+import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_MODEL
 import com.teamkkumul.feature.utils.KeyStorage.D_DAY
 import com.teamkkumul.feature.utils.KeyStorage.GROUP_NAME
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
-import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.PROMISE_ID
-import com.teamkkumul.feature.utils.KeyStorage.SOURCE_FRAGMENT
 import com.teamkkumul.feature.utils.itemdecorator.MeetUpFriendItemDecoration
 import com.teamkkumul.feature.utils.time.TimeUtils.parseDateToYearMonthDay
+import com.teamkkumul.model.AddNewGroupModel
 import com.teamkkumul.model.MyGroupInfoModel
 import com.teamkkumul.model.MyGroupMemberModel
+import com.teamkkumul.model.type.ScreenType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -48,7 +48,6 @@ class MyGroupDetailFragment :
     private val currentId: Int by lazy { arguments?.getInt(MEETING_ID, -1) ?: -1 }
 
     override fun initView() {
-
         initMemberRecyclerView()
         initMeetUpRecyclerView()
         viewModel.getMyGroupInfo(currentId)
@@ -168,9 +167,14 @@ class MyGroupDetailFragment :
     private fun initMemberRecyclerView() {
         _memberAdapter = MyGroupDetailFriendAdapter(
             onPlusBtnClicked = {
+                val addNewGroupModel = AddNewGroupModel(
+                    meetingId = currentId,
+                    invitationCode = code,
+                    screenType = ScreenType.MY_GROUP_DETAIL,
+                )
                 findNavController().navigate(
                     R.id.fragment_dialog_invitation_code,
-                    bundleOf(CODE to code, SOURCE_FRAGMENT to MY_GROUP_DETAIL_FRAGMENT),
+                    bundleOf(ADD_NEW_GROUP_MODEL to addNewGroupModel),
                 )
             },
         )
