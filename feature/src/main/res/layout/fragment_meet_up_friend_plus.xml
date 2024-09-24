@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_my_group_create_friend"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/tb_meet_up_create"
+            layout="@layout/view_toolbar" />
+
+        <ProgressBar
+            android:id="@+id/pb_meet_up_create_friend"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_margin="0dp"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/pg_meet_up_green"
+            app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb_meet_up_create">
+
+
+            <TextView
+                android:id="@+id/tv_one_of_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/meet_up_create_friend"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+                android:textColor="@color/gray6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_meet_up"
+                style="@style/TextAppearance.Kkumul.head_01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/meet_up_create_friend_together"
+                android:textColor="@color/gray8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_one_of_three" />
+
+            <TextView
+                android:id="@+id/tv_meet_up_do_plus"
+                style="@style/TextAppearance.Kkumul.head_01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/meet_up_create_friend_do_plus"
+                android:textColor="@color/gray8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up" />
+
+            <include
+                android:id="@+id/view_meet_up_create_friend_empty"
+                layout="@layout/view_meet_up_create_friend_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_do_plus" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_meet_up_create_freind_plus"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="48dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/btn_meet_up_create_next"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_meet_up_do_plus"
+                tools:listitem="@layout/item_meet_up_create_friend"></androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                android:id="@+id/btn_meet_up_create_next"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/sel_btn"
+                android:enabled="false"
+                android:text="@string/next"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                android:textColor="@color/white0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="332:50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

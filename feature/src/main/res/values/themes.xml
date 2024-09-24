@@ -1,0 +1,136 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Kkumul" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/gray8</item>
+        <!--        <item name="colorPrimaryVariant">@color/secondary</item>-->
+        <item name="android:windowBackground">@color/white0</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/white0</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
+        <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
+        <!--        <item name="snackbarStyle">@style/CustomSnackBar</item>-->
+    </style>
+
+    <style name="Theme.Kkumul" parent="Base.Theme.Kkumul">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- edit text -->
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <item name="boxStrokeColor">@color/sel_btn_et_color_stroke</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="hintEnabled">false</item>
+        <item name="counterEnabled">false</item>
+        <item name="errorEnabled">true</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="counterTextColor">@color/gray3</item>
+        <item name="hintTextAppearance">@style/TextAppearance.Kkumul.body_04</item>
+        <item name="counterTextAppearance">@style/CounterTextAppearance</item>
+        <item name="errorTextColor">@color/red</item>
+        <item name="errorTextAppearance">@style/TextAppearance.Kkumul.caption_02</item>
+        <item name="boxStrokeErrorColor">@color/red</item>
+    </style>
+
+    <style name="ErrorTextAppearance">
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CounterTextAppearance" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textAppearance">@style/TextAppearance.Kkumul.body_06</item>
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="TextInputEditTextStyle">
+        <item name="android:textAppearance">@style/TextAppearance.Kkumul.body_04</item>
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:textColor">@color/black0</item>
+        <item name="hintTextAppearance">@style/TextAppearance.Kkumul.body_04</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+
+
+    <style name="CustomMyGroupFab" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="shapeAppearance">@style/CustomExtendedFabShape</item>
+    </style>
+
+    <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
+        <item name="android:background">@color/white0</item>
+        <item name="colorPrimary">@color/main_color</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TimePicker" parent="@style/ThemeOverlay.Material3.MaterialTimePicker">
+        <item name="android:backgroundTint">@color/white0</item>
+        <item name="materialButtonOutlinedStyle">@style/ThemeOverlay.App.TimePicker.AmPmButton
+        </item>
+    </style>
+
+    <style name="ThemeOverlay.App.TimePicker.AmPmButton" parent="Widget.MaterialComponents.TimePicker.Button">
+        <item name="backgroundTint">@color/main_color</item>
+
+    </style>
+
+    <style name="CustomExtendedFabShape" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeColor">@color/sel_btn_et_color_stroke</item>
+    </style>
+
+    <style name="ChipGroupTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/white0</item>
+        <item name="chipStrokeColor">@color/gray2</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="android:textColor">@color/gray5</item>
+        <item name="chipMinHeight">44dp</item>
+        <item name="chipMinTouchTargetSize">44dp</item>
+        <item name="chipSpacingHorizontal">4dp</item>
+        <item name="chipSpacingVertical">8dp</item>
+    </style>
+
+    <style name="TransparentBottomSheetStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+
+    <style name="NextButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginBottom">50dp</item>
+        <item name="android:background">@drawable/sel_btn</item>
+        <item name="android:enabled">true</item>
+        <item name="android:textColor">@color/white0</item>
+        <item name="android:textAppearance">@style/TextAppearance.Kkumul.body_03</item>
+    </style>
+
+</resources>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar_my_group_detail"
+            layout="@layout/view_toolbar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_my_group_detail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/shape_radius_8"
+            android:backgroundTint="@color/green1"
+            app:layout_constraintDimensionRatio="332:80"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_my_group_detail">
+
+            <TextView
+                android:id="@+id/tv_my_group_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:text="@string/my_group_create_data"
+                android:textAppearance="@style/TextAppearance.Kkumul.label_01"
+                android:textColor="@color/gray4"
+                app:layout_constraintBottom_toTopOf="@id/tv_my_group_meet_up"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_my_group_devide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/my_group_divide"
+                android:textAppearance="@style/TextAppearance.Kkumul.label_01"
+                android:textColor="@color/gray4"
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_group_create"
+                app:layout_constraintStart_toEndOf="@id/tv_my_group_create"
+                app:layout_constraintTop_toTopOf="@id/tv_my_group_create" />
+
+            <TextView
+                android:id="@+id/tv_my_group_create_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textAppearance="@style/TextAppearance.Kkumul.label_01"
+                android:textColor="@color/gray4"
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_group_create"
+                app:layout_constraintStart_toEndOf="@id/tv_my_group_devide"
+                app:layout_constraintTop_toTopOf="@id/tv_my_group_create"
+                tools:text="2024.06.01" />
+
+            <TextView
+                android:id="@+id/tv_my_group_meet_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/my_group_meet_up"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_my_group_create"
+                app:layout_constraintTop_toBottomOf="@id/tv_my_group_create" />
+
+            <TextView
+                android:id="@+id/tv_my_group_meet_up_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="3"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                android:textColor="@color/main_color"
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_group_meet_up"
+                app:layout_constraintStart_toEndOf="@id/tv_my_group_meet_up"
+                app:layout_constraintTop_toTopOf="@id/tv_my_group_meet_up" />
+
+            <TextView
+                android:id="@+id/tv_my_group_meet_up_count_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_group_meet_up_count"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                android:textColor="@color/main_color"
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_group_meet_up_count"
+                app:layout_constraintStart_toEndOf="@id/tv_my_group_meet_up_count"
+                app:layout_constraintTop_toTopOf="@id/tv_my_group_meet_up_count" />
+
+            <TextView
+                android:id="@+id/tv_my_group_meet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/my_group_meet"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_group_meet_up_count_num"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@id/tv_my_group_meet_up_count_num"
+                app:layout_constraintTop_toTopOf="@id/tv_my_group_meet_up_count_num" />
+
+            <ImageView
+                android:id="@+id/iv_my_group_detail_kkumul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="18dp"
+                android:src="@drawable/ic_kkumul"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_my_group_meet" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_my_group_participate_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/my_group_participate_people"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_my_group_detail" />
+
+        <TextView
+            android:id="@+id/tv_my_group_participate_people_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="18dp"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_01"
+            android:textColor="@color/main_color"
+            app:layout_constraintStart_toEndOf="@id/tv_my_group_participate_people"
+            app:layout_constraintTop_toBottomOf="@id/cl_my_group_detail"
+            tools:text=" 20" />
+
+        <TextView
+            android:id="@+id/tv_my_group_participate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/my_group_participate_number"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_01"
+            android:textColor="@color/main_color"
+            app:layout_constraintStart_toEndOf="@id/tv_my_group_participate_people_count"
+            app:layout_constraintTop_toBottomOf="@id/cl_my_group_detail" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_my_group_friend_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_group_participate_people_count"
+            tools:listitem="@layout/item_my_group_friend" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_my_group_remain_meet_up"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="44dp"
+            android:background="@drawable/shape_gray0_rect_top_18"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_my_group_friend_list">
+
+            <TextView
+                android:id="@+id/tv_check_remain_meet_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="27dp"
+                android:text="@string/my_group_check_remain_meet_up"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_01"
+                android:textColor="@color/gray7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_meet_up_include_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="16dp"
+                android:padding="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up">
+
+                <TextView
+                    android:id="@+id/tv_meet_up_include_me"
+                    style="@style/TextAppearance.Kkumul.body_05"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_group_meet_up_include_me"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/v_meet_up_include_me"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/main_color"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="@id/tv_meet_up_include_me"
+                    app:layout_constraintStart_toStartOf="@id/tv_meet_up_include_me"
+                    app:layout_constraintTop_toBottomOf="@id/tv_meet_up_include_me" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_all_meet_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
+                android:padding="3dp"
+                app:layout_constraintStart_toEndOf="@id/cl_meet_up_include_me"
+                app:layout_constraintTop_toBottomOf="@id/tv_check_remain_meet_up">
+
+                <TextView
+                    android:id="@+id/tv_all_meet_up"
+                    style="@style/TextAppearance.Kkumul.body_06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_group_all_meet_up"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/v_all_meet_up"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/main_color"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@id/tv_all_meet_up"
+                    app:layout_constraintStart_toStartOf="@id/tv_all_meet_up"
+                    app:layout_constraintTop_toBottomOf="@id/tv_all_meet_up" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_my_group_meet_up"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_meet_up_include_me"
+                app:layout_constraintVertical_bias="0.022"
+                tools:listitem="@layout/item_my_group_remain_meet_up" />
+
+            <include
+                android:id="@+id/view_my_group_meet_up_empty"
+                layout="@layout/view_my_group_meet_up_empty"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="22dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/cl_meet_up_include_me" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/extended_fab"
+                style="@style/CustomMyGroupFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:backgroundTint="@color/main_color"
+                android:text="@string/my_group_extended_fab"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_01"
+                android:textColor="@color/white0"
+                app:iconPadding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

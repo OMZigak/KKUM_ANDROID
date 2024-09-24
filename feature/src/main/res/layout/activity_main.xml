@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_home"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@id/bnv_home"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/nav_graph" />
+
+        <View
+            android:id="@+id/view_main_gray_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray2"
+            app:layout_constraintBottom_toTopOf="@id/bnv_home"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnv_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white0"
+            app:itemActiveIndicatorStyle="@android:color/transparent"
+            app:itemBackground="@android:color/transparent"
+            app:itemIconTint="@color/sel_color"
+            app:itemPaddingTop="20dp"
+            app:itemTextAppearanceActive="@style/TextAppearance.Kkumul.caption_01"
+            app:itemTextAppearanceInactive="@style/TextAppearance.Kkumul.caption_01"
+            app:itemTextColor="@color/sel_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/menu_home" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

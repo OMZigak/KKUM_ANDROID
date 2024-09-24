@@ -1,0 +1,22 @@
+root = true
+
+[*]
+insert_final_newline = true
+
+[*.{kt,kts}]
+ktlint_code_style = intelli_idea
+ktlint_standard_class-signature = disabled
+ktlint_standard_parameter-list-wrapping = disabled
+ktlint_standard_function-signature = disabled
+ktlint_standard_function-expression-body = disabled
+ktlint_standard_function-literal = disabled
+ktlint_standard_multiline-if-else = disabled
+ktlint_standard_if-else-wrapping = disabled
+ktlint_standard_argument-list-wrapping = disabled
+ktlint_standard_binary-expression-wrapping = disabled
+ktlint_standard_max-line-length = disabled
+ktlint_standard_function-naming = disabled
+ktlint_standard_chain-method-continuation = disabled
+ktlint_standard_multiline-expression-wrapping = disabled
+ktlint_standard_annotation = disabled
+ktlint_function_naming_ignore_when_annotated_with = Composable

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_late_person"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/view_late_person_empty"
+            layout="@layout/view_late_person_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_box_penalty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/shape_green_fill_8_rect"
+            android:backgroundTint="@color/green1"
+            app:layout_constraintBottom_toBottomOf="@id/iv_penalty_icon"
+            app:layout_constraintDimensionRatio="332:72"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_penalty_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_penalty_green_24"
+            app:layout_constraintBottom_toBottomOf="@id/iv_box_penalty"
+            app:layout_constraintStart_toStartOf="@id/iv_box_penalty"
+            app:layout_constraintTop_toTopOf="@id/iv_box_penalty" />
+
+        <TextView
+            android:id="@+id/tv_penalty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/tv_penalty"
+            android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
+            app:layout_constraintBottom_toTopOf="@id/tv_penalty_description"
+            app:layout_constraintStart_toEndOf="@id/iv_penalty_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_box_penalty"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_penalty_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_penalty_description"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintBottom_toBottomOf="@id/iv_box_penalty"
+            app:layout_constraintStart_toStartOf="@id/tv_penalty"
+            app:layout_constraintTop_toBottomOf="@id/tv_penalty" />
+
+        <TextView
+            android:id="@+id/tv_late_person_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/tv_late_person_question"
+            android:textAppearance="@style/TextAppearance.Kkumul.head_01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_box_penalty" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_penalty_late_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="iv_box_penalty,iv_penalty_icon,tv_penalty,tv_penalty_description,tv_late_person_question" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_late_person"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="18dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/btn_end_meet_up"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_late_person_question"
+            tools:listitem="@layout/item_meet_up_create_friend">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btn_end_meet_up"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/sel_btn"
+            android:text="@string/end_meet_up"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="332:50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/view_waiting_empty"
+            layout="@layout/view_waiting_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

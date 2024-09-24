@@ -1,0 +1,248 @@
+<resources>
+    <string name="app_name">꾸물꿈</string>
+
+    <string name="home">홈</string>
+    <string name="my_group">내 모임</string>
+    <string name="my_page">마이페이지</string>
+
+    <!--    앱바-->
+    <string name="my_group_title">내 모임</string>
+    <string name="my_group_detail_title">내 모임 상세 페이지</string>
+    <string name="meet_up_detail_title">내 모임 약속 상세 페이지</string>
+    <string name="my_page_title">마이페이지</string>
+    <string name="set_profile_title">프로필 설정</string>
+    <string name="add_my_group_title">내 모임 추가하기</string>
+    <string name="meet_up_create_title">약속 추가하기</string>
+    <string name="meet_up_create_loation_title">약속 장소</string>
+
+    <string name="add_meet_up_title">약속 추가하기</string>
+    <string name="create_meet_up_title">약속 생성하기</string>
+    <string name="edit_meet_up_title">약속 수정하기</string>
+
+    <!--    로그인-->
+    <string name="login_kakao_btn_text">카카오로 계속하기</string>
+
+    <!-- 프로필 설정 -->
+    <string name="set_name">이름을 설정해 주세요</string>
+    <string name="hint_set_name">이름을 입력해 주세요</string>
+    <string name="counter_5">0/5</string>
+    <string name="set_name_error_message">"한글, 영문, 숫자만을 사용해 총 5자 이내로 입력해주세요."</string>
+    <string name="next">다음</string>
+    <string name="set_profile">프로필을 설정해 주세요</string>
+    <string name="not_now">지금은 넘어가기</string>
+    <string name="set_profile_to_basic_image">기본 프로필로 설정</string>
+    <string name="okay">확인</string>
+    <string name="tv_welcome">이승현님 반가워요!</string>
+    <string name="tv_welcome_description">친구들과 즐겁게 정시도착을 향해\n함께 노력해 봐요</string>
+
+    <!-- 내 모임 추가하기 -->
+    <string name="add_my_group_question">친구에게 받은\n모임 초대 코드가 있으신가요?</string>
+    <string name="got_invitation_code">초대 코드를 받았다면</string>
+    <string name="enter_invitation_code">초대 코드 입력하기</string>
+    <string name="no_invitation_code">초대 코드가 없다면</string>
+    <string name="add_new_group">직접 모임 추가하기</string>
+    <string name="tv_enter_invitation_code">모임 초대 코드를\n입력해 주세요</string>
+    <string name="set_enter_invitation_code_error_message">모임 초대 코드를 다시 확인해주세요.</string>
+    <string name="tv_enter_meeting_name">모임 이름을\n입력해 주세요</string>
+    <string name="counter_10">0/10</string>
+    <string name="hint_enter_invitation_code">모임 초대 코드를 입력해 주세요</string>
+    <string name="hint_set_meeting_name">모임 이름을 입력해 주세요</string>
+    <string name="set_group_name_error_message">공백 포함 한글, 영문, 숫자만을 사용해 총 10자 이내로 입력해주세요. (공백 포함)</string>
+    <string name="btn_add_new_group">모임 생성하기</string>
+    <string name="tv_invite_friend">친구 초대하기</string>
+    <string name="tv_share_invitation_code">초대 코드를 공유해 함께할 꾸물이를 추가해 보세요</string>
+    <string name="tv_invitation_code_title">초대코드</string>
+    <string name="tv_invitation_code">WD56CQ</string>
+    <string name="tv_invite_later">나중에 초대하기</string>
+    <string name="tv_copy">복사하기</string>
+    <string name="tv_add_my_group_complete">모임이 생성되었어요!</string>
+    <string name="tv_add_my_group_complete_description">모임 내에서 약속과 인원을\n추가해보세요</string>
+
+    <!--    내 모임-->
+    <string name="my_group_create_data">모임 생성일</string>
+    <string name="my_group_divide">|</string>
+    <string name="my_group_meet_up">이 모임의 꾸물이들은 </string>
+    <string name="my_group_meet"> 만났어요!</string>
+    <string name="my_group_participate_people">모임 참여 인원</string>
+    <string name="my_group_participate_number">명</string>
+    <string name="my_group_check_remain_meet_up">남은 약속을 확인해 보세요!</string>
+    <string name="my_group_extended_fab">+&#x00A0;&#x00A0;약속추가</string>
+    <string name="my_group_meet_up_empty">아직 약속이 없네요!</string>
+    <string name="my_group_meet_up_empty_plus">약속을 추가</string>
+    <string name="my_group_meet_up_empty_do_plus">해보세요!</string>
+    <string name="my_group_remain_meet_up_due_date_d">D-</string>
+    <string name="my_group_participate_group">\u00A0님이 가입한 모임은</string>
+    <string name="my_group_total">총 </string>
+    <string name="my_group_total_number">개예요!</string>
+    <string name="my_group_plus">모임 추가하기</string>
+    <string name="my_group_empty">아직 모임이 없네요!</string>
+    <string name="my_group_do_plus">모임을 추가해 보세요.</string>
+    <string name="my_group_participate_in">명 참여중</string>
+    <string name="my_group_meet_up_count">번</string>
+    <string name="my_group_meet_up_include_me">내가 속한 약속</string>
+    <string name="my_group_all_meet_up">모든 약속</string>
+    <string name="my_group_empty_text">아직 모임이 없네요!\n모임을 추가해 보세요.</string>
+
+
+    <string name="exit_group">모임 나가기</string>
+    <string name="exit_group_cancle">취소</string>
+
+
+    <!--    약속 상세 화면-->
+    <string name="meet_up_participate_people">약속 참여 인원</string>
+    <string name="meet_up_detail_information">약속 상세 정보</string>
+    <string name="meet_up_detail_information_location">위치</string>
+    <string name="meet_up_detail_information_time">약속시간</string>
+    <string name="meet_up_detail_information_ready_level">준비레벨</string>
+    <string name="meet_up_detail_information_penalty">벌칙</string>
+    <string name="tv_meet_up_detail_edit">수정하기</string>
+    <string name="tv_meet_up_detail_dday">D-3</string>
+    <string name="tv_exit_meet_up">약속 나가기</string>
+    <string name="tv_delete_meet_up">약속 삭제하기</string>
+
+    <!--    홈 화면-->
+    <string name="home_fence_text">꾸물꿈에 오신 것을 환영해요!\n정시 도착으로 캐릭터를 성장시켜 보세요.</string>
+    <string name="home_today_promise_text">오늘의 약속은?</string>
+    <string name="home_btn_ready_text">준비 중</string>
+    <string name="home_btn_moving_text">이동 시작</string>
+    <string name="home_btn_arrive_text">도착 완료</string>
+    <string name="home_btn_help_text">준비 시작 시 눌러주세요</string>
+    <string name="home_btn_moving_help_text">이동 시작 시 눌러주세요</string>
+    <string name="home_btn_completed_help_text">도착 완료 시 눌러주세요</string>
+    <string name="home_upcoming_text">다가올 나의 약속은?</string>
+    <string name="home_level_text">Lv.%1$d %2$s</string>
+    <string name="home_nickname_text">%1$s 님,</string>
+    <string name="home_meeting_count_text">%1$d번</string>
+    <string name="home_late_count_text">%1$d번</string>
+    <string name="home_empty_text">꾸물꾸물...\n오늘 약속은 없네요!</string>
+    <string name="home_lv1">빼꼼 꾸물이</string>
+    <string name="home_lv2">밍기적 꾸물이</string>
+    <string name="home_lv3">기적 꾸물이</string>
+    <string name="home_lv4">꾸물꿈</string>
+    <string name="home_fence_lv1">꾸물꿈에 오신 것을 환영해요!\n정시 도착으로 캐릭터를 성장시켜 보세요.</string>
+    <string name="home_fence_lv2">정시 도착의 꿈에 한 발짝 가까워졌어요!\n5번 정시 도착 시, ‘기적 꾸물이’가 될 수 있어요.</string>
+    <string name="home_fence_lv3">잘 하고 있어요! 10번 정시 도착 시,\n ‘꾸물꿈 레벨’로 성장할 수 있어요.</string>
+    <string name="home_fence_lv4">드디어 ‘꾸물꿈’ 레벨을 달성했네요.\n지각 꾸물이에서 탈출한 것을 축하해요!</string>
+
+    <!--    약속 상세 화면 탭 바-->
+    <string name="meet_up_container_tabbar_info">약속 정보</string>
+    <string name="meet_up_container_tabbar_ready_status">준비 현황</string>
+    <string name="meet_up_container_tabbar_late_person">지각 꾸물이</string>
+
+    <!-- 약속 내용 입력 (꾸레벨, 벌칙 설정) -->
+    <string name="meet_up_step_3">3/3</string>
+    <string name="tv_meet_up_level_title">약속 내용을\n입력해 주세요</string>
+    <string name="meet_up_level">꾸레벨</string>
+    <string name="meet_up_level_1">LV 1. 안꾸</string>
+    <string name="meet_up_level_2">LV 2. 꾸안꾸</string>
+    <string name="meet_up_level_3">LV 3. 꾸꾸</string>
+    <string name="meet_up_level_4">LV 4. 꾸꾸꾸</string>
+    <string name="meet_up_level_none">마음대로 입고 오기</string>
+    <string name="set_penalty">벌칙 설정</string>
+    <string name="penalty_reels">릴스 찍기</string>
+    <string name="penalty_cafe">맛있는 카페 쏘기</string>
+    <string name="penalty_late_fee">지각비 내기</string>
+    <string name="penalty_indian_bob">인디안밥 맞기</string>
+    <string name="penalty_tak_bam">딱밤 맞기</string>
+    <string name="penalty_blind_eye">눈 감아주기</string>
+
+    <!-- 약속 생성 완료 -->
+    <string name="tv_add_meet_up_complete">약속이 생성되었어요!</string>
+    <string name="tv_add_meet_up_complete_description">해당 약속은 모임 내에서 확인 가능해요</string>
+    <string name="tv_edit_meet_up_complete">약속이 수정되었어요!</string>
+
+    <!--    준비 정보 입력 화면-->
+    <string name="ready_status_toolbar">준비 정보 입력하기</string>
+    <string name="ready_info_input_minute_error">분은 59분까지만 입력할 수 있어요!</string>
+    <string name="ready_info_input_hour_error">시간은 23시간 까지만 입력할 수 있어요!</string>
+    <string name="ready_info_input_ready_title">⏰ 준비를 시작할 시간이에요 ⏰</string>
+    <string name="ready_info_input_moving_title">⏰ 출발할 시간이에요 ⏰</string>
+    <string name="ready_info_input_ready_content">%1$s 약속 준비를 시작해야 해요.\n꾸물거릴 시간이 없어요😵!!</string>
+    <string name="ready_info_input_moving_content">%1$s 약속을 위해 출발해야 해요.\n꾸물거릴 시간이 없어요😵!!</string>
+    <string name="ready_info_input_title">준비 정보를 입력해보세요!</string>
+    <string name="ready_info_input_ready_time">준비 시간</string>
+    <string name="ready_info_input_time_hint">00</string>
+    <string name="ready_info_input_time_time">시간</string>
+    <string name="ready_info_input_minute">분</string>
+    <string name="ready_info_input_moving_time">이동 시간</string>
+    <string name="ready_info_input_completed">완료</string>
+    <!--    준비 정보 입력 확인 화면-->
+    <string name="ready_input_completed">확인</string>
+    <string name="ready_info_input_completed_content">설정하신 시간에 맞춰서\n준비 및 이동 시간에 알림을 울려드릴게요</string>
+    <string name="ready_info_input_completed_title">준비 정보 설정이 완료되었어요!</string>
+
+    <!--    약속 생성 화면-->
+    <string name="meet_up_create">1/3</string>
+    <string name="meet_up_create_meet_up">약속을</string>
+    <string name="meet_up_create_do_plus">추가해 주세요</string>
+    <string name="meet_up_create_name">약속 이름</string>
+    <string name="meet_up_create_location">약속 장소</string>
+    <string name="meet_up_create_time">약속 시간</string>
+
+    <string name="meet_up_create_friend">2/3</string>
+    <string name="meet_up_create_friend_together">함께 할 꾸물이를</string>
+    <string name="meet_up_create_friend_do_plus">선택해 보세요</string>
+    <string name="meet_up_name_error_message">공백 포함 한글, 영문, 숫자만을 사용해 총 10자 이내로 입력해주세요.</string>
+
+    <string name="meet_up_create_friend_empty">약속에 함께할 꾸물이들이 없어요!</string>
+    <string name="meet_up_create_friend_invite">모임에 친구들을 초대해보세요.</string>
+
+    <string name="meet_up_edit">약속 수정하기</string>
+
+    <!-- 지각 꾸물이 화면 -->
+    <string name="end_meet_up">약속 마치기</string>
+    <string name="tv_penalty">벌칙</string>
+    <string name="tv_penalty_description">탕후루 릴스 찍기</string>
+    <string name="tv_congratulations">축하해요!</string>
+    <string name="tv_congratulations_description">약속 시간까지 아무도 꾸물거리지 않았어요!</string>
+    <string name="tv_late_person_waiting">꾸물이들이 도착하길\n기다리는 중이에요</string>
+    <string name="tv_late_person_question">이번 약속의 지각 꾸물이는?</string>
+
+    <!-- 마이페이지 화면 -->
+    <string name="my_page_user_name">꾸물리안</string>
+    <string name="my_page_user_name_text">님</string>
+    <string name="my_page_user_state">Lv. 1 지각대장 꾸물이</string>
+    <string name="my_page_push_alarm">내 푸쉬 알람</string>
+    <string name="my_page_ready_time">준비, 이동을 시작해야 할 시간에</string>
+    <string name="my_page_push_alarm_get">푸쉬 알림을 받을 수 있습니다.</string>
+    <string name="my_page_version_info">버전정보</string>
+    <string name="my_page_version_number">0.1.0</string>
+    <string name="my_page_use_promise">이용약관</string>
+    <string name="my_page_log_out">로그아웃</string>
+    <string name="my_page_quit">탈퇴하기</string>
+
+    <!--준비 정보 입력 후 화면-->
+    <string name="ready_status_moving_start">%1$s에 이동을 시작해야 해요</string>
+    <string name="ready_status_ready_start">%1$s에 준비하고,</string>
+    <string name="ready_status_not_participant">참여하지 않은 약속입니다.</string>
+    <string name="ready_status_late_meeting">시간이 지난 약속입니다.</string>
+
+    <!-- 모임, 약속 나가기, 약속 삭제 다이얼로그-->
+    <string name="tv_leave_question">약속에서 나가시겠어요?</string>
+    <string name="tv_leave_question_description">약속에서 나가도\n참여 인원 추가를 통해 다시 참여 가능해요.</string>
+    <string name="tv_leave_my_group_question">모임에서 나가시겠어요?</string>
+    <string name="tv_leave_my_group_question_description">모임에서 나가도\n초대 코드를 통해 다시 들어올 수 있어요.</string>
+    <string name="tv_delete_meet_up_question">정말 약속을 삭제하시겠어요?</string>
+    <string name="tv_delete_meet_up_question_description">약속을 삭제하면 해당 약속이\n모든 참여 인원의 약속 목록에서 사라져요.</string>
+    <string name="tv_btn_cancel">취소</string>
+    <string name="tv_btn_leave">나가기</string>
+    <string name="tv_btn_delete">삭제하기</string>
+    <!--    로그아웃 다이얼로그-->
+    <string name="dialog_logout_title">로그아웃 하시겠어요?</string>
+    <string name="dialog_logout_description">로그아웃 시, 다시 로그인 하셔야 해요.</string>
+    <string name="dialog_logout_btn_right">로그아웃</string>
+    <!--    탈퇴하기 다이얼로그-->
+    <string name="dialog_withdrawal_title">정말 탈퇴 하시겠어요?</string>
+    <string name="dialog_withdrawal_description">탈퇴 버튼 선택 시,\n계정은 삭제되며 복구되지 않습니다.</string>
+    <string name="dialog_withdrawal_btn_right">탈퇴하기</string>
+    <!--    홈화면 준비 버튼-->
+    <string name="home_btn_ready_default">준비 시작</string>
+    <string name="home_btn_ready_start">준비중</string>
+    <string name="home_btn_ready_completed">준비 완료</string>
+    <string name="home_btn_moving_default">이동 시작</string>
+    <string name="home_btn_moving_start">이동중</string>
+    <string name="home_btn_moving_completed">이동 완료</string>
+    <string name="home_btn_completed">도착 완료</string>
+
+    <string name="toast_clipboard">클립보드에 복사되었어요.</string>
+</resources>

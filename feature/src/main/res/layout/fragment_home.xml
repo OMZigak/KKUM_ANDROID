@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_color">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_home_start_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="14dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_home_end_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="14dp" />
+
+            <ImageView
+                android:id="@+id/iv_home_kkumul_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/ic_kkumulgum_logo"
+                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_home_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/add_meet_up_title"
+                android:textAppearance="@style/TextAppearance.Kkumul.title_00"
+                android:textColor="@color/white0"
+                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
+                app:layout_constraintTop_toBottomOf="@id/iv_home_kkumul_logo" />
+
+            <TextView
+                android:id="@+id/tv_home_meeting_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="14번"
+                android:textAppearance="@style/TextAppearance.Kkumul.title_00"
+                android:textColor="@color/light_green"
+                app:layout_constraintEnd_toStartOf="@id/tv_home_meet_up"
+                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_nickname" />
+
+            <TextView
+                android:id="@+id/tv_home_meet_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="의 약속에서"
+                android:textAppearance="@style/TextAppearance.Kkumul.title_02"
+                android:textColor="@color/white0"
+                app:layout_constraintBottom_toBottomOf="@id/tv_home_meeting_count"
+                app:layout_constraintStart_toEndOf="@id/tv_home_meeting_count"
+                app:layout_constraintTop_toTopOf="@id/tv_home_meeting_count" />
+
+            <TextView
+                android:id="@+id/tv_home_late_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="10번"
+                android:textAppearance="@style/TextAppearance.Kkumul.title_00"
+                android:textColor="@color/light_green"
+                app:layout_constraintEnd_toStartOf="@id/tv_home_late_text"
+                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_meet_up" />
+
+            <TextView
+                android:id="@+id/tv_home_late_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="의 꾸물거렸어요"
+                android:textAppearance="@style/TextAppearance.Kkumul.title_02"
+                android:textColor="@color/white0"
+                app:layout_constraintBottom_toBottomOf="@id/tv_home_late_count"
+                app:layout_constraintStart_toEndOf="@id/tv_home_late_count"
+                app:layout_constraintTop_toTopOf="@id/tv_home_late_count" />
+
+            <TextView
+                android:id="@+id/tv_home_fence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="46dp"
+                android:background="@drawable/ic_home_rect_green"
+                android:gravity="center|start"
+                android:padding="9dp"
+                android:paddingEnd="20dp"
+                android:text="@string/home_fence_text"
+                android:textAppearance="@style/TextAppearance.Kkumul.label_01"
+                android:textColor="@color/white0"
+                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_late_text" />
+
+            <ImageView
+                android:id="@+id/iv_home_fence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="-10dp"
+                android:src="@drawable/ic_home_bar_green"
+                android:translationZ="-1dp"
+                app:layout_constraintStart_toStartOf="@id/tv_home_fence"
+                app:layout_constraintTop_toTopOf="@id/tv_home_fence" />
+
+            <ImageView
+                android:id="@+id/iv_home_level"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="6dp"
+                android:src="@drawable/ic_home_lv_1"
+                app:layout_constraintBottom_toTopOf="@id/tv_home_level"
+                app:layout_constraintDimensionRatio="160:198"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@id/tv_home_fence" />
+
+            <TextView
+                android:id="@+id/tv_home_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="21dp"
+                android:background="@drawable/shape_rect_200"
+                android:backgroundTint="@color/white0"
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="9dp"
+                tools:text="Lv.0 새끼 꾸물이"
+                android:textAppearance="@style/TextAppearance.Kkumul.caption_01"
+                app:layout_constraintBottom_toTopOf="@id/cl_home_card_back_bottom"
+                app:layout_constraintEnd_toEndOf="@id/gl_home_end_14" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_home_card_back_bottom"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="-10dp"
+                android:background="@drawable/shape_gray0_rect_top_18"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_home_fence" />
+
+            <TextView
+                android:id="@+id/tv_home_today_meeting_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/home_today_promise_text"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_01"
+                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
+                app:layout_constraintTop_toTopOf="@id/cl_home_card_back_bottom" />
+
+            <ImageView
+                android:id="@+id/iv_home_meeting_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_right_gray_24"
+                app:layout_constraintBottom_toBottomOf="@id/tv_home_today_meeting_text"
+                app:layout_constraintEnd_toEndOf="@id/gl_home_end_14"
+                app:layout_constraintTop_toTopOf="@id/tv_home_today_meeting_text" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_home_today_info_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape_white0_radius_8"
+                android:paddingBottom="14dp"
+                app:layout_constraintEnd_toEndOf="@id/gl_home_end_14"
+                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_today_meeting_text">
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_home_meeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:constraint_referenced_ids="tv_home_group_text,tv_home_meeting_title,iv_home_location,tv_home_meeting_where,iv_home_time,tv_home_meeting_time,tv_home_ready_time,iv_home_ready_circle,pg_home_ready,tv_home_moving_time,iv_home_moving_circle,pg_home_moving,tvv_home_arrive_time,iv_home_arrive_circle,pg_home_arrive,pg_home_arrive_end,btn_home_ready,btn_home_moving,btn_home_arrive
+" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_home_meeting_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:constraint_referenced_ids="iv_home_empty,tv_home_empty" />
+
+                <ImageView
+                    android:id="@+id/iv_home_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:background="@drawable/ic_home_empty"
+                    app:layout_constraintBottom_toTopOf="@id/iv_home_empty"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_home_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/home_empty_text"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+                    android:textColor="@color/gray3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_home_empty" />
+
+                <TextView
+                    android:id="@+id/tv_home_group_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="26dp"
+                    android:background="@drawable/shape_rect_200"
+                    android:backgroundTint="@color/green2"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="6dp"
+                    android:text="모임 이름"
+                    android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
+                    android:textColor="@color/green3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_home_meeting_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="기말고사 모각작"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+                    app:layout_constraintStart_toStartOf="@id/tv_home_group_text"
+                    app:layout_constraintTop_toBottomOf="@id/tv_home_group_text" />
+
+                <ImageView
+                    android:id="@+id/iv_home_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_pin_gray_24"
+                    app:layout_constraintStart_toStartOf="@id/tv_home_group_text"
+                    app:layout_constraintTop_toBottomOf="@id/tv_home_meeting_title" />
+
+                <TextView
+                    android:id="@+id/tv_home_meeting_where"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:ellipsize="marquee"
+                    android:maxWidth="130dp"
+                    android:maxLines="1"
+                    android:text="용산역"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_06"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_home_location"
+                    app:layout_constraintStart_toEndOf="@id/iv_home_location"
+                    app:layout_constraintTop_toTopOf="@id/iv_home_location" />
+
+                <ImageView
+                    android:id="@+id/iv_home_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_time_gray_24"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_home_location"
+                    app:layout_constraintStart_toEndOf="@id/tv_home_meeting_where"
+                    app:layout_constraintTop_toTopOf="@id/iv_home_location" />
+
+                <TextView
+                    android:id="@+id/tv_home_meeting_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="PM 2:00"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_06"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_home_location"
+                    app:layout_constraintStart_toEndOf="@id/iv_home_time"
+                    app:layout_constraintTop_toTopOf="@id/iv_home_location" />
+
+                <TextView
+                    android:id="@+id/tv_home_ready_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
+                    app:layout_constraintBottom_toTopOf="@id/iv_home_ready_circle"
+                    app:layout_constraintEnd_toEndOf="@id/iv_home_ready_circle"
+                    app:layout_constraintStart_toStartOf="@id/iv_home_ready_circle" />
+
+                <ImageView
+                    android:id="@+id/iv_home_ready_circle"
+                    android:layout_width="16dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/shape_circle_gray02_16"
+                    app:layout_constraintBottom_toTopOf="@id/btn_home_ready"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_ready"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_ready" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/pg_home_ready"
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"
+                    android:layout_marginEnd="3dp"
+                    android:translationZ="-1dp"
+                    app:indicatorColor="@color/main_color"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_home_ready_circle"
+                    app:layout_constraintEnd_toEndOf="@id/iv_home_ready_circle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_home_ready_circle"
+                    app:trackColor="@color/gray2"
+                    app:trackStopIndicatorSize="0dp" />
+
+                <TextView
+                    android:id="@+id/tv_home_moving_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
+                    app:layout_constraintBottom_toTopOf="@id/iv_home_moving_circle"
+                    app:layout_constraintEnd_toEndOf="@id/iv_home_moving_circle"
+                    app:layout_constraintStart_toStartOf="@id/iv_home_moving_circle" />
+
+                <ImageView
+                    android:id="@+id/iv_home_moving_circle"
+                    android:layout_width="16dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/shape_circle_gray02_16"
+                    app:layout_constraintBottom_toTopOf="@id/btn_home_moving"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_moving"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_moving" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/pg_home_moving"
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"
+                    android:layout_marginEnd="3dp"
+                    android:translationZ="-1dp"
+                    app:indicatorColor="@color/main_color"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_home_moving_circle"
+                    app:layout_constraintEnd_toEndOf="@id/iv_home_moving_circle"
+                    app:layout_constraintStart_toStartOf="@id/iv_home_ready_circle"
+                    app:layout_constraintTop_toTopOf="@id/iv_home_moving_circle"
+                    app:trackColor="@color/gray2"
+                    app:trackStopIndicatorSize="0dp" />
+
+                <TextView
+                    android:id="@+id/tvv_home_arrive_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textAppearance="@style/TextAppearance.Kkumul.caption_02"
+                    app:layout_constraintBottom_toTopOf="@id/iv_home_arrive_circle"
+                    app:layout_constraintEnd_toEndOf="@id/iv_home_arrive_circle"
+                    app:layout_constraintStart_toStartOf="@id/iv_home_arrive_circle" />
+
+                <ImageView
+                    android:id="@+id/iv_home_arrive_circle"
+                    android:layout_width="16dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/shape_circle_gray02_16"
+                    app:layout_constraintBottom_toTopOf="@id/btn_home_arrive"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_arrive"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_arrive" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/pg_home_arrive"
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"
+                    android:layout_marginEnd="3dp"
+                    android:translationZ="-1dp"
+                    app:indicatorColor="@color/main_color"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_home_arrive_circle"
+                    app:layout_constraintEnd_toEndOf="@id/iv_home_arrive_circle"
+                    app:layout_constraintStart_toStartOf="@id/iv_home_moving_circle"
+                    app:layout_constraintTop_toTopOf="@id/iv_home_arrive_circle"
+                    app:trackColor="@color/gray2"
+                    app:trackStopIndicatorSize="0dp" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/pg_home_arrive_end"
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="3dp"
+                    android:translationZ="-1dp"
+                    app:indicatorColor="@color/main_color"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_home_arrive_circle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/iv_home_arrive_circle"
+                    app:layout_constraintTop_toTopOf="@id/iv_home_arrive_circle"
+                    app:trackColor="@color/gray2"
+                    app:trackStopIndicatorSize="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_home_ready"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="72dp"
+                    android:layout_marginEnd="22dp"
+                    android:ellipsize="none"
+                    android:padding="0dp"
+                    android:singleLine="true"
+                    android:text="@string/home_btn_ready_text"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+                    android:textColor="@color/main_color"
+                    app:cornerRadius="20dp"
+                    app:layout_constraintEnd_toStartOf="@id/btn_home_moving"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_home_location"
+                    app:strokeColor="@color/main_color" />
+
+                <TextView
+                    android:id="@+id/tv_home_ready_help_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/home_btn_help_text"
+                    android:textAppearance="@style/TextAppearance.Kkumul.label_02"
+                    android:textColor="@color/gray5"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_ready"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_ready"
+                    app:layout_constraintTop_toBottomOf="@id/btn_home_ready" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_home_moving"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="22dp"
+                    android:ellipsize="none"
+                    android:padding="0dp"
+                    android:singleLine="true"
+                    android:text="@string/home_btn_moving_text"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+                    android:textColor="@color/gray3"
+                    app:cornerRadius="20dp"
+                    app:layout_constraintEnd_toStartOf="@id/btn_home_arrive"
+                    app:layout_constraintStart_toEndOf="@id/btn_home_ready"
+                    app:layout_constraintTop_toTopOf="@id/btn_home_ready"
+                    app:strokeColor="@color/gray3" />
+
+                <TextView
+                    android:id="@+id/tv_home_moving_help_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/home_btn_moving_help_text"
+                    android:textAppearance="@style/TextAppearance.Kkumul.label_02"
+                    android:textColor="@color/gray5"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_moving"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_moving"
+                    app:layout_constraintTop_toBottomOf="@id/btn_home_ready" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_home_arrive"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    android:ellipsize="none"
+                    android:padding="0dp"
+                    android:singleLine="true"
+                    android:text="@string/home_btn_arrive_text"
+                    android:textAppearance="@style/TextAppearance.Kkumul.body_05"
+                    android:textColor="@color/gray3"
+                    app:cornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_home_moving"
+                    app:layout_constraintTop_toTopOf="@id/btn_home_ready"
+                    app:strokeColor="@color/gray3" />
+
+                <TextView
+                    android:id="@+id/tv_home_completed_help_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/home_btn_completed_help_text"
+                    android:textAppearance="@style/TextAppearance.Kkumul.label_02"
+                    android:textColor="@color/gray5"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/btn_home_arrive"
+                    app:layout_constraintStart_toStartOf="@id/btn_home_arrive"
+                    app:layout_constraintTop_toBottomOf="@id/btn_home_ready" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_home_promise_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/home_upcoming_text"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_01"
+                app:layout_constraintStart_toStartOf="@id/gl_home_start_14"
+                app:layout_constraintTop_toBottomOf="@id/cl_home_today_info_list" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_my_group_meet_up"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="46dp"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_promise_next"
+                tools:listitem="@layout/item_my_group_remain_meet_up" />
+
+            <include
+                android:id="@+id/view_home_promise_empty"
+                layout="@layout/view_my_group_meet_up_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="46dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_promise_next" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

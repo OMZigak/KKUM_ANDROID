@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar_ready_info_input"
+            layout="@layout/view_toolbar"
+            app:title="@{@string/ready_status_toolbar}" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_ready_info_start_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_ready_info_end_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp" />
+
+        <TextView
+            android:id="@+id/tv_ready_info_status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/ready_info_input_title"
+            android:textAppearance="@style/TextAppearance.Kkumul.head_01"
+            app:layout_constraintStart_toStartOf="@id/gl_ready_info_start_20"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_ready_info_input" />
+
+        <TextView
+            android:id="@+id/tv_ready_info_ready_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/ready_info_input_ready_time"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintStart_toStartOf="@id/gl_ready_info_start_20"
+            app:layout_constraintTop_toBottomOf="@id/tv_ready_info_status_text" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_ready_status_read_hour"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:errorEnabled="false"
+            app:layout_constraintDimensionRatio="56:44"
+            app:layout_constraintStart_toStartOf="@id/tv_ready_info_ready_time_text"
+            app:layout_constraintTop_toBottomOf="@id/tv_ready_info_ready_time_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_ready_status_read_hour"
+                style="@style/TextInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/ready_info_input_time_hint"
+                android:imeOptions="actionNext"
+                android:includeFontPadding="false"
+                android:inputType="time"
+                android:maxEms="2"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:nextFocusDown="@id/et_ready_status_ready_minute"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_02" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_ready_status_ready_hour_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/ready_info_input_time_time"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintBottom_toBottomOf="@id/til_ready_status_read_hour"
+            app:layout_constraintStart_toEndOf="@id/til_ready_status_read_hour"
+            app:layout_constraintTop_toTopOf="@id/til_ready_status_read_hour" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_ready_status_ready_minute"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:errorEnabled="false"
+            app:layout_constraintBottom_toBottomOf="@id/til_ready_status_read_hour"
+            app:layout_constraintDimensionRatio="56:44"
+            app:layout_constraintStart_toEndOf="@id/tv_ready_status_ready_hour_text"
+            app:layout_constraintTop_toTopOf="@id/til_ready_status_read_hour">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_ready_status_ready_minute"
+                style="@style/TextInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/ready_info_input_time_hint"
+                android:imeOptions="actionNext"
+                android:includeFontPadding="false"
+                android:inputType="time"
+                android:maxEms="2"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:nextFocusDown="@id/et_ready_status_moving_hour"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_02" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_ready_status_ready_minute_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/ready_info_input_minute"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintBottom_toBottomOf="@id/til_ready_status_ready_minute"
+            app:layout_constraintStart_toEndOf="@id/til_ready_status_ready_minute"
+            app:layout_constraintTop_toTopOf="@id/til_ready_status_ready_minute" />
+
+        <TextView
+            android:id="@+id/tv_ready_info_moving_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/ready_info_input_moving_time"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintStart_toStartOf="@id/gl_ready_info_start_20"
+            app:layout_constraintTop_toBottomOf="@id/til_ready_status_read_hour" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_ready_status_moving_hour"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:errorEnabled="false"
+            app:layout_constraintDimensionRatio="56:44"
+            app:layout_constraintStart_toStartOf="@id/tv_ready_info_moving_time_text"
+            app:layout_constraintTop_toBottomOf="@id/tv_ready_info_moving_time_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_ready_status_moving_hour"
+                style="@style/TextInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/ready_info_input_time_hint"
+                android:imeOptions="actionNext"
+                android:includeFontPadding="false"
+                android:inputType="time"
+                android:maxEms="2"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:nextFocusDown="@id/et_ready_status_moving_minute"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_02" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_ready_status_moving_hour_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/ready_info_input_time_time"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintBottom_toBottomOf="@id/til_ready_status_moving_hour"
+            app:layout_constraintStart_toEndOf="@id/til_ready_status_moving_hour"
+            app:layout_constraintTop_toTopOf="@id/til_ready_status_moving_hour" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_ready_status_moving_minute"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:errorEnabled="false"
+            app:layout_constraintBottom_toBottomOf="@id/til_ready_status_moving_hour"
+            app:layout_constraintDimensionRatio="56:44"
+            app:layout_constraintStart_toEndOf="@id/tv_ready_status_moving_hour_text"
+            app:layout_constraintTop_toTopOf="@id/til_ready_status_moving_hour">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_ready_status_moving_minute"
+                style="@style/TextInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/ready_info_input_time_hint"
+                android:imeOptions="actionDone"
+                android:includeFontPadding="false"
+                android:inputType="time"
+                android:maxEms="2"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.Kkumul.body_02" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_ready_status_moving_minute_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/ready_info_input_minute"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            app:layout_constraintBottom_toBottomOf="@id/til_ready_status_moving_minute"
+            app:layout_constraintStart_toEndOf="@id/til_ready_status_moving_minute"
+            app:layout_constraintTop_toTopOf="@id/til_ready_status_moving_minute" />
+
+        <Button
+            android:id="@+id/btn_ready_info_next"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/sel_btn"
+            android:enabled="false"
+            android:text="@string/ready_info_input_completed"
+            android:textAppearance="@style/TextAppearance.Kkumul.body_03"
+            android:textColor="@color/white0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="332:50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
