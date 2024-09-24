@@ -58,8 +58,6 @@ class ReadyStatusFragment :
         requireArguments().getInt(PROMISE_ID)
     }
 
-    private var promiseTime = ""
-
     override fun initView() {
         initReadyStatusBtnClick()
         initObserveBtnState()
@@ -122,7 +120,6 @@ class ReadyStatusFragment :
 
     private fun updateBasicUI(data: HomeReadyStatusModel?) = with(binding) {
         data ?: return
-        promiseTime = data.promiseTime.toString()
         viewModel.updateReadyTime(data.preparationStartAt ?: "")
         viewModel.updateMovingTime(data.departureAt ?: "")
         viewModel.updateCompletedTime(data.arrivalAt ?: "")
@@ -231,7 +228,7 @@ class ReadyStatusFragment :
                 true
             }
 
-            isPastDefaultTime(promiseTime) -> {
+            isPastDefaultTime(viewModel.getPromiseTime()) -> {
                 toast(getString(R.string.ready_status_late_meeting))
                 true
             }
