@@ -13,36 +13,29 @@ import com.teamkkumul.core.ui.util.context.dialogFragmentResize
 import com.teamkkumul.core.ui.util.fragment.toast
 import com.teamkkumul.feature.R
 import com.teamkkumul.feature.databinding.FragmentDialogInvitationCodeBinding
-import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_FRAGMENT
 import com.teamkkumul.feature.utils.KeyStorage.ADD_NEW_GROUP_MODEL
-import com.teamkkumul.feature.utils.KeyStorage.CODE
 import com.teamkkumul.feature.utils.KeyStorage.MEETING_ID
-import com.teamkkumul.feature.utils.KeyStorage.MY_GROUP_DETAIL_FRAGMENT
 import com.teamkkumul.model.AddNewGroupModel
+import com.teamkkumul.model.type.ScreenType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DialogInvitationCodeFragment :
     BindingDialogFragment<FragmentDialogInvitationCodeBinding>(R.layout.fragment_dialog_invitation_code) {
-
     private val addNewGroupModel: AddNewGroupModel? by lazy {
         arguments?.getSafeParcelable(ADD_NEW_GROUP_MODEL)
     }
 
     private val invitationCode: String by lazy {
-        addNewGroupModel?.invitationCode ?: ""
-    }
-
-    private val code: String by lazy {
-        arguments?.getString(CODE) ?: ""
+        addNewGroupModel?.invitationCode.orEmpty()
     }
 
     private val meetingId: Int by lazy {
         addNewGroupModel?.meetingId ?: -1
     }
 
-    private val sourceFragment: String by lazy {
-        addNewGroupModel?.sourceFragment ?: ""
+    private val sourceFragment: ScreenType by lazy {
+        addNewGroupModel?.screenType ?: ScreenType.MY_GROUP_DETAIL
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,37 +54,32 @@ class DialogInvitationCodeFragment :
     }
 
     private fun getInvitationCode() {
-        when (sourceFragment) {
-            ADD_NEW_GROUP_FRAGMENT -> {
-                binding.tvInvitationCode.text = invitationCode
-            }
-            MY_GROUP_DETAIL_FRAGMENT -> {
-                binding.tvInvitationCode.text = code
-            }
-        }
+        binding.tvInvitationCode.text = invitationCode
     }
 
     private fun setupDialogBtn() {
         binding.tvBtnCopy.setOnClickListener {
             when (sourceFragment) {
-                ADD_NEW_GROUP_FRAGMENT -> {
-                    copyToClipboard(invitationCode)
+                ScreenType.ADD_NEW_GROUP -> {
                     if (invitationCode.isNotEmpty()) {
+                        copyToClipboard(invitationCode)
                         navigateToAddMyGroupComplete()
                     } else {
                         findNavController().navigate(R.id.action_dialog_to_my_group_detail)
                     }
                     dismiss()
                 }
-                MY_GROUP_DETAIL_FRAGMENT -> {
-                    copyToClipboard(code)
+
+                ScreenType.MY_GROUP_DETAIL -> {
+                    copyToClipboard(invitationCode)
                     dismiss()
                 }
             }
         }
+
         binding.tvBtnInviteLater.setOnClickListener {
             when (sourceFragment) {
-                ADD_NEW_GROUP_FRAGMENT -> {
+                ScreenType.ADD_NEW_GROUP -> {
                     if (invitationCode.isNotEmpty()) {
                         navigateToAddMyGroupComplete()
                     } else {
@@ -99,9 +87,8 @@ class DialogInvitationCodeFragment :
                     }
                     dismiss()
                 }
-                MY_GROUP_DETAIL_FRAGMENT -> {
-                    dismiss()
-                }
+
+                ScreenType.MY_GROUP_DETAIL -> dismiss()
             }
         }
     }
@@ -120,7 +107,7 @@ class DialogInvitationCodeFragment :
     private fun navigateToAddMyGroupComplete() {
         findNavController().navigate(
             R.id.action_dialog_to_completed,
-            bundleOf(MEETING_ID to meetingId)
+            bundleOf(MEETING_ID to meetingId),
         )
     }
 }
