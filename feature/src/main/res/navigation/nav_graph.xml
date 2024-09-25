@@ -232,8 +232,8 @@
         <action
             android:id="@+id/action_fragment_meet_up_level_to_fragment_add_meet_up_complete"
             app:destination="@id/fragment_meet_up_create_complete"
-            app:popUpTo="@id/fragment_meet_up_level"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/fragment_meet_up_container"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -246,10 +246,21 @@
             app:popUpTo="@id/fragment_meet_up_create_complete"
             app:popUpToInclusive="true" />
         <action
+            android:id="@+id/action_fragment_meet_up_edit_complete_to_fragment_meet_up_container"
+            app:popUpTo="@id/fragment_meet_up_container"
+            app:popUpToInclusive="false" />
+        <action
             android:id="@+id/action_fragment_meet_up_create_complete_to_fragment_meet_up_container"
             app:destination="@id/fragment_meet_up_container"
-            app:popUpTo="@id/fragment_my_group_detail"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/fragment_meet_up_create"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_fragment_meet_up_create_complete_next_to_fragment_meet_up_container"
+            app:destination="@id/fragment_meet_up_container"
+            app:popUpTo="@id/fragment_meet_up_create"
+            app:popUpToInclusive="true" />
+
     </fragment>
 
     <dialog
