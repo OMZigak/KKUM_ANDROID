@@ -60,21 +60,6 @@ class MeetUpCreateCompleteFragment :
                     R.id.action_fragment_meet_up_create_complete_next_to_fragment_meet_up_container,
                     bundleOf(KeyStorage.PROMISE_ID to sharedViewModel.getPromiseId()),
                 )
-//                requireActivity().onBackPressedDispatcher.addCallback(
-//                    this,
-//                    object : OnBackPressedCallback(true) {
-//                        override fun handleOnBackPressed() {
-//                            findNavController().navigate(
-//                                R.id.action_fragment_meet_up_create_complete_to_fragment_meet_up_container,
-//                                bundleOf(
-//                                    PROMISE_ID to sharedViewModel.getPromiseId(),
-//                                ),
-//                            )
-//                            toast("이거 실행")
-//
-//                        }
-//                    },
-//                )
             }
         }
     }
