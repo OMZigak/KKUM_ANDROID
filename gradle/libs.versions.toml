@@ -49,6 +49,12 @@ google-services = "4.4.2"
 firebaseBom = "33.3.0"
 firebaseMessagingKtx = "24.0.1"
 
+# test
+junitJupiterEngine = "5.10.3"
+mockitoCore = "5.13.0"
+mockitoKotlin = "5.4.0"
+kotlinxCoroutinesTest = "1.9.0"
+
 [libraries]
 
 # android
@@ -116,6 +122,13 @@ firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 
+# Test
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiterEngine" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiterEngine" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -144,3 +157,4 @@ compose = ["androidx-activity-compose", "compose-ui", "compose-ui-graphics",
 ]
 androidx-compose-feature = ["androidx-runtime-livedata", "androidx-lifecycle-runtime-compose", "androidx-lifecycle-viewmodel-compose", "androidx-hilt-navigation-compose", "androidx-navigation-compose"]
 firebase = ["firebase-analytics", "firebase-messaging-ktx"]
+unit-test = ["junit", "junit-jupiter-api", "junit-jupiter-engine", "mockito-core", "mockito-kotlin", "kotlinx-coroutines-test"]
