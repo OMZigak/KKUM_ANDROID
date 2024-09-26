@@ -1,9 +1,11 @@
 package com.teamkkumul.core.data.mapper
 
+import com.teamkkumul.core.network.dto.response.ResponseAddNewGroupDto
 import com.teamkkumul.core.network.dto.response.ResponseMyGroupDto
 import com.teamkkumul.core.network.dto.response.ResponseMyGroupInfoDto
 import com.teamkkumul.core.network.dto.response.ResponseMyGroupMeetUpDto
 import com.teamkkumul.core.network.dto.response.ResponseMyGroupMemberDto
+import com.teamkkumul.model.AddNewGroupModel
 import com.teamkkumul.model.MyGroupDetailMemeberSealedItem
 import com.teamkkumul.model.MyGroupInfoModel
 import com.teamkkumul.model.MyGroupMeetUpModel
@@ -80,3 +82,9 @@ internal fun ResponseMyGroupMemberDto.toMyGroupSealedItem(): List<MyGroupDetailM
     }
     return items
 }
+
+internal fun ResponseAddNewGroupDto.toAddNewGroupModel(): AddNewGroupModel =
+    AddNewGroupModel(
+        meetingId = meetingId,
+        invitationCode = invitationCode
+    )

@@ -9,15 +9,13 @@ object KeyStorage {
     const val PROMISE_ID = "promiseId"
     const val MEETING_ID = "meetingId"
     const val MEET_UP_NAME = "meetUpName"
-    const val CODE = "code"
     const val SOURCE_FRAGMENT = "sourceFragment"
-    const val ADD_NEW_GROUP_FRAGMENT = "addNewGroup"
-    const val MY_GROUP_DETAIL_FRAGMENT = "myGroupDetail"
     const val GROUP_NAME = "groupName"
     const val SET_NAME_ACTIVITY = "setNameActivity"
     const val MY_PAGE_FRAGMENT = "myPageFragment"
     const val D_DAY = "dDay"
     const val READY_STATUS_INFO = "readyStatusInfo"
+    const val ADD_NEW_GROUP_MODEL = "addNewGroupModel"
 }
 
 object PROGRESS {

@@ -14,13 +14,12 @@ constraintlayout = "2.1.4"
 jetpack-navi = "2.7.7"
 fragment-ktx = "1.8.1"
 androidx-datastore = "1.1.1"
-exifinterface = "1.3.6"
+exifinterface = "1.3.7"
 
 # kotlinx
 kotlin = "1.9.0"
 kotlinx-serialization-json = "1.6.1"
 kotlinx-coroutines = "1.8.1"
-jetbrainsKotlinJvm = "1.9.0"
 kotlinxCollectionsImmutable = "0.3.4"
 
 # retrofit
@@ -47,7 +46,7 @@ runtimeLivedata = "1.6.8"
 
 # google
 google-services = "4.4.2"
-firebaseBom = "33.2.0"
+firebaseBom = "33.3.0"
 firebaseMessagingKtx = "24.0.1"
 
 [libraries]
