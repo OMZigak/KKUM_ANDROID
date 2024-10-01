@@ -2,8 +2,8 @@ package com.teamkkumul.feature.mygroup.mygroupdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chanu.core.domain.usecase.GetMyGroupMeetUpUseCase
 import com.teamkkumul.core.data.repository.MyGroupRepository
+import com.teamkkumul.core.domain.usecase.GetMyGroupMeetUpUseCase
 import com.teamkkumul.core.ui.view.UiState
 import com.teamkkumul.model.MyGroupDetailMemeberSealedItem
 import com.teamkkumul.model.MyGroupInfoModel
@@ -42,6 +42,7 @@ class MyGroupDetailViewModel @Inject constructor(
     fun updateMeetUpIncludeMeState(isSelected: Boolean) {
         _isMeetUpIncludeMeSelected.update { isSelected }
     }
+
     fun getMyGroupInfo(meetingId: Int) = viewModelScope.launch {
         myGroupRepository.getMyGroupInfo(meetingId)
             .onSuccess { myGroupInfoModel ->
