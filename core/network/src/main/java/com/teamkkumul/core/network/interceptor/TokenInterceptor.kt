@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -25,6 +26,7 @@ class TokenInterceptor @Inject constructor(
     private val loginService: LoginService,
 ) : Interceptor {
     private val mutex = Mutex()
+    private var currentToast: Toast? = null
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
@@ -49,7 +51,7 @@ class TokenInterceptor @Inject constructor(
             val refreshToken = defaultKumulPreferenceDatasource.refreshToken.first()
 
             return try {
-                val tokenResult = runBlocking(Dispatchers.IO) {
+                val tokenResult = withContext(Dispatchers.IO) {
                     loginService.postReissueToken(refreshToken)
                 }
 
@@ -70,15 +72,27 @@ class TokenInterceptor @Inject constructor(
         }
     }
 
-    private fun handleFailedTokenReissue() = with(context) {
-        CoroutineScope(Dispatchers.Main).launch {
+    private fun handleFailedTokenReissue() = CoroutineScope(Dispatchers.Main).launch {
+        showToast()
+        withContext(Dispatchers.IO) {
             defaultKumulPreferenceDatasource.clear()
+        }
+        restartActivity()
+    }
+
+    private fun showToast() {
+        currentToast?.cancel()
+        currentToast = Toast.makeText(context, "재 로그인이 필요해요", Toast.LENGTH_SHORT)
+        currentToast?.show()
+    }
+
+    private suspend fun restartActivity() = with(context) {
+        mutex.withLock {
             startActivity(
                 Intent.makeRestartActivityTask(
                     packageManager.getLaunchIntentForPackage(packageName)?.component,
                 ),
             )
-            Toast.makeText(context, "재 로그인이 필요해요", Toast.LENGTH_SHORT).show()
         }
     }
 
