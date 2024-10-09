@@ -2,17 +2,16 @@ package com.teamkkumul.core.network.interceptor
 
 import android.app.Application
 import android.content.Intent
+import android.widget.Toast
 import com.teamkkumul.core.datastore.datasource.DefaultKumulPreferenceDatasource
 import com.teamkkumul.core.network.api.LoginService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withTimeout
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -34,18 +33,9 @@ class TokenInterceptor @Inject constructor(
         if (response.code == CODE_TOKEN_EXPIRE) {
             response.close()
             val tokenRefreshed = runBlocking {
-                try {
-                    // 5초 내에 refreshTokenIfNeeded() 실행
-                    withTimeout(5000L) {
-                        refreshTokenIfNeeded()
-                    }
-                } catch (e: TimeoutCancellationException) {
-                    // 타임아웃 발생 시 처리 로직
-                    false
-                }
+                refreshTokenIfNeeded()
             }
             if (tokenRefreshed) {
-                // 새로운 토큰으로 요청을 다시 시도
                 response = chain.proceed(originalRequest.newAuthBuilder())
             } else {
                 handleFailedTokenReissue()
@@ -57,20 +47,25 @@ class TokenInterceptor @Inject constructor(
     private suspend fun refreshTokenIfNeeded(): Boolean {
         mutex.withLock {
             val refreshToken = defaultKumulPreferenceDatasource.refreshToken.first()
-            val tokenResult = runBlocking(Dispatchers.IO) {
-                loginService.postReissueToken(refreshToken)
-            }
 
-            return when (tokenResult.success) {
-                true -> {
-                    tokenResult.data?.let {
-                        defaultKumulPreferenceDatasource.updateAccessToken(it.accessToken)
-                        defaultKumulPreferenceDatasource.updateRefreshToken(it.refreshToken)
-                    }
-                    true
+            return try {
+                val tokenResult = runBlocking(Dispatchers.IO) {
+                    loginService.postReissueToken(refreshToken)
                 }
 
-                false -> false
+                when (tokenResult.success) {
+                    true -> {
+                        tokenResult.data?.let {
+                            defaultKumulPreferenceDatasource.updateAccessToken(it.accessToken)
+                            defaultKumulPreferenceDatasource.updateRefreshToken(it.refreshToken)
+                        }
+                        true
+                    }
+
+                    false -> false
+                }
+            } catch (e: Exception) {
+                false
             }
         }
     }
@@ -83,6 +78,7 @@ class TokenInterceptor @Inject constructor(
                     packageManager.getLaunchIntentForPackage(packageName)?.component,
                 ),
             )
+            Toast.makeText(context, "재 로그인이 필요해요", Toast.LENGTH_SHORT).show()
         }
     }
 
